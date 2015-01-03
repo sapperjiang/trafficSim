@@ -1,0 +1,9 @@
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_DataManage.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_DataManage.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_SimDriving.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\bin\Debug\MathTools.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_SimDriving.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\bin\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\obj\Debug\SubSys_DataManage.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\obj\Debug\SubSys_DataManage.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataManage\obj\Debug\SubSys_DataManage.pdb

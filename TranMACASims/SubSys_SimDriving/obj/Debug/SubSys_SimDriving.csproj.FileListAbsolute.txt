@@ -1,0 +1,14 @@
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\obj\Debug\ResolveAssemblyReference.cache
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\bin\Debug\SubSys_SimDriving.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\bin\Debug\SubSys_SimDriving.pdb
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.pdb
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\bin\Debug\SubSys_SimDriving.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\bin\Debug\SubSys_SimDriving.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.pdb

@@ -1,0 +1,9 @@
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\bin\Release\SubSys_DataManage.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\bin\Release\SubSys_DataManage.pdb
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\bin\Release\SubSys_SimDriving.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\bin\Release\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\bin\Release\SubSys_SimDriving.pdb
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\bin\Release\MathTools.pdb
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\obj\Release\ResolveAssemblyReference.cache
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\obj\Release\SubSys_DataManage.dll
+E:\soft Project\b毕业设计\TranMACASims\SubSys_DataManage\obj\Release\SubSys_DataManage.pdb

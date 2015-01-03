@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(@1)" Category="CodeSchema_Solution" Label="TranMACASims">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="(Namespace=SubSys_SimDriving.TrafficModel)" Category="CodeSchema_Namespace" Label="SubSys_SimDriving.TrafficModel" />
+  </Nodes>
+  <Links />
+  <Categories>
+    <Category Id="CodeSchema_Block" Label="块" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="块" />
+    <Category Id="CodeSchema_Namespace" Label="命名空间" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" IsProviderRoot="False" NavigationActionLabel="命名空间" />
+    <Category Id="CodeSchema_Solution" Label="解决方案" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="解决方案" />
+    <Category Id="CodeSchema_SourceFile" Label="源文件" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="文件" />
+    <Category Id="CodeSchema_Statement" Label="语句" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="语句" />
+    <Category Id="File" Label="文件" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" IsProviderRoot="False" NavigationActionLabel="文件" />
+  </Categories>
+  <Properties>
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Icon" Label="图标" Description="图标" DataType="System.String" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="标签" Description="可批注对象的可显示标签" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="程序集" ValueType="Uri" />
+    <Name Id="Namespace" Label="命名空间" ValueType="System.String" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(VsSolutionUri)/TranMACASims.sln" />
+  </IdentifierAliases>
+  <Paths>
+    <Path Id="VsSolutionUri" Value="file:///E:/soft Project/b毕业设计/TranMACASims" />
+  </Paths>
+</DirectedGraph>

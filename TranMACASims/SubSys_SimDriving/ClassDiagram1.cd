@@ -1,0 +1,738 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SubSys_SimDriving.Agents.Agent" Collapsed="true">
+    <Position X="18" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAwAgAAAAAAAIAAAAAAAAAAAIAAAAAAgAAA=</HashCode>
+      <FileName>Agent\Agent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.UpdateAgentChain" Collapsed="true">
+    <Position X="9.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAQAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\AgentChain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.AsynchronicAgents" Collapsed="true">
+    <Position X="8.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\AsynchronicAgents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.RouteShiftingAgent" Collapsed="true">
+    <Position X="15.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\RouteShiftingAgent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.RouteUpdater" Collapsed="true">
+    <Position X="24.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\RouteUpdater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.SignalLightAgent" Collapsed="true">
+    <Position X="18" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\SignalLightAgent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.SynchronicAgents" Collapsed="true">
+    <Position X="11" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\SynchronicAgents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.Agents.VMSAgent" Collapsed="true">
+    <Position X="20.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\VMSAgent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.DrivingStrategy" Collapsed="true">
+    <Position X="16.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAIABAAAAAACAAAgAAAACAAkAAAABA=</HashCode>
+      <FileName>DrivingStrategy\DrivingStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.ModerateDrivingStrategy" Collapsed="true">
+    <Position X="16.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAABAAAAAACAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>DrivingStrategy\ModerateDrivingStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.Edge" Collapsed="true">
+    <Position X="31.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAACAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.Node" Collapsed="true">
+    <Position X="31.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAoAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.PassedPath" Collapsed="true">
+    <Position X="22.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAYAAAACAAAAAAAAAAQAAAAACAAAAAgAAAAACAAAAA=</HashCode>
+      <FileName>RoutePlan\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.PlanCourse" Collapsed="true">
+    <Position X="26.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAQAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.RoutePlanner" Collapsed="true">
+    <Position X="22.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.AdjacencyTable&lt;T&gt;" Collapsed="true">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAACAAAAoAAEAAABAEAAQAAA=</HashCode>
+      <FileName>TrafficModel\AdjacencyTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.CarInfo" Collapsed="true">
+    <Position X="29.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAQAAAgAEAEAAAgAAAAAIAAAAAA=</HashCode>
+      <FileName>TrafficModel\CarInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.CarInfoQueue" Collapsed="true">
+    <Position X="31.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\CarInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.CarModel" Collapsed="true">
+    <Position X="5.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCACAgAAAAAAAAAAAAAAAAAAAwAAABAAAAAAoAAAgAA=</HashCode>
+      <FileName>TrafficModel\CarModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.Cell" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAMAAQAAACAQAAAAAAgAAgABAAAAAAEAAAAA=</HashCode>
+      <FileName>TrafficModel\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.CellLinkedQueue" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBAACAAAAAACBAACAAAAAQCAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\CellLinkedQueue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.CellMatrix" Collapsed="true">
+    <Position X="24.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>TrafficModel\CellMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.EntityIDManager&lt;T&gt;" Collapsed="true">
+    <Position X="13.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\EntityIDManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.EntityShape" Collapsed="true">
+    <Position X="22.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\EntityShape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.HashKeyProvider" Collapsed="true">
+    <Position X="24.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\HashMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.HashMatrix&lt;T&gt;" Collapsed="true">
+    <Position X="26.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAIAAABAACAAABIQAAAAEAgAAAAAgAAAAAAA=</HashCode>
+      <FileName>TrafficModel\HashMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.IntIDManager" Collapsed="true">
+    <Position X="13.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\IntIDManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.Road" Collapsed="true">
+    <Position X="12.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAJAAECAAAAAEAAAAAAAAAAAAAAgAAACA=</HashCode>
+      <FileName>TrafficModel\Road.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.RoadEdge" Collapsed="true">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAhAECAAAIAAAAAQBAAgAAAAMAMQAQAAgAAIQBAA=</HashCode>
+      <FileName>TrafficModel\RoadEdge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.RoadLane" Collapsed="true">
+    <Position X="8.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAUEQAAABBQQCIkBhAACgAAgAIAAQABgAAAAEAA=</HashCode>
+      <FileName>TrafficModel\RoadLane.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.RoadLaneChain" Collapsed="true">
+    <Position X="13.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>TrafficModel\RoadLaneChain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.RoadNetWork" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIIAAAAiAAAEAAgABwCQBIEAAAAAYCAAFAAAAwA=</HashCode>
+      <FileName>TrafficModel\RoadNetWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.RoadNode" Collapsed="true">
+    <Position X="10" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIEIAIEAARABRAECAAAgAACAAAAAIAAICAgAAAQAAA=</HashCode>
+      <FileName>TrafficModel\RoadNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficModel.SpeedLevel" Collapsed="true">
+    <Position X="31.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAAAIAgAhAAAAAgQAAAMAACoARiAAAQAAAAEQAARkA=</HashCode>
+      <FileName>TrafficModel\SpeedLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GISTranSims.SubSys_SimDriving.Factory.Component1" Collapsed="true">
+    <Position X="28" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\Component1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.AgentFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ModelFactory\SimpleFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.TrafficEntityFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.RoadEdgeFacory" Collapsed="true">
+    <Position X="28" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.BuildCommand" Collapsed="true">
+    <Position X="5.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.AgentBuildCommand" Collapsed="true">
+    <Position X="0.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.RoadBuildCommand" Collapsed="true">
+    <Position X="3" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.RoadlaneBuildCommand" Collapsed="true">
+    <Position X="5.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.RoadNodeBCMD" Collapsed="true">
+    <Position X="7.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.RoadEdgeBuildCommand" Collapsed="true">
+    <Position X="9.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ModelFactory.CommandBuilder" Collapsed="true">
+    <Position X="26.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelFactory\TrafficEntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.AntiOneDecisionRoutePlanner" Collapsed="true">
+    <Position X="3" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\AntiOneDecisionRoutePlanner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.AStarShortestPath" Collapsed="true">
+    <Position X="28" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAiAAAAAAAAAAAABABAAEAAQAAQiAAACYIgAAAACAAg=</HashCode>
+      <FileName>RoutePlan\AStarShortestPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.asNode" Collapsed="true">
+    <Position X="26.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAAAACAQgAAAAAAAAAAAAAAGEAAAAA=</HashCode>
+      <FileName>RoutePlan\AStarShortestPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.PathNode" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAECQkAAACQAACAAAAAJAAAAACmEAAAAA=</HashCode>
+      <FileName>RoutePlan\AStarShortestPath.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.EdgeRoute" Collapsed="true">
+    <Position X="16.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\EdgeRoute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.RouteChoiceMaker" Collapsed="true">
+    <Position X="5.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>RoutePlan\ChoiceMaker.cs</FileName>
+      <NewMemberFileName>RoutePlan\JamTripCostAnalyzer.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.NodeRoute" Collapsed="true">
+    <Position X="18.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\NodeRoute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.OtherRoutePlanner" Collapsed="true">
+    <Position X="0.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\OtherRoutePlanner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.Route&lt;T&gt;" Collapsed="true">
+    <Position X="17.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAACAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\Route.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.RouteConvertor" Collapsed="true">
+    <Position X="31.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\RouteConvertor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.RoutePlanner" Collapsed="true">
+    <Position X="3" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\RoutePlanner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.ShortestPathRoutePlanner" Collapsed="true">
+    <Position X="5.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\ShortestPathRoutePlanner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoutePlan.TripCostAnalyzer" Collapsed="true">
+    <Position X="5.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutePlan\TripCostAnalyzer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.AgentHTable" Collapsed="true">
+    <Position X="11.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\AgentHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.CarModelHTable" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\CarModelHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.DataRecorder" Collapsed="true">
+    <Position X="29.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIBAA=</HashCode>
+      <FileName>SysSimContext\DataRecordHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.DataRecorder&lt;Tkey, Tvalue&gt;" Collapsed="true">
+    <Position X="1.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\IDataRecorder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.MyHashTable" Collapsed="true">
+    <Position X="29.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\MyHashTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.RoadEdgeHTable" Collapsed="true">
+    <Position X="6.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\RoadEdgeHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.RoadLaneHTable" Collapsed="true">
+    <Position X="9" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\RoadLaneHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.RoadNodeHTable" Collapsed="true">
+    <Position X="29.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\RoadNodeHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.SignalLightHTable" Collapsed="true">
+    <Position X="13.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\SignalLightHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.SimContext" Collapsed="true">
+    <Position X="28" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAkAAAAEBAACgAAAACAAAAACEAI=</HashCode>
+      <FileName>SysSimContext\SimContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.SimSettings" Collapsed="true">
+    <Position X="29.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACgAIIgAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\SimSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.SpeedLimitHTable" Collapsed="true">
+    <Position X="2.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\SpeedLimitHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.StaticSysTable&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAABAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\StaticSysTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.VMSHashTable" Collapsed="true">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\VMSHTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.Service.DataRecordService" Collapsed="true">
+    <Position X="10.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAABAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\Service\DataRecordService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.Service.EventAttachService" Collapsed="true">
+    <Position X="13" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>SysSimContext\Service\EventAttachService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.Service.Service" Collapsed="true">
+    <Position X="13" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgABAIACwAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>SysSimContext\Service\IService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.Service.RegisterService" Collapsed="true">
+    <Position X="15.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\Service\RegisterService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SysSimContext.Service.ServiceMgr" Collapsed="true">
+    <Position X="26.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\Service\ServiceMgr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ThrowHelper" Collapsed="true">
+    <Position X="24.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAQCAAAIAAAAACIgAAAAAAAgAAAEACCAAAIAAAA=</HashCode>
+      <FileName>ThrowHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.CarStatus" Collapsed="true">
+    <Position X="0.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\CarStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.ChainBaseClass&lt;T&gt;" Collapsed="true">
+    <Position X="11" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEEAAAASAABAQCAAAFAQAAAAAAAAEAAAAAABQIAA=</HashCode>
+      <FileName>TrafficModel\ChainBaseClass.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.EntityStatus" Collapsed="true">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\EntityStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.MobileEntity" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\MobileEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.CarTrack" Collapsed="true">
+    <Position X="28" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAABAAAEAAAAAAAAAAAAAAAAAAAAAAABAIAAAEAA=</HashCode>
+      <FileName>TrafficModel\MyPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoadEntity" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAgAAoAAAAAAAAAAAAAgAAgEAAAAAA=</HashCode>
+      <FileName>TrafficModel\RoadEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.RoadNodeStatus" Collapsed="true">
+    <Position X="7.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\RoadNodeStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SignalLight" Collapsed="true">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAACAAAAAAAAAAAIGAAAAAAAAAAAAAIAACAAAAAA=</HashCode>
+      <FileName>TrafficModel\SignalLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.SpeedLimit" Collapsed="true">
+    <Position X="22.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\SpeedLimit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.TrafficEntity" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAACAYAACAAgQAQAABBACAAQAAJAAAAYAAAgCIAAAQ=</HashCode>
+      <FileName>TrafficModel\TrafficEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SubSys_SimDriving.SignalLightStatus" Collapsed="true">
+    <Position X="3" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\TrafficLightStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.VMSEntity" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAIAAA=</HashCode>
+      <FileName>TrafficModel\VMSEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubSys_SimDriving.VMSStatus" Collapsed="true">
+    <Position X="5.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\VMSStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SubSys_SimDriving.TrafficModel.IRoadNetWork" Collapsed="true">
+    <Position X="28" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAEAAgAAgCQAIAAAAAAYCAAEAAAAAA=</HashCode>
+      <FileName>TrafficModel\IRoadNetWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SubSys_SimDriving.TrafficModel.IRoad" Collapsed="true">
+    <Position X="26.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAIAAECAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\Road.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SubSys_SimDriving.ModelFactory.IAbstractFactory" Collapsed="true">
+    <Position X="22.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ModelFactory\SimpleFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SubSys_SimDriving.SysSimContext.IDataRecorder&lt;Tkey, Tvalue&gt;" Collapsed="true">
+    <Position X="24.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SysSimContext\IDataRecorder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SubSys_SimDriving.SysSimContext.Service.IService" Collapsed="true">
+    <Position X="29.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>SysSimContext\Service\IService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SubSys_SimDriving.ITrafficEntity" Collapsed="true">
+    <Position X="31.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAQAAAAAgAAQAAABAAAAQAAAAAAAYAAAgAAAAAA=</HashCode>
+      <FileName>TrafficModel\ITrafficEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SubSys_SimDriving.Agents.AgentPriority" Collapsed="true">
+    <Position X="22.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Agent\AgentPriority.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SubSys_SimDriving.Agents.AgentType" Collapsed="true">
+    <Position X="24.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAAAAAAAAABAAAAAABAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Agent\AgentType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SubSys_SimDriving.TrafficModel.EntityType" Collapsed="true">
+    <Position X="26.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAAAAgAAAAAAAEYEJAAIAQAAAEiAAAIAAAAAAAEAE=</HashCode>
+      <FileName>TrafficModel\EntityType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SubSys_SimDriving.TrafficModel.LaneType" Collapsed="true">
+    <Position X="31.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAAIAAAAAAAAAAAAEAAAAAAAACACAAAAAAAA=</HashCode>
+      <FileName>TrafficModel\LaneType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SubSys_SimDriving.ExceptionResource" Collapsed="true">
+    <Position X="29.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>TgABIEcCBEABEIAESkEAgIEYAACAiIBAAAAJBQgCBEQ=</HashCode>
+      <FileName>ThrowHelper.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SubSys_SimDriving.ExceptionArgument" Collapsed="true">
+    <Position X="28" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEBAAgAAAAAAIACABE5EAAAEAAAEAKAAYQCAAAABAAI=</HashCode>
+      <FileName>ThrowHelper.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="微软雅黑" Size="9.75" />
+</ClassDiagram>

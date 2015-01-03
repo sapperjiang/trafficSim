@@ -1,0 +1,55 @@
+/AdjacencyList.cs/1.1/Thu Dec 15 07:11:39 2011//
+/CarStatus.cs/1.1/Mon Dec 12 03:23:08 2011//
+/EntityStatus.cs/1.1/Mon Dec 12 03:23:08 2011//
+/EntityType.cs/1.1/Thu Dec 15 03:51:38 2011//
+/MobileEntity.cs/1.1/Mon Dec 12 03:23:08 2011//
+/MobileEntityMgr.cs/1.1/Mon Dec 12 03:23:08 2011//
+/MobileEntityType.cs/1.1/Mon Dec 12 14:27:30 2011//
+/Point.cs/1.1/Mon Dec 12 03:23:09 2011//
+/RoadEntityMgr.cs/1.1/Mon Dec 12 03:23:09 2011//
+/RoadIDManager.cs/1.1/Tue Dec 13 08:29:08 2011//
+/RoadNodeStatus.cs/1.1/Mon Dec 12 03:23:09 2011//
+/RoadSegStatus.cs/1.1/Mon Dec 12 03:23:09 2011//
+/RoadSegment.cs/1.1/Tue Dec 13 02:45:02 2011//
+/SimController.cs/1.1/Mon Dec 12 03:23:09 2011//
+/SimDrivingStaticTable.cs/1.1/Mon Dec 12 14:27:29 2011//
+/SpeedLimit.cs/1.1/Tue Dec 13 02:33:08 2011//
+/TrafficEntityMgr.cs/1.1/Mon Dec 12 03:23:09 2011//
+/TrafficLight.cs/1.1/Mon Dec 12 03:23:09 2011//
+/TrafficLightMgr.cs/1.1/Mon Dec 12 03:23:09 2011//
+/TrafficLightStatus.cs/1.1/Mon Dec 12 03:23:09 2011//
+/UpdateRuleChain.cs/1.1/Wed Dec 14 14:57:14 2011//
+/VMSEntityMgr.cs/1.1/Mon Dec 12 03:23:09 2011//
+/VMSStatus.cs/1.1/Mon Dec 12 03:23:09 2011//
+/CACell.cs/1.2/Sat Dec 24 03:54:27 2011//
+/CarModel.cs/1.3/Sat Feb  4 08:12:38 2012//
+/CarTimeSpaceTable.cs/1.3/Sat Feb  4 05:50:23 2012//
+/CellChain.cs/1.2/Sun Jan 29 10:21:21 2012//
+/CellMatrix.cs/1.3/Fri Jan 27 01:11:43 2012//
+/ChainBaseClass.cs/1.3/Thu Feb  2 05:10:36 2012//
+/IRoadNetWork.cs/1.3/Sat Feb  4 05:55:08 2012//
+/ITrafficEntity.cs/1.3/Sat Feb  4 08:32:05 2012//
+/LaneType.cs/1.3/Sat Feb  4 03:43:13 2012//
+/Road.cs/1.3/Sat Feb  4 05:55:41 2012//
+/RoadEntity.cs/1.3/Sat Feb  4 08:32:05 2012//
+/RoadLane.cs/1.3/Sat Feb  4 08:46:54 2012//
+/RoadNetWork.cs/1.3/Sat Feb  4 08:57:20 2012//
+/RoadNode.cs/1.3/Sat Feb  4 08:38:30 2012//
+/TrafficEntity.cs/1.3/Sat Feb  4 08:57:20 2012//
+/VMSEntity.cs/1.2/Sat Feb  4 08:30:35 2012//
+/AdjacencyTable.cs/0/Initial AdjacencyTable.cs//
+/CarInfo.cs/0/Initial CarInfo.cs//
+/Cell.cs/0/Initial Cell.cs//
+/CellLinkedQueue.cs/0/Initial CellLinkedQueue.cs//
+/EntityIDManager.cs/0/Initial EntityIDManager.cs//
+/HashMatrix.cs/0/Initial HashMatrix.cs//
+/IntIDManager.cs/0/Initial IntIDManager.cs//
+/MyPoint.cs/0/Initial MyPoint.cs//
+/RoadEdge.cs/0/Initial RoadEdge.cs//
+/RoadLaneChain.cs/0/Initial RoadLaneChain.cs//
+/SignalLight.cs/0/Initial SignalLight.cs//
+/SpeedLevel.cs/0/Initial SpeedLevel.cs//
+/EntityShape.cs/0/Initial EntityShape.cs//
+/WaitQueue.cs/0/Initial WaitQueue.cs//
+/CellRunCtx.cs/0/Initial CellRunCtx.cs//
+/CarInfoQueue.cs/0/Initial CarInfoQueue.cs//

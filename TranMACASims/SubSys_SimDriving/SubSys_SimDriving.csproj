@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DAE0A318-3A89-450C-9095-83DC71E286C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SubSys_SimDriving</RootNamespace>
+    <AssemblyName>SubSys_SimDriving</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModelFactory\TrafficEntityFactory.cs" />
+    <Compile Include="RoutePlan\ODProcesser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Agent\Agent.cs" />
+    <Compile Include="Agent\AgentChain.cs" />
+    <Compile Include="Agent\AgentType.cs" />
+    <Compile Include="Agent\AgentPriority.cs" />
+    <Compile Include="Agent\AgentType2.cs" />
+    <Compile Include="Agent\AsynchronicAgents.cs" />
+    <Compile Include="Agent\RouteShiftingAgent.cs" />
+    <Compile Include="Agent\RouteUpdater.cs" />
+    <Compile Include="Agent\SignalLightAgent.cs" />
+    <Compile Include="Agent\SpeedUpDownAgent.cs" />
+    <Compile Include="Agent\SynchronicAgents.cs" />
+    <Compile Include="Agent\VMSAgent.cs" />
+    <Compile Include="DrivingStrategy\DrivingStrategy.cs" />
+    <Compile Include="DrivingStrategy\ModerateDrivingStrategy.cs" />
+    <Compile Include="DrivingStrategy\RushDrivingStrategy.cs" />
+    <Compile Include="ModelFactory\Component1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ModelFactory\Component1.Designer.cs">
+      <DependentUpon>Component1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFactory\SimpleFactory.cs" />
+    <Compile Include="RoutePlan\AntiOneDecisionRoutePlanner.cs" />
+    <Compile Include="RoutePlan\AStarShortestPath.cs" />
+    <Compile Include="RoutePlan\Dijkstra.cs" />
+    <Compile Include="RoutePlan\EdgeRoute.cs" />
+    <Compile Include="RoutePlan\JamTripCostAnalyzer.cs" />
+    <Compile Include="RoutePlan\NodeRoute.cs" />
+    <Compile Include="RoutePlan\OtherRoutePlanner.cs" />
+    <Compile Include="RoutePlan\Route.cs" />
+    <Compile Include="RoutePlan\RouteConvertor.cs" />
+    <Compile Include="RoutePlan\RoutePlanner.cs" />
+    <Compile Include="RoutePlan\ShortestPathRoutePlanner.cs" />
+    <Compile Include="RoutePlan\TripCostAnalyzer.cs" />
+    <Compile Include="RoutePlan\ChoiceMaker.cs" />
+    <Compile Include="SysSimContext\Service\RegisterService.cs" />
+    <Compile Include="SysSimContext\Service\DataRecordService.cs" />
+    <Compile Include="SysSimContext\Service\EventAttachService.cs" />
+    <Compile Include="SysSimContext\CarModelHTable.cs" />
+    <Compile Include="SysSimContext\Service\IService.cs" />
+    <Compile Include="SysSimContext\Service\ServiceMgr.cs" />
+    <Compile Include="SysSimContext\MyHashTable.cs" />
+    <Compile Include="SysSimContext\RoadEdgeHTable.cs" />
+    <Compile Include="SysSimContext\RoadLaneHTable.cs" />
+    <Compile Include="SysSimContext\RoadNodeHTable.cs" />
+    <Compile Include="SysSimContext\SignalLightHTable.cs" />
+    <Compile Include="SysSimContext\SimContext.cs" />
+    <Compile Include="SysSimContext\SpeedLimitHTable.cs" />
+    <Compile Include="SysSimContext\StaticSysTable.cs" />
+    <Compile Include="SysSimContext\AgentHTable.cs" />
+    <Compile Include="SysSimContext\VMSHTable.cs" />
+    <Compile Include="SysSimContext\IDataRecorder.cs" />
+    <Compile Include="SimSettings.cs" />
+    <Compile Include="TrafficModel\AdjacencyTable.cs" />
+    <Compile Include="TrafficModel\CarModel.cs" />
+    <Compile Include="TrafficModel\CarStatus.cs" />
+    <Compile Include="TrafficModel\Cell.cs" />
+    <Compile Include="TrafficModel\CellLinkedQueue.cs" />
+    <Compile Include="TrafficModel\CellMatrix.cs" />
+    <Compile Include="TrafficModel\ChainBaseClass.cs" />
+    <Compile Include="TrafficModel\EntityIDManager.cs" />
+    <Compile Include="TrafficModel\EntityStatus.cs" />
+    <Compile Include="TrafficModel\EntityType.cs" />
+    <Compile Include="TrafficModel\IntIDManager.cs" />
+    <Compile Include="TrafficModel\IRoadNetWork.cs" />
+    <Compile Include="TrafficModel\ITrafficEntity.cs" />
+    <Compile Include="TrafficModel\LaneType.cs" />
+    <Compile Include="TrafficModel\MobileEntity.cs" />
+    <Compile Include="TrafficModel\MyPoint.cs" />
+    <Compile Include="TrafficModel\Road.cs" />
+    <Compile Include="TrafficModel\RoadEdge.cs" />
+    <Compile Include="TrafficModel\RoadEntity.cs" />
+    <Compile Include="TrafficModel\RoadLane.cs" />
+    <Compile Include="TrafficModel\RoadLaneChain.cs" />
+    <Compile Include="TrafficModel\RoadNetWork.cs" />
+    <Compile Include="TrafficModel\RoadNode.cs" />
+    <Compile Include="TrafficModel\RoadNodeStatus.cs" />
+    <Compile Include="TrafficModel\SignalLight.cs" />
+    <Compile Include="TrafficModel\SpeedLevel.cs" />
+    <Compile Include="TrafficModel\SpeedLimit.cs" />
+    <Compile Include="TrafficModel\TrafficEntity.cs" />
+    <Compile Include="TrafficModel\TrafficLightStatus.cs" />
+    <Compile Include="TrafficModel\VMSEntity.cs" />
+    <Compile Include="TrafficModel\VMSStatus.cs" />
+    <Compile Include="TrafficModel\CarInfo.cs" />
+    <Compile Include="TrafficModel\HashMatrix.cs" />
+    <Compile Include="TrafficModel\EntityShape.cs" />
+    <Compile Include="ThrowHelper.cs" />
+    <Compile Include="TrafficModel\WaitQueue.cs" />
+    <Compile Include="TrafficModel\CellRunCtx.cs" />
+    <Compile Include="TrafficModel\CarInfoQueue.cs" />
+    <Compile Include="ModelSetting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTools\SubSys_MathUtility.csproj">
+      <Project>{BB9010E8-E811-4C0B-86AF-6BFB7B0B0F70}</Project>
+      <Name>SubSys_MathUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

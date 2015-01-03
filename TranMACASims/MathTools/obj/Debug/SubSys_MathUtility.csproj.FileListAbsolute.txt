@@ -1,0 +1,10 @@
+E:\soft Project\b毕业设计\TranMACASims\MathTools\bin\Debug\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\MathTools\bin\Debug\MathTools.pdb
+E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Debug\ResolveAssemblyReference.cache
+E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Debug\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\MathTools\obj\Debug\MathTools.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\MathTools\obj\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\MathTools\bin\Debug\MathTools.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\MathTools\bin\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\MathTools\obj\Debug\SubSys_MathUtility.csprojResolveAssemblyReference.cache

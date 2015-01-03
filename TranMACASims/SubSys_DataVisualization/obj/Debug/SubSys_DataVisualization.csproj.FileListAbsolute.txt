@@ -1,0 +1,9 @@
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_DataVisualization.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_DataVisualization.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\bin\Debug\MathTools.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_SimDriving.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\bin\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_SimDriving.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.pdb
