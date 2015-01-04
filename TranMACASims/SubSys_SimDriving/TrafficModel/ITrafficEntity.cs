@@ -85,12 +85,14 @@ namespace SubSys_SimDriving
 
         /// <summary>
         /// 交通实体的GIS坐标转换为元胞坐标之后的形状曲线,该属性是将交通实体与GIS集成的关键
-        /// 交通实体的形状可以是曲线，利用GUI画曲线函数进行渲染，不再局限于直线形状
+        /// 交通实体的形状可以是曲线，利用GDI画曲线函数进行渲染，不再局限于直线形状
         /// </summary>
-        EntityShape EntityShape
+        EntityShape Shape
         {
             get;
         }
+        
+        
 	}
 	 
 }

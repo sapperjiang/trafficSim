@@ -10,7 +10,7 @@ using SubSys_SimDriving.TrafficModel;
 using SubSys_SimDriving.SysSimContext;
 
 
-namespace GISTranSim.Input
+namespace GISTranSim.Data
 {
     public partial class ODInOutMgr : Form
     {

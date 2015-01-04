@@ -62,3 +62,30 @@ E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.dll
 \\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.exe
 \\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimConfig.resources
 \\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.RoadConfig.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Properties.Resources.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimConfig.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.RoadConfig.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimMain.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.WinDrivingStratigySetUp.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.exe
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe.config
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\GISTranSim.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\MathTools.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\MathTools.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.TimeSpaceCharter.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.ODInOutMgr.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.DataOutputer.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.MeanSpeedCharter.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.SpeedTimeCharter.resources

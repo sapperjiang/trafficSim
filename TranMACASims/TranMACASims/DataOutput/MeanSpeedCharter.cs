@@ -14,7 +14,7 @@ using SubSys_MathUtility;
 using SubSys_DataVisualization;
 
 
-namespace GISTranSim.DataOutput
+namespace GISTranSim.Data
 {
     public partial class MeanSpeedCharter: AbstractCharterForm
     {

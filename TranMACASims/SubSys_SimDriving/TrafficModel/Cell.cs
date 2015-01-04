@@ -168,7 +168,7 @@ namespace SubSys_SimDriving.TrafficModel
             ci.iTimeStep = SimContext.iCurrTimeStep;
             if (this.Container.EntityType == EntityType.RoadLane)
             {
-                ci.iPos = this.RelativePosition.Y+(int)this.Container.EntityShape[0]._X;
+                ci.iPos = this.RelativePosition.Y+(int)this.Container.Shape[0]._X;
             }
             else if (this.Container.EntityType == EntityType.RoadNode)
             {

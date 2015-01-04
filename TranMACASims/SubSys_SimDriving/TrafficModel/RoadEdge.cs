@@ -297,11 +297,11 @@ namespace SubSys_SimDriving.TrafficModel
 			return p;
 		}
 
-		public override EntityShape EntityShape
+		public override EntityShape Shape
 		{
 			get
 			{
-				EntityShape eShape = base.EntityShape;
+				EntityShape eShape = base.Shape;
 
 				if (eShape.Count == 0)//shape 没有初始化
 				{

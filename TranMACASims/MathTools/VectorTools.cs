@@ -34,7 +34,7 @@ namespace SubSys_MathUtility
         /// </summary>
         /// <param name="opVector"></param>
         /// <returns></returns>
-        public static MyPoint getAgainstVector(MyPoint opVector)
+        public static MyPoint getReverseVector(MyPoint opVector)
         {
             return new MyPoint(-opVector._X, -opVector._Y);
         }
@@ -47,7 +47,7 @@ namespace SubSys_MathUtility
         /// <param name="mpB">直线终点坐标</param>
         /// <param name="mpNew">要检验的点坐标</param>
         /// <returns>返回0表示点mpNew位于直线上，返回1表示点mpNew位于向量上方，返回-1表示点mpNew位于直线下方</returns>
-        public static int GetPointPos(MyPoint mpA,MyPoint mpB, MyPoint mpNew)
+        public static int getPointPos(MyPoint mpA,MyPoint mpB, MyPoint mpNew)
         {
             if ( mpB._X==mpA._X&& mpB._Y==mpA._Y)
 	        {
@@ -76,7 +76,7 @@ namespace SubSys_MathUtility
             {
                 throw new ArgumentException("基向量或者要判定的向量不能为0向量");
             }
-            int iReturn = VectorTools.GetPointPos(new MyPoint(0.0f, 0.0f), vBase, vNew);
+            int iReturn = VectorTools.getPointPos(new MyPoint(0.0f, 0.0f), vBase, vNew);
             if (iReturn == 0&&vNew._X < vBase._X)
             {
                  iReturn = 2;
@@ -123,7 +123,7 @@ namespace SubSys_MathUtility
             int irtlPos = VectorTools.GetVectorPos(mpBaseVector, mpVector);
             
             if (-0.708 <= dCosineValue && dCosineValue < 0.708)
-            {///判断y位于基向量的上方还是下方
+            { //判断y位于基向量的上方还是下方
                 if (irtlPos < -0.1)//-45 270 +45度
                 {
                     return new SinCos(-1, 0); //270
@@ -154,7 +154,7 @@ namespace SubSys_MathUtility
         /// 获取一个向量的法向量，该法向量位于向量右侧,向量不能为零向量
         /// </summary>
         /// <param name="vtr"></param>
-        public static MyPoint GetNormalVector(MyPoint vtr)
+        public static MyPoint getNormalVector(MyPoint vtr)
         {
             double iDX = vtr._X*vtr._X;
             double iDY = vtr._Y*vtr._Y;

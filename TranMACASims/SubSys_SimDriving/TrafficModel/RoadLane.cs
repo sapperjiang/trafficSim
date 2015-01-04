@@ -31,11 +31,11 @@ namespace SubSys_SimDriving.TrafficModel
             }
         }
 
-        public override EntityShape EntityShape
+        public override EntityShape Shape
         {
             get
             {
-                EntityShape eShape = base.EntityShape;
+                EntityShape eShape = base.Shape;
 
                 if (eShape.Count == 0)//shape 没有初始化
                 {
@@ -62,9 +62,9 @@ namespace SubSys_SimDriving.TrafficModel
         private  void CreateShape(EntityShape eShape)
         {
 
-            EntityShape es = this.Container.EntityShape;
+            EntityShape es = this.Container.Shape;
 
-            MyPoint pNorm = VectorTools.GetNormalVector(this.Container.ToVector());
+            MyPoint pNorm = VectorTools.getNormalVector(this.Container.ToVector());
             MyPoint mpOffset = new MyPoint(pNorm._X*(this.Rank - 0.5f),pNorm._Y * (this.Rank - 0.5f));
             //平移坐标
             MyPoint pFirst = Coordinates.Offset(es[0], mpOffset);
@@ -175,8 +175,8 @@ namespace SubSys_SimDriving.TrafficModel
 
         public override MyPoint ToVector()
         {
-            MyPoint pA = this.EntityShape[0];
-            MyPoint pB = this.EntityShape[this.EntityShape.Count - 1];
+            MyPoint pA = this.Shape[0];
+            MyPoint pB = this.Shape[this.Shape.Count - 1];
             return new MyPoint(pB._X-pA._X,pB._Y-pA._Y);
         }
         

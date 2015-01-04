@@ -1,5 +1,4 @@
-﻿namespace GISTranSim.DataOutput
-{
+﻿namespace GISTranSim.Data{
     partial class SpeedTimeCharter
     {
         /// <summary>

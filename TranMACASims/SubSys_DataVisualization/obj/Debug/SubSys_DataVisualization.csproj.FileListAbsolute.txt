@@ -7,3 +7,12 @@
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.csprojResolveAssemblyReference.cache
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.dll
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_DataVisualization.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_DataVisualization.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\MathTools.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_SimDriving.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\MathTools.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_SimDriving.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.csprojResolveAssemblyReference.cache
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.pdb

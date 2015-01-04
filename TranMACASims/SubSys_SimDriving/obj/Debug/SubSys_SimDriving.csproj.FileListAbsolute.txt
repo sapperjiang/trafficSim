@@ -12,3 +12,10 @@ E:\soft Project\b毕业设计\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.csprojResolveAssemblyReference.cache
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.dll
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\bin\Debug\SubSys_SimDriving.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\bin\Debug\SubSys_SimDriving.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\bin\Debug\MathTools.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.csprojResolveAssemblyReference.cache
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_SimDriving\obj\Debug\SubSys_SimDriving.pdb

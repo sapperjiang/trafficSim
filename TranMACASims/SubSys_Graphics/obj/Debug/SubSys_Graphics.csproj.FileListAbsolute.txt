@@ -16,3 +16,12 @@ E:\soft Project\b毕业设计\TranMACASims\SubSys_Graphics\bin\Debug\MathTools.p
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.csprojResolveAssemblyReference.cache
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.dll
 \\vmware-host\Shared Folders\桌面\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\SubSys_Graphics.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\SubSys_Graphics.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\MathTools.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\SubSys_SimDriving.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\MathTools.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\SubSys_SimDriving.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.csprojResolveAssemblyReference.cache
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.dll
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.pdb

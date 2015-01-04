@@ -28,13 +28,16 @@ namespace SubSys_Graphics
             IService rp = PaintServiceMgr.GetService(PaintServiceType.RoadLane, this.Canvas);
             RoadEdge re = tVar as RoadEdge;
 
+            //先画一个车道
             foreach (var lane in re.Lanes)
             {
                 rp.Perform(lane);
             }
-
-            Point pa = Coordinates.Project(re.roadNodeFrom.RelativePosition, GUISettings.iGUI_CellPixels);
-            Point pB = Coordinates.Project(re.roadNodeTo.RelativePosition, GUISettings.iGUI_CellPixels);
+            
+           //画一个双黄线
+            Point pa = Coordinates.Project(re.Shape.Start.ToPoint(), GraphicsConfiger.iCellPixels);            
+            Point pB = Coordinates.Project(re.Shape.End.ToPoint(), GraphicsConfiger.iCellPixels);
+            
             graphic.DrawLine(new Pen(new SolidBrush(Color.Yellow),2), pa, pB);
 
         }

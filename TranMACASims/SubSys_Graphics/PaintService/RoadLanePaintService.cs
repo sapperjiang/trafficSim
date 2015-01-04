@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using SubSys_SimDriving.SysSimContext;
 
 using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
-using SubSys_SimDriving.SysSimContext.Service;
 using SubSys_MathUtility;
 
 namespace SubSys_Graphics
@@ -40,10 +35,11 @@ namespace SubSys_Graphics
                 int i=0;
                 while (roadLane.PrevCarPos[i] != -1)
                 {
-                    MyPoint p = roadLane.EntityShape[roadLane.PrevCarPos[i] + 1];
+                    MyPoint p = roadLane.Shape[roadLane.PrevCarPos[i] + 1];
 
-                    PaintCar(Color.Black, p);
-                    //把有车的地方覆盖
+                    //
+                    PaintCar(GraphicsConfiger.roadColor, p);
+                    //把有车的地方用道路颜色覆盖
                     i++;
                 }
             }
@@ -54,7 +50,7 @@ namespace SubSys_Graphics
                 //画上车辆的新位置
                 int iY = cell.RelativePosition.Y;
                 int iPos = iY>1?iY-1:0;
-                MyPoint p = roadLane.EntityShape[iPos+1];
+                MyPoint p = roadLane.Shape[iPos+1];
                 PaintCar(cell.Car.Color, p);
                 roadLane.PrevCarPos[j++] = iPos;//保存车辆的位置便于下次使用
             }
@@ -63,13 +59,17 @@ namespace SubSys_Graphics
 
         private void PaintCar(Color cell, MyPoint p)
         {
-
-            int iWidth = GUISettings.iGUI_CellPixels;
+//Color.bl
+            int iWidth = GraphicsConfiger.iCellPixels;
             Point pDraw = Coordinates.Project(p, iWidth);
 
             graphic.FillEllipse(new SolidBrush(cell), pDraw.X - iWidth / 2, pDraw.Y - iWidth / 2, iWidth, iWidth);
         }
 
+        /// <summary>
+        /// 画一个车道
+        /// </summary>
+        /// <param name="tVar"></param>
         protected override void SubPerform(ITrafficEntity tVar)
         {
             Graphics g = this.Canvas.CreateGraphics();
@@ -79,12 +79,12 @@ namespace SubSys_Graphics
                 throw new Exception(string.Format("TrafficEntity类型为{0},使用了错误的绘图服务",tVar.GetType().ToString()));
             }
 
-            MyPoint spStart = rl.Container.EntityShape[0];
-            MyPoint spEnd = rl.Container.EntityShape[rl.Container.EntityShape.Count - 1];
+            MyPoint spStart = rl.Container.Shape.Start;//[0];
+            MyPoint spEnd = rl.Container.Shape.End;//[rl.Container.EntityShape.Count - 1];
 
 
             //获取单位平移向量(法向量)
-            MyPoint mp1 = VectorTools.GetNormalVector((rl.Container as RoadEdge).ToVector());
+            MyPoint mp1 = VectorTools.getNormalVector((rl.Container as RoadEdge).ToVector());
             //获取平移向量
             MyPoint mpOffset = new MyPoint(mp1._X, mp1._Y);
             MyPoint mpMulti = new MyPoint(mpOffset._X * (rl.Rank - 1), mpOffset._Y * (rl.Rank - 1));
@@ -95,14 +95,14 @@ namespace SubSys_Graphics
             MyPoint pOffsetFirst = Coordinates.Offset(spStart, mpOffset);
             MyPoint pOffsetEnd = Coordinates.Offset(spEnd, mpOffset);
 
-            Point pA = Coordinates.Project(spStart, GUISettings.iGUI_CellPixels);
-            Point pB = Coordinates.Project(spEnd, GUISettings.iGUI_CellPixels);
-            Point pC = Coordinates.Project(pOffsetFirst, GUISettings.iGUI_CellPixels);
-            Point pD = Coordinates.Project(pOffsetEnd, GUISettings.iGUI_CellPixels);
+            Point pA = Coordinates.Project(spStart, GraphicsConfiger.iCellPixels);
+            Point pB = Coordinates.Project(spEnd, GraphicsConfiger.iCellPixels);
+            Point pC = Coordinates.Project(pOffsetFirst, GraphicsConfiger.iCellPixels);
+            Point pD = Coordinates.Project(pOffsetEnd, GraphicsConfiger.iCellPixels);
 
 
             Point[] pits = { pA, pB, pD, pC };
-            g.FillPolygon(new SolidBrush(Color.Black), pits);
+            g.FillPolygon(new SolidBrush(GraphicsConfiger.roadColor), pits);
 
             //画车道线
             Pen p = new Pen(new SolidBrush(Color.White), 1);

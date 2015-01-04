@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUISettings.cs" />
+    <Compile Include="GraphicsConfiger.cs" />
     <Compile Include="PaintService\RoadEdgePaintService.cs" />
     <Compile Include="PaintService\RoadNodePaintService.cs" />
     <Compile Include="PaintService\SignalLightPaintService.cs" />

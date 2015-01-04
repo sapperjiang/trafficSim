@@ -30,7 +30,7 @@
         {
         	this.components = new System.ComponentModel.Container();
         	System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimMain));
-        	this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+        	this.statusBar = new System.Windows.Forms.StatusStrip();
         	this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
         	this.tslSimTime = new System.Windows.Forms.ToolStripStatusLabel();
         	this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
@@ -45,6 +45,8 @@
         	this.menuBarEditRoadNetwork = new System.Windows.Forms.ToolStripMenuItem();
         	this.menuBarConfig = new System.Windows.Forms.ToolStripMenuItem();
         	this.menuBarConfigSimEnvr = new System.Windows.Forms.ToolStripMenuItem();
+        	this.MenuBarConfigParameterSet = new System.Windows.Forms.ToolStripMenuItem();
+        	this.MenuBarConfigFormBackColor = new System.Windows.Forms.ToolStripMenuItem();
         	this.menuBarSimulate = new System.Windows.Forms.ToolStripMenuItem();
         	this.menuBarSimulateSustained = new System.Windows.Forms.ToolStripMenuItem();
         	this.menuBarSimulateRunSingleStep = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,22 +59,22 @@
         	this.menuBarDataTimeSpace = new System.Windows.Forms.ToolStripMenuItem();
         	this.menuBarDataOutput = new System.Windows.Forms.ToolStripMenuItem();
         	this.图表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.statusStrip1.SuspendLayout();
+        	this.statusBar.SuspendLayout();
         	this.menuBar.SuspendLayout();
         	this.SuspendLayout();
         	// 
-        	// statusStrip1
+        	// statusBar
         	// 
-        	this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 			this.toolStripStatusLabel1,
 			this.tslSimTime,
 			this.toolStripSplitButton1,
 			this.TSSL_MsgTip});
-        	this.statusStrip1.Location = new System.Drawing.Point(0, 458);
-        	this.statusStrip1.Name = "statusStrip1";
-        	this.statusStrip1.Size = new System.Drawing.Size(964, 27);
-        	this.statusStrip1.TabIndex = 3;
-        	this.statusStrip1.Text = "statusStrip1";
+        	this.statusBar.Location = new System.Drawing.Point(0, 458);
+        	this.statusBar.Name = "statusBar";
+        	this.statusBar.Size = new System.Drawing.Size(964, 27);
+        	this.statusBar.TabIndex = 3;
+        	this.statusBar.Text = "statusStrip1";
         	// 
         	// toolStripStatusLabel1
         	// 
@@ -169,7 +171,9 @@
         	// menuBarConfig
         	// 
         	this.menuBarConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.menuBarConfigSimEnvr});
+			this.menuBarConfigSimEnvr,
+			this.MenuBarConfigParameterSet,
+			this.MenuBarConfigFormBackColor});
         	this.menuBarConfig.Name = "menuBarConfig";
         	this.menuBarConfig.Size = new System.Drawing.Size(54, 26);
         	this.menuBarConfig.Text = "配置";
@@ -177,9 +181,24 @@
         	// menuBarConfigSimEnvr
         	// 
         	this.menuBarConfigSimEnvr.Name = "menuBarConfigSimEnvr";
-        	this.menuBarConfigSimEnvr.Size = new System.Drawing.Size(176, 26);
-        	this.menuBarConfigSimEnvr.Text = "仿真环境配置";
+        	this.menuBarConfigSimEnvr.Size = new System.Drawing.Size(144, 26);
+        	this.menuBarConfigSimEnvr.Text = "加载路网";
         	this.menuBarConfigSimEnvr.Click += new System.EventHandler(this.MenuBar_File_ConfigEnvr_Click);
+        	// 
+        	// MenuBarConfigParameterSet
+        	// 
+        	this.MenuBarConfigParameterSet.Enabled = false;
+        	this.MenuBarConfigParameterSet.Name = "MenuBarConfigParameterSet";
+        	this.MenuBarConfigParameterSet.Size = new System.Drawing.Size(144, 26);
+        	this.MenuBarConfigParameterSet.Text = "参数设置";
+        	this.MenuBarConfigParameterSet.Click += new System.EventHandler(this.MenuBar_Config_Parameter_Click);
+        	// 
+        	// MenuBarConfigFormBackColor
+        	// 
+        	this.MenuBarConfigFormBackColor.Name = "MenuBarConfigFormBackColor";
+        	this.MenuBarConfigFormBackColor.Size = new System.Drawing.Size(144, 26);
+        	this.MenuBarConfigFormBackColor.Text = "背景颜色";
+        	this.MenuBarConfigFormBackColor.Click += new System.EventHandler(this.MenuBar_Config_FormBackColor_Click);
         	// 
         	// menuBarSimulate
         	// 
@@ -195,38 +214,39 @@
         	// 
         	// menuBarSimulateSustained
         	// 
+        	this.menuBarSimulateSustained.Enabled = false;
         	this.menuBarSimulateSustained.Name = "menuBarSimulateSustained";
-        	this.menuBarSimulateSustained.Size = new System.Drawing.Size(152, 26);
+        	this.menuBarSimulateSustained.Size = new System.Drawing.Size(144, 26);
         	this.menuBarSimulateSustained.Text = "启动仿真";
-        	this.menuBarSimulateSustained.Click += new System.EventHandler(this.MenuBar_Simluate_RunConstantly);
+        	this.menuBarSimulateSustained.Click += new System.EventHandler(this.MenuBar_SimluateSustained_Click);
         	// 
         	// menuBarSimulateRunSingleStep
         	// 
         	this.menuBarSimulateRunSingleStep.Enabled = false;
         	this.menuBarSimulateRunSingleStep.Name = "menuBarSimulateRunSingleStep";
-        	this.menuBarSimulateRunSingleStep.Size = new System.Drawing.Size(152, 26);
+        	this.menuBarSimulateRunSingleStep.Size = new System.Drawing.Size(144, 26);
         	this.menuBarSimulateRunSingleStep.Text = "单步运行";
         	// 
         	// menuBarSimulatePause
         	// 
         	this.menuBarSimulatePause.Name = "menuBarSimulatePause";
-        	this.menuBarSimulatePause.Size = new System.Drawing.Size(152, 26);
+        	this.menuBarSimulatePause.Size = new System.Drawing.Size(144, 26);
         	this.menuBarSimulatePause.Text = "暂停仿真";
-        	this.menuBarSimulatePause.Click += new System.EventHandler(this.MenuBarSimulateRunStopClick);
+        	this.menuBarSimulatePause.Click += new System.EventHandler(this.MenuBar_Simulate_Pause_Click);
         	// 
         	// menuBarSimulateResume
         	// 
         	this.menuBarSimulateResume.Name = "menuBarSimulateResume";
-        	this.menuBarSimulateResume.Size = new System.Drawing.Size(152, 26);
+        	this.menuBarSimulateResume.Size = new System.Drawing.Size(144, 26);
         	this.menuBarSimulateResume.Text = "恢复仿真";
-        	this.menuBarSimulateResume.Click += new System.EventHandler(this.MenuBarSimulateRunResumeClick);
+        	this.menuBarSimulateResume.Click += new System.EventHandler(this.MenuBar_Simulate_Resume_Click);
         	// 
         	// MenubarSimlateStop
         	// 
         	this.MenubarSimlateStop.Name = "MenubarSimlateStop";
-        	this.MenubarSimlateStop.Size = new System.Drawing.Size(152, 26);
+        	this.MenubarSimlateStop.Size = new System.Drawing.Size(144, 26);
         	this.MenubarSimlateStop.Text = "结束仿真";
-        	this.MenubarSimlateStop.Click += new System.EventHandler(this.MenubarSimlateStopClick);
+        	this.MenubarSimlateStop.Click += new System.EventHandler(this.Menubar_Simlate_Stop_Click);
         	// 
         	// menuBarData
         	// 
@@ -279,19 +299,23 @@
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         	this.BackColor = System.Drawing.SystemColors.Control;
         	this.ClientSize = new System.Drawing.Size(964, 485);
-        	this.Controls.Add(this.statusStrip1);
+        	this.Controls.Add(this.statusBar);
         	this.Controls.Add(this.menuBar);
+        	this.DoubleBuffered = true;
+        	this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
         	this.MainMenuStrip = this.menuBar;
         	this.Name = "SimMain";
-        	this.Text = "SimCartoon";
-
-        	this.statusStrip1.ResumeLayout(false);
-        	this.statusStrip1.PerformLayout();
+        	this.Text = "TrafficSim交通仿真程序";
+        	this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+        	this.statusBar.ResumeLayout(false);
+        	this.statusBar.PerformLayout();
         	this.menuBar.ResumeLayout(false);
         	this.menuBar.PerformLayout();
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem MenuBarConfigFormBackColor;
+        private System.Windows.Forms.ToolStripMenuItem MenuBarConfigParameterSet;
         private System.Windows.Forms.ToolStripMenuItem MenubarSimlateStop;
         private System.Windows.Forms.ToolStripMenuItem menuBarPrgExit;
         
@@ -321,7 +345,7 @@
         #endregion
 
         //private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusBar;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel tslSimTime;
         private System.Windows.Forms.ToolTip TP_MousePos;

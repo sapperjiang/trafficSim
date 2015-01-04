@@ -9,13 +9,13 @@ using System.Windows.Forms;
 using SubSys_DataVisualization;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace GISTranSim.DataOutput
+namespace GISTranSim.Data
 {
     public partial class AbstractCharterForm : System.Windows.Forms.Form
     {
         public AbstractCharterForm()
         {
-            InitializeComponent();
+//            InitializeComponent();
         }
 
         protected ChartDataProvider DataProvider;

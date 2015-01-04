@@ -126,7 +126,7 @@ namespace SubSys_SimDriving
         /// <summary>
         /// 子类应当重写这个属性\用于GUI画图的属性
         /// </summary>
-        public virtual EntityShape EntityShape
+        public virtual EntityShape Shape
         {
             get 
             {

@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace SubSys_SimDriving
-{
-   
+{  
     /// <summary>
     /// 所有非哈希表的基类型，如果使用该类内部的list保存数据，应当由调用类进行
     /// 仿真上下文同步
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class ChainBaseClass<T> : ICollection<T>, ICollection,IEnumerable<T>
+    public abstract class AbstractChain<T> : ICollection<T>, ICollection,IEnumerable<T>
     {
         protected List<T> listChain = new List<T>();
 

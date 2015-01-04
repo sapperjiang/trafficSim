@@ -3,7 +3,7 @@ using SubSys_SimDriving;
 
 namespace SubSys_SimDriving.TrafficModel
 {
-	public class RoadLaneChain :ChainBaseClass<RoadLane>
+	public class RoadLaneChain :AbstractChain<RoadLane>
 	{
         internal RoadEdge _ContainerRoadEdge;
 
@@ -14,8 +14,6 @@ namespace SubSys_SimDriving.TrafficModel
                 throw new ArgumentNullException();
             }
             base.Add(rl);
-
-            //base.listChain.Sort(new RoadLane());//或者如下
             base.listChain.Sort(new Comparison<RoadLane>(RoadLane.CompareTo));
         }
         internal new void Remove(RoadLane rl)
@@ -26,7 +24,6 @@ namespace SubSys_SimDriving.TrafficModel
             }
             base.Remove(rl);
             //base.listChain.Sort(new RoadLane());//一个有序的list删除之后仍然有序
-
         }
     }
 	 
