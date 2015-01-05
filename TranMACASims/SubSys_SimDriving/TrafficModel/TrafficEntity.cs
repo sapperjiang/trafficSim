@@ -11,16 +11,21 @@ namespace SubSys_SimDriving
     /// </summary>
     public abstract class TrafficEntity : ITrafficEntity
     {
-        IService IRegisteService = new RegisterService();
-        ServiceMgr SvcMgr = new ServiceMgr();//服务管理池
+        IService _IregService = new RegisterService();
+        //服务管理器
+        ServiceMgr _serviceMgr = new ServiceMgr();
 
         public virtual void AddService(IService ils)
         {
-            this.SvcMgr.Add(ils);
+            this._serviceMgr.Add(ils);
         }
+        /// <summary>
+        /// 调用服务的功能
+        /// </summary>
+        /// <param name="te"></param>
         public virtual void InvokeServices(ITrafficEntity te)
         {
-            foreach (IService item in this.SvcMgr)
+            foreach (IService item in this._serviceMgr)
             {
                 item.Perform(te);
             }
@@ -32,18 +37,18 @@ namespace SubSys_SimDriving
         /// <param name="ils"></param>
         public virtual void RemoveService(IService ils)
         {
-            this.SvcMgr.Remove(ils);
+            this._serviceMgr.Remove(ils);
         }
         /// <summary>
         /// 向simContext 报道类的创建行为
         /// </summary>
         internal virtual void Register()
         {
-            IRegisteService.Perform(this);
+            _IregService.Perform(this);
         }
         internal virtual void UnRegiser()
         {
-            IRegisteService.Revoke(this);
+            _IregService.Revoke(this);
         }
 
         #region ITrafficEntity 成员

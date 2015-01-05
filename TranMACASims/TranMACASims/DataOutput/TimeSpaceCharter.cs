@@ -16,7 +16,7 @@ using SubSys_DataVisualization;
 
 namespace GISTranSim.Data
 {
-    public partial class TimeSpaceCharter : AbstractCharterForm
+    public partial class TimeSpaceCharter : AbstractCharter
     {
         public TimeSpaceCharter()
         {
@@ -25,7 +25,7 @@ namespace GISTranSim.Data
 
         protected override void OnShown(EventArgs e)
         {
-            base.Chart(new TimeSpaceDataProvider(), CHART_SpaceTime);
+            base.Chart(new TimeSpaceDataProvider(), _spaceTimeChart);
             base.OnShown(e);
         }
 

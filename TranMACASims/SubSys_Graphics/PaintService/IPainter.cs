@@ -7,7 +7,7 @@ using SubSys_SimDriving.SysSimContext.Service;
 
 namespace SubSys_Graphics
 {
-    public interface IPaintService:IService
+    public interface IPainter:IService
     {
         Control Canvas
         {

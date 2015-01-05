@@ -16,12 +16,12 @@ namespace SubSys_Graphics
         RoadNode,
         RoadLane,
 	}
-    public class PaintServiceMgr 
+    public class PainterManager 
     {
-        private static Dictionary<int, IPaintService> servicePool = new Dictionary<int, IPaintService>();
-        public static IPaintService GetService(PaintServiceType pst,Control canvas)
+        private static Dictionary<int, IPainter> servicePool = new Dictionary<int, IPainter>();
+        public static IPainter GetService(PaintServiceType pst,Control canvas)
         {
-            IPaintService ips;
+            IPainter ips;
              if (servicePool.ContainsKey((int)pst)==true)
 	        {
 		        servicePool.TryGetValue((int)pst,out ips);
@@ -32,15 +32,15 @@ namespace SubSys_Graphics
             switch (pst)
             {
                 case PaintServiceType.RoadEdge:
-                        ips = new RoadEdgePaintService(canvas);
+                        ips = new RoadEdgePainter(canvas);
                         servicePool.Add((int)pst,ips);
                         return ips;
                 case PaintServiceType.RoadNode:
-                        ips = new RoadNodePaintService(canvas);
+                        ips = new RoadNodePainter(canvas);
                         servicePool.Add((int)pst,ips);
                         return ips;
                 case PaintServiceType.RoadLane:
-                        ips = new RoadLanePaintService(canvas);
+                        ips = new RoadLanePainter(canvas);
                         servicePool.Add((int)pst, ips);
                         return ips;
                 default:

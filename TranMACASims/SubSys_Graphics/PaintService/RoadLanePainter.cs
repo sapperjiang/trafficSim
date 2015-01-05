@@ -14,9 +14,9 @@ namespace SubSys_Graphics
     /// 然后启用装饰着来实现各种不同的车道类型；
     /// 还要实现一个工厂来根据参数创建不同的车道类型
     /// </summary>
-    internal class RoadLanePaintService : PaintService
+    internal class RoadLanePainter : AbstractPainter
     {
-        internal RoadLanePaintService(System.Windows.Forms.Control canvas)
+        internal RoadLanePainter(System.Windows.Forms.Control canvas)
         {
             this.Canvas = canvas;
             this.graphic = canvas.CreateGraphics();
@@ -84,7 +84,7 @@ namespace SubSys_Graphics
 
 
             //获取单位平移向量(法向量)
-            MyPoint mp1 = VectorTools.getNormalVector((rl.Container as RoadEdge).ToVector());
+            MyPoint mp1 = VectorTools.GetNormalVector((rl.Container as RoadEdge).ToVector());
             //获取平移向量
             MyPoint mpOffset = new MyPoint(mp1._X, mp1._Y);
             MyPoint mpMulti = new MyPoint(mpOffset._X * (rl.Rank - 1), mpOffset._Y * (rl.Rank - 1));

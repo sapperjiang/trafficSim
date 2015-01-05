@@ -9,9 +9,9 @@ using SubSys_SimDriving.TrafficModel;
 namespace SubSys_Graphics
 {
 	//单线程版本
-	internal class RoadNodePaintService : PaintService
+	internal class RoadNodePainter : AbstractPainter
 	{
-		internal RoadNodePaintService(System.Windows.Forms.Control canvas)
+		internal RoadNodePainter(System.Windows.Forms.Control canvas)
 		{
 			this.Canvas = canvas;
 			this.graphic = canvas.CreateGraphics();

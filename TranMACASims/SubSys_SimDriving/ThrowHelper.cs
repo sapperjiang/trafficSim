@@ -399,18 +399,6 @@ namespace SubSys_SimDriving
     {
         throw new UnauthorizedAccessException(GetResourceName(resource));
     }
-
-    //[SecuritySafeCritical]
-    //public static void ThrowWrongKeyTypeArgumentException(object key, Type targetType)
-    //{
-    //    throw new ArgumentException("Arg_WrongType", new object[] { key, targetType }), "key");
-    //}
-
-    //[SecuritySafeCritical]
-    //public static void ThrowWrongValueTypeArgumentException(object value, Type targetType)
-    //{
-    //    throw new ArgumentException("Arg_WrongType", new object[] { value, targetType }), "value");
-    //}
 }
 }
  

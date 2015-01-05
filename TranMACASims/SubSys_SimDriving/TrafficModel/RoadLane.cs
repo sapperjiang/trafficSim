@@ -64,7 +64,7 @@ namespace SubSys_SimDriving.TrafficModel
 
             EntityShape es = this.Container.Shape;
 
-            MyPoint pNorm = VectorTools.getNormalVector(this.Container.ToVector());
+            MyPoint pNorm = VectorTools.GetNormalVector(this.Container.ToVector());
             MyPoint mpOffset = new MyPoint(pNorm._X*(this.Rank - 0.5f),pNorm._Y * (this.Rank - 0.5f));
             //Æ½ÒÆ×ø±ê
             MyPoint pFirst = Coordinates.Offset(es[0], mpOffset);

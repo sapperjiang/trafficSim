@@ -139,11 +139,11 @@
     <Compile Include="AppInterfaces\PluginContainer.cs" />
     <Compile Include="AppInterfaces\PluginContainerEnumerator.cs" />
     <Compile Include="AppInterfaces\PluginHandler.cs" />
-    <Compile Include="DataOutput\AbstractCharterForm.cs">
+    <Compile Include="DataOutput\AbstractCharter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataOutput\AbstractCharterForm.Designer.cs">
-      <DependentUpon>AbstractCharterForm.cs</DependentUpon>
+    <Compile Include="DataOutput\AbstractCharter.Designer.cs">
+      <DependentUpon>AbstractCharter.cs</DependentUpon>
     </Compile>
     <Compile Include="DataOutput\TimeSpaceCharter.cs">
       <SubType>Form</SubType>

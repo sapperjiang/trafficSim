@@ -16,7 +16,7 @@ using SubSys_DataVisualization;
 
 namespace GISTranSim.Data
 {
-    public partial class MeanSpeedCharter: AbstractCharterForm
+    public partial class MeanSpeedCharter: AbstractCharter
     {
         public MeanSpeedCharter()
         {

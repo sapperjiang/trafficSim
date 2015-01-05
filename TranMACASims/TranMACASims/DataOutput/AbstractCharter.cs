@@ -11,9 +11,9 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace GISTranSim.Data
 {
-    public partial class AbstractCharterForm : System.Windows.Forms.Form
+    public partial class AbstractCharter : System.Windows.Forms.Form
     {
-        public AbstractCharterForm()
+        protected AbstractCharter()
         {
 //            InitializeComponent();
         }

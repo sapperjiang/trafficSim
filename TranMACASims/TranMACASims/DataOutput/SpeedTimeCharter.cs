@@ -14,7 +14,7 @@ using SubSys_SimDriving.TrafficModel;
 
 namespace GISTranSim.Data
 {
-    public partial class SpeedTimeCharter : AbstractCharterForm
+    public partial class SpeedTimeCharter : AbstractCharter
     {
         public SpeedTimeCharter()
         {

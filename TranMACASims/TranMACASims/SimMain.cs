@@ -71,47 +71,7 @@ namespace GISTranSim
 			base.OnClosing(e);
 		}
 
-		#region 编辑道路节点
-		
-//		bool IsAddNodeActivated = false;
-//		//MouseEventHandler AddNodeHandler;
-//		private void BT_AddNode_Click(object sender, EventArgs e)
-//		{
-//			this.IsAddNodeActivated = !this.IsAddNodeActivated;
-//			if (this.IsAddNodeActivated == true)
-//			{
-//				if (AddNodeHandler == null)
-//				{
-//					AddNodeHandler = new MouseEventHandler(AddNode_MouseMove);
-//				}
-//				this.MouseMove += AddNodeHandler;
-//			}
-//			else
-//			{
-//				this.MouseMove -= AddNodeHandler;
-//				this.TP_MousePos.Active = false;
-//			}
-//		}
-//
-//		Point p = new Point(-1, -1);
-//		void AddNode_MouseMove(object sender, MouseEventArgs e)
-//		{
-//			if (p.X == -1)
-//			{
-//				p = e.Location;
-//			}
-//			if (p.X !=e.X)
-//			{
-//				this.TP_MousePos.Active = true;
-//
-//				string strTip = string.Format("X:{0} Y:{1}",e.Location.X,e.Location.Y);
-//				this.TP_MousePos.Show(strTip, this, e.Location);
-//				//this.TP_MousePos.Active = true;
-//
-//				p = e.Location;
-//			}
-//		}
-		#endregion
+	
 		
 		
 		#region 路网平移模式
@@ -218,7 +178,7 @@ namespace GISTranSim
 		void MenuBar_Data_SpeedTime_Click(object sender, System.EventArgs e)
 		{
 			
-			AbstractCharterForm abc =new MeanSpeedCharter();
+			AbstractCharter abc =new MeanSpeedCharter();
 			SpeedTimeCharter st = new SpeedTimeCharter();
 			st.Show();
 			//throw new NotImplementedException();
@@ -226,24 +186,20 @@ namespace GISTranSim
 		
 		void MenuBar_Data_RoadMeanTime_Click(object sender, System.EventArgs e)
 		{
-			AbstractCharterForm abc =new MeanSpeedCharter();
+			AbstractCharter abc =new MeanSpeedCharter();
 			abc.Show();
 			//throw new NotImplementedException();
 		}
 		void MenuBar_Data_TimeSpace_Click(object sender, System.EventArgs e)
 		{
-			AbstractCharterForm abc = new TimeSpaceCharter();
+			AbstractCharter abc = new TimeSpaceCharter();
 			abc.Show();
 			//throw new NotImplementedException();
 		}
 		void MenuBar_Simulate_Pause_Click(object sender, System.EventArgs e)
 		{
 			SimController.bIsPause = true;
-			//this.BT_SimStart.Enabled = true;
-			//	MenubarSim
 			menuBarSimulateSustained.Enabled=false;
-			//throw new NotImplementedException();
-			//throw new NotImplementedException();
 		}
 		void MenuBar_Simulate_Resume_Click(object sender, System.EventArgs e)
 		{
@@ -261,7 +217,6 @@ namespace GISTranSim
 			GISTranSim.SimConfig cs = new GISTranSim.SimConfig();
 			if (cs.ShowDialog() == DialogResult.OK)
 			{
-				SimController.iCarCount = cs.iCarCount;
 				SimController.iRoadWidth = cs.iRoadLength;
 				SimController.iSimInterval = cs.iSimSpeed;
 				ModelSetting.dRate = cs.dRatio;
@@ -271,9 +226,6 @@ namespace GISTranSim
 			//throw new NotImplementedException();
 		}
 		#endregion
-		
-		
-		
 		#region 路网加载函数
 		private  RoadNetWork LoadRoadNetwork()
 		{
@@ -357,10 +309,52 @@ namespace GISTranSim
 				var color= dialog.Color;
 				this.BackColor = color;
 				this.menuBar.BackColor =color;
-//				color = dialog.Color;//获取用户选择的颜色，然后你就可以用这个颜色了
 			}
-			
+		}
+	
+		#endregion
+		
+		#region 编辑道路节点
+		bool IsAddNodeActivated = false;
+		MouseEventHandler AddNodeHandler;
+		void MenuBar_Edit_RoadNetwork_Click(object sender, System.EventArgs e)
+		{
 			//throw new NotImplementedException();
+		
+	
+			this.IsAddNodeActivated = !this.IsAddNodeActivated;
+			if (this.IsAddNodeActivated == true)
+			{
+				if (AddNodeHandler == null)
+				{
+					AddNodeHandler = new MouseEventHandler(AddNode_MouseMove);
+				}
+				this.MouseMove += AddNodeHandler;
+			}
+			else
+			{
+				this.MouseMove -= AddNodeHandler;
+				this.TP_MousePos.Active = false;
+			}
+		}
+	
+		Point p = new Point(-1, -1);
+		void AddNode_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (p.X == -1)
+			{
+				p = e.Location;
+			}
+			if (p.X !=e.X)
+			{
+				this.TP_MousePos.Active = true;
+
+				string strTip = string.Format("X:{0} Y:{1}",e.Location.X,e.Location.Y);
+				this.TP_MousePos.Show(strTip, this, e.Location);
+				//this.TP_MousePos.Active = true;
+
+				p = e.Location;
+			}
 		}
 		#endregion
 	}

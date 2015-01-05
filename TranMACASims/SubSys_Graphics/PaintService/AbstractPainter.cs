@@ -12,26 +12,25 @@ using SubSys_MathUtility;
 
 namespace SubSys_Graphics
 {
-    //internal class MyGraphices:gra
-    public abstract class PaintService:Service,IPaintService
+    public abstract class AbstractPainter:Service,IPainter
     {
         protected Graphics graphic;
-        private Control _form;//要画的控件
+        
+        private Control _form;
 
-        //public static int iGUICellPixels = GUISettings.CellPixels.iMedium;
-        //public static int iGUIMaxLanes = SimSettings.iMaxLanes;
-
+        /// <summary>
+        /// 用来绘图的GUI控件
+        /// </summary>
         public Control Canvas
         {
             get { return _form; }
             set { _form = value; }
         }
-        /// <summary>
+              private Dictionary<int, MyPoint> _cellSpaces;
+  /// <summary>
         /// 哈希索引是统一的方法进行访问，如果是roadlane使用rltPos.Y gethashcode
         /// 如果是RoadNode使用roadlane的x+y进行索引
         /// </summary>
-        private Dictionary<int, MyPoint> _cellSpaces;
-
         protected Dictionary<int,MyPoint> CellSpaces
         {
             get { return _cellSpaces; }

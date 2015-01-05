@@ -115,8 +115,8 @@ namespace SubSys_SimDriving
 			//iroadNetwork.UpdateCompleted +=  new UpdateHandler(RepaintNetWork);
 
 			iroadNetwork.UpdateCompleted+=RepaintNetWork;
-			roadEdgePaintService = PaintServiceMgr.GetService(PaintServiceType.RoadEdge, frMain);
-			roadNodePaintService = PaintServiceMgr.GetService(PaintServiceType.RoadNode, frMain);
+			roadEdgePaintService = PainterManager.GetService(PaintServiceType.RoadEdge, frMain);
+			roadNodePaintService = PainterManager.GetService(PaintServiceType.RoadNode, frMain);
 
 		}
 
@@ -133,8 +133,8 @@ namespace SubSys_SimDriving
 			}
 			iroadNetwork.UpdateCompleted +=RepaintNetWork;
 
-			roadEdgePaintService = PaintServiceMgr.GetService(PaintServiceType.RoadEdge, frMain);
-			roadNodePaintService = PaintServiceMgr.GetService(PaintServiceType.RoadNode, frMain);
+			roadEdgePaintService = PainterManager.GetService(PaintServiceType.RoadEdge, frMain);
+			roadNodePaintService = PainterManager.GetService(PaintServiceType.RoadNode, frMain);
 
 		}
 		

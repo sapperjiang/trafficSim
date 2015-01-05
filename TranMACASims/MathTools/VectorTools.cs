@@ -34,7 +34,7 @@ namespace SubSys_MathUtility
         /// </summary>
         /// <param name="opVector"></param>
         /// <returns></returns>
-        public static MyPoint getReverseVector(MyPoint opVector)
+        public static MyPoint GetInverseVector(MyPoint opVector)
         {
             return new MyPoint(-opVector._X, -opVector._Y);
         }
@@ -47,7 +47,7 @@ namespace SubSys_MathUtility
         /// <param name="mpB">直线终点坐标</param>
         /// <param name="mpNew">要检验的点坐标</param>
         /// <returns>返回0表示点mpNew位于直线上，返回1表示点mpNew位于向量上方，返回-1表示点mpNew位于直线下方</returns>
-        public static int getPointPos(MyPoint mpA,MyPoint mpB, MyPoint mpNew)
+        public static int GetPointPosition(MyPoint mpA,MyPoint mpB, MyPoint mpNew)
         {
             if ( mpB._X==mpA._X&& mpB._Y==mpA._Y)
 	        {
@@ -63,8 +63,7 @@ namespace SubSys_MathUtility
 
         /// <summary>
         /// 这个是笛卡尔坐标系下的结果
-        ///利用两点式，建立基础方程，并且利用这个方程计算输入点与基方程的联系,调用三
-        ///参数的重载，第一个参数默认为零,返回-1表示位于基向量下方或者是右方，返回1表示位于基向量上方或者是左方
+        ///利用两点式，建立基础方程，并且利用这个方程计算输入点与基方程的联系,调用三参数的重载，第一个参数默认为零,返回-1表示位于基向量下方或者是右方，返回1表示位于基向量上方或者是左方
         /// </summary>
         /// <param name="vBase">基向量的终点坐标，起点坐标为0</param>
         /// <param name="vNew">要检验的点的坐标如果是向量，应当输入向量的终点坐标</param>
@@ -76,7 +75,7 @@ namespace SubSys_MathUtility
             {
                 throw new ArgumentException("基向量或者要判定的向量不能为0向量");
             }
-            int iReturn = VectorTools.getPointPos(new MyPoint(0.0f, 0.0f), vBase, vNew);
+            int iReturn = VectorTools.GetPointPosition(new MyPoint(0.0f, 0.0f), vBase, vNew);
             if (iReturn == 0&&vNew._X < vBase._X)
             {
                  iReturn = 2;
@@ -87,7 +86,7 @@ namespace SubSys_MathUtility
         /// <summary>
         /// 获取两个向量的夹角的余弦值，该值的区间是-1到1闭区间,两个参数向量都不能是0向量
         /// </summary>
-        public static double getCosine(MyPoint vBase, MyPoint vNew)
+        public static double GetCos(MyPoint vBase, MyPoint vNew)
         {
             //向量的数量积
             double fNumerator = vBase._X*vNew._X+vBase._Y*vBase._Y;
@@ -107,13 +106,12 @@ namespace SubSys_MathUtility
             return fNumerator/dDenominator;
         }
         /// <summary>
-        /// 判定角度并且输出角度的正弦和余弦值，315-45 为0度 45-135度变为90度
-        /// 135-225 为180度 225-315度变为270度，
+        /// 判定角度并且输出角度的正弦和余弦值，315-45 为0度 45-135度变为90度,135-225 为180度 225-315度变为270度，
         /// </summary>
-        public static SinCos getSinCos(MyPoint mpBaseVector, MyPoint mpVector)
+        public static SinCos GetSinCos(MyPoint mpBaseVector, MyPoint mpVector)
         {
             //由于0.707小于根号2的一半所以45度变为90度
-            double dCosineValue = VectorTools.getCosine(mpBaseVector, mpVector);
+            double dCosineValue = VectorTools.GetCos(mpBaseVector, mpVector);
             //-45 180 +45度的左开右闭闭区间
             if (-1.001<=dCosineValue&& dCosineValue<-0.708)//-根号2的是是1.414 其一半 是0.707
             {
@@ -141,7 +139,7 @@ namespace SubSys_MathUtility
                     throw new Exception("不可能出现的值");
                 }
             }
-            ///这之间的有可能是零度，有可能是360度
+            //这之间的有可能是零度，有可能是360度
             if (0.708 <= dCosineValue && dCosineValue <= 1.001)
             {
                 //315度到44度之间全部当作0度处理
@@ -154,7 +152,7 @@ namespace SubSys_MathUtility
         /// 获取一个向量的法向量，该法向量位于向量右侧,向量不能为零向量
         /// </summary>
         /// <param name="vtr"></param>
-        public static MyPoint getNormalVector(MyPoint vtr)
+        public static MyPoint GetNormalVector(MyPoint vtr)
         {
             double iDX = vtr._X*vtr._X;
             double iDY = vtr._Y*vtr._Y;

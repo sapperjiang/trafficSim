@@ -14,9 +14,9 @@ namespace SubSys_Graphics
     /// <summary>
     /// 调用RoadLane来绘制自身
     /// </summary>
-    public class RoadEdgePaintService : PaintService
+    public class RoadEdgePainter : AbstractPainter
     {
-        public RoadEdgePaintService(System.Windows.Forms.Control fr)
+        public RoadEdgePainter(System.Windows.Forms.Control fr)
         {
             this.Canvas = fr;
             this.graphic = fr.CreateGraphics();
@@ -25,7 +25,7 @@ namespace SubSys_Graphics
  
         protected override void SubPerform(ITrafficEntity tVar)
         {
-            IService rp = PaintServiceMgr.GetService(PaintServiceType.RoadLane, this.Canvas);
+            IService rp = PainterManager.GetService(PaintServiceType.RoadLane, this.Canvas);
             RoadEdge re = tVar as RoadEdge;
 
             //先画一个车道

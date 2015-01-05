@@ -27,11 +27,11 @@ namespace SubSys_SimDriving.SysSimContext.Service
                 {
                     re.EntityType = EntityType.RoadEdge;
                     re.RelativePosition = new Point(0,0);
-                    ///直角坐标情况下，使用端点长度来衡量路段的长度
+                    //直角坐标情况下，使用端点长度来衡量路段的长度
                    
                     re.Container = RoadNetWork.GetInstance();
 
-                    ///两个端点已经注册的情况下才允许注册
+                    //两个端点已经注册的情况下才允许注册
                     if (ISimCtx.NetWork.FindRoadNode(re.roadNodeTo) != null
                         && ISimCtx.NetWork.FindRoadNode(re.roadNodeFrom) != null)
                     {

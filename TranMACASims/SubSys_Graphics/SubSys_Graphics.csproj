@@ -46,14 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GraphicsConfiger.cs" />
-    <Compile Include="PaintService\RoadEdgePaintService.cs" />
-    <Compile Include="PaintService\RoadNodePaintService.cs" />
+    <Compile Include="PaintService\RoadEdgePainter.cs" />
+    <Compile Include="PaintService\RoadNodePainter.cs" />
     <Compile Include="PaintService\SignalLightPaintService.cs" />
-    <Compile Include="PaintService\PaintServiceMgr.cs" />
+    <Compile Include="PaintService\PainterManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PaintService\PaintService.cs" />
-    <Compile Include="PaintService\IPaintService.cs" />
-    <Compile Include="PaintService\RoadLanePaintService.cs" />
+    <Compile Include="PaintService\AbstractPainter.cs" />
+    <Compile Include="PaintService\IPainter.cs" />
+    <Compile Include="PaintService\RoadLanePainter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\start.jpg" />

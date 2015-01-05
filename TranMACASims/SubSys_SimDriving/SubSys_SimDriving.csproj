@@ -61,12 +61,6 @@
     <Compile Include="DrivingStrategy\DrivingStrategy.cs" />
     <Compile Include="DrivingStrategy\ModerateDrivingStrategy.cs" />
     <Compile Include="DrivingStrategy\RushDrivingStrategy.cs" />
-    <Compile Include="ModelFactory\Component1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ModelFactory\Component1.Designer.cs">
-      <DependentUpon>Component1.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModelFactory\SimpleFactory.cs" />
     <Compile Include="RoutePlan\AntiOneDecisionRoutePlanner.cs" />
     <Compile Include="RoutePlan\AStarShortestPath.cs" />

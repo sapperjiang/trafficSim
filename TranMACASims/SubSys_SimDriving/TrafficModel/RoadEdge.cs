@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SubSys_SimDriving;
-using SubSys_MathUtility;
-using SubSys_SimDriving.SysSimContext;
-using SubSys_SimDriving.RoutePlan;
-using SubSys_SimDriving.Agents;
 using System.Drawing;
+using SubSys_MathUtility;
+using SubSys_SimDriving;
+using SubSys_SimDriving.RoutePlan;
+using SubSys_SimDriving.SysSimContext;
 
 namespace SubSys_SimDriving.TrafficModel
 {
@@ -41,11 +40,13 @@ namespace SubSys_SimDriving.TrafficModel
 			this._id = RoadEdge.iRoadEdgeCount++;
 
 		}
-		
+		/// <summary>
+		/// 构造一条从from点到to点的道路
+		/// </summary>
+		/// <param name="from"></param>
+		/// <param name="to"></param>
 		internal RoadEdge(Point from, Point to)
 		{
-			
-	
 			this.roadNodeFrom =new RoadNode(from);;
 			this.roadNodeTo =  new RoadNode(to);
 			this._lanes = new RoadLaneChain();

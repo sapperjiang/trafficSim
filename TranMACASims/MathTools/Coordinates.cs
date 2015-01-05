@@ -155,7 +155,7 @@ namespace SubSys_MathUtility
 				throw new ArgumentException("输入的参数不能为零");
 			}
 			//获取正弦和余弦值并且进行旋转变换
-			SinCos sc = VectorTools.getSinCos(mpBaseVector, newVector);
+			SinCos sc = VectorTools.GetSinCos(mpBaseVector, newVector);
 			return Coordinates.Rotate(point, sc);
 		}
 	}

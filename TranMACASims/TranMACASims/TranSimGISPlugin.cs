@@ -7,7 +7,6 @@ using SubSys_SimDriving;
 using GISTranSim.Data;
 
 
-
 namespace PluginTest
 {
     using System;
@@ -16,7 +15,8 @@ namespace PluginTest
     using System.Windows.Forms;
     using MapWindow.Interfaces;
     using SubSys_SimDriving.TrafficModel;
-
+//    using System.Windows.Forms.ComponentModel;
+//using System.bupiao
    
   
 /// <summary>

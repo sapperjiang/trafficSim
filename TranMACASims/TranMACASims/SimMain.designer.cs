@@ -165,8 +165,9 @@
         	// 
         	this.menuBarEditRoadNetwork.Enabled = false;
         	this.menuBarEditRoadNetwork.Name = "menuBarEditRoadNetwork";
-        	this.menuBarEditRoadNetwork.Size = new System.Drawing.Size(144, 26);
+        	this.menuBarEditRoadNetwork.Size = new System.Drawing.Size(152, 26);
         	this.menuBarEditRoadNetwork.Text = "编辑路网";
+        	this.menuBarEditRoadNetwork.Click += new System.EventHandler(this.MenuBar_Edit_RoadNetwork_Click);
         	// 
         	// menuBarConfig
         	// 
