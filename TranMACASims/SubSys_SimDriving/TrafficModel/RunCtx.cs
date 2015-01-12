@@ -5,15 +5,29 @@ using SubSys_SimDriving.TrafficModel;
 using System.Drawing;
 
 namespace SubSys_SimDriving.TrafficModel
-{
+{  
+
+    internal class RunCtxParam 
+    {
+        /// <summary>
+        /// Y坐标表示前进的距离，x坐标表示前进的车道
+        /// </summary>
+        public int iMoveStepY;
+        public int iMoveStepX;//运行的车道
+        public int iSpeed;
+        public int iAcceleration;
+        
+  
+    }
+    
     /// <summary>
     /// 元胞运行的上下文信息，如前后车头时距，左右车头时距，
     /// 车道编号、左右车道，运行的地点（路段或者交叉口）
     /// </summary>
-    internal class CellRunCtx
+    internal partial class RunCtx
     {
         //运行的交通实体
-        RoadEntity Container;
+        TrafficEntity Container;
 
         //空间参数
         public int iFrontGap;
@@ -27,7 +41,11 @@ namespace SubSys_SimDriving.TrafficModel
         public int iRightFrontGap;
         public int iRightRearGap;
 
-        public CellOutParam Out;
+        public void GetRunCtx(TrafficEntity way)
+        {
+        	
+        }
+        public RunCtxParam Out;
         //
         //速度参数
         public int iSpeedLimit;//路段限速
@@ -56,28 +74,30 @@ namespace SubSys_SimDriving.TrafficModel
             }
         }
 
-        public CarTrack CarTrack;
+        public Track CarTrack;
 
         /// <summary>
         /// 仅仅初始化不做赋值
         /// </summary>
         /// <param name="roadE"></param>
         /// <param name="ce"></param>
-        public CellRunCtx(RoadEntity roadE,Cell ce)
+        public RunCtx(TrafficEntity te,Cell ce)
         {
-            Out = new CellOutParam();
-            this.Container = roadE;
+            Out = new RunCtxParam();
+            this.Container = te;
+        }
+        
+    }
+    
+    
+    internal partial class RunCtx
+    {
+    	   
+             public RunCtx(StaticEntity te,Cell ce)
+        {
+            Out = new RunCtxParam();
+            this.Container = te;
         }
     }
-
-    internal class CellOutParam 
-    {
-        /// <summary>
-        /// Y坐标表示前进的距离，x坐标表示前进的车道
-        /// </summary>
-        public int iMoveStepY;
-        public int iMoveStepX;//运行的车道
-        public int iSpeed;
-        public int iAcceleration;
-    }
+    
 }

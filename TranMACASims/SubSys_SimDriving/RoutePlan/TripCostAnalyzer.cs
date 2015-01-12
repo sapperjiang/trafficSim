@@ -6,7 +6,7 @@ namespace SubSys_SimDriving.RoutePlan
 {
 	internal abstract class TripCostAnalyzer
 	{
-		internal virtual double GetTripCost(RoadEdge re)
+		internal virtual double GetTripCost(Way re)
 		{
 			return 12;
 		}

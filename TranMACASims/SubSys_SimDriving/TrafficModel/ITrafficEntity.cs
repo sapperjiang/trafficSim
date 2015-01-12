@@ -45,14 +45,15 @@ namespace SubSys_SimDriving
             set;
         }
 
-        MyPoint ToVector();
+//        [System.obse]
+        OxyzPointF ToVector();
 		 
         int iWidth
         {
             get;
             set;
         }
-		int iLength
+	int iLength
         {
             get;
             set;
@@ -60,24 +61,16 @@ namespace SubSys_SimDriving
         /// <summary>
         /// 交通实体的元胞坐标系，相对于容器实体或者其他
         /// </summary>
-        Point RelativePosition
+        Point Grid
         {
             get;
             set;
         }
 
-        ///// <summary>
-        ///// 保存交通实体的屏幕坐标.用作GUI使用,注意该类型是结构不是类
-        ///// </summary>
-        //Point scrnPos
-        //{
-        //    get;
-        //    set;
-        //}
         /// <summary>
         /// 相对于GIS的绝对坐标
         /// </summary>
-	    MyPoint gisPos
+	    OxyzPointF GISPosition
 	    {
             get;
             set;
@@ -92,6 +85,11 @@ namespace SubSys_SimDriving
             get;
         }
         
+            OxyzPoint SpatialGrid
+         {
+         	get;
+         	set;
+         }
         
 	}
 	 

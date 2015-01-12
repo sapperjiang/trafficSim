@@ -1,7 +1,9 @@
+using System;
 using System.Drawing;
 using SubSys_MathUtility;
 using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving.TrafficModel;
+using SubSys_SimDriving.Agents;
 using SubSys_SimDriving.SysSimContext.Service;
 
 namespace SubSys_SimDriving
@@ -9,7 +11,7 @@ namespace SubSys_SimDriving
     /// <summary>
     /// 观察者模式中的subject被观察者
     /// </summary>
-    public abstract class TrafficEntity : ITrafficEntity
+    public abstract  partial class TrafficEntity : ITrafficEntity
     {
         IService _IregService = new RegisterService();
         //服务管理器
@@ -23,7 +25,7 @@ namespace SubSys_SimDriving
         /// 调用服务的功能
         /// </summary>
         /// <param name="te"></param>
-        public virtual void InvokeServices(ITrafficEntity te)
+        public virtual void InvokeService(ITrafficEntity te)
         {
             foreach (IService item in this._serviceMgr)
             {
@@ -56,17 +58,22 @@ namespace SubSys_SimDriving
         protected int _id;
         private int _iWidth;
         private int _iLength;
-        private Point _rltPos;//元胞坐标系
-
-        private MyPoint _position;
-        //private Point _screanPos;
-        //public Point scrnPos
-        //{
-        //    get { return _screanPos; }
-        //    set { _screanPos = value; }
-        //}
+        
+        //元胞坐标系
+        private Point _pntGrid;
+       
         private EntityType _entityType;
 
+           /// <summary>
+        /// 元胞坐标系,过时，建议使用spaceGrid
+        /// </summary>
+        public virtual Point Grid
+        {
+            get { return _pntGrid; }
+            set { _pntGrid = value; }
+        }
+        
+     
         /// <summary>
         /// 用元胞个数计算的实体的宽度，实际宽度等于iWidth*元胞代表的距离
         /// </summary>
@@ -83,22 +90,19 @@ namespace SubSys_SimDriving
             get { return _iLength; }
             set { _iLength = value; }
         }
-        public EntityType EntityType
+        public virtual EntityType EntityType
         {
             get { return _entityType; }
             set { _entityType = value; }
         }
+      
         /// <summary>
         /// 对于RoadNode该坐标为以元胞长度为单位的相对坐标，该坐标为屏幕坐标
         /// 除以元胞的GUI长度
         /// 对于RoadLane和RoadEdge以及Cell，该坐标X为相对于起点RoadNode的元胞个数
         /// Y为相对于起点RoadNode的偏移（即第几个车道）
         /// </summary>
-        public virtual Point RelativePosition
-        {
-            get { return _rltPos; }
-            set { _rltPos = value; }
-        }
+        
         public ISimContext ISimCtx
         {
             get { return SimContext.GetInstance(); }
@@ -110,10 +114,14 @@ namespace SubSys_SimDriving
             {
                 return this._id;
             }
-
         }
 
-        public MyPoint gisPos
+        #region 未来兼容GIS
+        private OxyzPointF _position;
+        /// <summary>
+        /// 未来兼容GIS系统预留的GIS坐标系
+        /// </summary>
+        public OxyzPointF GISPosition
         {
             get
             {
@@ -125,6 +133,8 @@ namespace SubSys_SimDriving
             }
         }
 
+        #endregion
+        
         private EntityShape _entityShape = new EntityShape();
         private ITrafficEntity _container;
 
@@ -152,7 +162,6 @@ namespace SubSys_SimDriving
                     return this._container;
                 }
                 throw new System.Exception("目标函数没有注册");
-                //ThrowHelper.ThrowArgumentNullException(ExceptionArgument.obj);
             }
             set
             {
@@ -160,6 +169,10 @@ namespace SubSys_SimDriving
             }
         }
         private string _strName;
+        
+        /// <summary>
+        /// 交通实体的名称、道路名、交叉口名等
+        /// </summary>
         public string Name
         {
             get
@@ -172,7 +185,7 @@ namespace SubSys_SimDriving
             }
         }
 
-        public virtual MyPoint ToVector()
+        public virtual OxyzPointF ToVector()
         {
             throw new System.NotImplementedException();
         }
@@ -180,7 +193,95 @@ namespace SubSys_SimDriving
         #endregion
 
 
+        #region 状态更新函数
+      
+              /// <summary>
+        /// 存储边上定义的异步更新的规则
+        /// </summary>
+        internal AsynchronicAgents asynAgents = new AsynchronicAgents();
 
+        /// <summary>
+        /// 存储边上定义的同步更新的规则
+        /// </summary>
+        internal SynchronicAgents synAgents = new SynchronicAgents();
+
+        /// <summary>
+        /// 过时的，原有的调用函数、调用所有的访问者，进行内部元胞的更新
+        /// </summary>
+        public virtual void UpdateStatus() 
+        {
+            this.OnStatusChanged();
+        }
+        protected virtual void OnStatusChanged()
+        {
+        	throw new NotImplementedException("调用了基类的状态改变函数是不对的");
+        }
+        
+        
+
+        /// <summary>
+        ///RoadEdge是item ，Agent是visitor 相当于item.accept(visitor)
+        /// </summary>
+        /// <param name="ur"></param>
+        public void AcceptSynAgent(Agents.AbstractAgent ur)
+        {
+            if (ur != null)
+            {
+                //添加到仿真上下文
+                this.ISimCtx.Agents.Add(ur.GetHashCode(), ur);
+                this.synAgents.Add(ur);
+            }
+            else
+            {
+                throw new ArgumentNullException("空的更新规则");
+            }
+        }
+        /// <summary>
+        /// 添加异步更新规则
+        /// </summary>
+        /// <param name="ur"></param>
+        public void AcceptAsynAgent(Agents.AbstractAgent ur)
+        {
+            if (ur != null)
+            {
+                //添加到仿真上下文
+                this.ISimCtx.Agents.Add(ur.GetHashCode(), ur);
+                this.asynAgents.Add(ur);
+            }
+            else
+            {
+                throw new ArgumentNullException("空的更新规则");
+            }
+        }
+        #endregion
+        
+ 
+    }
+    
+    
+    /// <summary>
+    /// 2015年1月19日更新，新增加的内容。
+    /// </summary>
+    public abstract partial class TrafficEntity:ITrafficEntity
+    {
+    	  //3d元胞空间
+        private OxyzPoint _oxyzGrid;
+        /// <summary>
+        /// 3d元胞空间，为了扩展GIS做准备
+        /// </summary>
+         public virtual  OxyzPoint SpatialGrid
+          {
+         	get { return this._oxyzGrid; }
+             set { _oxyzGrid = value; }
+        }
+       
+         /// <summary>
+         /// 用来替代updatestatus
+         /// </summary>
+         public virtual void Update()
+         {
+         	ThrowHelper.ThrowArgumentException("需要手动实现该函数");
+         }
     }
 }
  

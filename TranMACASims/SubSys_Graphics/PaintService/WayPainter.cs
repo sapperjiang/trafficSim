@@ -12,11 +12,11 @@ using SubSys_SimDriving.SysSimContext.Service;
 namespace SubSys_Graphics
 {
     /// <summary>
-    /// 调用RoadLane来绘制自身
+    /// 道路的绘制调用Lane来绘制自身
     /// </summary>
-    public class RoadEdgePainter : AbstractPainter
+    public class WayPainter : AbstractPainter
     {
-        public RoadEdgePainter(System.Windows.Forms.Control fr)
+        public WayPainter(System.Windows.Forms.Control fr)
         {
             this.Canvas = fr;
             this.graphic = fr.CreateGraphics();
@@ -25,18 +25,18 @@ namespace SubSys_Graphics
  
         protected override void SubPerform(ITrafficEntity tVar)
         {
-            IService rp = PainterManager.GetService(PaintServiceType.RoadLane, this.Canvas);
-            RoadEdge re = tVar as RoadEdge;
+            IService rp = PainterManager.GetService(PaintServiceType.Lane, this.Canvas);
+            Way way = tVar as Way;
 
             //先画一个车道
-            foreach (var lane in re.Lanes)
+            foreach (var lane in way.Lanes)
             {
                 rp.Perform(lane);
             }
             
            //画一个双黄线
-            Point pa = Coordinates.Project(re.Shape.Start.ToPoint(), GraphicsConfiger.iCellPixels);            
-            Point pB = Coordinates.Project(re.Shape.End.ToPoint(), GraphicsConfiger.iCellPixels);
+            Point pa = Coordinates.Project(way.Shape.Start.ToPoint(), GraphicsConfiger.iCellPixels);            
+            Point pB = Coordinates.Project(way.Shape.End.ToPoint(), GraphicsConfiger.iCellPixels);
             
             graphic.DrawLine(new Pen(new SolidBrush(Color.Yellow),2), pa, pB);
 

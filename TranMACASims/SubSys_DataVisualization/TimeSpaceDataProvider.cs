@@ -17,9 +17,9 @@ namespace SubSys_DataVisualization
             this.strHeaderTitle = "时空图";
 
         }
-        internal override MyPoint GetDataPoint(CarInfo ciq)
+        internal override OxyzPointF GetDataPoint(CarInfo ciq)
         {
-            return new MyPoint(ciq.iTimeStep, ciq.iPos * this.iCellMeters);
+            return new OxyzPointF(ciq.iTimeStep, ciq.iPos * this.iCellMeters);
         }
 
     }

@@ -18,6 +18,9 @@ namespace SubSys_SimDriving.SysSimContext.Service
 
     public abstract class Service : IService
     {
+    	/// <summary>
+    	/// 服务运行的开关变量
+    	/// </summary>
         public static bool IsServiceUp = true;
         private bool _isRunning = true;
         /// <summary>

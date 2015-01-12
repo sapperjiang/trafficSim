@@ -13,15 +13,21 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <DocumentationFile>bin\SubSys_SimDriving.xml</DocumentationFile>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>1</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +36,17 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp">
@@ -93,30 +110,33 @@
     <Compile Include="SysSimContext\VMSHTable.cs" />
     <Compile Include="SysSimContext\IDataRecorder.cs" />
     <Compile Include="SimSettings.cs" />
-    <Compile Include="TrafficModel\AdjacencyTable.cs" />
     <Compile Include="TrafficModel\CarModel.cs" />
+    <Compile Include="TrafficModel\MobileFactory.cs" />
     <Compile Include="TrafficModel\CarStatus.cs" />
     <Compile Include="TrafficModel\Cell.cs" />
-    <Compile Include="TrafficModel\CellLinkedQueue.cs" />
     <Compile Include="TrafficModel\CellMatrix.cs" />
-    <Compile Include="TrafficModel\ChainBaseClass.cs" />
+    <Compile Include="TrafficModel\dataStructure\AbstractChain.cs" />
+    <Compile Include="TrafficModel\dataStructure\AdjacencyTable.cs" />
+    <Compile Include="TrafficModel\dataStructure\CarInfoQueue.cs" />
+    <Compile Include="TrafficModel\dataStructure\CellLinkedQueue.cs" />
+    <Compile Include="TrafficModel\dataStructure\HashMatrix.cs" />
+    <Compile Include="TrafficModel\dataStructure\LaneChain.cs" />
+    <Compile Include="TrafficModel\dataStructure\WaitQueue.cs" />
     <Compile Include="TrafficModel\EntityIDManager.cs" />
     <Compile Include="TrafficModel\EntityStatus.cs" />
     <Compile Include="TrafficModel\EntityType.cs" />
     <Compile Include="TrafficModel\IntIDManager.cs" />
-    <Compile Include="TrafficModel\IRoadNetWork.cs" />
+    <Compile Include="TrafficModel\IRoadNet.cs" />
     <Compile Include="TrafficModel\ITrafficEntity.cs" />
     <Compile Include="TrafficModel\LaneType.cs" />
     <Compile Include="TrafficModel\MobileEntity.cs" />
-    <Compile Include="TrafficModel\MyPoint.cs" />
+    <Compile Include="TrafficModel\CarTrack.cs" />
     <Compile Include="TrafficModel\Road.cs" />
-    <Compile Include="TrafficModel\RoadEdge.cs" />
-    <Compile Include="TrafficModel\RoadEntity.cs" />
-    <Compile Include="TrafficModel\RoadLane.cs" />
-    <Compile Include="TrafficModel\RoadLaneChain.cs" />
-    <Compile Include="TrafficModel\RoadNetWork.cs" />
-    <Compile Include="TrafficModel\RoadNode.cs" />
-    <Compile Include="TrafficModel\RoadNodeStatus.cs" />
+    <Compile Include="TrafficModel\Way.cs" />
+    <Compile Include="TrafficModel\StaticEntity.cs" />
+    <Compile Include="TrafficModel\Lane.cs" />
+    <Compile Include="TrafficModel\RoadNet.cs" />
+    <Compile Include="TrafficModel\XNode.cs" />
     <Compile Include="TrafficModel\SignalLight.cs" />
     <Compile Include="TrafficModel\SpeedLevel.cs" />
     <Compile Include="TrafficModel\SpeedLimit.cs" />
@@ -125,12 +145,9 @@
     <Compile Include="TrafficModel\VMSEntity.cs" />
     <Compile Include="TrafficModel\VMSStatus.cs" />
     <Compile Include="TrafficModel\CarInfo.cs" />
-    <Compile Include="TrafficModel\HashMatrix.cs" />
     <Compile Include="TrafficModel\EntityShape.cs" />
     <Compile Include="ThrowHelper.cs" />
-    <Compile Include="TrafficModel\WaitQueue.cs" />
-    <Compile Include="TrafficModel\CellRunCtx.cs" />
-    <Compile Include="TrafficModel\CarInfoQueue.cs" />
+    <Compile Include="TrafficModel\RunCtx.cs" />
     <Compile Include="ModelSetting.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TrafficModel\dataStructure" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

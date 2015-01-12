@@ -14,13 +14,14 @@ namespace SubSys_SimDriving.TrafficModel
    
     /// <summary>
     /// 使用矩阵类型的结构意味着不支持五路交叉.环路的支持有待讨论，三路交叉是支持的
+    /// 表示道路交叉口的类
     /// </summary>
-    public class RoadNode : RoadEntity
+    public class XNode : TrafficEntity
     {
         /// <summary>
         /// 路段转化为中心坐标点,iahead  不应当小于零
         /// </summary>
-        private Point MakeCenterXY(RoadLane rl, int iAhead)
+        private Point MakeCenterXY(Lane rl, int iAhead)
         {
             return new Point(rl.Rank, iAhead - SimSettings.iMaxLanes);
         }
@@ -32,7 +33,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// <summary>
         /// 判断指定车道前部第Ahead个位置处是否有元胞占据
         /// </summary>
-        internal bool IsBlocked(RoadLane rl, int iAhead)
+        internal bool IsBlocked(Lane rl, int iAhead)
         {
             Point irltXY = this.MakeCenterXY(rl,iAhead);
             Point iRealXY = Coordinates.GetRealXY(irltXY,rl.ToVector());
@@ -52,7 +53,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// 将车道堵塞
         /// </summary>
         /// <param name="rl"></param>
-        internal void BlockLane(RoadLane rl)
+        internal void BlockLane(Lane rl)
         {
             if (rl == null)
             {
@@ -67,7 +68,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// 将车道疏通
         /// </summary>
         /// <param name="rl"></param>
-        internal void UnblockLane(RoadLane rl)
+        internal void UnblockLane(Lane rl)
         {
             if (rl == null)
             {
@@ -81,7 +82,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// 判断第x个车道前面是否有iAheadSpace个车辆
         /// </summary>
         /// <returns></returns>
-        internal bool IsLaneBlocked(RoadLane rl, int iAheadSpace)
+        internal bool IsLaneBlocked(Lane rl, int iAheadSpace)
         {
             bool isBlocked = false;
             for (int i = 1; i <= iAheadSpace; i++)
@@ -93,7 +94,7 @@ namespace SubSys_SimDriving.TrafficModel
             return isBlocked;
         }
 
-        internal bool IsLaneBlocked(RoadLane rl)
+        internal bool IsLaneBlocked(Lane rl)
         {
             return this.IsBlocked(rl, 1);
         }
@@ -103,7 +104,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// <summary>
         /// 为红绿灯添加准备的方法，不是正常的元胞
         /// </summary>
-        private void AddCell(RoadLane rl, int iAheadSpace)
+        private void AddCell(Lane rl, int iAheadSpace)
         {
             Point ipt = this.MakeCenterXY(rl, 1);
             ipt = Coordinates.GetRealXY(ipt, rl.ToVector());
@@ -142,7 +143,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// </summary>
         /// <param name="rl">旋转坐标系所要用到的计算旋转角度的向量</param>
         /// <param name="iAheadSpace">前行距离数</param>
-        internal bool RemoveCell(RoadLane rl, int iAheadSpace)
+        internal bool RemoveCell(Lane rl, int iAheadSpace)
         {
             Point ipt = this.MakeCenterXY(rl, 1);
             Point iRealIndex = Coordinates.GetRealXY(ipt, rl.ToVector());
@@ -150,7 +151,6 @@ namespace SubSys_SimDriving.TrafficModel
         }
         #endregion
        
-
         /// <summary>
         /// 新的roadnode的哈希散列值由其中心Position的哈希值和其ID构成
         /// </summary>
@@ -159,8 +159,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// <summary>
         /// 存贮本节点所有出边的哈希表，键值是代表边的RoadEdge哈希，值是代表RoadEdge
         /// </summary>
-        private Dictionary<int, RoadEdge> dicEdge = new Dictionary<int,RoadEdge>();
-
+        private Dictionary<int, Way> dicEdge = new Dictionary<int,Way>();
 
         internal Cell this[int index]
         {
@@ -198,18 +197,18 @@ namespace SubSys_SimDriving.TrafficModel
         /// 注意在出边表中，保持roadedge的from字段是this节点，否则函数抛出异常
         /// </summary>
         /// <param name="roadEdge"></param>
-        internal void AddRoadEdge(RoadEdge roadEdge)
+        internal void AddWay(Way way)
         {
-            if (roadEdge != null)
+            if (way != null)
             {
-                if (!Contains(roadEdge.GetHashCode()))
+                if (!Contains(way.GetHashCode()))
                 {
                     //加入判断是否是当前点的出边的信息防止出错
-                    if (roadEdge.roadNodeFrom !=this)
+                    if (way.XNodeFrom !=this)
                     {
                         throw new Exception("添加了不属于该顶点的边");
                     }
-                    dicEdge.Add(roadEdge.GetHashCode(), roadEdge);
+                    dicEdge.Add(way.GetHashCode(), way);
                 }
                 else
                 {
@@ -225,7 +224,7 @@ namespace SubSys_SimDriving.TrafficModel
         /// 找到边 从this到toNode节点的边，出边表
         /// </summary>
         /// <param name="fromRN"></param>
-        internal void RemoveEdge(RoadEdge re)
+        internal void RemoveWay(Way re)
         {
             if (re == null )
             {
@@ -233,13 +232,13 @@ namespace SubSys_SimDriving.TrafficModel
             }
             dicEdge.Remove(re.GetHashCode());
         }
-        internal void RemoveEdge(RoadNode toRN)
+        internal void RemoveWay(XNode toRN)
         {
             if (toRN == null)
             {
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.obj);
             }
-            dicEdge.Remove(RoadEdge.GetHashCode(this,toRN));
+            dicEdge.Remove(Way.GetHashCode(this,toRN));
         }
   
         /// <summary>
@@ -247,9 +246,9 @@ namespace SubSys_SimDriving.TrafficModel
         /// </summary>
         /// <param name="toRoadNode">出节点</param>
         /// <returns></returns>
-        public RoadEdge FindRoadEdge(RoadNode toRoadNode)
+        public Way FindWay(XNode toRoadNode)
         {
-            int iHashkey = RoadEdge.GetHashCode(this,toRoadNode);
+            int iHashkey = Way.GetHashCode(this,toRoadNode);
             if (dicEdge.ContainsKey(iHashkey))
             {
                 return dicEdge[iHashkey];
@@ -268,30 +267,29 @@ namespace SubSys_SimDriving.TrafficModel
         /// </summary>
         private static int iRoadNodeID;
         [System.Obsolete("使用有参数的构造函数")]
-        internal RoadNode()
+        internal XNode()
         {
             this._id = ++iRoadNodeID;
             Random rd = new Random();
 
-            this.gisPos = new MyPoint(rd.Next(65535), rd.Next(65535));
-            /// 直接使用上下文的数据结构,bug不应当使用上下文结构
-            if (this.gisPos._X == 0.0f && this.gisPos._Y == 0.0f)
+            this.GISPosition = new OxyzPointF(rd.Next(65535), rd.Next(65535));
+            // 直接使用上下文的数据结构,bug不应当使用上下文结构
+            if (this.GISPosition._X == 0.0f && this.GISPosition._Y == 0.0f)
             {
-                throw new Exception("RoadNode产生了零坐标！");
+            	ThrowHelper.ThrowArgumentNullException("RoadNode产生了零坐标！");
             }
         }
-        internal RoadNode(Point rltPostion)
+        internal XNode(Point rltPostion)
         {
-//        	this.na
             this._id = ++iRoadNodeID;
             Random rd = new Random();
-            this.RelativePosition = rltPostion;
-            this.gisPos = new MyPoint(rd.Next(65535), rd.Next(65535));
+            this.Grid = rltPostion;
+            this.GISPosition = new OxyzPointF(rd.Next(65535), rd.Next(65535));
         }
         
         public override int GetHashCode()
         {
-            int iHash = this.gisPos.GetHashCode() +this.ID.GetHashCode();
+            int iHash = this.GISPosition.GetHashCode() +this.ID.GetHashCode();
             return iHash.GetHashCode();
         }
         /// <summary>
@@ -302,7 +300,7 @@ namespace SubSys_SimDriving.TrafficModel
             //更新异步agent，如果有的话
             for (int i = 0; i < this.asynAgents.Count; i++)
             {
-                Agent visitor = this.asynAgents[i];
+                AbstractAgent visitor = this.asynAgents[i];
                 visitor.VisitUpdate(this);//.VisitUpdate();
             }
             
@@ -311,17 +309,12 @@ namespace SubSys_SimDriving.TrafficModel
             {
                 this[item].Drive(this);
             }
-
-            //foreach (int i = 0; i < this.Keys.Count; i++)
-            //{
-            //    this[this.Keys[i]].Drive(this);
-            //}
             base.UpdateStatus();//基类调用了OnStatusChanged 进行绘图服务
         }
 
         protected override void OnStatusChanged()
         {
-            this.InvokeServices(this);
+            this.InvokeService(this);
         }
     }
 }

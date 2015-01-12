@@ -22,20 +22,20 @@ namespace SubSys_SimDriving.SysSimContext.Service
                 ISimContext ISimCtx = SimContext.GetInstance();
                    #region
 
-                RoadEdge re = tVar as RoadEdge;
+                Way re = tVar as Way;
                 if (re != null)
                 {
-                    re.EntityType = EntityType.RoadEdge;
-                    re.RelativePosition = new Point(0,0);
+                    re.EntityType = EntityType.Way;
+                    re.Grid = new Point(0,0);
                     //直角坐标情况下，使用端点长度来衡量路段的长度
                    
-                    re.Container = RoadNetWork.GetInstance();
+                    re.Container = RoadNet.GetInstance();
 
                     //两个端点已经注册的情况下才允许注册
-                    if (ISimCtx.NetWork.FindRoadNode(re.roadNodeTo) != null
-                        && ISimCtx.NetWork.FindRoadNode(re.roadNodeFrom) != null)
+                    if (ISimCtx.RoadNet.FindXNode(re.xNodeTo) != null
+                        && ISimCtx.RoadNet.FindXNode(re.XNodeFrom) != null)
                     {
-                        ISimCtx.NetWork.RoadEdgeList.Add(re.GetHashCode(), re);
+                        ISimCtx.RoadNet.htWays.Add(re.GetHashCode(), re);
                     }
                     else
                     {
@@ -44,31 +44,31 @@ namespace SubSys_SimDriving.SysSimContext.Service
                     return;
                 }
 
-                RoadNode rn = tVar as RoadNode;///道路节点的注册服务比较特殊，
+                XNode rn = tVar as XNode;///道路节点的注册服务比较特殊，
 
                 if (rn != null)
                 {
-                    rn.EntityType = EntityType.RoadNode;
+                    rn.EntityType = EntityType.XNode;
                     rn.iLength = SimSettings.iMaxLanes * 2;//2倍的矩形
                     rn.iWidth = rn.iLength;//长宽相等的矩形
 
-                    rn.Container = RoadNetWork.GetInstance();
+                    rn.Container = RoadNet.GetInstance();
 
                     ///内部邻接表使用了roadnodelist不需要二次注册
                     //(SimCtx.NetWork as IRoadNetWork).AddRoadNode(rn);
                     return;
                 }
-                RoadLane rl = tVar as RoadLane;
+                Lane rl = tVar as Lane;
                 if (rl != null)
                 {
-                    rl.EntityType = EntityType.RoadLane;
-                    rl.RelativePosition = new Point(0, 0);
+                    rl.EntityType = EntityType.Lane;
+                    rl.Grid = new Point(0, 0);
                     //rl.Container = 
                     //检查RoadEdge是否正常注册了
-                    RoadEdge roadE = ISimCtx.NetWork.FindRoadEdge(rl.Container.GetHashCode());//.From, rl.Container.To);
+                    Way roadE = ISimCtx.RoadNet.FindWay(rl.Container.GetHashCode());//.From, rl.Container.To);
                     if (roadE != null)
                     {
-                        ISimCtx.NetWork.RoadLanes.Add(rl.GetHashCode(), rl);
+                        ISimCtx.RoadNet.htLanes.Add(rl.GetHashCode(), rl);
                     }
                     else
                     {
@@ -81,7 +81,7 @@ namespace SubSys_SimDriving.SysSimContext.Service
             if (sg != null)
             {
                 sg.EntityType = EntityType.SignalLight;
-                sg.RelativePosition = new Point(0, 0);
+                sg.Grid = new Point(0, 0);
                 ISimCtx.SignalLights.Add(sg.GetHashCode(), sg);
                 return;
             }
@@ -89,7 +89,7 @@ namespace SubSys_SimDriving.SysSimContext.Service
             if (ve != null)
             {
                 ve.EntityType = EntityType.VMSEntity;
-                ve.RelativePosition = new Point(0, 0);
+                ve.Grid = new Point(0, 0);
                 ISimCtx.VMSEntities.Add(sg.GetHashCode(), ve);
                 return;
             }
@@ -98,8 +98,8 @@ namespace SubSys_SimDriving.SysSimContext.Service
             Car cm = tVar as Car;
             if (cm != null)
             {
-                cm.EntityType = EntityType.CarModel;
-                cm.RelativePosition = new Point(0,0);
+                cm.EntityType = EntityType.Mobile;
+                cm.Grid = new Point(0,0);
 
                 ISimCtx.CarModels.Add(cm.GetHashCode(), cm);
                 return;
@@ -121,32 +121,32 @@ namespace SubSys_SimDriving.SysSimContext.Service
 
                 ISimContext isc = SimContext.GetInstance();
 
-            RoadEdge re = tVar as RoadEdge;//反注册
+            Way re = tVar as Way;//反注册
             if (re != null)
             {
                 ///两个端点已经注册的情况下才允许反注册
-                RoadNode from = isc.NetWork.FindRoadNode(re.roadNodeFrom);
-                RoadNode to = isc.NetWork.FindRoadNode(re.roadNodeTo);
+                XNode from = isc.RoadNet.FindXNode(re.XNodeFrom);
+                XNode to = isc.RoadNet.FindXNode(re.xNodeTo);
                 if ( from!=null&& to != null)
                 {
                     foreach (var lane in re.Lanes)//反注册掉内部所有lanes
                     {
                         lane.UnRegiser();
                     }//然后反注册掉自己
-                    isc.NetWork.RoadEdgeList.Remove(re.GetHashCode());
+                    isc.RoadNet.htWays.Remove(re.GetHashCode());
                 }
                 return;
             }
-            RoadNode rn = tVar as RoadNode;//内部使用邻接矩阵反注册
+            XNode rn = tVar as XNode;//内部使用邻接矩阵反注册
             if (rn != null)
             {
-                isc.NetWork.RoadNodeList.Remove(rn.GetHashCode()); return;
+                isc.RoadNet.htXNodes.Remove(rn.GetHashCode()); return;
             }
                
-            RoadLane rl = tVar as RoadLane;
+            Lane rl = tVar as Lane;
             if (rl != null)
             {
-                isc.NetWork.RoadLanes.Remove(rl.GetHashCode());
+                isc.RoadNet.htLanes.Remove(rl.GetHashCode());
                 return;
             }
 

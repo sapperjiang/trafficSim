@@ -5,7 +5,7 @@ using SubSys_SimDriving.TrafficModel;
 
 namespace SubSys_SimDriving.Agents
 {
-	public class SignalLightAgent : Agent
+	public class SignalLightAgent : AbstractAgent
 	{
         internal SignalLightAgent()
         {
@@ -14,15 +14,15 @@ namespace SubSys_SimDriving.Agents
             //this.agentType = AgentType.Synchronization;
         }
 
-        internal override void VisitUpdate(RoadEdge roadEdge)
+        internal override void VisitUpdate(Way roadEdge)
         {
             if (roadEdge == null)
             {
                 throw new System.ArgumentNullException("访问者模式访问对象不能为空，RoadEntity没有赋值！");
             }
-            foreach (RoadLane rl in roadEdge.Lanes)
+            foreach (Lane rl in roadEdge.Lanes)
             {
-                rl.PlaySignal(SimContext.iCurrTimeStep);
+                rl.PlaySignal(simContext.iCurrTimeStep);
             }
         }
 
@@ -30,12 +30,12 @@ namespace SubSys_SimDriving.Agents
         /// 信号灯更新的方法
         /// </summary>
         /// <param name="rN"></param>
-        internal override void VisitUpdate(RoadNode rN)
+        internal override void VisitUpdate(XNode rN)
         {
-            RoadEdge reverse = null;
-            foreach (RoadEdge re in rN.RoadEdges)
+            Way reverse = null;
+            foreach (Way re in rN.RoadEdges)
             {   //找到反向的边
-                reverse = RoadNet.FindRoadEdge(re.roadNodeTo, re.roadNodeFrom);
+                reverse = roadNet.FindWay(re.xNodeTo, re.XNodeFrom);
                 System.Diagnostics.Debug.Assert(reverse != null);
                 if (reverse!=null)
                 {

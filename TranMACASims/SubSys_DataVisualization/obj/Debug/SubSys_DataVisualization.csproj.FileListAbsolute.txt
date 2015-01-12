@@ -16,3 +16,4 @@ Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_
 Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.csprojResolveAssemblyReference.cache
 Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.dll
 Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\obj\Debug\SubSys_DataVisualization.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_DataVisualization\bin\Debug\SubSys_SimDriving.xml

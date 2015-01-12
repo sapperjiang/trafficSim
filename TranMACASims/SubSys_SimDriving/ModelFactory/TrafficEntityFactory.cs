@@ -5,22 +5,22 @@ using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving.Agents;
 using System.Drawing;
 
-namespace SubSys_SimDriving.ModelFactory
+namespace SubSys_SimDriving
 {
-    public class TrafficEntityFactory:IAbstractFactory
+    public partial class StaticFactory:IFactory
     {
-        public Agent BuildAgent(BuildCommand bc, AgentType et)
+        public AbstractAgent Build(BuildCommand bc, AgentType et)
         {
             throw new NotImplementedException();
         }
 
         [System.Obsolete("注意修改函数")]
-        public TrafficEntity BuildEntity(BuildCommand bc, EntityType et)
+        public TrafficEntity Build(BuildCommand bc, EntityType et)
         {
             switch (et)
             {
-                case EntityType.RoadNetWork:
-                    return RoadNetWork.GetInstance();
+                case EntityType.RoadNet:
+                    return RoadNet.GetInstance();
                     //break;
                 case EntityType.SignalLight:
                     return new SignalLight();
@@ -31,38 +31,23 @@ namespace SubSys_SimDriving.ModelFactory
                 case EntityType.Road:
                     return new Road();
                 
-                case EntityType.RoadNode:
-                    RoadNodeBuildCommand rn = bc as RoadNodeBuildCommand;
-                    return new RoadNode(rn.rltPos);
+                case EntityType.XNode:
+                    XNodeBuildCmd rn = bc as XNodeBuildCmd;
+                    return new XNode(rn.rltPos);
 
-                case EntityType.RoadEdge:
+                case EntityType.Way:
                     //return new RoadEdge();
                     throw new NotImplementedException("无法创建参数指定的构造型");
 
-                //RoadEdgeBuildCommand rbc = bc as RoadEdgeBuildCommand; 
-                    //for (int i = 0; i < rbc.iLeftCount; i++)//左。
-                    //    {
-                    //        rd.RoadEdge.AddLane(LaneType.Left);
-                    //    }
-                    //    for (int i = 0; i < rbc.iStraightCount; i++)//直行
-                    //    {
-                    //        rd.RoadEdge.AddLane(LaneType.Straight);
-                    //    }
-                    //    for (int i = 0; i < rbc.iRightCount; i++)//右转
-                    //    {
-                    //        rd.RoadEdge.AddLane(LaneType.Right);
-                    //    }
-                    //break;
-
-                case EntityType.RoadLane:
-                    RoadLaneBuildCommand rlbc= bc as RoadLaneBuildCommand;
+                case EntityType.Lane:
+                    LaneBuildCmd rlbc= bc as LaneBuildCmd;
                     if (rlbc == null)
                     {
-                        return new RoadLane(LaneType.StraightRight);
+                        return new Lane(LaneType.StraightRight);
                     }
                     else
                     {
-                        return new RoadLane(rlbc.laneType);
+                        return new Lane(rlbc.laneType);
                     }
                 default:
                     break;
@@ -71,7 +56,7 @@ namespace SubSys_SimDriving.ModelFactory
         }
     }
 
-    public class RoadEdgeFacory //: AbstractModelFactory
+    public class WayFactory//: AbstractModelFactory
     {
  
  /// <summary>
@@ -83,10 +68,10 @@ namespace SubSys_SimDriving.ModelFactory
  /// <param name="iStraightCount">直行车道数</param>
  /// <param name="iRightCount">右转车道数</param>
  /// <returns></returns>
-        public static RoadEdge BuildOneWay(Point start,Point end,int iLeftCount, int iStraightCount, int iRightCount)
+        public static Way BuildOneWay(Point start,Point end,int iLeftCount, int iStraightCount, int iRightCount)
         {
 
-        	RoadEdge  re=new RoadEdge(start,end);// eModelFactory.b
+        	Way  re=new Way(start,end);// eModelFactory.b
 
             for (int i = 0; i < iLeftCount; i++)//左。
             {
@@ -110,7 +95,7 @@ namespace SubSys_SimDriving.ModelFactory
         /// <param name="iStraightCount"></param>
         /// <param name="iRightCount"></param>
         /// <returns></returns>
-        public static void BuildTwoWay(RoadEdge re,int iLeftCount,int iStraightCount,int iRightCount)
+        public static void BuildTwoWay(Way re,int iLeftCount,int iStraightCount,int iRightCount)
         {
             if(iLeftCount+iStraightCount+iRightCount >=SimSettings.iMaxLanes)
             {
@@ -148,9 +133,9 @@ namespace SubSys_SimDriving.ModelFactory
 
     public class RoadBuildCommand:BuildCommand
     {
-        public RoadEdgeBuildCommand RoadEdgeCmd;
-        public RoadEdgeBuildCommand CtrRoadEdgeCmd;
-        public RoadBuildCommand(RoadEdgeBuildCommand re,RoadEdgeBuildCommand ctrRe)
+        public WayBuildCommand RoadEdgeCmd;
+        public WayBuildCommand CtrRoadEdgeCmd;
+        public RoadBuildCommand(WayBuildCommand re,WayBuildCommand ctrRe)
         {
             this.RoadEdgeCmd = re;
             this.CtrRoadEdgeCmd = ctrRe;
@@ -162,37 +147,37 @@ namespace SubSys_SimDriving.ModelFactory
         }
     }
 
-    public class RoadLaneBuildCommand : BuildCommand
+    public class LaneBuildCmd : BuildCommand
     {
         public LaneType laneType;
-        public RoadLaneBuildCommand(LaneType ltLaneType)
+        public LaneBuildCmd(LaneType ltLaneType)
         {
             this.laneType = ltLaneType;
         }
-        public RoadLaneBuildCommand()
+        public LaneBuildCmd()
         {
             this.laneType = LaneType.Straight;
         }
     }
-    public class RoadNodeBuildCommand : BuildCommand
+    public class XNodeBuildCmd : BuildCommand
     {
         public Point rltPos;
-        public RoadNodeBuildCommand(Point p)
+        public XNodeBuildCmd(Point p)
         {
             this.rltPos = p;
         }
      
     }
-    public class RoadEdgeBuildCommand : BuildCommand
+    public class WayBuildCommand : BuildCommand
     {
-        public List<RoadLaneBuildCommand> CmdList = new List<RoadLaneBuildCommand>();
+        public List<LaneBuildCmd> CmdList = new List<LaneBuildCmd>();
 
-        public RoadNode from;
-        public RoadNode to;
+        public XNode from;
+        public XNode to;
 
-        public RoadEdgeBuildCommand() { }
+        public WayBuildCommand() { }
 
-        public RoadEdgeBuildCommand(RoadNode from, RoadNode to)
+        public WayBuildCommand(XNode from, XNode to)
         {
             if (from == null || to == null)
             {
@@ -206,14 +191,16 @@ namespace SubSys_SimDriving.ModelFactory
 
     public class CommandBuilder 
     {
-       public static RoadEdgeBuildCommand BuildStanderdRoadEdge()
+       public static WayBuildCommand BuildStanderdRoadEdge()
        {
-            RoadEdgeBuildCommand reb = new RoadEdgeBuildCommand();
-            reb.CmdList.Add(new RoadLaneBuildCommand(LaneType.Left));
-            reb.CmdList.Add(new RoadLaneBuildCommand(LaneType.StraightRight));
-            reb.CmdList.Add(new RoadLaneBuildCommand(LaneType.Right));
+            WayBuildCommand reb = new WayBuildCommand();
+            reb.CmdList.Add(new LaneBuildCmd(LaneType.Left));
+            reb.CmdList.Add(new LaneBuildCmd(LaneType.StraightRight));
+            reb.CmdList.Add(new LaneBuildCmd(LaneType.Right));
             return reb;
        }
     }
+    
+    
 
 }

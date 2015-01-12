@@ -245,7 +245,7 @@ namespace PluginTest
                 //ÏÔÊ¾·ÂÕæ´°¿Ú
                 //scConvas.Show();
                 this.convas.Show();
-                SimController.Start();
+                SimController.Run();
                 Handled = true;
                 TBTN_Config.Enabled = false;
                 TBTN_Pause.Enabled = true;
@@ -277,7 +277,7 @@ namespace PluginTest
                 } cs.Dispose();
 
              
-                SimController.ConfigSimEnvironment(this.convas);
+//                SimController.ConfigSimEnvironment(this.convas);
                 TBTN_Config.Enabled = false;
                 TBTN_Pause.Enabled = true;
 

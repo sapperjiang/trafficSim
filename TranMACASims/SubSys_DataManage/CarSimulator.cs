@@ -7,18 +7,18 @@ using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving.TrafficModel;
 using SubSys_SimDriving.RoutePlan;
 
-namespace SubSys_DataManage
+namespace SubSys_SimDriving.TrafficModel
 {
     public class CarSimulator
     {
 
-        static ISimContext isc = SimContext.GetInstance();
+     //   static ISimContext isc = SimContext.GetInstance();
 
         internal static Color GetRandomColor()
         {
             Random RandomNum_First = new Random((int)DateTime.Now.Ticks);
             //  对于C#的随机数，没什么好说的
-            System.Threading.Thread.Sleep(RandomNum_First.Next(50));
+       //     System.Threading.Thread.Sleep(RandomNum_First.Next(50));
             Random RandomNum_Sencond = new Random((int)DateTime.Now.Ticks);
             //  为了在白色背景上显示，尽量生成深色
             int int_Red = RandomNum_First.Next(256);

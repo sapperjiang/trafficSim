@@ -5,22 +5,27 @@ using System.Collections.Generic;
 
 namespace SubSys_SimDriving.TrafficModel
 {
-    /// <summary>
+	/// <summary>
+	/// 用来表示道路一条边的数据结构
+	/// </summary>
        internal class Edge
     {
         internal string StartNodeID ;
         internal string EndNodeID   ;
         internal double Weight      ; //权值，代价        
     }
-    //节点则抽象成Node类，一个节点上挂着以此节点作为起点的“出边”表。
-    internal class Node
+   
+    /// <summary>
+    ///节点则抽象成Node类，一个节点上挂着以此节点作为起点的“出边”表。
+    /// </summary>
+    internal class GridNode
     {
         private string iD ;
-        private ArrayList edgeList ;//Edge的集合－－出边表
-        internal Node(string id )
+        private ArrayList _lsEdges ;//Edge的集合－－出边表
+        internal GridNode(string id )
      {
             this.iD = id ;
-            this.edgeList = new ArrayList() ;
+            this._lsEdges = new ArrayList() ;
         }
         
         #region property
@@ -35,7 +40,7 @@ namespace SubSys_SimDriving.TrafficModel
       {
             get
           {
-                return this.edgeList ;
+                return this._lsEdges ;
             }
         }
         #endregion
@@ -48,29 +53,29 @@ namespace SubSys_SimDriving.TrafficModel
     /// </summary>
     internal class PassedPath
     {
-        private string     curNodeID ;
-        private bool     beProcessed ;   //是否已被处理
-        private double     weight ;        //累积的权值
-        private ArrayList passedIDList ; //路径
+        private string     _currNodeID ;
+        private bool     _bProcessed ;   //是否已被处理
+        private double     _dWeight ;        //累积的权值
+        private ArrayList _lsPassedIDs ; //路径
 
         internal PassedPath(string ID)
         {
-            this.curNodeID = ID ;
-            this.weight    = double.MaxValue ;
-            this.passedIDList = new ArrayList() ;
-            this.beProcessed = false ;
+            this._currNodeID = ID ;
+            this._dWeight    = double.MaxValue ;
+            this._lsPassedIDs = new ArrayList() ;
+            this._bProcessed = false ;
         }
 
         #region property
-        internal bool BeProcessed
+        internal bool IsProcessed
         {
             get
             {
-                return this.beProcessed ;
+                return this._bProcessed ;
             }
             set
             {
-                this.beProcessed = value ;
+                this._bProcessed = value ;
             }
         }
 
@@ -78,7 +83,7 @@ namespace SubSys_SimDriving.TrafficModel
         {
             get
             {
-                return this.curNodeID ;
+                return this._currNodeID ;
             }
         }
 
@@ -86,11 +91,11 @@ namespace SubSys_SimDriving.TrafficModel
         {
             get
             {
-                return this.weight ;
+                return this._dWeight ;
             }
             set
             {
-                this.weight = value ;
+                this._dWeight = value ;
             }
         }
 
@@ -98,7 +103,7 @@ namespace SubSys_SimDriving.TrafficModel
         {
             get
             {
-                return this.passedIDList ;
+                return this._lsPassedIDs ;
             }
         }
         #endregion
@@ -112,15 +117,15 @@ namespace SubSys_SimDriving.TrafficModel
     /// </summary>
     internal class PlanCourse
     {
-        private Hashtable htPassedPath ;    
+        private Hashtable _htPassedPath ;    
 
         #region ctor
         internal PlanCourse(ArrayList nodeList ,string originID)
         {
-            this.htPassedPath = new Hashtable() ;
+            this._htPassedPath = new Hashtable() ;
 
-            Node originNode = null ;
-            foreach(Node node in nodeList)
+            GridNode originNode = null ;
+            foreach(GridNode node in nodeList)
             {
                 if(node.ID == originID)
                 {
@@ -129,7 +134,7 @@ namespace SubSys_SimDriving.TrafficModel
                 else
                 {
                     PassedPath pPath = new PassedPath(node.ID) ;
-                    this.htPassedPath.Add(node.ID ,pPath) ;
+                    this._htPassedPath.Add(node.ID ,pPath) ;
                 }
             }
 
@@ -141,7 +146,7 @@ namespace SubSys_SimDriving.TrafficModel
             this.InitializeWeight(originNode) ;
         }
 
-        private void InitializeWeight(Node originNode)
+        private void InitializeWeight(GridNode originNode)
         {
             if((originNode.EdgeList == null) ||(originNode.EdgeList.Count == 0))
             {
@@ -166,7 +171,7 @@ namespace SubSys_SimDriving.TrafficModel
         {
             get
             {
-                return (PassedPath)this.htPassedPath[nodeID] ;
+                return (PassedPath)this._htPassedPath[nodeID] ;
             }
         }
     }
@@ -232,14 +237,13 @@ namespace SubSys_SimDriving.TrafficModel
         //}
         #endregion
 
-        #region private method
         #region GetResult
         //从PlanCourse表中取出目标节点的PassedPath，这个PassedPath即是规划结果
         private void GetResult(PlanCourse planCourse ,string destID)
         {
             PassedPath pPath = planCourse[destID]  ;            
 
-            if(pPath.Weight == int.MaxValue)
+            if(float.Equals( pPath.Weight,float.MaxValue))
             {
                 //RoutePlanResult result1 = new RoutePlanResult(null ,int.MaxValue) ;
                 //return result1 ;
@@ -258,12 +262,12 @@ namespace SubSys_SimDriving.TrafficModel
 
         #region GetMinWeightRudeNode
         //从PlanCourse取出一个当前累积权值最小，并且没有被处理过的节点
-        private Node GetMinWeightRudeNode(PlanCourse planCourse ,ArrayList nodeList ,string originID)
+        private GridNode GetMinWeightRudeNode(PlanCourse planCourse ,ArrayList nodeList ,string originID)
         {
             double weight = double.MaxValue ;
-            Node destNode = null ;
+            GridNode destNode = null ;
 
-            foreach(Node node in nodeList)
+            foreach(GridNode node in nodeList)
             {
                 if(node.ID == originID)
                 {
@@ -271,7 +275,7 @@ namespace SubSys_SimDriving.TrafficModel
                 }
 
                 PassedPath pPath = planCourse[node.ID] ;
-                if(pPath.BeProcessed)
+                if(pPath.IsProcessed)
                 {
                     continue ;
                 }
@@ -285,7 +289,6 @@ namespace SubSys_SimDriving.TrafficModel
 
             return destNode ;
         }
-        #endregion
         #endregion
     }
 }

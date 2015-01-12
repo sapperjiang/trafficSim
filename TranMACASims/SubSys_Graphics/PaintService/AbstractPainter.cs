@@ -26,12 +26,12 @@ namespace SubSys_Graphics
             get { return _form; }
             set { _form = value; }
         }
-              private Dictionary<int, MyPoint> _cellSpaces;
+              private Dictionary<int, OxyzPointF> _cellSpaces;
   /// <summary>
         /// 哈希索引是统一的方法进行访问，如果是roadlane使用rltPos.Y gethashcode
         /// 如果是RoadNode使用roadlane的x+y进行索引
         /// </summary>
-        protected Dictionary<int,MyPoint> CellSpaces
+        protected Dictionary<int,OxyzPointF> CellSpaces
         {
             get { return _cellSpaces; }
             set { _cellSpaces = value; }
@@ -42,7 +42,7 @@ namespace SubSys_Graphics
         /// </summary>
         public virtual void PaintCar(Rectangle rec, ITrafficEntity car)
         {
-            if (car.EntityType == EntityType.CarModel)
+            if (car.EntityType == EntityType.Mobile)
             {
                 Car cm = car as Car;
                 graphic.FillRectangle(new SolidBrush(cm.Color), rec);

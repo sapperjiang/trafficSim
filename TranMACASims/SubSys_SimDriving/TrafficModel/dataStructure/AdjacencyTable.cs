@@ -11,18 +11,18 @@ namespace SubSys_SimDriving.TrafficModel
     /// </summary>
     internal class AdjacencyTable<T>
     {
-        Dictionary<T,RoadNode> dicRoadNode; //图的顶点集合
+        Dictionary<T,XNode> dicRoadNode; //图的顶点集合
         /// <summary>
         /// 使用SimDrivingContext 仿真上下文初始化保存路段节点的字典
         /// </summary>
-        internal AdjacencyTable(Dictionary<T,RoadNode> dic)
+        internal AdjacencyTable(Dictionary<T,XNode> dic)
         {
             dicRoadNode = dic;
         } //构造方法
         private AdjacencyTable() //私有构造防止外部初始化指定容量的构造方法
         { }
 
-        internal void AddRoadNode(T key,RoadNode value) /*添加?个顶点 */
+        internal void AddRoadNode(T key,XNode value) /*添加?个顶点 */
         {   //不允许插入重复值
             if (Contains(key))//哈希值一致就认为顶点一致
             {
@@ -45,7 +45,7 @@ namespace SubSys_SimDriving.TrafficModel
             get
             {
                 int iCount = 0;
-                foreach (RoadNode item in dicRoadNode.Values)
+                foreach (XNode item in dicRoadNode.Values)
                 {
                     iCount += item.RoadEdges.Count;
                 }
@@ -61,14 +61,14 @@ namespace SubSys_SimDriving.TrafficModel
             }
             return false; 
         }
-        internal RoadNode Find(T key) //查找指定项并返回
+        internal XNode Find(T key) //查找指定项并返回
         {
             if (key != null)
             {
                 if(!dicRoadNode.ContainsKey(key)){
                 throw new Exception("无法找到没有添加的RoadNode节点");
                 }
-                return dicRoadNode[key] as RoadNode;
+                return dicRoadNode[key] as XNode;
             }
             return null;
         }
@@ -78,20 +78,20 @@ namespace SubSys_SimDriving.TrafficModel
         /// </summary>
         /// <param name="fromRoadNodeHash">要将将边添加到RoadNode哈希表中的RoadNode</param>
         /// <param name="Edge">要添加的边</param>
-        internal void AddDirectedEdge(T fromRoadNodeHash,RoadEdge Edge)
+        internal void AddDirectedEdge(T fromRoadNodeHash,Way Edge)
         {
-            RoadNode rn= this.Find(fromRoadNodeHash);
+            XNode rn= this.Find(fromRoadNodeHash);
             if(rn!=null)
             {
-                rn.AddRoadEdge(Edge);
+                rn.AddWay(Edge);
             }
         }
-        internal void RemoveDirectedEdge(T roadNodeHash, RoadEdge edge)
+        internal void RemoveDirectedEdge(T roadNodeHash, Way edge)
         {
-            RoadNode rn = this.Find(roadNodeHash);
+            XNode rn = this.Find(roadNodeHash);
             if (rn != null)
             {
-                rn.RemoveEdge(edge);
+                rn.RemoveWay(edge);
             }
         }
         //internal override string ToString() //仅用于测试

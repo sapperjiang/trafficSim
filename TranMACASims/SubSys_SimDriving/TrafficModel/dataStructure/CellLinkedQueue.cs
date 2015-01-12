@@ -8,7 +8,7 @@ namespace SubSys_SimDriving.TrafficModel
     /// 运行态使用的数据结构，主要是roadlane 内部使用
     /// 设计为GUI驱动模型的接口类
     /// </summary>
-	public class CellLinkedQueue:IEnumerable<Cell>
+	public class CellQueue:IEnumerable<Cell>
 	{
         private List<Cell> cells = new List<Cell>();
         /// <summary>

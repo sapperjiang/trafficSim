@@ -14,9 +14,9 @@ namespace SubSys_Graphics
     /// 然后启用装饰着来实现各种不同的车道类型；
     /// 还要实现一个工厂来根据参数创建不同的车道类型
     /// </summary>
-    internal class RoadLanePainter : AbstractPainter
+    internal class LanePainter : AbstractPainter
     {
-        internal RoadLanePainter(System.Windows.Forms.Control canvas)
+        internal LanePainter(System.Windows.Forms.Control canvas)
         {
             this.Canvas = canvas;
             this.graphic = canvas.CreateGraphics();
@@ -24,18 +24,19 @@ namespace SubSys_Graphics
             //this.CellSpaces = new Dictionary<int, Rectangle>();
         }
         //如果是斜线可能就不行了，要用fillPolygon
-        private void PaintCar(RoadLane roadLane)
+        private void PaintCar(Lane Lane)
         {
-            if (roadLane.CellCount==0)
+            if (Lane.CellCount==0)
             {
                 return;
             }
-            if (roadLane.PrevCarPos[0] != -1)
+            if (Lane.PrevCarPos[0] != -1)
             {
                 int i=0;
-                while (roadLane.PrevCarPos[i] != -1)
+                while (Lane.PrevCarPos[i] != -1)
                 {
-                    MyPoint p = roadLane.Shape[roadLane.PrevCarPos[i] + 1];
+//                    OxyzPointF p = Lane.Shape[Lane.PrevCarPos[i] + 1];
+OxyzPointF p = Lane.Shape[Lane.PrevCarPos[i] + 1].ToOxyzPointF();
 
                     //
                     PaintCar(GraphicsConfiger.roadColor, p);
@@ -45,19 +46,20 @@ namespace SubSys_Graphics
             }
 
             int j = 0;
-            foreach (var cell in roadLane)
+            foreach (var cell in Lane)
             {
                 //画上车辆的新位置
-                int iY = cell.RelativePosition.Y;
+                int iY = cell.Grid.Y;
                 int iPos = iY>1?iY-1:0;
-                MyPoint p = roadLane.Shape[iPos+1];
+                OxyzPointF p = Lane.Shape[iPos+1].ToOxyzPointF();
                 PaintCar(cell.Car.Color, p);
-                roadLane.PrevCarPos[j++] = iPos;//保存车辆的位置便于下次使用
+                //保存车辆的位置便于下次使用
+                Lane.PrevCarPos[j++] = iPos;
             }
-            roadLane.PrevCarPos[j] = -1;
+            Lane.PrevCarPos[j] = -1;
         }
 
-        private void PaintCar(Color cell, MyPoint p)
+        private void PaintCar(Color cell, OxyzPointF p)
         {
 //Color.bl
             int iWidth = GraphicsConfiger.iCellPixels;
@@ -73,27 +75,26 @@ namespace SubSys_Graphics
         protected override void SubPerform(ITrafficEntity tVar)
         {
             Graphics g = this.Canvas.CreateGraphics();
-            RoadLane rl = tVar as RoadLane;
+            Lane rl = tVar as Lane;
             if (rl == null)
             {
                 throw new Exception(string.Format("TrafficEntity类型为{0},使用了错误的绘图服务",tVar.GetType().ToString()));
             }
 
-            MyPoint spStart = rl.Container.Shape.Start;//[0];
-            MyPoint spEnd = rl.Container.Shape.End;//[rl.Container.EntityShape.Count - 1];
-
+            OxyzPointF spStart = rl.Container.Shape.Start.ToOxyzPointF();
+            OxyzPointF spEnd = rl.Container.Shape.End.ToOxyzPointF();
 
             //获取单位平移向量(法向量)
-            MyPoint mp1 = VectorTools.GetNormalVector((rl.Container as RoadEdge).ToVector());
+            OxyzPointF mp1 = VectorTools.GetNormalVector((rl.Container as Way).ToVector());
             //获取平移向量
-            MyPoint mpOffset = new MyPoint(mp1._X, mp1._Y);
-            MyPoint mpMulti = new MyPoint(mpOffset._X * (rl.Rank - 1), mpOffset._Y * (rl.Rank - 1));
+            OxyzPointF mpOffset = new OxyzPointF(mp1._X, mp1._Y);
+            OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (rl.Rank - 1), mpOffset._Y * (rl.Rank - 1));
             spStart = Coordinates.Offset(spStart, mpMulti);
             spEnd = Coordinates.Offset(spEnd, mpMulti);
 
             //平移点
-            MyPoint pOffsetFirst = Coordinates.Offset(spStart, mpOffset);
-            MyPoint pOffsetEnd = Coordinates.Offset(spEnd, mpOffset);
+            OxyzPointF pOffsetFirst = Coordinates.Offset(spStart, mpOffset);
+            OxyzPointF pOffsetEnd = Coordinates.Offset(spEnd, mpOffset);
 
             Point pA = Coordinates.Project(spStart, GraphicsConfiger.iCellPixels);
             Point pB = Coordinates.Project(spEnd, GraphicsConfiger.iCellPixels);

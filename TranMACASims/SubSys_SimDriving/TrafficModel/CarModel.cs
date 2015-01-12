@@ -5,7 +5,11 @@ using System.Drawing;
 
 namespace SubSys_SimDriving.TrafficModel
 {
-	public class Car : MobileEntity
+	/// <summary>
+	/// 过时的，为了保持兼容，建议使用新的类型。
+	/// </summary>
+	[System.Obsolete("为了向下兼容使用，建议使用新的类型")]
+	public class Car: MobileEntity
 	{
         private static int CarID = 0;
         private bool IsCopyed = false;
@@ -20,12 +24,12 @@ namespace SubSys_SimDriving.TrafficModel
         public EdgeRoute EdgeRoute;
         public NodeRoute NodeRoute;
 
-        internal DriveStrategy DriveStg = new DefaultDriveStrategy(); 
+        internal DriveStrategy DriveStg = new DefaultDriveAgent(); 
 
         public Car()
         {
             this._id = ++CarID;
-            this.EntityType = EntityType.CarModel;
+            this.EntityType = EntityType.Mobile;
             this.Color = Color.Green;
             this.iSpeed = 0;
             base.Register();
@@ -45,36 +49,77 @@ namespace SubSys_SimDriving.TrafficModel
         /// 当前车辆的加速度
         /// </summary>
         internal int iAcc = 1;
-
-        ///// <summary>
-        ///// 加速
-        ///// </summary>
-        //internal void GearUp()
-        //{
-        //    if (this.iSpeed < SpeedLevel.iCellLevelTwelve)
-        //    {
-        //        this.iSpeed += this.iAcc;
-        //    }else
-        //    {
-        //        throw new System.Exception("Speed out of Range！");
-        //    }
-        //}
-        ///// <summary>
-        ///// 减速
-        ///// </summary>
-        //internal void GearDown()
-        //{
-        //    if (this.iSpeed>this.iAcc)
-        //    {
-        //        this.iSpeed -= this.iAcc;
-        //    }else
-        //    {
-        //        this.iSpeed = 0;
-        //       // throw new System.Exception("Speed out of Range！");
-        //    }
-        //}
+        
+        private void test()
+        {
+        }
 
     }
+	
+	
+	
+	public class MediumCar:MobileEntity
+	{
+		public MediumCar()
+		{
+			this.EntityType = EntityType.MediumCar;
+			this.Strategy = StrategyFactory.Create(StrategyType.Default);
+//			this.co
+		}
+	}
+	
+	
+	public class SmallCar:MobileEntity
+	{
+		public SmallCar()
+		{
+			this.EntityType = EntityType.SmallCar;
+			this.Strategy = StrategyFactory.Create(StrategyType.Default);
+			this.Color = Color.White;
+		}
+		public override MobileEntity Clone()
+		{
+			return this.MemberwiseClone() as SmallCar;
+		}
+	}
+	
+	/// <summary>
+	/// 公共汽车，占用4个元胞网格 。12米的，取决于元胞网格的空间大小
+	/// </summary>
+	public class Bus:MobileEntity
+	{
+		public Bus()
+		{
+			this.EntityType = EntityType.Bus;
+			this.Strategy = StrategyFactory.Create(StrategyType.Default);
+		}
+	}
+	
+	
+	/// <summary>
+	/// 大卡车，占用4个元胞网格
+	/// </summary>
+	public class LargeTruck:MobileEntity
+	{
+		public LargeTruck()
+		{
+			this.EntityType = EntityType.LargeTruck;
+			this.Strategy = StrategyFactory.Create(StrategyType.Default);
+		}
+	}
+	
+	
+	/// <summary>
+	/// 行人，一般占用1个元胞网格
+	/// </summary>
+	public class Pedastrain:MobileEntity
+	{
+		public Pedastrain()
+		{
+			this.EntityType = EntityType.Pedastrain;
+			this.Strategy = StrategyFactory.Create(StrategyType.Default);
+		}
+	}
 	 
 }
  

@@ -1,29 +1,30 @@
 using System.Threading;
 using SubSys_SimDriving.TrafficModel;
 using System.Collections.Generic;
-using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving;
 
 
 
 namespace SubSys_SimDriving.SysSimContext
 {
+	   public delegate void TimeStepChangHandler(string srMsg);
     public interface ISimContext
     {
+	   event TimeStepChangHandler OnTimeStepChanged;
+	
         int iCurrTimeStep
         {
-          get; //{ return ISimContext._iCurrTimeStep; }
-          set; //{ ISimContext._iCurrTimeStep = value; }
+          get;
+          set;
         }
 
-        RoadNetWork NetWork
+        RoadNet RoadNet
         {
           get; 
         }
          SpeedLimitHTable SpeedLimits
         {
           get; 
-          
         }
         VMSHashTable VMSEntities
         {
@@ -59,8 +60,6 @@ namespace SubSys_SimDriving.SysSimContext
 
     }
 
-
-
     /// <summary>
     /// 单例模式，关于注册，所有注册之前应当检查是否已经注册过了
     /// 应当由roadnetwork承担一部分的工厂责任，外界不应显式的调用注册，
@@ -92,9 +91,26 @@ namespace SubSys_SimDriving.SysSimContext
             }
             return _simContext;
         }
+        
+	public   event TimeStepChangHandler OnTimeStepChanged;
 
-        public static int iCurrTimeStep=0;
 
+	private  int _iCurrTimeStep=0;
+
+	/// <summary>
+	/// 仿真运行的时间步骤
+	/// </summary>
+	public  int iCurrTimeStep {
+			get {
+        		return  this._iCurrTimeStep;
+			}
+			set {
+				this._iCurrTimeStep = value;
+				if (this.OnTimeStepChanged!=null) {
+					this.OnTimeStepChanged(this.iCurrTimeStep.ToString());
+				}
+			}
+		}
       
       
         public SpeedLimitHTable _SpeedLimits                 = new SpeedLimitHTable();
@@ -111,26 +127,29 @@ namespace SubSys_SimDriving.SysSimContext
         public AgentHTable _Agents                           = new AgentHTable();
 
 
+        /// <summary>
+        /// 单例模式
+        /// </summary>
         int ISimContext.iCurrTimeStep
         {
             get
             {
-               return  SimContext.iCurrTimeStep;
+               return  this.iCurrTimeStep;
             }
             set
             {
-                SimContext.iCurrTimeStep = value;
+                this.iCurrTimeStep = value;
             }
         }
 
         /// <summary>
         /// 表示运行时建立的路网的结构，里面包含了对RoadNodeList和RoadEdgeList的引用
         /// </summary>
-        RoadNetWork ISimContext.NetWork
+        RoadNet ISimContext.RoadNet
         {
             get
             {
-                return  RoadNetWork.GetInstance();;
+                return  RoadNet.GetInstance();;
             }
         }
 

@@ -4,20 +4,24 @@ using SubSys_SimDriving.TrafficModel;
 using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving.Agents;
 
-namespace SubSys_SimDriving.ModelFactory
+namespace SubSys_SimDriving
 {
     ///// <summary>
     ///// 工厂模式，可以使用命令模式建造更复杂的功能集合类型
     ///// </summary>
-    public interface IAbstractFactory 
+    public interface IFactory 
     {
-        Agent BuildAgent(BuildCommand bc, AgentType et);
-        TrafficEntity BuildEntity(BuildCommand bc, EntityType et);
+        AbstractAgent Build(BuildCommand bc, AgentType et);
+       
+        TrafficEntity Build(BuildCommand bc, EntityType et);
+        
+   //     MobileEntity Build(BuildCommand bc, EntityType etype);
+        	
     }
 
-    public class AgentFactory : IAbstractFactory
+    public class AgentFactory : IFactory
     {
-        public Agent BuildAgent(BuildCommand bc, AgentType et)
+        public AbstractAgent Build(BuildCommand bc, AgentType et)
         {
             switch (et)
             {
@@ -41,12 +45,12 @@ namespace SubSys_SimDriving.ModelFactory
                     //break;
             }
         }
-        public TrafficEntity BuildEntity(BuildCommand bc, EntityType et)
+     
+        public TrafficEntity Build(BuildCommand bc, EntityType et)
         {
             throw new NotImplementedException();
         }
     }
-    
   
    
 }

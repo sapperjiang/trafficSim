@@ -3,7 +3,7 @@ using SubSys_SimDriving.TrafficModel;
 
 namespace SubSys_SimDriving.RoutePlan
 {
-	public class NodeRoute : Route<RoadNode>
+	public class NodeRoute : Route<XNode>
 	{
 	}
 	 

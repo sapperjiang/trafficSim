@@ -37,13 +37,13 @@ namespace SubSys_DataVisualization
 
                     foreach (var itemCarInfo in item.Value)//车辆信息
                     {
-                         MyPoint p = this.GetDataPoint(itemCarInfo);
+                         OxyzPointF p = this.GetDataPoint(itemCarInfo);
                          dataI.Points.AddXY((double)p._X, (double)p._Y);
                     }
                 }
             }
         }
-        internal abstract MyPoint GetDataPoint(CarInfo ciq);
+        internal abstract OxyzPointF GetDataPoint(CarInfo ciq);
       
     }
 }

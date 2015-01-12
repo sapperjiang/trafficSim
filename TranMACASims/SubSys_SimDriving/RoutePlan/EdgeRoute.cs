@@ -6,16 +6,16 @@ using SubSys_MathUtility;
 
 namespace SubSys_SimDriving.RoutePlan
 {
-	public class EdgeRoute : Route<RoadEdge>,IEnumerable<RoadEdge>
+	public class EdgeRoute : Route<Way>,IEnumerable<Way>
 	{
         /// <summary>
         /// 返回下一步要前进的方向,-1表示左转 0表示直行 1表示右转，2表示掉头
         /// </summary>
         /// <param name="re">当前车辆所在的道路</param>
         /// <returns></returns>
-        internal int GetSwerve(RoadEdge re)
+        internal int GetSwerve(Way re)
         {
-            RoadEdge reNext  = base.FindNext(re);
+            Way reNext  = base.FindNext(re);
             if (reNext == null)//如果到达路径的终点就直行
 	        {
 		        return 0;
@@ -23,7 +23,7 @@ namespace SubSys_SimDriving.RoutePlan
             return VectorTools.GetVectorPos(re.ToVector(),reNext.ToVector());            
         }
 
-        public IEnumerator<RoadEdge> GetEnumerator()
+        public IEnumerator<Way> GetEnumerator()
         {
             return routeList.GetEnumerator();
         }

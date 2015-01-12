@@ -34,9 +34,9 @@ namespace SubSys_MathUtility
         /// </summary>
         /// <param name="opVector"></param>
         /// <returns></returns>
-        public static MyPoint GetInverseVector(MyPoint opVector)
+        public static OxyzPointF GetInverseVector(OxyzPointF opVector)
         {
-            return new MyPoint(-opVector._X, -opVector._Y);
+            return new OxyzPointF(-opVector._X, -opVector._Y);
         }
      
         static VectorTools() { }
@@ -47,7 +47,7 @@ namespace SubSys_MathUtility
         /// <param name="mpB">直线终点坐标</param>
         /// <param name="mpNew">要检验的点坐标</param>
         /// <returns>返回0表示点mpNew位于直线上，返回1表示点mpNew位于向量上方，返回-1表示点mpNew位于直线下方</returns>
-        public static int GetPointPosition(MyPoint mpA,MyPoint mpB, MyPoint mpNew)
+        public static int GetPointPosition(OxyzPointF mpA,OxyzPointF mpB, OxyzPointF mpNew)
         {
             if ( mpB._X==mpA._X&& mpB._Y==mpA._Y)
 	        {
@@ -68,14 +68,14 @@ namespace SubSys_MathUtility
         /// <param name="vBase">基向量的终点坐标，起点坐标为0</param>
         /// <param name="vNew">要检验的点的坐标如果是向量，应当输入向量的终点坐标</param>
         /// <returns>返回-1表示位于基向量下方或者是右方，返回1表示位于基向量上方或者是左方</returns>
-        public static int GetVectorPos(MyPoint vBase, MyPoint vNew)
+        public static int GetVectorPos(OxyzPointF vBase, OxyzPointF vNew)
         {
             if (vBase._X==0&&vBase._Y==0
                 ||vNew._X==0&&vNew._Y==0)
             {
                 throw new ArgumentException("基向量或者要判定的向量不能为0向量");
             }
-            int iReturn = VectorTools.GetPointPosition(new MyPoint(0.0f, 0.0f), vBase, vNew);
+            int iReturn = VectorTools.GetPointPosition(new OxyzPointF(0.0f, 0.0f), vBase, vNew);
             if (iReturn == 0&&vNew._X < vBase._X)
             {
                  iReturn = 2;
@@ -86,7 +86,7 @@ namespace SubSys_MathUtility
         /// <summary>
         /// 获取两个向量的夹角的余弦值，该值的区间是-1到1闭区间,两个参数向量都不能是0向量
         /// </summary>
-        public static double GetCos(MyPoint vBase, MyPoint vNew)
+        public static double GetCos(OxyzPointF vBase, OxyzPointF vNew)
         {
             //向量的数量积
             double fNumerator = vBase._X*vNew._X+vBase._Y*vBase._Y;
@@ -108,7 +108,7 @@ namespace SubSys_MathUtility
         /// <summary>
         /// 判定角度并且输出角度的正弦和余弦值，315-45 为0度 45-135度变为90度,135-225 为180度 225-315度变为270度，
         /// </summary>
-        public static SinCos GetSinCos(MyPoint mpBaseVector, MyPoint mpVector)
+        public static SinCos GetSinCos(OxyzPointF mpBaseVector, OxyzPointF mpVector)
         {
             //由于0.707小于根号2的一半所以45度变为90度
             double dCosineValue = VectorTools.GetCos(mpBaseVector, mpVector);
@@ -152,7 +152,7 @@ namespace SubSys_MathUtility
         /// 获取一个向量的法向量，该法向量位于向量右侧,向量不能为零向量
         /// </summary>
         /// <param name="vtr"></param>
-        public static MyPoint GetNormalVector(MyPoint vtr)
+        public static OxyzPointF GetNormalVector(OxyzPointF vtr)
         {
             double iDX = vtr._X*vtr._X;
             double iDY = vtr._Y*vtr._Y;
@@ -160,28 +160,28 @@ namespace SubSys_MathUtility
             double dx = 0d;
             double dy = 0d;
 
-            MyPoint p1 = null;
-            MyPoint p2 = null;
+            OxyzPointF p1 = null;
+            OxyzPointF p2 = null;
 
             if (vtr._Y != 0)
             {
                 dx = vtr._Y / dDistance;
                 dy = dx * vtr._X / vtr._Y;
-                p1 = new MyPoint((float)dx, (float)dy);
-                p2 = new MyPoint((float)-dx, (float)-dy);
+                p1 = new OxyzPointF((float)dx, (float)dy);
+                p2 = new OxyzPointF((float)-dx, (float)-dy);
             }
             else if(vtr._X!=0)
             {
                 dy = vtr._X / dDistance;
                 dx = dy * vtr._Y / vtr._X;
-                p1 = new MyPoint((float)dx, (float)dy);
-                p2 = new MyPoint((float)-dx, (float)-dy);
+                p1 = new OxyzPointF((float)dx, (float)dy);
+                p2 = new OxyzPointF((float)-dx, (float)-dy);
             }
-            if (VectorTools.GetVectorPos(p1,new MyPoint(vtr._X,vtr._Y)) ==-1)
+            if (VectorTools.GetVectorPos(p1,new OxyzPointF(vtr._X,vtr._Y)) ==-1)
             {
-                return new MyPoint(p1._X,-p1._Y);
+                return new OxyzPointF(p1._X,-p1._Y);
             }
-            return new MyPoint(p2._X,-p2._Y);
+            return new OxyzPointF(p2._X,-p2._Y);
         }
     }
 }

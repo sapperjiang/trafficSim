@@ -11,7 +11,6 @@ using SubSys_MathUtility;
 using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
 using GISTranSim.Data;
-using SubSys_SimDriving.ModelFactory;
 
 
 namespace GISTranSim
@@ -23,6 +22,7 @@ namespace GISTranSim
 			InitializeComponent();
 			
 			this.WindowState = FormWindowState.Maximized;
+			
 			var color = Color.LightBlue;
 			this.BackColor = color;
 			this.menuBar.BackColor = color;
@@ -32,15 +32,23 @@ namespace GISTranSim
 			this.MouseWheel += new MouseEventHandler(SimCartoon_MouseWheel);
 			
 			//开启路网平移
-			this.MouseDown+=PanMap_MouseDown;
-			this.MouseUp +=PanMap_MouseUp;
+			this.MouseDown+=PanScreen_MouseDown;
+			this.MouseUp +=PanScreen_MouseUp;
 			
-			SimController.OnSimulateOver +=SimOverMessageShow;
+			//注册每个仿真结束时候发生的事件
+			SimController.OnSimulateStoped +=SimulateStopMessage;
+			//注册每个仿真时刻变更发生的事件
+			SimController.ISimCtx.OnTimeStepChanged+=this.TimeStepChangeMessage;
 			
 		}
-		private void  SimOverMessageShow(object sender, EventArgs e)
+		private void  SimulateStopMessage(object sender, EventArgs e)
 		{
 			MessageBox.Show("仿真结束");
+		}
+		
+		private void TimeStepChangeMessage(string strMsg)
+		{
+			this.tslSimTime.Text = strMsg;
 		}
 
 		/// <summary>
@@ -57,51 +65,42 @@ namespace GISTranSim
 			} else {
 				GraphicsConfiger.ScaleCellPixels(-1);
 			}
-			
 		}
 		
-		RoadNetWork _roadNetWork = RoadNetWork.GetInstance();
 		
 		protected override void OnClosing(CancelEventArgs e)
 		{
 			SimController.bIsExit = true;
 			//防止内存泄露
-			SimController.OnSimulateOver-=SimOverMessageShow;
-			
+			SimController.OnSimulateStoped-=SimulateStopMessage;
 			base.OnClosing(e);
 		}
-
-	
-		
 		
 		#region 路网平移模式
 
 		Point pStart;
-		private void PanMap_MouseDown(object sender, MouseEventArgs e)
+		private void PanScreen_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button==MouseButtons.Middle) {
-				this.TSSL_MsgTip.Text = "路网处于平移模式";
+				this.tsslMsgTip.Text = "路网处于平移模式";
 				this.Cursor = Cursors.Hand;
 				pStart = new Point(e.X, e.Y);
 			}
 		}
-		private void PanMap_MouseUp(object sender, MouseEventArgs e)
+		private void PanScreen_MouseUp(object sender, MouseEventArgs e)
 		{
 			if (e.Button==MouseButtons.Middle) {
-
-				this.Invalidate();//界面重绘 要不然，两次绘制的界面叠加到了一起了。
+				//界面重绘 要不然，两次绘制的界面叠加到了一起了。
+				this.Invalidate();
 				Coordinates.GraphicsOffset = new Point(pStart.X - e.X, pStart.Y - e.Y);
-				this.TSSL_MsgTip.Text = string.Empty;// "退出了平移模式";
+				this.tsslMsgTip.Text = string.Empty;// "退出了平移模式";
 				this.Cursor = Cursors.Arrow;
 			}
-			
 		}
-
 		
 		void MemuBar_File_CreateNetWork_Click(object sender, System.EventArgs e)
 		{
 			MessageBox.Show("尚未实现!");
-			//	throw new NotImplementedException();
 		}
 		#endregion
 		
@@ -114,18 +113,34 @@ namespace GISTranSim
 		/// <param name="e"></param>
 		void MenuBar_File_ConfigEnvr_Click(object sender, System.EventArgs e)
 		{
+			SimController.iCarCount =40;
+			SimController.iRoadWidth = 100;
+			SimController.iSimInterval = 100;
+			ModelSetting.dRate = 0.85;
 			
-			SimController.iCarCount =40;//cs.iCarCount;
-			SimController.iRoadWidth = 100;//cs.iRoadLength;
-			SimController.iSimInterval = 100;//cs.iSimSpeed;
-			ModelSetting.dRate = 0.85;//cs.dRatio;
+//			SimController.ConfigSimEnvironment(this);
 			
-			SimController.ConfigSimEnvironment(this);
+			this.LoadRoadNetwork();
+			SimController.InitializePainters(this);
+			
+			//打开仿真运行的按钮
 			this.menuBarSimulateSustained.Enabled = true;
-//			this.LoadRoadNetwork();
-//			SimController.InitializePaintService(this);
 //
 		}
+
+		void MenuBar_Config_FormBackColor_Click(object sender, System.EventArgs e)
+		{
+			ColorDialog dialog = new ColorDialog();//新建颜色对话框
+			var result = dialog.ShowDialog();//打开颜色对话框，并接收对话框操作结果
+			
+			if (result == DialogResult.OK)//如果用户点击OK
+			{
+				var color= dialog.Color;
+				this.BackColor = color;
+//				this.menuBar.BackColor =color;
+			}
+		}
+		
 		#endregion
 		
 		#region 仿真控制区域
@@ -137,27 +152,17 @@ namespace GISTranSim
 		/// <param name="e"></param>
 		void MenuBar_SimluateSustained_Click(object sender, System.EventArgs e)
 		{
-			
 			SimController.bIsExit = false;
-			
-			//this.BT_ConfigEnvr.Enabled = false;
 			menuBarConfigSimEnvr.Enabled =false;
-			SimController.Start();
-			//		BT_SimStart.Enabled = false;
+			SimController.Run();
 			menuBarSimulateSustained.Enabled =false;
-			//throw new NotImplementedException();
-			//SimController.
-			
 		}
 		
 		
 		void MenuBar_SimluateStop_Click(object sender, System.EventArgs e)
 		{
 			SimController.bIsExit = true;
-			//this.BT_SimStart.Enabled = true;
-			//	MenubarSim
 			menuBarSimulateSustained.Enabled=false;
-			//throw new NotImplementedException();
 		}
 		#endregion
 		
@@ -227,119 +232,105 @@ namespace GISTranSim
 		}
 		#endregion
 		#region 路网加载函数
-		private  RoadNetWork LoadRoadNetwork()
+		private  RoadNet LoadRoadNetwork()
 		{
+//			this.autosiz
 			
-			IAbstractFactory iabstractFacotry = new TrafficEntityFactory();
+			IFactory iabstractFacotry = new StaticFactory();
 			
 			int iRoadWidth = SimController.iRoadWidth;
 			int iBase = 2;
-			RoadNode rnA= iabstractFacotry.BuildEntity(new RoadNodeBuildCommand(new Point(iBase,20)),EntityType.RoadNode) as RoadNode;
-			RoadNode rnB = iabstractFacotry.BuildEntity(new RoadNodeBuildCommand(new Point(iBase + iRoadWidth, 20)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnC = iabstractFacotry.BuildEntity(new RoadNodeBuildCommand(new Point(iBase + 2 * iRoadWidth, 20)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnD = iabstractFacotry.BuildEntity(new RoadNodeBuildCommand(new Point(iBase, 70)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnE = iabstractFacotry.BuildEntity(new RoadNodeBuildCommand(new Point(iBase + iRoadWidth, 70)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnF = iabstractFacotry.BuildEntity(new  RoadNodeBuildCommand(new Point(iBase + 2 * iRoadWidth, 70)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnG = iabstractFacotry.BuildEntity(new RoadNodeBuildCommand(new Point(iBase, 120)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnH = iabstractFacotry.BuildEntity(new  RoadNodeBuildCommand(new Point(iBase + iRoadWidth, 120)), EntityType.RoadNode) as RoadNode;
-			RoadNode rnI = iabstractFacotry.BuildEntity(new  RoadNodeBuildCommand(new Point(iBase + 2 * iRoadWidth, 120)), EntityType.RoadNode) as RoadNode;
+			XNode rnA= iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase,20)),EntityType.XNode) as XNode;
+			XNode rnB = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 20)), EntityType.XNode) as XNode;
+			XNode rnC = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 20)), EntityType.XNode) as XNode;
+			XNode rnD = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 70)), EntityType.XNode) as XNode;
+			XNode rnE = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 70)), EntityType.XNode) as XNode;
+			XNode rnF = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 70)), EntityType.XNode) as XNode;
+			XNode rnG = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 120)), EntityType.XNode) as XNode;
+			XNode rnH = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + iRoadWidth, 120)), EntityType.XNode) as XNode;
+			XNode rnI = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 120)), EntityType.XNode) as XNode;
 
 			
-			RoadNetWork   roadNetwork = SimController.ISCtx.NetWork;
+			RoadNet   roadNetwork = SimController.ISimCtx.RoadNet;
 			
-			roadNetwork.AddRoadNode(rnA);
-			roadNetwork.AddRoadNode(rnB);
-			roadNetwork.AddRoadNode(rnC);
-			roadNetwork.AddRoadNode(rnD);
-			roadNetwork.AddRoadNode(rnE);
-			roadNetwork.AddRoadNode(rnF);
-			roadNetwork.AddRoadNode(rnG);
-			roadNetwork.AddRoadNode(rnH);
-			roadNetwork.AddRoadNode(rnI);
+			roadNetwork.AddXNode(rnA);
+			roadNetwork.AddXNode(rnB);
+			roadNetwork.AddXNode(rnC);
+			roadNetwork.AddXNode(rnD);
+			roadNetwork.AddXNode(rnE);
+			roadNetwork.AddXNode(rnF);
+			roadNetwork.AddXNode(rnG);
+			roadNetwork.AddXNode(rnH);
+			roadNetwork.AddXNode(rnI);
 
-			SimController.ReA= roadNetwork.AddRoadEdge(rnA,rnB);
-			SimController.ReB=roadNetwork.AddRoadEdge(rnB,rnC);
-			roadNetwork.AddRoadEdge(rnB, rnA);
+			SimController.ReA= roadNetwork.AddWay(rnA,rnB);
+			SimController.ReB=roadNetwork.AddWay(rnB,rnC);
+			roadNetwork.AddWay(rnB, rnA);
 			//
-			roadNetwork.AddRoadEdge(rnC,rnB);
+			roadNetwork.AddWay(rnC,rnB);
 
-			roadNetwork.AddRoadEdge(rnD,rnE);
-			roadNetwork.AddRoadEdge(rnE,rnD);
+			roadNetwork.AddWay(rnD,rnE);
+			roadNetwork.AddWay(rnE,rnD);
 			
-			roadNetwork.AddRoadEdge(rnE,rnF);
-			roadNetwork.AddRoadEdge(rnF,rnE);
+			roadNetwork.AddWay(rnE,rnF);
+			roadNetwork.AddWay(rnF,rnE);
 			
-			roadNetwork.AddRoadEdge(rnG,rnH);
-			roadNetwork.AddRoadEdge(rnH,rnG);
-			roadNetwork.AddRoadEdge(rnH,rnI);
-			roadNetwork.AddRoadEdge(rnI,rnH);
+			roadNetwork.AddWay(rnG,rnH);
+			roadNetwork.AddWay(rnH,rnG);
+			roadNetwork.AddWay(rnH,rnI);
+			roadNetwork.AddWay(rnI,rnH);
 			
-			roadNetwork.AddRoadEdge(rnA,rnD);
-			roadNetwork.AddRoadEdge(rnD,rnA);
+			roadNetwork.AddWay(rnA,rnD);
+			roadNetwork.AddWay(rnD,rnA);
 			
-			roadNetwork.AddRoadEdge(rnB,rnE);
-			roadNetwork.AddRoadEdge(rnE,rnB);
+			roadNetwork.AddWay(rnB,rnE);
+			roadNetwork.AddWay(rnE,rnB);
 			
-			roadNetwork.AddRoadEdge(rnC,rnF);
-			roadNetwork.AddRoadEdge(rnF,rnC);
+			roadNetwork.AddWay(rnC,rnF);
+			roadNetwork.AddWay(rnF,rnC);
 			
-			roadNetwork.AddRoadEdge(rnD,rnG);
-			roadNetwork.AddRoadEdge(rnG,rnD);
+			roadNetwork.AddWay(rnD,rnG);
+			roadNetwork.AddWay(rnG,rnD);
 			
-			roadNetwork.AddRoadEdge(rnE,rnH);
-			roadNetwork.AddRoadEdge(rnH,rnE);
+			roadNetwork.AddWay(rnE,rnH);
+			roadNetwork.AddWay(rnH,rnE);
 			
-			roadNetwork.AddRoadEdge(rnF,rnI);
-			roadNetwork.AddRoadEdge(rnI,rnF);
+			roadNetwork.AddWay(rnF,rnI);
+			roadNetwork.AddWay(rnI,rnF);
 
-			foreach (var item in roadNetwork.RoadEdges)
+			foreach (var item in roadNetwork.Ways)
 			{
-				RoadEdgeFacory.BuildTwoWay(item, 1, 1, 1);
+				WayFactory.BuildTwoWay(item, 1, 1, 1);
 			}
 			return roadNetwork;
 			
 		}
-		void MenuBar_Config_FormBackColor_Click(object sender, System.EventArgs e)
-		{
-			ColorDialog dialog = new ColorDialog();//新建颜色对话框
-			var result = dialog.ShowDialog();//打开颜色对话框，并接收对话框操作结果
-			
-			if (result == DialogResult.OK)//如果用户点击OK
-			{
-				var color= dialog.Color;
-				this.BackColor = color;
-				this.menuBar.BackColor =color;
-			}
-		}
-	
+		
 		#endregion
 		
 		#region 编辑道路节点
-		bool IsAddNodeActivated = false;
-		MouseEventHandler AddNodeHandler;
+		bool _bIsRoadNetEditing = false;
+		MouseEventHandler RoadNetEditHandler;
 		void MenuBar_Edit_RoadNetwork_Click(object sender, System.EventArgs e)
 		{
-			//throw new NotImplementedException();
-		
-	
-			this.IsAddNodeActivated = !this.IsAddNodeActivated;
-			if (this.IsAddNodeActivated == true)
+			this._bIsRoadNetEditing = !this._bIsRoadNetEditing;
+			if (this._bIsRoadNetEditing == true)
 			{
-				if (AddNodeHandler == null)
+				if (RoadNetEditHandler == null)
 				{
-					AddNodeHandler = new MouseEventHandler(AddNode_MouseMove);
+					RoadNetEditHandler = new MouseEventHandler(RoadNetEdit_MouseMove);
 				}
-				this.MouseMove += AddNodeHandler;
+				this.MouseMove += RoadNetEditHandler;
 			}
 			else
 			{
-				this.MouseMove -= AddNodeHandler;
-				this.TP_MousePos.Active = false;
+				this.MouseMove -= RoadNetEditHandler;
+				this.tpMousePositonTip.Active = false;
 			}
 		}
-	
+		
 		Point p = new Point(-1, -1);
-		void AddNode_MouseMove(object sender, MouseEventArgs e)
+		void RoadNetEdit_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (p.X == -1)
 			{
@@ -347,12 +338,10 @@ namespace GISTranSim
 			}
 			if (p.X !=e.X)
 			{
-				this.TP_MousePos.Active = true;
+				this.tpMousePositonTip.Active = true;
 
 				string strTip = string.Format("X:{0} Y:{1}",e.Location.X,e.Location.Y);
-				this.TP_MousePos.Show(strTip, this, e.Location);
-				//this.TP_MousePos.Active = true;
-
+				this.tpMousePositonTip.Show(strTip, this, e.Location);
 				p = e.Location;
 			}
 		}

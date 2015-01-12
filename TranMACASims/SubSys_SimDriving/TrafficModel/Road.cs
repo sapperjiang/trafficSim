@@ -12,7 +12,7 @@ namespace SubSys_SimDriving.TrafficModel
     /// </summary>
     public  interface IRoad
     {
-        RoadEdge RoadEdge
+        Way Way
         {
             get;
             set;
@@ -20,12 +20,12 @@ namespace SubSys_SimDriving.TrafficModel
         /// <summary>
         /// 对向道路
         /// </summary>
-        RoadEdge CtrRoadEdge
+        Way CtrWay
         {
             get;
             set;
         }
-        RoadNode RoadNode
+        XNode RoadNode
         {
             get;
             set;
@@ -33,24 +33,27 @@ namespace SubSys_SimDriving.TrafficModel
     /// <summary>
         /// 对向节点
         /// </summary>
-         RoadNode CtrRoadNode
+         XNode CtrRoadNode
         {
             get;
             set;
         }    
     }
+    /// <summary>
+    /// 包含两个way的道路。如果是单行路，只包含一个way
+    /// </summary>
     public class Road:TrafficEntity,IRoad
     {
-        private RoadEdge _roadEdge;
-        private RoadEdge _ctrRoadEdge;
-        private RoadNode _roadNode;
-        private RoadNode _ctrRoadNode;
+        private Way _roadEdge;
+        private Way _ctrRoadEdge;
+        private XNode _roadNode;
+        private XNode _ctrRoadNode;
 
         public Road()
         {
             this.EntityType = EntityType.Road;
         }
-        public RoadEdge RoadEdge
+        public Way Way
         {
             get
             {
@@ -62,7 +65,7 @@ namespace SubSys_SimDriving.TrafficModel
             }
         }
 
-        public RoadEdge CtrRoadEdge
+        public Way CtrWay
         {
             get
             {
@@ -74,7 +77,7 @@ namespace SubSys_SimDriving.TrafficModel
             }
         }
 
-        public RoadNode RoadNode
+        public XNode RoadNode
         {
             get
             {
@@ -86,7 +89,7 @@ namespace SubSys_SimDriving.TrafficModel
             }
         }
 
-        public RoadNode CtrRoadNode
+        public XNode CtrRoadNode
         {
             get
             {

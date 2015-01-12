@@ -8,7 +8,7 @@ namespace SubSys_SimDriving.SysSimContext.Service
 {
     public class DataRecordService : Service
     {
-        public static bool IsServiceUp = true;//服务运行的开关变量
+        //public static bool IsServiceUp = true;
         ISimContext sc;
         private DataRecordService()
         { }
@@ -21,20 +21,19 @@ namespace SubSys_SimDriving.SysSimContext.Service
         {
             switch (tVar.EntityType)
             {
-                case EntityType.RoadLane://附加到车道上，如车道收集器
+                case EntityType.Lane://附加到车道上，如车道收集器
 
-                    foreach (var item in tVar as RoadLane)
+                    foreach (var item in tVar as Lane)
                     {
                          //Cell ce = (Cell)tVar;元胞，然后是其容器
                         sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
                     }
                     break;
 
-                case EntityType.RoadNode:
+                case EntityType.XNode:
 
-                    foreach (var item in tVar as RoadNode)
+                    foreach (var item in tVar as XNode)
                     {
-                        //Cell ce = (Cell)tVar;
                         sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
                     }
                     break;
@@ -42,11 +41,6 @@ namespace SubSys_SimDriving.SysSimContext.Service
                     ThrowHelper.ThrowArgumentException("不支持的记录类型，应当使用在车道和交叉口上");
                     break;
             }
-            //if (tVar.EntityType == EntityType.Cell)
-            //{
-            //    Cell ce = (Cell)tVar;
-            //    SimContext.GetInstance().DataRecorder.Record(ce.Container, ce.GetCarInfo());
-            //}
         }
 
         [System.Obsolete("Datarecorder 的ulog方法没有实现 ")]

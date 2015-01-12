@@ -2,23 +2,29 @@ namespace SubSys_SimDriving.TrafficModel
 {
     public enum EntityType
     {
-        RoadNetWork = 0,
+        RoadNet = 0,
 
         Road = 2,//道路
 
-        RoadEdge = 4,//路段
+        Way = 4,//路段
 
-        RoadLane = 6,//车道
+        Lane = 6,//车道
 
-        RoadNode = 8,//交叉口
+        XNode = 8,//交叉口
 
         SignalLight = 10,//信号灯
 
         SignalGroup = 12,//两个或者多个信号灯组成信号灯组
 
         VMSEntity = 14,//信息板
+        
         Cell = 18,
-        CarModel = 20,
+
+        /// <summary>
+        /// 所有类型的车辆、行人的抽象表示
+        /// </summary>
+        Mobile = 20,
+
         SmallCar = 21,
 
         MediumCar = 22,

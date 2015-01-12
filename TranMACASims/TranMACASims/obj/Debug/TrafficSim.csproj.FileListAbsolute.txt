@@ -89,3 +89,4 @@ Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.ODI
 Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.DataOutputer.resources
 Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.MeanSpeedCharter.resources
 Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.SpeedTimeCharter.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.xml

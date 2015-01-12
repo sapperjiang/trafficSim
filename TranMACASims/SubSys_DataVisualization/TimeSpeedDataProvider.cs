@@ -19,9 +19,9 @@ namespace SubSys_DataVisualization
             this.strHeaderTitle = "速度时间图";
 
         }
-        internal override MyPoint GetDataPoint(CarInfo ciq)
+        internal override OxyzPointF GetDataPoint(CarInfo ciq)
         {
-            return new MyPoint(ciq.iTimeStep, ciq.iPos * this.iCellMeters);
+            return new OxyzPointF(ciq.iTimeStep, ciq.iPos * this.iCellMeters);
         }
 
         public override void FillSerisCollection(SeriesCollection dataSRC)
@@ -48,7 +48,7 @@ namespace SubSys_DataVisualization
 
                     foreach (var itemCarInfo in item.Value)//车辆信息
                     {
-                        MyPoint p = this.GetDataPoint(itemCarInfo);
+                        OxyzPointF p = this.GetDataPoint(itemCarInfo);
                         dataI.Points.AddXY((double)p._X, (double)p._Y);
                     }
                 }

@@ -7,7 +7,7 @@ namespace SubSys_SimDriving.SysSimContext
     /// <summary>
     /// ²»¼Ì³Ð×ÔstaticSystable
     /// </summary>
-    internal class RoadNodeHTable : Dictionary<int, RoadNode>
+    internal class RoadNodeHTable : Dictionary<int, XNode>
 	{
 	}
 	 

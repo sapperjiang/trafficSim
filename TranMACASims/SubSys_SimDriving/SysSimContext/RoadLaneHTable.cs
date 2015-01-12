@@ -4,7 +4,7 @@ using SubSys_SimDriving.SysSimContext;
 
 namespace SubSys_SimDriving.SysSimContext
 {
-    public class RoadLaneHTable : StaticSysTable<int, RoadLane>
+    public class LaneHTable : StaticSysTable<int, Lane>
 	{
 	}
 	 

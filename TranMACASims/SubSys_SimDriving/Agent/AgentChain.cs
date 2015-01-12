@@ -8,9 +8,9 @@ namespace SubSys_SimDriving.Agents
 	 * 由于规则不是很多。不使用哈希表，这些
 	 * 规则如交通灯规则，加减速规则等
 	 */
-	internal abstract class UpdateAgentChain:AbstractChain<Agent>
+	internal abstract class UpdateAgentChain:AbstractChain<AbstractAgent>
 	{
-        internal virtual void AddUpdateAgent(Agent ur)
+        internal virtual void AddUpdateAgent(AbstractAgent ur)
         {
             if (ur != null)
             {
@@ -21,7 +21,7 @@ namespace SubSys_SimDriving.Agents
                 throw new ArgumentNullException();
             }
         }
-        internal virtual void RemoveUpdateAgent(Agent ur)
+        internal virtual void RemoveUpdateAgent(AbstractAgent ur)
         {
             if (ur != null)
             {
@@ -32,7 +32,7 @@ namespace SubSys_SimDriving.Agents
                 throw new ArgumentNullException();
             }
         }
-        internal virtual Agent FindUpdateAgentByName(string strAgentName)
+        internal virtual AbstractAgent FindUpdateAgentByName(string strAgentName)
         {
             if (strAgentName != null)
             {

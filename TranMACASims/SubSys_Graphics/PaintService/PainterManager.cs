@@ -12,36 +12,36 @@ namespace SubSys_Graphics
 {
     public enum PaintServiceType
 	{
-	    RoadEdge,
-        RoadNode,
-        RoadLane,
+	    Way,
+        XNode,
+        Lane,
 	}
-    public class PainterManager 
+    public static class PainterManager 
     {
-        private static Dictionary<int, IPainter> servicePool = new Dictionary<int, IPainter>();
+        private static Dictionary<int, IPainter> _servicePool = new Dictionary<int, IPainter>();
         public static IPainter GetService(PaintServiceType pst,Control canvas)
         {
             IPainter ips;
-             if (servicePool.ContainsKey((int)pst)==true)
+             if (_servicePool.ContainsKey((int)pst)==true)
 	        {
-		        servicePool.TryGetValue((int)pst,out ips);
+		        _servicePool.TryGetValue((int)pst,out ips);
                 ips.Canvas = canvas; 
                 return ips;
 	        }
 
             switch (pst)
             {
-                case PaintServiceType.RoadEdge:
-                        ips = new RoadEdgePainter(canvas);
-                        servicePool.Add((int)pst,ips);
+                case PaintServiceType.Way:
+                        ips = new WayPainter(canvas);
+                        _servicePool.Add((int)pst,ips);
                         return ips;
-                case PaintServiceType.RoadNode:
-                        ips = new RoadNodePainter(canvas);
-                        servicePool.Add((int)pst,ips);
+                case PaintServiceType.XNode:
+                        ips = new XNodePainter(canvas);
+                        _servicePool.Add((int)pst,ips);
                         return ips;
-                case PaintServiceType.RoadLane:
-                        ips = new RoadLanePainter(canvas);
-                        servicePool.Add((int)pst, ips);
+                case PaintServiceType.Lane:
+                        ips = new LanePainter(canvas);
+                        _servicePool.Add((int)pst, ips);
                         return ips;
                 default:
                         throw new NotImplementedException("没有请求类型的画图服务");

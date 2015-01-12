@@ -16,7 +16,7 @@ namespace SubSys_SimDriving.Agents
         //{
         //}
 
-        internal override void AddUpdateAgent(Agent ur)
+        internal override void AddUpdateAgent(AbstractAgent ur)
         {
             base.AddUpdateAgent(ur);
         }

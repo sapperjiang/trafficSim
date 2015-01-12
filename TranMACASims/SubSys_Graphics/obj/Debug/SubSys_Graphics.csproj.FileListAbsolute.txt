@@ -25,3 +25,4 @@ Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\SubSys_SimDrivin
 Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.csprojResolveAssemblyReference.cache
 Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.dll
 Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\obj\Debug\SubSys_Graphics.pdb
+Z:\w我的文档\gitpool\TranMACASims\SubSys_Graphics\bin\Debug\SubSys_SimDriving.xml

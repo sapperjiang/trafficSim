@@ -1,24 +1,22 @@
 using System.Drawing;
 using SubSys_SimDriving.TrafficModel;
+using SubSys_MathUtility;
+
 namespace SubSys_SimDriving
 {
-
-
     /// <summary>
-    /// 保存当前位置，起始位置，要去的位置的坐标信息
+    /// 保存当前位置，起始位置，要去的位置的坐标信息，不同车辆（大车、中型车、小车）类型的Track可能不一样，其性质也不一样。
     /// </summary>
-    public class CarTrack
+    public  partial class Track
     {
-        internal RoadLane fromLane;
-        internal RoadLane toLane;
+        internal Lane fromLane;
+        internal Lane toLane;
         internal Point pTempPos;
 
         public Point pCurrPos;
 
         public Point pFromPos;
         public Point pToPos;
-       
-       
        
         internal Point NextPoint(Point iCurrPoint)
         {
@@ -40,25 +38,16 @@ namespace SubSys_SimDriving
             }
             return iNew;
         }
+        
     }
-    //public class Point
-    //{
-    //    public int X;
-    //    public int Y;
-    //    public Point(int x, int y)
-    //    {
-    //        this.X = x;
-    //        this.Y = y;
-    //    }
-    //    public Point Copy()
-    //    {
-    //        return new Point(this.X,this.Y);
-    //    }
-    //    public static Point MinValue()
-    //    {
-    //        return new Point(0,0);
-    //    }
-    //}
-	 
+    
+    //-------------------2015年1月11日-------------------------
+    public  partial class Track
+    {
+    	public OxyzPoint opCurrPos;
+    	public OxyzPoint opNextPos;
+    	
+    }
+
 }
  

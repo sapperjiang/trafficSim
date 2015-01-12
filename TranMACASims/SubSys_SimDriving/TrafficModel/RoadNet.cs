@@ -11,88 +11,90 @@ namespace SubSys_SimDriving.TrafficModel
     /// 应当实现为单例模式,RoadNetWork 是simContext的一部分
     /// RoadNetWork 应当承承担路网节点工厂的责任
     /// </summary>
-    public class RoadNetWork:TrafficEntity,IRoadNetWork
+    public class RoadNet:TrafficEntity,IRoadNet
 	{
-        public static int iRoadNetWorkCount = 0;
+        public static int iRoadNetCount = 0;
         /// <summary>
         ///单例模式 防止直接调用接口生成该类,路网的边使用了simContext
         ///路网的节点表使用了simContext
         /// </summary>
-        private RoadNetWork()
+        private RoadNet()
         {
-            iRoadNetWorkCount += 1;
+            iRoadNetCount += 1;
             ///邻接矩阵使用的节点使用外部RoadNodeList作为存储介质
-            ADNetWork = new AdjacencyTable<int>(this.RoadNodeList);
+            _atRoadNet = new AdjacencyTable<int>(this.htXNodes);
         }
         /// <summary>
         /// 静态引用私有引用，只能通过getInstance创建类的实例
         /// </summary>
-        private static RoadNetWork _roadNetWork;
-        public static RoadNetWork GetInstance()
+        private static RoadNet _roadNet;
+        public static RoadNet GetInstance()
         {
-            if (_roadNetWork == null)
+            if (_roadNet == null)
             {
+            	//防止多线程创建了多个实例
                 System.Threading.Mutex mutext = new System.Threading.Mutex();
                 mutext.WaitOne();
-                _roadNetWork = new RoadNetWork();
-                _roadNetWork.EntityType = EntityType.RoadNetWork;
+                _roadNet = new RoadNet();
+                _roadNet.EntityType = EntityType.RoadNet;
                 mutext.Close();
                 mutext = null;
             }
-            return RoadNetWork._roadNetWork;
+            return RoadNet._roadNet;
         }
         /// <summary>
         /// 边字典使用仿真上下文
         /// </summary>
-        internal RoadEdgeHTable RoadEdgeList = new RoadEdgeHTable();
+        internal WayHTable htWays = new WayHTable();
 
-        internal RoadNodeHTable RoadNodeList = new RoadNodeHTable();
+        internal RoadNodeHTable htXNodes = new RoadNodeHTable();
 
         /// <summary>
         /// 获取所有的车道是否有必要，因为该部分已经存在了RoadEdge中了
         /// </summary>
-        internal RoadLaneHTable RoadLanes = new RoadLaneHTable();
+        internal LaneHTable htLanes = new LaneHTable();
 
 
         /// <summary>
         /// 仅仅是邻接表里面的节点字典使用仿真上下文，边不使用节点内部的新字典
         /// </summary>
-        private AdjacencyTable<int> ADNetWork;
+        private AdjacencyTable<int> _atRoadNet;
         
-        EntityIDManager<int> roadIDManager = new IntIDManager();
+        //EntityIDManager<int> _roadIDManager = new IntIDManager();
 
-        private MyPoint _netWorkPos;
+      //  private MyPoint _netWorkPos;
 
         private EntityType _entityType;
  
         #region INetWork 成员
-        public ICollection<RoadEdge> RoadEdges 
+        public ICollection<Way> Ways 
         {
             get {
-                return this.RoadEdgeList.Values;
+                return this.htWays.Values;
             }
         }
-        public ICollection<RoadNode> RoadNodes
+        public ICollection<XNode> XNodes
         {
             get{
-                return this.RoadNodeList.Values;
+                return this.htXNodes.Values;
             }
         }
          
-        public  void AddRoadNode(RoadNode value)
+        public  void AddXNode(XNode value)
         {
             if (value!=null)
             {
                
-                ADNetWork.AddRoadNode(value.GetHashCode(), value);
-                value.Register();////注册到路网中其他构造函数
+                _atRoadNet.AddRoadNode(value.GetHashCode(), value);
+                //注册到路网中其他构造函数
+                value.Register();
             }
         }
-         public void RemoveRoadNode(RoadNode value)
+         public void RemoveXNode(XNode value)
         {
             if (value != null)
             {
-                ADNetWork.RemoveRoadNode(value.GetHashCode());//已经删除了节点
+                _atRoadNet.RemoveRoadNode(value.GetHashCode());//已经删除了节点
                 value.UnRegiser();//重复删除
             }
             else 
@@ -100,9 +102,9 @@ namespace SubSys_SimDriving.TrafficModel
                 throw new ArgumentNullException();
             }
         }
-          public RoadNode FindRoadNode(RoadNode roadNode)
+          public XNode FindXNode(XNode roadNode)
          {
-             int i = this.RoadNodes.Count;
+             int i = this.XNodes.Count;
              //bool b = object.ReferenceEquals(this, SimCtx.NetWork);
              //bool c = object.ReferenceEquals(this.ADNetWork, SimCtx.NetWork.ADNetWork);
 
@@ -110,9 +112,9 @@ namespace SubSys_SimDriving.TrafficModel
              {
                  throw new ArgumentNullException("参数不能为Null");
              }
-             if (ADNetWork.Contains(roadNode.GetHashCode()))
+             if (_atRoadNet.Contains(roadNode.GetHashCode()))
              {
-                 return ADNetWork.Find(roadNode.GetHashCode());
+                 return _atRoadNet.Find(roadNode.GetHashCode());
              }
              return null;
          }
@@ -147,56 +149,57 @@ namespace SubSys_SimDriving.TrafficModel
         //        throw new ArgumentNullException("无法用空节点添加边");
         //    }
         //}
-        public void AddRoadEdge(RoadEdge re)
+        public void AddWay(Way re)
         {
-            if (this.FindRoadNode(re.roadNodeFrom) != null && this.FindRoadNode(re.roadNodeFrom) != null)
+            if (this.FindXNode(re.XNodeFrom) != null && this.FindXNode(re.XNodeFrom) != null)
             {
                 re.Register();//将道路边注册
                 //将边添加到添加邻接矩阵网络中
-                ADNetWork.AddDirectedEdge(re.roadNodeFrom.GetHashCode(), re);
+                _atRoadNet.AddDirectedEdge(re.XNodeFrom.GetHashCode(), re);
             }
             else
             {
                 ThrowHelper.ThrowArgumentException("没有在网络中添加创建道路边的节点，节点没有注册");
             }
         }
-        public RoadEdge AddRoadEdge(RoadNode from, RoadNode To)
+        public Way AddWay(XNode from, XNode To)
         {
-            RoadEdge re = new RoadEdge(from, To);
-            this.AddRoadEdge(re);
+            Way re = new Way(from, To);
+            this.AddWay(re);
             return re;
         }
         [System.Obsolete("这个删除函数可能有问题")]
-        public void RemoveRoadEdge(RoadNode from, RoadNode to)
+        public void RemoveWay(XNode from, XNode to)
         {
             if (from != null && to != null)
             {
-                RoadEdge re = this.FindRoadEdge(from,to);
+                Way re = this.FindWay(from,to);
                 //邻接矩阵中删除边
-                ADNetWork.RemoveDirectedEdge(from.GetHashCode(), re);
+                _atRoadNet.RemoveDirectedEdge(from.GetHashCode(), re);
                 re.UnRegiser();//解除注册
             }
         }
          
-        public RoadEdge FindRoadEdge(RoadNode from, RoadNode to)
+        public Way FindWay(XNode from, XNode to)
         {
             if (from != null && to != null)
             {
                 //找到内部的哈希表对应的该节点
-                RoadNode fromRN = this.FindRoadNode(from);
+                XNode fromRN = this.FindXNode(from);
                 if (fromRN != null)
                 {//查询用户的请求
                     //System.Diagnostics.Debug.Assert(fromRN.FindRoadEdge(to) != this.RoadEdgeList[RoadEdge.GetHashCode(from, to)]);
-                    return fromRN.FindRoadEdge(to);
+                    return fromRN.FindWay(to);
                 }
-                return null;
+                ThrowHelper.ThrowArgumentNullException("参数不能为零");
+                
             }
-            throw new ArgumentNullException("参数不能为零");
+                 throw new ArgumentNullException("参数不能为零");
         }
    
          #endregion
 
-        public event UpdateHandler UpdateCompleted;
+        public event UpdateHandler Updated;
 
 
         private int _iCurrTimeStep;
@@ -204,54 +207,52 @@ namespace SubSys_SimDriving.TrafficModel
         {
             get
             {
-                //throw new NotImplementedException();
                 return this._iCurrTimeStep;
             }
             set
             {
                 this._iCurrTimeStep = value;
-
-                this.OnUpdateCompleted();//调用委托
+			//调用委托
+                this.OnUpdateCompleted();
             }
         }
         private void OnUpdateCompleted()
         {
-            foreach (var handler in handlerList)
-            {
-                handler();//调用委托的方法
+            foreach (var handler in _lsHandlers)
+            {//调用委托的方法
+                handler();
             }
         }
 
-        private List<UpdateHandler> handlerList;
+        private List<UpdateHandler> _lsHandlers;
 
-        event UpdateHandler IRoadNetWork.UpdateCompleted
+        event UpdateHandler IRoadNet.Updated
         {
             add 
             {
-                if (handlerList == null)
+                if (_lsHandlers == null)
                 {
-                    handlerList = new List<UpdateHandler>();
+                    _lsHandlers = new List<UpdateHandler>();
                 }
-                handlerList.Add(value); 
+                _lsHandlers.Add(value); 
             }
             remove 
             {
-                handlerList.Remove(value); 
-                //throw new NotImplementedException(); 
+                _lsHandlers.Remove(value); 
             }
         }
 
 
-        ICollection<RoadLane> IRoadNetWork.RoadLanes
+        ICollection<Lane> IRoadNet.Lanes
         {
-            get { return this.RoadLanes.Values; }
+            get { return this.htLanes.Values; }
         }
 
 
-        public RoadEdge FindRoadEdge(int reKey)
+        public Way FindWay(int reKey)
         {
-            RoadEdge re ;
-            this.RoadEdgeList.TryGetValue(reKey, out re);
+            Way re ;
+            this.htWays.TryGetValue(reKey, out re);
             return re;
         }
     }

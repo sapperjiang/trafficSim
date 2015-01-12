@@ -9,12 +9,13 @@ using System.Windows.Forms;
 
 using SubSys_DataManage;
 using SubSys_Graphics;
+using SubSys_SimDriving;
 using SubSys_SimDriving.Agents;
-using SubSys_SimDriving.ModelFactory;
 using SubSys_SimDriving.RoutePlan;
 using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving.SysSimContext.Service;
 using SubSys_SimDriving.TrafficModel;
+
 
 namespace GISTranSim
 {
@@ -46,7 +47,7 @@ namespace GISTranSim
 				this.iStraghtCount = Convert.ToInt32(this.TB_StraightLaneCount.Text);
 				this.iRightCount = Convert.ToInt32(this.TB_RightLaneCount.Text);
 				
-				RoadEdge  roadEdge = RoadEdgeFacory.BuildOneWay(new Point(),new Point(),this.iLeftCount,this.iStraghtCount,this.iRightCount);//);
+				Way  roadEdge = WayFactory.BuildOneWay(new Point(),new Point(),this.iLeftCount,this.iStraghtCount,this.iRightCount);//);
 				
 				roadEdge .Name  =this.TB_RoadName.Text;
 				

@@ -9,9 +9,9 @@ using SubSys_SimDriving.TrafficModel;
 namespace SubSys_Graphics
 {
 	//单线程版本
-	internal class RoadNodePainter : AbstractPainter
+	internal class XNodePainter : AbstractPainter
 	{
-		internal RoadNodePainter(System.Windows.Forms.Control canvas)
+		internal XNodePainter(System.Windows.Forms.Control canvas)
 		{
 			this.Canvas = canvas;
 			this.graphic = canvas.CreateGraphics();
@@ -22,14 +22,14 @@ namespace SubSys_Graphics
 		/// </summary>
 		private void DrawEntity(ITrafficEntity te)
 		{
-			RoadNode rN = te as RoadNode;
+			XNode rN = te as XNode;
 			
 			//计算交叉口矩形
 			int iPixels = GraphicsConfiger.iCellPixels;
 			
 			//计算左上角的屏幕坐标
 			int iOffset = rN.iLength / 2;
-			Point pStart = new Point(rN.RelativePosition.X - iOffset, rN.RelativePosition.Y - iOffset);
+			Point pStart = new Point(rN.Grid.X - iOffset, rN.Grid.Y - iOffset);
 
 			int iHO = iOffset/2;
 			Point  pA =new Point(pStart.X+iHO,pStart.Y);
@@ -65,14 +65,14 @@ namespace SubSys_Graphics
 			int iLoopCount = tVar.iLength;//元胞长度，初始化参见registerservice
 			int iLanes = iLoopCount / 2-1;
 			
-			Point pCenter = tVar.RelativePosition;
+			Point pCenter = tVar.Grid;
 
 			this.CellSpaces.Clear();
 			for (int i = -iLanes; i <= (iLanes+1); i++)//x行
 			{
 				for (int j = -iLanes; j <= (iLanes + 1); j++)//列
 				{
-					MyPoint p= new MyPoint(pCenter.X + (i - 0.5f),pCenter.Y + (j - 0.5f));
+					OxyzPointF p= new OxyzPointF(pCenter.X + (i - 0.5f),pCenter.Y + (j - 0.5f));
 					CellSpaces.Add(i*iLoopCount+j,p);//起点坐标
 				}
 			}
@@ -80,18 +80,18 @@ namespace SubSys_Graphics
 		//        绘制在交叉口的车辆
 		private void PaintCar(ITrafficEntity tVar)
 		{
-			RoadNode rn = tVar as RoadNode;
+			XNode rn = tVar as XNode;
 			int iLength = rn.iLength;
 			Point itp;
 			foreach (var item in rn)
 			{
 				itp = item.Track.pCurrPos;
-				MyPoint mp = CellSpaces[itp.X * iLength  - itp.Y+1];
+				OxyzPointF mp = CellSpaces[itp.X * iLength  - itp.Y+1];
 				this.PaintCar(item.Car.Color,mp);
 			}
 
 		}
-		private void PaintCar(Color cell, MyPoint p)
+		private void PaintCar(Color cell, OxyzPointF p)
 		{
 
 			int iWidth = GraphicsConfiger.iCellPixels;
@@ -110,7 +110,7 @@ namespace SubSys_Graphics
 			//获取元胞生存空间
 			if (CellSpaces == null)
 			{
-				this.CellSpaces = new Dictionary<int, MyPoint>();
+				this.CellSpaces = new Dictionary<int, OxyzPointF>();
 			}
 			
 			this.CreateCellSpaces(tVar);

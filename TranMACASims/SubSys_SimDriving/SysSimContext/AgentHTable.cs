@@ -4,7 +4,7 @@ using SubSys_SimDriving.SysSimContext;
 
 namespace SubSys_SimDriving.SysSimContext
 {
-    public class AgentHTable : StaticSysTable<int, Agent>
+    public class AgentHTable : StaticSysTable<int, AbstractAgent>
 	{
 	}
 	 

@@ -6,7 +6,7 @@ namespace SubSys_SimDriving.RoutePlan
 {
     internal class JamTripCostAnalyzer:TripCostAnalyzer
 	{
-		internal override double GetTripCost(RoadEdge re)
+		internal override double GetTripCost(Way re)
 		{
             int iCapacity  = 0;
             int iVolumn = 0;
