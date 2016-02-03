@@ -35,7 +35,7 @@ namespace SubSys_SimDriving.Agents
             Way reverse = null;
             foreach (Way re in rN.RoadEdges)
             {   //找到反向的边
-                reverse = roadNet.FindWay(re.xNodeTo, re.XNodeFrom);
+                reverse = roadNet.FindWay(re.XNodeTo, re.XNodeFrom);
                 System.Diagnostics.Debug.Assert(reverse != null);
                 if (reverse!=null)
                 {

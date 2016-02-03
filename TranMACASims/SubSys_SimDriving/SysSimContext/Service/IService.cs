@@ -32,7 +32,6 @@ namespace SubSys_SimDriving.SysSimContext.Service
             set { _isRunning = value; }
         }
 
-
         public void Perform(ITrafficEntity tVar)
         {
             if (this.IsRunning == true)

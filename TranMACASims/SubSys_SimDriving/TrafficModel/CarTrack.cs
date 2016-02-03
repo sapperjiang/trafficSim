@@ -5,7 +5,7 @@ using SubSys_MathUtility;
 namespace SubSys_SimDriving
 {
     /// <summary>
-    /// 保存当前位置，起始位置，要去的位置的坐标信息，不同车辆（大车、中型车、小车）类型的Track可能不一样，其性质也不一样。
+    /// 用于交叉口的轨迹算法，保存当前位置，起始位置，要去的位置的坐标信息，不同车辆（大车、中型车、小车）类型的Track可能不一样，其性质也不一样。
     /// </summary>
     public  partial class Track
     {
@@ -42,10 +42,18 @@ namespace SubSys_SimDriving
     }
     
     //-------------------2015年1月11日-------------------------
+    
+    /// <summary>
+    /// 交叉口坐标升级
+    /// </summary>
     public  partial class Track
     {
     	public OxyzPoint opCurrPos;
     	public OxyzPoint opNextPos;
+    	internal OxyzPoint opTempPos;
+
+        public OxyzPoint opFromPos;
+        public OxyzPoint opToPos;
     	
     }
 

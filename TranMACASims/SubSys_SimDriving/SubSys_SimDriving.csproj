@@ -95,7 +95,6 @@
     <Compile Include="SysSimContext\Service\RegisterService.cs" />
     <Compile Include="SysSimContext\Service\DataRecordService.cs" />
     <Compile Include="SysSimContext\Service\EventAttachService.cs" />
-    <Compile Include="SysSimContext\CarModelHTable.cs" />
     <Compile Include="SysSimContext\Service\IService.cs" />
     <Compile Include="SysSimContext\Service\ServiceMgr.cs" />
     <Compile Include="SysSimContext\MyHashTable.cs" />
@@ -114,7 +113,6 @@
     <Compile Include="TrafficModel\MobileFactory.cs" />
     <Compile Include="TrafficModel\CarStatus.cs" />
     <Compile Include="TrafficModel\Cell.cs" />
-    <Compile Include="TrafficModel\CellMatrix.cs" />
     <Compile Include="TrafficModel\dataStructure\AbstractChain.cs" />
     <Compile Include="TrafficModel\dataStructure\AdjacencyTable.cs" />
     <Compile Include="TrafficModel\dataStructure\CarInfoQueue.cs" />
@@ -130,7 +128,6 @@
     <Compile Include="TrafficModel\ITrafficEntity.cs" />
     <Compile Include="TrafficModel\LaneType.cs" />
     <Compile Include="TrafficModel\MobileEntity.cs" />
-    <Compile Include="TrafficModel\CarTrack.cs" />
     <Compile Include="TrafficModel\Road.cs" />
     <Compile Include="TrafficModel\Way.cs" />
     <Compile Include="TrafficModel\StaticEntity.cs" />
@@ -147,7 +144,7 @@
     <Compile Include="TrafficModel\CarInfo.cs" />
     <Compile Include="TrafficModel\EntityShape.cs" />
     <Compile Include="ThrowHelper.cs" />
-    <Compile Include="TrafficModel\RunCtx.cs" />
+    <Compile Include="TrafficModel\DriveContext.cs" />
     <Compile Include="ModelSetting.cs" />
   </ItemGroup>
   <ItemGroup>

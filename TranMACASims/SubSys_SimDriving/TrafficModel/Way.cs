@@ -34,10 +34,10 @@ namespace SubSys_SimDriving.TrafficModel
 				throw new ArgumentNullException("无法使用空的节点构造边");
 			}
 			this.XNodeFrom =from;
-			this.xNodeTo = to;
+			this.XNodeTo = to;
 			this._lanes = new LaneChain();
 
-			this._id = Way.iRoadCount++;
+			this._EntityID = Way.iRoadCount++;
 
 		}
 		/// <summary>
@@ -48,10 +48,10 @@ namespace SubSys_SimDriving.TrafficModel
 		internal Way(Point from, Point to)
 		{
 			this.XNodeFrom =new XNode(from);;
-			this.xNodeTo =  new XNode(to);
+			this.XNodeTo =  new XNode(to);
 			this._lanes = new LaneChain();
 
-			this._id = Way.iRoadCount++;
+			this._EntityID = Way.iRoadCount++;
 
 		}
 		
@@ -64,7 +64,7 @@ namespace SubSys_SimDriving.TrafficModel
 		public override int iLength
 		{
 			get {
-				int preNodeDistance = Coordinates.Distance(this.XNodeFrom.Grid, this.xNodeTo.Grid);
+				int preNodeDistance = Coordinates.Distance(this.XNodeFrom.Grid, this.XNodeTo.Grid);
 
 				int iRealLength = preNodeDistance- 2* SimSettings.iMaxLanes;
 				if (iRealLength<10)
@@ -80,7 +80,7 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 
 		public XNode XNodeFrom;
-		public XNode xNodeTo;
+		public XNode XNodeTo;
 		
 		#region 路段内部的车道相关的数据结构和操作函数
 		/// <summary>
@@ -244,7 +244,7 @@ namespace SubSys_SimDriving.TrafficModel
 		public override int GetHashCode()
 		{
 			//return RoadEdge.iRoadEdgeCount;
-			return string.Concat(XNodeFrom.GetHashCode().ToString(), xNodeTo.GetHashCode().ToString()).GetHashCode();
+			return string.Concat(XNodeFrom.GetHashCode().ToString(), XNodeTo.GetHashCode().ToString()).GetHashCode();
 		}
 		/// <summary>
 		/// 静态的哈希函数，用来计算某条边的哈希值
@@ -258,6 +258,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// 过时的，老旧的函数调用visitor 模式如vmsagent等。然后驱动元胞模型，然后调用所有服务
 		/// </summary>
+		[System.Obsolete("obsolete")]
 		public override void UpdateStatus()
 		{
 			////更新异步消息
@@ -270,10 +271,16 @@ namespace SubSys_SimDriving.TrafficModel
 			//用roadedge调用元胞的drive 目的在于让车辆可以换道，这一段需要重写，不在使用元胞，而是用mobileentity
 			foreach (var lane in this.Lanes)
 			{
-				for (int i = 0; i < lane.CellCount; i++)
-				{
-					lane[i].Drive(this);//这是一个元胞的方法
+				//			for (int i = 0; i < lane.CellCount; i++)
+//				{
+//					lane[i].Drive(this);//这是一个元胞的方法
+//				}
+				
+				foreach (var element in lane.Mobiles) {
+					element.Driver.DriveMobile(lane.Container as StaticEntity,element);
 				}
+//
+				
 				lane.UpdateStatus();//调用注册在车道上的服务。
 			}
 			base.UpdateStatus();//调用注册在路段上的服务，如RoadEdgePaintService
@@ -294,7 +301,7 @@ namespace SubSys_SimDriving.TrafficModel
 		[System.Obsolete("随机数发生器有可能产生两个完全一样的路段端点坐标，该函数的试图解决这一问题，正式程序不应当使用")]
 		public override OxyzPointF ToVector()
 		{
-			OxyzPointF p = new OxyzPointF(xNodeTo.Grid.X - XNodeFrom.Grid.X, xNodeTo.Grid.Y - XNodeFrom.Grid.Y);
+			OxyzPointF p = new OxyzPointF(XNodeTo.Grid.X - XNodeFrom.Grid.X, XNodeTo.Grid.Y - XNodeFrom.Grid.Y);
 			if (p._X == 0.0f && p._Y == 0.0f)
 			{
 				p._X = 12;
@@ -311,12 +318,14 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			get
 			{
+				//var way = this;
+				
 				EntityShape eShape = base.Shape;
 
 				if (eShape.Count == 0)//shape 没有初始化
 				{
-					int pX =this.xNodeTo.Grid.X - this.XNodeFrom.Grid.X;
-					int pY =  this.xNodeTo.Grid.Y - this.XNodeFrom.Grid.Y;
+					int pX =this.XNodeTo.Grid.X - this.XNodeFrom.Grid.X;
+					int pY =  this.XNodeTo.Grid.Y - this.XNodeFrom.Grid.Y;
 					//向量等分
 					float dLq = this.iLength + 2 * SimSettings.iMaxLanes;//分母
 					float xSplit = pX / dLq;//自身有正负号
@@ -325,7 +334,7 @@ namespace SubSys_SimDriving.TrafficModel
 					int iOffset = SimSettings.iMaxLanes;
 					eShape.Add(new OxyzPointF(this.XNodeFrom.Grid.X + iOffset * xSplit, this.XNodeFrom.Grid.Y + iOffset * ySplit));
 					//计算终点
-					eShape.Add(new OxyzPointF(this.xNodeTo.Grid.X - iOffset * xSplit, this.xNodeTo.Grid.Y - iOffset * ySplit));
+					eShape.Add(new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit));
 				}
 				return eShape;
 			}
@@ -337,7 +346,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <returns></returns>
 		public Way GetReverse()
 		{
-			return (ISimCtx.RoadNet as IRoadNet).FindWay(this.xNodeTo, this.XNodeFrom);
+			return (ISimCtx.RoadNet as IRoadNet).FindWay(this.XNodeTo, this.XNodeFrom);
 		}
 
 		/// <summary>
@@ -367,13 +376,13 @@ namespace SubSys_SimDriving.TrafficModel
 		internal SpeedLevel iSpeedLimit;
 	}
 	public partial class Way : StaticEntity
-	{	
+	{
 		/// <summary>
 		/// 新版更新函数，替代updateStatus函数
 		/// </summary>
 		public override void Update()
 		{
-				////更新异步消息
+			////更新异步消息
 			for (int i = 0; i < this.asynAgents.Count; i++)
 			{
 				Agents.AbstractAgent visitorAgent = this.asynAgents[i];
@@ -384,7 +393,7 @@ namespace SubSys_SimDriving.TrafficModel
 			foreach (var lane in this.Lanes)
 			{
 				foreach (var element in lane.Mobiles) {
-					element.Driver.DriveCar(this,element);
+					element.Driver.DriveMobile(this,element);
 				}
 				
 				lane.UpdateStatus();//调用注册在车道上的服务。
@@ -395,7 +404,7 @@ namespace SubSys_SimDriving.TrafficModel
 		
 		internal override void ServeMobiles()
 		{
-	
+			
 		}
 		
 	}

@@ -30,7 +30,7 @@ namespace SubSys_SimDriving.TrafficModel
             get;
             set;
         }    
-    /// <summary>
+        /// <summary>
         /// 对向节点
         /// </summary>
          XNode CtrRoadNode

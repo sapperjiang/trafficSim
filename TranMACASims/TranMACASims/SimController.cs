@@ -12,7 +12,8 @@ using SubSys_SimDriving.SysSimContext;
 using SubSys_SimDriving.SysSimContext.Service;
 using SubSys_SimDriving.TrafficModel;
 
-using GISTranSim.DataOutput;
+//using GISTranSim.DataOutput;
+
 
 namespace SubSys_SimDriving
 {
@@ -28,17 +29,23 @@ namespace SubSys_SimDriving
 		internal static IRoadNet iroadNet;//= simContext.NetWork;
 
 		internal static bool bIsExit = false;
-		internal static int iRoadWidth = 500;//1000m
+		internal static int iRoadWidth = 50;//1000m
 
 		internal static string strSimMsg = null;
 
-		internal static int iSimInterval = 1000;
-		internal static int iSimTimeSteps = 420;
+		internal static int iSimInterval = 100;
+		internal static int iSimTimeSteps = 4200;
 		internal static bool bIsPause = false;
 		internal static int iCarCount = 2;
-
-		internal static Way ReA;
-		internal static Way ReB;
+		
+		//添加路由表内容-fis
+		internal static Way ReA1;
+		internal static Way ReA2;
+		internal static Way ReA3;
+		internal static Way ReA4;
+		internal static Way ReB1;
+		internal static Way ReB2;
+		
 		
 
 		internal  static void InitializePainters(Control frMain)
@@ -47,6 +54,9 @@ namespace SubSys_SimDriving
 				iroadNet = SimController.ISimCtx.RoadNet;
 			}
 			iroadNet.Updated +=RepaintNetWork;
+	
+			//when pase repaint network
+			//frMain.MouseWheel+=RepaintNetWork;
 
 			WayPainter = PainterManager.GetService(PaintServiceType.Way, frMain);
 			xNodePainter = PainterManager.GetService(PaintServiceType.XNode, frMain);
@@ -123,10 +133,95 @@ namespace SubSys_SimDriving
 		}
 
 		
-		/// <summary>
+//		/// <summary>
+//		/// 仿真运行的主循环
+//		/// </summary>
+//		public static void Run()
+//		{
+//			//数据记录服务
+//			AttachRecordService();
+//			
+//			while (true) {
+//				//t退出命令或者仿真到了设定的仿真时长
+//				if (bIsExit == true||ISimCtx.iCurrTimeStep>= iSimTimeSteps)
+//				{
+//					if (OnSimulateStoped!=null) {
+//						OnSimulateStoped(null,null);
+//					}
+//					break;
+//				}
+//
+//				//线程休眠减少资源消耗
+//				Thread.Sleep(iSimInterval);
+//				//处理应用程序界面事件。如点击鼠标、点击菜单等
+//				Application.DoEvents();
+//				
+//				if (bIsPause==false) {//如果没有暂停
+//					while (ISimCtx.iCurrTimeStep++ <= iSimTimeSteps)
+//					{
+//						strSimMsg = ISimCtx.iCurrTimeStep.ToString();
+//						
+//						if (bIsExit==true||bIsPause  == true)//退出或者暂停都停止循环
+//						{
+//							break;
+//						}
+//						
+//						Thread.Sleep(iSimInterval);
+//						Application.DoEvents();
+//
+//						//下面这段代码不知道干嘛的
+//						if (--iCarCount > 0)
+//						{
+//							int iLane = 0;// iCarCount % 3;
+//							//int bLane = 2;
+//							//新建一条路由
+//							EdgeRoute erA = new EdgeRoute();
+//							erA.Add(SimController.ReA1);
+//							//添加节点—fis
+//							erA.Add(SimController.ReA2);
+//							erA.Add(SimController.ReA3);
+//							//erA.Add(SimController.ReA4);
+//							//设置每段路走哪条路
+//							Lane rA = SimController.ReA1.Lanes[iLane];
+//							//Lane r2 = SimController.ReB.Lanes[iLane];
+//							//为每个原包选择出行路由
+//							rA.EnterWaitedQueue(SubSys_SimDriving.TrafficModel.MobileSimulator.MakeCell(erA));
+//							//r2.EnterWaitedQueue(SubSys_SimDriving.TrafficModel.CarSimulator.MakeCell(er));
+//						}
+//						
+//						IRoadNet irn =SimController.ISimCtx.RoadNet;
+//						//更新RoadNodes
+//						foreach (XNode item in irn.XNodes)
+//						{
+//							if (bIsExit == true || bIsPause == true)
+//							{
+//								break;
+//							}
+//							item.UpdateStatus();
+//						}
+//						//更新roadEdge
+//						foreach (Way item in irn.Ways)
+//						{
+//							if (bIsExit == true || bIsPause == true)
+//							{
+//								break;
+//							}
+//							//首先更新自己。
+//							item.UpdateStatus();
+//						}
+//						//路网仿真时间计数器更新
+//						irn.iCurrTimeStep = ISimCtx.iCurrTimeStep;
+//					}
+//				}
+//				
+//			}
+//		}
+		
+		//-----------20160131
+				/// <summary>
 		/// 仿真运行的主循环
 		/// </summary>
-		public static void Run()
+		public static void StartSimulate()
 		{
 			//数据记录服务
 			AttachRecordService();
@@ -160,20 +255,29 @@ namespace SubSys_SimDriving
 						Application.DoEvents();
 
 						//下面这段代码不知道干嘛的
-						if (--iCarCount > 0)
+						if (--SimController.iCarCount > 0)
 						{
-							int iLane = 1;// iCarCount % 3;
-
-							EdgeRoute er = new EdgeRoute();
-							er.Add(SimController.ReA);
-							//er.Add(SimController.ReB);
-
-							Lane rl = SimController.ReA.Lanes[iLane];
-							rl.EnterWaitedQueue(SubSys_SimDriving.TrafficModel.CarSimulator.MakeCell(er));
+							int iLane = 0;// iCarCount % 3;
+							//新建一条路由
+							EdgeRoute route = new EdgeRoute();
+							route.Add(SimController.ReA1);
+							//添加节点—fis
+							route.Add(SimController.ReA2);
+//							erA.Add(SimController.ReA3);
+//							erA.Add(SimController.ReA4);
+							//设置每段路走哪条路
+							Lane startLane = SimController.ReA1.Lanes[iLane];
+							
+							startLane.EnterInn(MobileSimulator.MakeMobile(route,startLane));
+							
+							//Lane r2 = SimController.ReB.Lanes[iLane];
+							//为每个原包选择出行路由
+						//	rA.EnterWaitedQueue(SubSys_SimDriving.TrafficModel.MobileSimulator.MakeCell(erA));
+							//r2.EnterWaitedQueue(SubSys_SimDriving.TrafficModel.CarSimulator.MakeCell(er));
 						}
 						
 						IRoadNet irn =SimController.ISimCtx.RoadNet;
-						//先更新item然后更新RoadNodes
+						//更新RoadNodes
 						foreach (XNode item in irn.XNodes)
 						{
 							if (bIsExit == true || bIsPause == true)
@@ -189,7 +293,7 @@ namespace SubSys_SimDriving
 							{
 								break;
 							}
-							//首先更新自己。利用访问者模型是外在驱动Cell的一种思想
+							//首先更新自己。
 							item.UpdateStatus();
 						}
 						//路网仿真时间计数器更新

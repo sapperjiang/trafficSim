@@ -13,3 +13,13 @@ Z:\w我的文档\gitpool\TranMACASims\MathTools\bin\Debug\MathTools.pdb
 Z:\w我的文档\gitpool\TranMACASims\MathTools\obj\Debug\SubSys_MathUtility.csprojResolveAssemblyReference.cache
 Z:\w我的文档\gitpool\TranMACASims\MathTools\obj\Debug\MathTools.dll
 Z:\w我的文档\gitpool\TranMACASims\MathTools\obj\Debug\MathTools.pdb
+E:\software\TrafficSim\TranMACASims\MathTools\bin\Debug\MathTools.dll
+E:\software\TrafficSim\TranMACASims\MathTools\bin\Debug\MathTools.pdb
+E:\software\TrafficSim\TranMACASims\MathTools\obj\Debug\SubSys_MathUtility.csprojResolveAssemblyReference.cache
+E:\software\TrafficSim\TranMACASims\MathTools\obj\Debug\MathTools.dll
+E:\software\TrafficSim\TranMACASims\MathTools\obj\Debug\MathTools.pdb
+D:\software\TrafficSim\TranMACASims\MathTools\bin\Debug\MathTools.dll
+D:\software\TrafficSim\TranMACASims\MathTools\bin\Debug\MathTools.pdb
+D:\software\TrafficSim\TranMACASims\MathTools\obj\Debug\SubSys_MathUtility.csprojResolveAssemblyReference.cache
+D:\software\TrafficSim\TranMACASims\MathTools\obj\Debug\MathTools.dll
+D:\software\TrafficSim\TranMACASims\MathTools\obj\Debug\MathTools.pdb

@@ -8,8 +8,9 @@ namespace SubSys_MathUtility
 	/// </summary>
 	public partial class OxyzPointF
 	{
-		public float _X;
-		public float _Y;
+		public double _X;
+		public double _Y;
+
 
 		public OxyzPoint ToOxyzPoint()
 		{
@@ -20,31 +21,61 @@ namespace SubSys_MathUtility
 		
 		public PointF ToPointF()
 		{
-			return new PointF(this._X, this._Y);
+			return new PointF((float)this._X,(float) this._Y);
 		}
-		public  Point ToPoint()
+		public Point ToPoint()
 		{
 			int x= Convert.ToInt32(this._X);
 			int y= Convert.ToInt32(this._Y);
 			
 			return 	new Point(x,y);
 		}
+		
 
 	}
 	public partial class OxyzPointF
 	{
-		public float _Z=0F;
+		public double _Z=0F;
 
-		public OxyzPointF(float x, float y,float z)
+//		private static UInt32 ID = 0;
+//		private UInt32 _id =0;
+//
+		public OxyzPointF(double x, double y,double z)
 		{
 			this._X = x;
 			this._Y = y;
 			this._Z=z;
+			
+//			OxyzPointF.ID++;
+//			this._id = OxyzPointF.ID;
 		}
-		public OxyzPointF(float x, float y):this(x,y,0F){}
+		public OxyzPointF(double x, double y):this(x,y,0F){}
 		
 		public OxyzPointF(OxyzPointF p):this(p._X,p._Y,0F){}
-
+		
+//		public OxyzPoint ToOxyzPoint()
+//		{	return new ox
+//		}
+//		
+		//-----------------------------20160130-----------------------------
+		/// <summary>
+		/// 重写哈希值，避免两个对象的哈希值相同引起的插入错误
+		/// </summary>
+		/// <returns></returns>
+//		public override int GetHashCode()
+//		{
+//			return this._id.GetHashCode();
+//		}
+		public override int GetHashCode()
+		{
+			int hashCode = 0;
+			unchecked {
+				hashCode += 1000000007 * _X.GetHashCode();
+				hashCode += 1000000009 * _Y.GetHashCode();
+				hashCode += 1000000021 * _Z.GetHashCode();
+			}
+			return hashCode;
+		}
 
 	}
 	
@@ -54,6 +85,7 @@ namespace SubSys_MathUtility
 	/// </summary>
 	public partial class OxyzPoint
 	{
+		
 		public int _X;
 		public int _Y;
 		public int _Z=0;
@@ -93,15 +125,19 @@ namespace SubSys_MathUtility
 		public override int GetHashCode()
 		{
 			int hashCode = 0;
-				unchecked {
-					hashCode += 1000000007 * _X.GetHashCode();
-					hashCode += 1000000009 * _Y.GetHashCode();
-					hashCode += 1000000021 * _Z.GetHashCode();
-				}
-					return hashCode;
+			unchecked {
+				hashCode += 1000000007 * _X.GetHashCode();
+				hashCode += 1000000009 * _Y.GetHashCode();
+				hashCode += 1000000021 * _Z.GetHashCode();
+			}
+			return hashCode;
 		}
 
 		#endregion
+		
+		
+		public static OxyzPoint Default=new OxyzPoint(-1,-1,-1);
+		
 		
 	}
 
@@ -212,15 +248,7 @@ namespace SubSys_MathUtility
 			Coordinates.Offset(ref old,panVector);
 		}
 
-		/// <summary>
-		/// 两个点的欧式距离
-		/// </summary>
-		public static int Distance(Point p1, Point p2)
-		{
-			int iX = Math.Abs(p1.X - p2.X);
-			int iY = Math.Abs(p1.Y - p2.Y);
-			return (int)Math.Round(Math.Sqrt(iX * iX + iY * iY));
-		}
+		
 
 		public static OxyzPointF mpBaseVector = new OxyzPointF(0, 1.0f);//使用x轴做基向量
 		/// <summary>
@@ -238,6 +266,30 @@ namespace SubSys_MathUtility
 			SinCos sc = VectorTools.GetSinCos(mpBaseVector, newVector);
 			return Coordinates.Rotate(point, sc);
 		}
+		
+		/// <summary>
+		/// 两个点的欧式距离
+		/// </summary>
+		public static int Distance(Point p1, Point p2)
+		{
+			int iX = Math.Abs(p1.X - p2.X);
+			int iY = Math.Abs(p1.Y - p2.Y);
+			return (int)Math.Round(Math.Sqrt(iX * iX + iY * iY));
+		}
+		
+		
+		//------------------------20160202-------------------------计算两个点的欧式距离
+		
+		public static double Distance(OxyzPointF p1, OxyzPointF p2)
+		{
+			double iX = Math.Abs(p1._X - p2._X);
+			double iY = Math.Abs(p1._Y - p2._Y);
+			double iZ = Math.Abs(p1._Z - p2._Z);
+			
+			return Math.Sqrt(iX * iX + iY * iY+iZ * iZ);	
+			
+		}
+		
 	}
 }
 

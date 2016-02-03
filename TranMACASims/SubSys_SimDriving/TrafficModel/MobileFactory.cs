@@ -37,18 +37,18 @@ namespace SubSys_DataManage
 					newCar.Color = MobileFactory.GetRandomColor();
 					return newCar;
 					
-				case EntityType.Bus:
-					Bus  newBus = this.bus.Clone() as Bus;
-					newBus.Color = MobileFactory.GetRandomColor();
-					return newBus;
-					
-				case EntityType.Pedastrain:
-//					Pedastrain  newBus = this.p.Clone() as Pedastrain;
-//					
+//				case EntityType.Bus:
+//					Bus  newBus = this.bus.Clone() as Bus;
 //					newBus.Color = MobileFactory.GetRandomColor();
-					return new Pedastrain();
-				case EntityType.LargeTruck:
-					return new LargeTruck();
+//					return newBus;
+//					
+//				case EntityType.Pedastrain:
+////					Pedastrain  newBus = this.p.Clone() as Pedastrain;
+////					
+////					newBus.Color = MobileFactory.GetRandomColor();
+//					return new Pedastrain();
+//				case EntityType.LargeTruck:
+//					return new LargeTruck();
 					
 				default:
 					break;
@@ -58,14 +58,14 @@ namespace SubSys_DataManage
 		
 		
 		SmallCar sCar ;//= new SmallCar()
-		Bus bus ;
-		LargeTruck largeTruck ;
+//		Bus bus ;
+//		LargeTruck largeTruck ;
 		
 		MobileFactory()
 		{
-			sCar= new SmallCar();
-			bus = new Bus();
-			largeTruck = new LargeTruck();
+			//sCar= new SmallCar();
+		//	bus = new Bus();
+	//		largeTruck = new LargeTruck();
 		}
 		
 		

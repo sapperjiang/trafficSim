@@ -34,7 +34,7 @@ namespace SubSys_MathUtility
         /// </summary>
         /// <param name="opVector"></param>
         /// <returns></returns>
-        public static OxyzPointF GetInverseVector(OxyzPointF opVector)
+        public static OxyzPointF GetInverse(OxyzPointF opVector)
         {
             return new OxyzPointF(-opVector._X, -opVector._Y);
         }
@@ -53,7 +53,7 @@ namespace SubSys_MathUtility
 	        {
                 throw new ArgumentException("直线的两个端点不能相同");
 	        }
-            float fResult =(mpNew._Y-mpA._Y)*(mpB._X-mpA._X)-(mpNew._X-mpA._X)*(mpB._Y-mpA._Y);
+            double fResult =(mpNew._Y-mpA._Y)*(mpB._X-mpA._X)-(mpNew._X-mpA._X)*(mpB._Y-mpA._Y);
             if(Math.Abs(fResult)<0.9f)//绝对值在1之内，因为点坐标系有误差造成的 
             {
                 return 0;//返回0 表示向量在直线上
@@ -86,7 +86,7 @@ namespace SubSys_MathUtility
         /// <summary>
         /// 获取两个向量的夹角的余弦值，该值的区间是-1到1闭区间,两个参数向量都不能是0向量
         /// </summary>
-        public static double GetCos(OxyzPointF vBase, OxyzPointF vNew)
+        public static double GetCosine(OxyzPointF vBase, OxyzPointF vNew)
         {
             //向量的数量积
             double fNumerator = vBase._X*vNew._X+vBase._Y*vBase._Y;
@@ -111,7 +111,7 @@ namespace SubSys_MathUtility
         public static SinCos GetSinCos(OxyzPointF mpBaseVector, OxyzPointF mpVector)
         {
             //由于0.707小于根号2的一半所以45度变为90度
-            double dCosineValue = VectorTools.GetCos(mpBaseVector, mpVector);
+            double dCosineValue = VectorTools.GetCosine(mpBaseVector, mpVector);
             //-45 180 +45度的左开右闭闭区间
             if (-1.001<=dCosineValue&& dCosineValue<-0.708)//-根号2的是是1.414 其一半 是0.707
             {
@@ -152,7 +152,7 @@ namespace SubSys_MathUtility
         /// 获取一个向量的法向量，该法向量位于向量右侧,向量不能为零向量
         /// </summary>
         /// <param name="vtr"></param>
-        public static OxyzPointF GetNormalVector(OxyzPointF vtr)
+        public static OxyzPointF GetNormal(OxyzPointF vtr)
         {
             double iDX = vtr._X*vtr._X;
             double iDY = vtr._Y*vtr._Y;

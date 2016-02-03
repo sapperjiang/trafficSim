@@ -5,6 +5,7 @@ using SubSys_SimDriving.TrafficModel;
 using SubSys_SimDriving.RoutePlan;
 using SubSys_MathUtility;
 using System;
+using System.Collections.Generic;
 
 namespace SubSys_SimDriving
 {
@@ -19,7 +20,7 @@ namespace SubSys_SimDriving
 	
 	//--------------------2015年1月11日重新增加的内容-------------------
 	/// <summary>
-	/// 所有会动的物体的基类形
+	/// 所有会动的交通实体的基类
 	/// </summary>
 	public abstract partial class MobileEntity : TrafficEntity
 	{
@@ -27,8 +28,6 @@ namespace SubSys_SimDriving
 		private bool IsCopyed = false;
 		
 		public DriveStrategy Strategy;
-		
-		//  public Shape 形状已经有了，就是继承TrafficEntity的shape
 		
 		/// <summary>
 		/// 对象拷贝和值拷贝
@@ -42,17 +41,16 @@ namespace SubSys_SimDriving
 			return cm;
 		}
 		
-		public Color Color;
+		public Color _Color;
 		
-		public EdgeRoute EdgeRoute;
-		public NodeRoute NodeRoute;
+		public EdgeRoute Route;//=new EdgeRoute();
+		//public NodeRoute _nodeRoute;//=new NodeRoute();
 
 		internal DriveStrategy Driver = new DefaultDriveAgent();
 
 		~MobileEntity()
 		{
-			if (this.IsCopyed != true)
-			{
+			if (this.IsCopyed != true) {
 				base.UnRegiser();
 			}
 		}
@@ -60,16 +58,12 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 当前车辆的加速度
 		/// </summary>
-		internal int iAcc = 1;
-	
-		
+		internal int iAcceleration = 1;
 		
 		#region 属性部分
 		
-		public override int iLength
-		{
-			get
-			{//车辆的长度就是元胞的长度，车辆的形状，就是几个元胞的形状
+		public override int iLength {
+			get {//车辆的长度就是元胞的长度，车辆的形状，就是几个元胞的形状
 				return this.Shape.Count;
 			}
 		}
@@ -77,22 +71,44 @@ namespace SubSys_SimDriving
 		#endregion
 		
 		
+		//innisialization without container parameter is forbidden.
+//		public MobileEntity()
+//		{
+//		}
+//
+//		[System.Obsolete("过时,因为car类已经过时")]
+//		public MobileEntity(SmallCar cm)
+//		{
+//			//从trafficmodel 继承的保护字段
+//			this._EntityID = ++MobileEntity.MobileID;
+//
+//			this.EntityType = EntityType.Mobile;
+//			this.Color = Color.Green;
+//			this.iSpeed = 0;
+//			base.Register();
+//			this.EdgeRoute = new EdgeRoute();
+//			this.NodeRoute = new NodeRoute();
+//		}
 		
-		protected MobileEntity() { }
 		
-		[System.Obsolete("过时,因为car类已经过时")]
-		public MobileEntity(Car cm)
+		public MobileEntity(StaticEntity bornContainer)
 		{
-			//从trafficmodel 继承的保护字段
-			this._id = ++MobileEntity.MobileID;
+			this._EntityID = ++TrafficEntity.EntityCounter;
 			
-			this.EntityType = EntityType.Mobile;
-			this.Color = Color.Green;
-			this.iSpeed = 0;
+			//this.EntityType = EntityType.SmallCar;
+//			this.Color = Color.Green;
+//			this.iSpeed = 0;
 			base.Register();
-			this.EdgeRoute = new EdgeRoute();
-			this.NodeRoute = new NodeRoute();
+			
+            this.Route = new EdgeRoute();
+           // this._nodeRoute = new NodeRoute();
+			
+			this._container = bornContainer;
+			
+			this.Shape.Add(this.Container.Shape.Start);
+
 		}
+		
 		/// <summary>
 		/// 用作记录态哈希表记录车辆的时间信息，以及用来确定什么时候进入路段
 		/// </summary>
@@ -102,90 +118,21 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 包围在交叉口内部的节点,内部点使用绝对坐标系
 		/// </summary>
-		public Track Track = new Track();
-		/// <summary>
-		/// 使用在交叉口上
-		/// </summary>
-		/// <param name="iStep"></param>
-		internal void TrackMove(int iStep)
-		{
-			Point p = this.Grid;
-			while (iStep-- > 0)
-			{
-				p = this.Track.NextPoint(p);
-			}
-			this.Grid = p;
-		}
-
-		/// <summary>
-		/// 只应当在转换的时候调用一次，寻找轨迹的一个东西，从起始位置出发，前进iAheadSpace个间距时距
-		/// </summary>
-		/// <param name="iAheadSpace"></param>
-		internal virtual void CalcTrack(int iAheadSpace)
-		{
-			Lane rl = this.Container as Lane;
-			if (rl == null)
-			{
-				ThrowHelper.ThrowArgumentNullException("对不在路段上的元胞调用此次方法是错误的");
-			}
-			Track mt = this.Track;
-			mt.fromLane = rl;
-			//中心坐标系的车道的交叉口入口的第一个点
-			mt.pFromPos = new Point(rl.Rank - 1, -SimSettings.iMaxLanes + 1);
-			
-			//获取转向信息
-			Way re = rl.Container as Way;
-			int iTurn = this.EdgeRoute.GetSwerve(re);
-
-			Way reNext = this.EdgeRoute.FindNext(re);
-			if (iTurn == 0)//直接使用中心坐标系
-			{
-				//车道直向对应
-				mt.pToPos = new Point(rl.Rank-1,SimSettings.iMaxLanes);
-				if (reNext == null)//没有目标车道，已经到头了
-				{
-					mt.toLane = null;
-				}
-				else
-				{
-					if (reNext.Lanes.Count < rl.Rank)//防止车道不匹配
-					{   //目标车道数小于本车道数,进入目标车道的内侧车道
-						mt.toLane = reNext.Lanes[0];
-					}
-					else
-					{   //目标车道数大于于本车道数
-						mt.toLane = reNext.Lanes[rl.Rank-1];
-					}
-				}
-			}
-			if (iTurn == 1)//右转
-			{
-				//生成1到reNext 车道数量的随机数，即随机选择车道
-				int iLaneIndex = - reNext.Lanes.Count + 1;
-				mt.pToPos = new Point(  SimSettings.iMaxLanes,iLaneIndex);
-				mt.toLane = reNext.Lanes[-iLaneIndex];
-			}
-			if (iTurn == -1)//左转
-			{
-				//-4位置的坐标应当为-3 ,后面的也是随机选择车道
-				int iLaneIndex = new Random(1).Next(reNext.Lanes.Count)- 1;
-				mt.pToPos = new Point(-SimSettings.iMaxLanes + 1,iLaneIndex);
-				mt.toLane = reNext.Lanes[iLaneIndex];
-			}
-			if (iTurn ==2 )
-			{
-				int iLaneIndex = reNext.Lanes.Count- 1;
-				mt.pToPos = new Point(-iLaneIndex,-SimSettings.iMaxLanes+1);
-				mt.toLane = reNext.Lanes[iLaneIndex];
-			}
-			
-			//三个点全部转化转换为原生坐标
-			mt.pFromPos = Coordinates.GetRealXY(mt.pFromPos, mt.fromLane.Container.ToVector());
-			mt.pTempPos = new Point(rl.Rank-1,iAheadSpace-SimSettings.iMaxLanes);//创建点
-			mt.pTempPos = Coordinates.GetRealXY(mt.pTempPos, mt.fromLane.ToVector());
-			mt.pToPos = Coordinates.GetRealXY(mt.pToPos, mt.fromLane.Container.ToVector());
-		}
+		private Track track ;
 		
+		
+		public Track Track
+		{
+			get{
+				if (this.track==null) {
+					this.track = new Track(this);
+				}
+				
+				return this.track;
+			}
+			
+		}
+
 		
 		internal void Drive(StaticEntity DriveEnvirnment)
 		{
@@ -193,63 +140,46 @@ namespace SubSys_SimDriving
 			//这个方法要重写
 //			this.DriveStg.Drive(rN,this);
 		}
-
+		
 		[System.Obsolete("坐标系统的问题，postion不赋值 roadhash不复制,iTimeStep有问题")]
 		internal CarInfo GetCarInfo()
 		{
 			CarInfo ci = new CarInfo();//结构，值类型
 			ci.iSpeed = this.iSpeed;
-			ci.iAcc = this.iAcc;
+			ci.iAcc = this.iAcceleration;
 			ci.iCarHashCode = this.GetHashCode();
 			ci.iCarNum = this.ID;
 			
 			ci.iTimeStep = ISimCtx.iCurrTimeStep;
 			
 			
-			if (this.Container.EntityType == EntityType.Lane)
-			{
-				ci.iPos = this.Grid.Y+(int)this.Container.Shape[0]._X;
-			}
-			else if (this.Container.EntityType == EntityType.XNode)
-			{
-				ci.iPos = this.Container.Grid.X + this.Grid.X-1;
+			if (this.Container.EntityType == EntityType.Lane) {
+				ci.iPos = this.Grid.Y + (int)this.Container.Shape[0]._X;
+			} else if (this.Container.EntityType == EntityType.XNode) {
+				ci.iPos = this.Container.Grid.X + this.Grid.X - 1;
 			}
 			return ci;
-		}
-
-	
-		/// <summary>
-		/// 这个函数需要重新写，计算当前元胞可以前进的车头时距
-		/// </summary>
-		/// <param name="iEntityGap"></param>
-		/// <param name="iToEntityGap"></param>
-		public virtual void GetEntityGap(out int iEntityGap,out int iToEntityGap)
-		{
-			iEntityGap=0;
-			iToEntityGap=0;
 		}
 
 		/// <summary>
 		/// 计算元胞在交叉口内部可以走多少步
 		/// </summary>
-		/// <param name="rN"></param>
+		/// <param name="rN">即将进入的交叉口或者，当前交叉口，或即将离开的交叉口</param>
 		/// <param name="ct"></param>
 		/// <returns></returns>
-		private bool GetTrackGap(XNode rN, Point pcc,out int Gap)
+		private bool GetXNodeTrackGap(XNode rN, OxyzPoint pCurrent, out int Gap)
 		{
 			bool bReachEnd = false;
 			int iCount = 0;
-			Point p = this.Track.NextPoint(pcc);
-			if (p.X == 0 && p.Y == 0)
-			{
+			OxyzPoint p = this.track.NextPoint(pCurrent);
+			
+			if (p._X == 0 && p._Y == 0) {
 				bReachEnd = true;
 			}
-			while (rN.IsBlocked(p) == false)
-			{
-				p = this.Track.NextPoint(p);
-				if (p.X == 0 && p.Y == 0)
-				{
-					bReachEnd =true;
+			while (rN.IsOccupied(p) == false) {
+				p = this.track.NextPoint(p);
+				if (p._X == 0 && p._Y == 0) {
+					bReachEnd = true;
 					break;
 				}
 				iCount++;
@@ -258,8 +188,537 @@ namespace SubSys_SimDriving
 			return bReachEnd;
 		}
 		
+		//------------------------------20160115------------------------------
+		/// <summary>
+		/// 获取车道上先进入的前一辆车，前一辆车不存在返null,the frontmobile is that entered a lane early than the current one
+		/// </summary>
+		public MobileEntity FrontMobile {
+			get {
+				Lane ln = this.Container as Lane;
+				var lme = ln.Mobiles.Find(this).Previous;
+				if (lme != null) {
+					return lme.Value;
+				}
+				return null;
+			}
+		}
+		/// <summary>
+		///在车道上获取车辆的后一辆车
+		/// </summary>
+		public MobileEntity RearMobile {
+			get {
+				Lane ln = this.Container as Lane;
+				var lme = ln.Mobiles.Find(this).Next;
+				if (lme != null) {
+					return lme.Value;
+				}
+				return null;
+			}
+		}
+		
+		
+		/// <summary>
+		/// All mobiles can observe and return its runnning context
+		/// observe function must be called with the first mobile in front
+		/// </summary>
+		/// <returns></returns>
+		internal DriveContext Observe()
+		{
+			DriveContext dctx = new DriveContext(this.Container as StaticEntity);
+			
+			dctx.iAcceleration = this.iAcceleration;
+			dctx.iSpeed = this.iSpeed;
+			
+			switch (this.Container.EntityType) {
+					
+					// calculate headway on the left/right/current lane of current mobile
+				case EntityType.Lane:
+					
+					var currLane = this.Container as Lane;
+					
+					var currWay = currLane.Container as Way;
+					//current mobile
+					int iCurrentStart = currLane.Shape.GetIndex(this.Shape.Start);
+					//current mobile
+					int iCurrentEnd	  = currLane.Shape.GetIndex(this.Shape.End);
+					
+					if (this.FrontMobile!=null){
+						dctx.iFrontHeadWay = currLane.Shape.GetIndex(this.FrontMobile.Shape.End)-iCurrentStart;
+						dctx.iFrontSpeed = this.FrontMobile.iSpeed;
+					}
+					//front mobile is null, current mobile is the first one on this lane
+					//the first mobile needs to deal with a traffic light or/and a crossing(XNode)
+					else {//this.FrontMobile==null)
+						
+						//front mobile,there's a signal light playing on the lane
+						
+						//deal with that signal light
+						if (currLane.IsBlocked==true) {
+							dctx.iFrontHeadWay=currLane.iLength-iCurrentStart;
+						}
+						//deal with that crossing
+						else{//the current mobile is the first one to deal with a crossing
+							//先计算车辆的轨迹，where a mobile is heading for. right .left or straight forward
+							this.Track.Update();
+						
+							int iLaneGap =  currLane.iLength-iCurrentStart;
+							int iXNodeGap  = -1;
+							
+							if (this.Track.ToLane!=null) {
+								this.Track.opTempPos = currLane.Shape.End;
+								//再计算剩余轨迹
+								GetXNodeTrackGap(currWay.XNodeTo, this.Track.opTempPos, out iXNodeGap);
+								
+							}
+							dctx.iXNodeGap = iXNodeGap;
+							dctx.iLaneGap = iLaneGap;
+							dctx.iFrontHeadWay = iXNodeGap+iLaneGap;
+							dctx.iFrontSpeed = -1;
+						}
+					}
+					
+					//rear mobile
+					dctx.iRearHeadWay = iCurrentStart;
+					if (this.RearMobile!=null) {
+						dctx.iRearHeadWay = iCurrentEnd-currLane.Shape.GetIndex(this.RearMobile.Shape.Start);
+						dctx.iRearSpeed = this.RearMobile.iSpeed;
+					}else{//rear mobile is empty
+						dctx.iRearHeadWay = iCurrentStart;//rear mobiel
+						dctx.iRightRearSpeed = -1;
+					}
+					
+					//get dirving context on the left lane
+					this.GetSidesDrivingContext(currLane.LeftLane,LaneType.Left,iCurrentStart,iCurrentEnd,ref dctx);
+					//get dirving context on the right lane
+					this.GetSidesDrivingContext(currLane.RightLane,LaneType.Right,iCurrentStart,iCurrentEnd,ref dctx);
+					
+					break;
+					
+				case EntityType.XNode:
+					
+					XNode rN = this.Container as XNode;
+					
+					int iLaneEntityGap = 0;
+					int iXNodeEntityGap = 0;
+					//计算剩余轨迹数量//如果pcurrPos没到头，iXnodeGap等于零
+					
+					this.GetXNodeTrackGap(rN, this.Track.opCurrPos, out iXNodeEntityGap);
+					
+					var toLane = this.Track.ToLane;
+					//计算车道上的长度
+					if (toLane != null) {
+						if (toLane.MobilesInn.Count>0) {//theres already mobiles waiting to enter tolane.
+							iLaneEntityGap = 0;
+						}else {
+							var mobile = toLane.Mobiles.Last.Value;
+							if (mobile!=null) {
+								iLaneEntityGap = toLane.Shape.GetIndex(mobile.Shape.End);
+							}else//no mobiles running at tolane
+							{
+								iLaneEntityGap = toLane.iLength;
+							}
+						}
+					}
+					
+					dctx.iLaneGap=iLaneEntityGap;
+					dctx.iXNodeGap = iXNodeEntityGap;
+					
+					dctx.iFrontHeadWay = iXNodeEntityGap+iLaneEntityGap;
+					break;
+					
+				case EntityType.Way:
+					throw new NotImplementedException("不应该传入这个参数，应在在车道上，或者是交叉口上");
+					break;
+					
+					default:break;
+					
+			}
+			
+			return dctx;
+			
+		}
+
+
+		/// <summary>
+		/// get left and right driving context
+		/// </summary>
+		/// <param name="lane">lane</param>
+		/// <param name="lanetype">lanetype of current lane</param>
+		/// <param name="iCurrentStart">headway of current mobile index</param>
+		/// <param name="iCurrentEnd">rear of current mobile index</param>
+		/// <param name="dc">out parameters</param>
+		private void  GetSidesDrivingContext(Lane lane,LaneType lanetype,int iCurrentStart,int iCurrentEnd ,ref DriveContext dc)
+		{
+			//to make sure current lane got a lefe lane
+			if (lane==null)return ;
+			
+			//headway on the lane
+			int iFrontGap	=-1;
+			int iRearGap	=-1;
+			int iFrontSpeed =-1;
+			int iRearSpeed	=-1;
+			
+			//there's no mobile on lane
+			if (lane.Mobiles.Count==0) {
+				iFrontGap = lane.iLength-iCurrentStart;
+				iRearGap = iCurrentEnd;
+				return;
+			}
+			
+			//there's mobiles on left lane
+			int iLeastGap = lane.iLength;
+			int iTempGap = iLeastGap;
+			MobileEntity mobile=null;
+			
+			//loop to find two adjacent mobiles on the lane.one rear,one ahead of the current mobile
+			foreach (var element in lane.Mobiles) {
+				iTempGap = lane.Shape.GetIndex(element.Shape.End)-iCurrentStart;
+				//make it positive,to find the nearest mobile on the left lane
+				if (Math.Abs(iTempGap)<Math.Abs(iLeastGap)) {
+					iLeastGap = iTempGap;
+					mobile=element;
+				}
+			}
+			
+			//nearest mobile on the left is at the front
+			if (iLeastGap>=0) {
+				iFrontGap=iLeastGap;
+				iFrontSpeed = mobile.iSpeed;
+				
+				var rearMobile = mobile.RearMobile;
+				if (rearMobile!=null) {
+					iRearGap =iCurrentEnd - lane.Shape.GetIndex(rearMobile.Shape.Start);
+					iRearSpeed = rearMobile.iSpeed;
+					
+				}
+			}//nearest mobile on the left is at the behind
+			else{
+				//make it postive
+				iRearGap = Math.Abs(iLeastGap);
+				iRearSpeed=mobile.iSpeed;
+				
+				var frontMobile = mobile.FrontMobile;
+				if (frontMobile!=null) {
+					iFrontGap =lane.Shape.GetIndex(frontMobile.Shape.End)-iCurrentStart;
+					iFrontSpeed=FrontMobile.iSpeed;
+				}
+			}
+			
+			//make driving observation true
+			switch (lanetype) {
+				case LaneType.Right:
+					dc.iRightFrontHeadWay 	= iFrontGap;
+					dc.iRightFrontSpeed = iFrontSpeed;
+					dc.iRightRearHeadWay 	= iRearGap;
+					dc.iRightRearSpeed  =iRearSpeed;
+					break;
+				case LaneType.Left:
+					dc.iLeftFrontHeadWay 	= iFrontGap;
+					dc.iLeftFrontSpeed  = iFrontSpeed;
+					dc.iLeftRearHeadWay 	= iRearGap;
+					dc.iLeftRearSpeed   =iRearSpeed;
+					break;
+				default:
+					throw new ArgumentException("parameter lanetype error!");
+					break;
+			}
+		}
+
+
+//		protected MobileEntity(StaticEntity container)
+//		{
+//			//从trafficmodel 继承的保护字段
+//			this._EntityID = ++MobileEntity.MobileID;
+//
+//			this.EntityType = EntityType.Mobile;
+//			this.Color = Color.Green;
+//			this.iSpeed = 0;
+//			base.Register();
+		////			this.EdgeRoute = new EdgeRoute();
+//			this.EdgeRoute = new EdgeRoute ();
+//			this.NodeRoute = new NodeRoute();
+//			this.Container = Container;
+//		}
+		
+		//------------------------20160130--------------------------------
+
+		/// <summary>
+		/// a mobiles'current lane/fromlane/tolane is recalculated each time on it enters a XNode
+		/// </summary>
+		public override ITrafficEntity Container {
+			get {
+				return base.Container;
+			}
+			set {
+				//each time container is modified , fromlane/Tolane is recalculated
+				if (this.Container.EntityType==EntityType.Lane&&
+				    value.EntityType== EntityType.XNode){
+					this.Track.Update();
+				}
+				
+				base.Container = value;
+			}
+		}
+
+		internal void Move(int iStep)
+		{
+			switch (this.Container.EntityType) {
+				case EntityType.Lane:
+					var currLane = this.Container as Lane;
+					
+					int iCurrIndex = currLane.Shape.GetIndex(this.Shape.Start);
+					if (iCurrIndex==-1) {//this mobile is not in lane
+						iCurrIndex = 0;
+					}
+
+					for (int i = 0; i < this.Shape.Count; i++) {
+						if (iStep+iCurrIndex>=this.Shape.Count) {
+							this.Shape[i]=currLane.Shape[iCurrIndex+iStep-i];
+						}
+						
+					}
+					break;
+					
+				case EntityType.XNode:
+					
+					OxyzPoint  p = this.Track.Current;
+					
+					var stack = new Stack<OxyzPoint>(iStep);
+					//stack dump as the following
+					//a  	mobile start
+					//b      mobile mid
+					//c		mobile end
+					
+					//calculate track point
+					while (iStep-- > 0) {
+						p = this.Track.NextPoint(p);
+						
+						stack.Push(p);
+					}
+					//modify mobile
+					for (int i = 0; i < this.Shape.Count; i++) {
+						this.Shape[i]=stack.Pop();
+					}
+					break;
+					
+					default:break;
+			}
+
+		}
+		
+		
+
+		public override	int GetHashCode()
+		{
+			return this.ID.GetHashCode();
+		}
+
 		
 	}
 	
-}
+	/// <summary>
+	/// 交叉口坐标升级为3维度空间坐标
+	/// </summary>
+	public  partial class Track
+	{
+		
+		[System.Obsolete("repalce with opTempPos")]
+		internal Point pTempPos;
+		[System.Obsolete("repalce with opCurrPos")]
+		public Point pCurrPos;
+		[System.Obsolete("repalce with opFromPos")]
+		public Point pFromPos;
+		[System.Obsolete("repalce with opToPos")]
+		public Point pToPos;
+		
+		internal Point NextPoint(Point iCurrPoint)
+		{
+			
+			Point iNew = iCurrPoint;
+			//算法保证每一个时间步长内都向目标终点接近，就是为了让其到终点的距离变小
+			int iX = iCurrPoint.X - this.pToPos.X;//当前位置减去目的位置
+			int iY = iCurrPoint.Y - this.pToPos.Y;
+			if (iX != 0)//等于0的情况什么也不做
+			{
+				iNew.X = iX > 0 ? --iNew.X : ++iNew.X;
+			}
+			if (iY != 0)//等于0的情况什么也不做
+			{
+				iNew.Y = iY > 0 ? --iNew.Y : ++iNew.Y;
+			}
+			if (iX==0&&iY==0)///已经到达了目标地点，两个点的坐标差值为0
+			{
+				iNew = new Point(0, 0);
+			}
+			return iNew;
+		}
+		
+		//----------------------------------20160131
+		public OxyzPoint opCurrPos;
+		public OxyzPoint opNextPos;
+		
+		
+		internal OxyzPoint opTempPos;
 
+		public OxyzPoint opFrom;
+		
+		public OxyzPoint From
+		{
+			get{
+				return this.opFrom;
+			}
+		}
+		public OxyzPoint opTo;
+		public OxyzPoint To
+		{
+			get{
+				return this.opTo;
+			}
+		}
+		
+		
+		private Lane fromLane;
+		
+		public Lane FromLane
+		{
+			get{
+				
+				return this.fromLane;
+			}
+			set{this.fromLane = value;}
+		}
+		
+		private Lane toLane;
+		public Lane ToLane
+		{
+			get{
+				return this.toLane;
+			}
+			set{
+				this.toLane = value;
+			}
+		}
+		
+		//internal OxyzPoint opCurrent;
+		
+		public OxyzPoint Current
+		{
+			get{
+				return this.mobile.Shape.Start;
+			}
+		}
+		public OxyzPoint Next
+		{
+			get {
+				return this.NextPoint(this.Current);
+			}
+		}
+		
+		private MobileEntity mobile;
+		internal Track(MobileEntity me)
+		{
+			this.opCurrPos = me.Shape.Start;
+			this.mobile = me;
+		}
+		/// <summary>
+		/// should be declared as private,for
+		/// </summary>
+		public Track(){}
+		//private Track(){}
+		
+		internal OxyzPoint NextPoint(OxyzPoint iCurrPoint)
+		{
+			
+			OxyzPoint iNew = iCurrPoint;
+			//算法保证每一个时间步长内都向目标终点接近，就是为了让其到终点的距离变小
+			int iX = iCurrPoint._X - this.opTo._X;//当前位置减去目的位置
+			int iY = iCurrPoint._Y - this.opTo._Y;
+			if (iX != 0)//等于0的情况什么也不做
+			{
+				iNew._X = iX > 0 ? --iNew._X : ++iNew._X;
+			}
+			if (iY != 0)//等于0的情况什么也不做
+			{
+				iNew._Y = iY > 0 ? --iNew._Y : ++iNew._Y;
+			}
+			if (iX==0&&iY==0)///已经到达了目标地点，两个点的坐标差值为0
+			{
+				iNew = new OxyzPoint(0, 0);
+			}
+			return iNew;
+		}
+		
+		
+		/// <summary>
+		/// 在转弯的时候调用，根据车辆路径，寻找车辆要进入的下一条车道（左右转、直行）。从起始位置出发，前进iAheadSpace个间距时距
+		/// </summary>
+		internal virtual void Update()
+		{
+			if (this.mobile == null) {
+				
+				ThrowHelper.ThrowArgumentException("a track has no mobile before updating ,assigned one to it through constructor  internal Track(MobileEntity me) ");
+			}
+			if (mobile.Container.EntityType == EntityType.XNode) {
+				return;
+			}
+			
+			Lane currLane = mobile.Container as Lane;
+			//get its tolane
+			var currWay = currLane.Container as Way;
+			var nextWay = this.mobile.Route.FindNext(currWay);
+			
+			//shape end means a point on a narrow like "---->"
+			//a signal light is playing at a lane's shape end
+			this.FromLane = currLane;
+			this.opFrom = currLane.Shape.End;
+			
+			
+			if (nextWay == null) {//a moblie is reaching its destination
+				this.ToLane = null;
+				this.opTo = OxyzPoint.Default;
+				return;
+			}
+			
+			int iTurn = mobile.Route.GetDirection(currWay);
+
+			//车辆直行
+			switch (iTurn) {
+					
+				case 0:
+					//go straight foword
+					if (nextWay.Lanes.Count < currLane.Rank) {//next way has less lanes than a mobiles'current one
+						
+						int iIdx =new Random(1).Next(nextWay.Lanes.Count) - 1;
+						iIdx = iIdx<0?0:iIdx;
+						this.ToLane = nextWay.Lanes[iIdx];
+						
+					} else {   //otherwise 目标车道数大于于本车道数
+						this.ToLane = nextWay.Lanes[currLane.Rank - 1];
+					}
+					
+					break;
+					
+				case 1://turn right
+					//the outside lane is rightful for a mobile obeying traffic  regulations
+					this.ToLane = nextWay.Lanes[nextWay.Lanes.Count -1];
+					break;
+					
+				case -1://turn left
+					int iIndex = new Random(1).Next(nextWay.Lanes.Count) - 1;
+					this.ToLane = nextWay.Lanes[iIndex];
+					break;
+					
+				case 2://turn back
+					//while truning backward a inside lane is rightful
+					this.ToLane = nextWay.Lanes[0];
+					break;
+					
+			}
+
+			//shape start means a point at the end of a narrow like "---->"
+			this.opTo = this.ToLane.Shape.Start;
+		}
+		
+		
+	}
+}

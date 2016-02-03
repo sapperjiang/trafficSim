@@ -1,6 +1,7 @@
 using System;
 using SubSys_MathUtility;
 using SubSys_SimDriving;
+using System.Collections;
 using System.Collections.Generic;
 using SubSys_SimDriving.SysSimContext;
 using System.Drawing;
@@ -16,14 +17,13 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 全局的车道计数器，用来初始化车道ID
 		/// </summary>
 		private static int iLaneCount=0;
-		///// <summary>
-		///// 每次更新CurrTimeStep的时候就自动处理等待列表
-		///// </summary>
+
+		
 		public override int iLength
 		{
 			get
 			{
-				return this.Container.iLength;
+				return this.Shape.Count;
 			}
 		}
 		public override int iWidth
@@ -34,49 +34,84 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 
+		/// <summary>
+		/// 与用户界面绘图有关的一系列点空间组成。
+		/// 车道开始的地点，是交叉口的前方，第一个点，其索引最小，车道结束的地点，是交叉口的后方，一个车道的最末一个点的索引最大
+		/// 索引的大小与车道的方向相反。
+		/// </summary>
 		public override EntityShape Shape
 		{
 			get
 			{
-				EntityShape eShape = base.Shape;
+				var eShape = base.Shape;
 
 				if (eShape.Count == 0)//shape 没有初始化
 				{
-					CreateShape(eShape);
+					CreateShape(ref eShape);
 				}
 				return eShape;
 			}
 		}
 
+		int iTest = 0;
+		
 		/// <summary>
-		/// 可以用新的元胞空间概念重写该函数
+		/// 用图形界面坐标系，转化为元胞坐标系,create a shape of a lane 
 		/// </summary>
 		/// <param name="eShape"></param>
-		private  void CreateShape(EntityShape eShape)
+		//[System.Obsolete("replace with new item,this is for use for old cellsimulation model ")]
+		private  void CreateShape(ref EntityShape eShape)
 		{
-
 			EntityShape es = this.Container.Shape;
 
-			OxyzPointF pNorm = VectorTools.GetNormalVector(this.Container.ToVector());
+			OxyzPointF pNorm = VectorTools.GetNormal(this.Container.ToVector());
 			OxyzPointF mpOffset = new OxyzPointF(pNorm._X*(this.Rank - 0.5f),pNorm._Y * (this.Rank - 0.5f));
-			//平移坐标
+			//the first point //平移坐标
 			OxyzPointF pFirst = Coordinates.Offset(es[0], mpOffset);
-			//计算终点
+			//the end point //计算终点
 			OxyzPointF pFEnd = Coordinates.Offset(es[es.Count - 1], mpOffset);
 			
+			//for each point its x and y is int,not float or double
 			OxyzPointF mp = new OxyzPointF(pFEnd._X-pFirst._X,pFEnd._Y-pFirst._Y);
-			int iLoopCount = this.iLength;//元胞长度，初始化参见registerservice
+			
+			double dDistance = Coordinates.Distance(pFirst,pFEnd) ;
+			//int loopCount = Convert.ToInt32( dDistance);//距离为100，划分为100等分
 
-			float xSplit = mp._X / iLoopCount;//自身有正负号
-			float ySplit = mp._Y / iLoopCount;//自身有正负号
+			//each split  x is 1 int; each split y is 1 int
+			int iLoopCount =Convert.ToInt32(dDistance);
+			
+			double xSplit = mp._X / dDistance;//自身有正负号
+			double ySplit = mp._Y / dDistance;//自身有正负号
 			
 			eShape.Add(pFirst);
+			OxyzPointF opf;
+			
+			int iBase=0;
 			for (int i = 1; i < iLoopCount; i++)//x行
-			{   //中点
-				eShape.Add(new OxyzPointF(pFirst._X + (i-0.5f) * xSplit, pFirst._Y + (i-0.5f) * ySplit));
+			{
+				double dX = xSplit*(i-iBase);
+				double dY = ySplit*(i-iBase);
+				
+				int iX = Convert.ToInt32( Math.Round((decimal)dX,0,MidpointRounding.AwayFromZero));
+				int iY = Convert.ToInt32(Math.Round((decimal)dY,0,MidpointRounding.AwayFromZero));
+				
+				if ( iX==1||iY==1) {
+					opf = new OxyzPointF(pFirst._X + i*iX, pFirst._Y+i*iY);
+					eShape.Add(opf);
+					iBase = i;
+				}
 			}
+
 			eShape.Add(pFEnd);
+			
+			System.Diagnostics.Debug.Assert(pFEnd._X >=0f);
+//			if (pFEnd._X==-1) {
+//				throw new Exception();
+//			}
 		}
+		//	private bool bDebug=true;
+		
+		
 		
 		/// <summary>
 		/// 没有调用，暂时不重写
@@ -114,10 +149,10 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 
 		
-	
-	
+		
+		
 		/// <summary>
-		///车道的排序，从内侧车道开始的第几个车道,用来对车道进行排序
+		///车道的排序，从内侧车道开始的第几个车道,用来对车道进行排序，第一个车道的Rank 是1
 		/// </summary>
 		public int Rank;
 
@@ -132,24 +167,24 @@ namespace SubSys_SimDriving.TrafficModel
 
 		
 		/// <summary>
-		/// 信号灯运行函数
+		/// 信号灯运行函数,modified on date 2016/1/27
 		/// </summary>
-		/// <param name="iCrtTimeStep"></param>
+		/// <param name="iCrtTimeStep">红灯时长</param>
 		internal void PlaySignal(int iCrtTimeStep)
 		{
-			XNode rN = ( this.Container as Way).xNodeTo;
+			
 			if (SignalLight == null)//无信号交叉口
 			{
-				rN.UnblockLane(this);
+				this.bLaneBlocked =false;
 				return;
 			}
 			if (this.SignalLight.IsGreen(iCrtTimeStep) == false)
 			{//红灯或者是黄灯则阻塞
-				rN.BlockLane(this);
+				this.bLaneBlocked =true;
 			}
 			else//绿灯
 			{
-				rN.UnblockLane(this);
+				this.bLaneBlocked =false;
 			}
 		}
 
@@ -189,7 +224,7 @@ namespace SubSys_SimDriving.TrafficModel
 
 			Container = re;
 			this.laneType = lt;
-			this._id = Lane.iLaneCount++;
+			this._EntityID = Lane.iLaneCount++;
 			
 			//初始化cellspace
 			this._Grids = new CellSpace(this);
@@ -201,6 +236,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 过时的，这个函数需要修改
 		/// </summary>
 		/// <param name="ce"></param>
+		[System.Obsolete("过时的，这个函数需要修改")]
 		public void AddCell(Cell ce)
 		{
 			//给容器赋值；
@@ -212,34 +248,40 @@ namespace SubSys_SimDriving.TrafficModel
 
 			this._cells.Enqueue(ce);
 		}
+		
+		[System.Obsolete("过时的，这个函数需要修改")]
 		public Cell RemoveCell()
 		{
 			return this._cells.Dequeue();
 		}
 		internal LaneType laneType;
 		
+		[System.Obsolete("过时的，这个变量不在需要")]
 		private CellQueue _cells = new CellQueue();
 
 		#region 进入车道的情况，进一步将由cellspace替代
 		/// <summary>
-		/// 等待进入该车道的等待队列
+		/// 等待进入该车道的等待队列，过时，用mobileInn代替
 		/// </summary>
 		private Queue<Cell> _waitedQueue = new Queue<Cell>();
 
 		/// <summary>
-		/// 注册容器，新版将由cellspace替代
+		///过时，
 		/// </summary>
 		/// <param name="ce"></param>
+		[System.Obsolete("过时的，新版由父类的MobilesInn代替")]
 		public void EnterWaitedQueue(Cell ce)
 		{
 			//给容器赋值；
 			ce.Container = this;
 			this._waitedQueue.Enqueue(ce);
+			
 		}
 		
 		/// <summary>
 		/// 将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
 		/// </summary>
+		[System.Obsolete("过时的，新版由父类的MobilesInn代替")]
 		private void DisposeWaitedQueue()
 		{
 			while (this._waitedQueue.Count > 0)
@@ -262,12 +304,16 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			base.UpdateStatus();
 		}
+		
 		protected override void OnStatusChanged()
 		{
-			this.DisposeWaitedQueue();//处理等待的元胞
+			//this.DisposeWaitedQueue();//处理等待的元胞
 
+			this.ServeMobiles();
 			//调用基类的日志服务
-			this.InvokeService(this);//利用日志记录roadLane变量
+			this.InvokeService(this);//利用日志服务记录roadLane变量
+			
+			
 		}
 
 
@@ -295,6 +341,11 @@ namespace SubSys_SimDriving.TrafficModel
 			return from.CompareTo(to);
 		}
 		#endregion
+		
+		/// <summary>
+		/// this index operator need to be modified
+		/// </summary>
+		[System.Obsolete("过时的，新版抛弃Cell")]
 		public Cell this[int index]
 		{
 			get
@@ -302,6 +353,11 @@ namespace SubSys_SimDriving.TrafficModel
 				return this._cells[index];
 			}
 		}
+		
+		/// <summary>
+		/// obselete
+		/// </summary>
+		[System.Obsolete("obsolete,replace with mobiles")]
 		public int CellCount
 		{
 			get
@@ -315,9 +371,9 @@ namespace SubSys_SimDriving.TrafficModel
 			return this._cells.GetEnumerator();
 		}
 	}
-	
-	
-//-----------------2015年1月19日-----------------------------------------	
+
+
+	//-----------------2015年1月19日-----------------------------------------
 	/// <summary>
 	/// 2015年1月19日，对原来的lane进行升级。并保持和原有部分代码的兼容
 	/// </summary>
@@ -329,49 +385,171 @@ namespace SubSys_SimDriving.TrafficModel
 		private CellSpace _Grids;
 		
 		/// <summary>
-		/// 将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
+		/// 将等待队列中的元胞添加到车道元胞中
 		/// </summary>
 		internal override void ServeMobiles()
 		{
-//			while (this._mobilesInn.Count > 0)
-//			{
-//				if (this.SpaceCount == 0)//如果车道已经满了就不能处理队列了
-//				{
-//					break;
-//				}else{
-//					this.AddCell(this._mobilesInn.Dequeue());
-//				}
-//			}
+			//as long as theres space for mobile to enter ,serve this mobile
+			if (this.MobilesInn.Count>0) {
+				var mobile = this.MobilesInn.Peek();
+				while(this.LaneSpace>mobile.iLength)
+				{
+					this.Mobiles.AddLast(this.MobilesInn.Dequeue());
+				}
+			}		
 		}
 
 		
 		/// <summary>
-		/// 判断从道路起点处到有车的地方的元胞网格个数
+		/// 判断从道路起点处到有车占据的地方的元胞网格个数
 		/// </summary>
 		[System.Obsolete("还不完善")]
-		public int SpaceCount
+		public int LaneSpace
 		{
 			get
 			{
 				//如果车道内没有元胞
 				if (this.Mobiles.Count==0)
 				{//返回车道网格的数量
-					return this._Grids.Count;
+					return this.iLength;//Shape.Count;
 				}
 				//实体形状的最后一个点,考虑实体有长度
 				MobileEntity me = this.Mobiles.Last.Value;
-				//实体形状的最后一个点,考虑实体有长度
-				OxyzPoint op =me.Shape.End;
-
-				CellGrid cg = new CellGrid();
-			
-				if ( this._Grids.TryGetValue(op.GetHashCode(),out cg)==true) {
-					return	cg.iGridIndex;
-				}
-				return -1;
+				//实体形状的最后一个点,考虑实体有
+				return this.Shape.GetIndex(me.Shape.End);
 			}
 		}
 		
+		
+		/// <summary>
+		///The Left lane of current lane
+		/// </summary>
+		public Lane LeftLane
+		{
+			get {
+				
+				Way way = this.Container as Way;
+				
+				//the first lane in way is current lane,it has no left lane
+				if (this.Rank==1) {
+					return null;
+				}
+				//不是第一条车道。就是第二条以上的车道。车道编号Rank 要小一号才是左侧车道
+				return way.Lanes[this.Rank-2];
+			}
+		}
+		
+		/// <summary>
+		/// the right lane of current lane
+		/// </summary>
+		public Lane RightLane
+		{
+			get {
+				
+				Way way = this.Container as Way;
+				
+				//the last lane in way is current lane,it has no right lane
+				if (this.Rank==way.Lanes.Count) {
+					return null;
+				}
+				//不是第一条车道。就是第二条以上的车道。车道编号Rank 要小一号才是左侧车道
+				return way.Lanes[this.Rank];
+			}
+		}
+		
+		private bool bLaneBlocked=false;
+
+		public  bool IsBlocked
+		{
+			get{
+				return this.bLaneBlocked;
+			}
+		}
+		
+	}
+
+	//_______________2016年1月新增的内容，原有的成员和方法将被部分废弃
+	public class MobilesShelter
+	{
+		internal StaticEntity _Container;
+		/// <summary>
+		/// cellspace 类型的元胞网格空间,，包含该lane的所有元素
+		/// </summary>
+		private CellSpace _cellSpace;
+		
+		internal MobilesShelter(StaticEntity container)
+		{
+			this._Container = container;
+			this._cellSpace= new CellSpace(container);
+		}
+		/// <summary>
+		/// 禁止调用无参数构造函数
+		/// </summary>
+		private MobilesShelter()
+		{
+		}
+		
+		
+		private LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
+		
+		/// <summary>
+		/// 第一辆的索引是第一个
+		/// </summary>
+		public LinkedList<MobileEntity> Mobiles
+		{
+			get{return this._mobiles;}
+		}
+		
+		protected void Enter(MobileEntity me)
+		{
+			int iShapeCount =this._mobiles.Count;
+			
+			
+			//如果队列里没有车辆，允许新增进入。
+			//如果车道元胞空间的末尾有空余车位，且空余空间大于车辆长度，则允许车辆进入
+			if (this._cellSpace.iSpace>me.Shape.Count) {
+				
+				//下面要做两个事情1、修改元胞空间的状态，该元宝空间被占据了。2、修改车辆形状的坐标。
+				this._mobiles.AddLast(me);
+				
+				//修改车辆的元胞坐标系
+				for (int i = 0; i < me.Shape.Count; i++) {
+					me.Shape[i]=this._Container.Shape[i];//container 是lane
+					CellGrid cg = new CellGrid(me.Shape[i],true);
+					//修改元胞空间的坐标
+					this._cellSpace.Add(cg);
+				}
+			}
+			
+			//把车辆加入
+			this._mobiles.AddLast(me);
+			
+		}
+		/// <summary>
+		/// 车辆退出车道。换车道这种东西，需要插入和更新。
+		/// </summary>
+		/// <param name="me"></param>
+		protected void Exit(MobileEntity me)
+		{
+			this._mobiles.RemoveFirst();
+			
+			for (int i = 0; i < me.Shape.Count; i++)
+			{
+				this._cellSpace.Remove(me.Shape[i].GetHashCode());
+			}
+		}
+		
+		protected bool Move(int iStepForward)
+		{
+			return false;
+		}
+		
+		protected bool IsEmpty()
+		{
+			return false;
+		}
+		
+
 	}
 }
 

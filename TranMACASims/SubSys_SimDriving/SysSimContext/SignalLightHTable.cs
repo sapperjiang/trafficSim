@@ -6,6 +6,9 @@ namespace SubSys_SimDriving.SysSimContext
     public class SignalLightHTable : StaticSysTable<int, SignalLight>
 	{
 	}
+	   public class CarModelHTable : StaticSysTable<int, MobileEntity>
+	{
+	}
 	 
 }
  

@@ -13,16 +13,17 @@ namespace SubSys_SimDriving.RoutePlan
         /// </summary>
         /// <param name="re">当前车辆所在的道路</param>
         /// <returns></returns>
-        internal int GetSwerve(Way re)
+        internal int GetDirection(Way re)
         {
             Way reNext  = base.FindNext(re);
             if (reNext == null)//如果到达路径的终点就直行
 	        {
 		        return 0;
 	        }
-            return VectorTools.GetVectorPos(re.ToVector(),reNext.ToVector());            
+            return VectorTools.GetVectorPos(re.ToVector(),reNext.ToVector());
+            
         }
-
+ 
         public IEnumerator<Way> GetEnumerator()
         {
             return routeList.GetEnumerator();
@@ -32,6 +33,8 @@ namespace SubSys_SimDriving.RoutePlan
         {
             throw new System.NotImplementedException();
         }
+      
+        
     }
 	 
 }
