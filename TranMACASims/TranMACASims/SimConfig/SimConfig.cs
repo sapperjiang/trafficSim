@@ -11,8 +11,8 @@ using SubSys_Graphics;
 using SubSys_SimDriving.Agents;
 
 using SubSys_SimDriving.RoutePlan;
-using SubSys_SimDriving.SysSimContext;
-using SubSys_SimDriving.SysSimContext.Service;
+using SubSys_SimDriving;
+using SubSys_SimDriving.Service;
 using SubSys_SimDriving.TrafficModel;
 
 namespace GISTranSim

@@ -6,15 +6,15 @@ using System.Windows.Forms;
 
 using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
-using SubSys_SimDriving.SysSimContext;
-using SubSys_SimDriving.SysSimContext.Service;
+using SubSys_SimDriving;
+using SubSys_SimDriving.Service;
 using SubSys_MathUtility;
 
 namespace SubSys_Graphics
 {
 	public abstract class AbstractPainter:Service,IPainter
 	{
-		protected Graphics graphic;
+		protected Graphics _graphic;
 		
 		private Control _form;
 
@@ -47,7 +47,7 @@ namespace SubSys_Graphics
 			if (car.EntityType == EntityType.Mobile)
 			{
 				SmallCar cm = car as SmallCar;
-				graphic.FillRectangle(new SolidBrush(cm.Color), rec);
+				_graphic.FillRectangle(new SolidBrush(cm.Color), rec);
 			}
 		}
 

@@ -1,5 +1,5 @@
 
-namespace SubSys_SimDriving.SysSimContext.Service
+namespace SubSys_SimDriving.Service
 {
     /// <summary>
     /// 观察者接口

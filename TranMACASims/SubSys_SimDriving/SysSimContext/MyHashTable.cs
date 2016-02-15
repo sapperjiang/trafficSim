@@ -1,4 +1,4 @@
-namespace SubSys_SimDriving.SysSimContext
+namespace SubSys_SimDriving
 {
 	internal class MyHashTable
 	{

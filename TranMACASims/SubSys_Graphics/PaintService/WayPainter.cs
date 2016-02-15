@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using SubSys_MathUtility;
 using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
-using SubSys_SimDriving.SysSimContext.Service;
+using SubSys_SimDriving.Service;
 
 namespace SubSys_Graphics
 {
@@ -19,7 +19,7 @@ namespace SubSys_Graphics
         public WayPainter(System.Windows.Forms.Control fr)
         {
             this.Canvas = fr;
-            this.graphic = fr.CreateGraphics();
+            this._graphic = fr.CreateGraphics();
             this.IsRunning = true;
         }
  
@@ -38,7 +38,7 @@ namespace SubSys_Graphics
             Point pa = Coordinates.Project(way.Shape.Start.ToPoint(), GraphicsConfiger.iCellPixels);            
             Point pB = Coordinates.Project(way.Shape.End.ToPoint(), GraphicsConfiger.iCellPixels);
             
-            graphic.DrawLine(new Pen(new SolidBrush(Color.Yellow),2), pa, pB);
+            _graphic.DrawLine(new Pen(new SolidBrush(Color.Yellow),2), pa, pB);
 
         }
 

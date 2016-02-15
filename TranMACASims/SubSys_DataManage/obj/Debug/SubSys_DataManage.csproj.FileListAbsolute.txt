@@ -31,6 +31,7 @@ D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_DataManag
 D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_DataManage.pdb
 D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_SimDriving.dll
 D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\MathTools.dll
+D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\nunit.framework.dll
 D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_SimDriving.pdb
 D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\SubSys_SimDriving.xml
 D:\software\TrafficSim\TranMACASims\SubSys_DataManage\bin\Debug\MathTools.pdb

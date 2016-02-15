@@ -10,6 +10,8 @@ namespace SubSys_SimDriving.TrafficModel
 /// 定义一个无参数的代理，需要的时候可以添加参数
 /// </summary>
     public delegate void UpdateHandler();
+    
+//    public delegate void M
 
     public interface IRoadNet
     {
@@ -22,6 +24,7 @@ namespace SubSys_SimDriving.TrafficModel
         }
 
         event UpdateHandler Updated;
+//        event 
 
         ICollection<Way> Ways 
         {

@@ -71,12 +71,7 @@ namespace SubSys_SimDriving
 		internal abstract void ServeMobiles();
 		
 		#endregion
-		
-		/// <summary>
-		/// cellspace 类型的元胞网格空间,，包含该lane的所有元素
-		/// </summary>
-		[System.Obsolete("过时，使用MobilesShelter代替")]
-		private CellSpace _Grids;
+
 		
 	}
 	

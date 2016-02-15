@@ -13,6 +13,7 @@ using SubSys_SimDriving.TrafficModel;
 using GISTranSim.Data;
 
 
+
 namespace GISTranSim
 {
 	public partial class SimMain : Form
@@ -23,14 +24,27 @@ namespace GISTranSim
 			
 			this.WindowState = FormWindowState.Maximized;
 			
+			
 			var color = Color.LightBlue;
 			this.BackColor = color;
 			this.menuBar.BackColor = color;
 			this.statusBar.BackColor =color;
 			
+			//SimController.InitializePainters(this);
+//
+//			if (iroadNet ==null) {
+//				iroadNet = SimController.ISimCtx.RoadNet;
+//			}
+			
+			///	SimController.ISimCtx.RoadNet.Updated +=SimController.RepaintNetWork;
+			
+			SimController.Canvas = this;
+			
+			SimController.iSimInterval =10;
 			//开启鼠标滚轮放大缩小屏幕
 			this.MouseWheel += new MouseEventHandler(SimCartoon_MouseWheel);
-			
+			this.MouseWheel +=new MouseEventHandler(SimController.RepaintNetWork);
+		
 			//开启路网平移
 			this.MouseDown+=PanScreen_MouseDown;
 			this.MouseUp +=PanScreen_MouseUp;
@@ -65,6 +79,8 @@ namespace GISTranSim
 			} else {
 				GraphicsConfiger.ScaleCellPixels(-1);
 			}
+			
+			//	SimController.RepaintNetWork();
 		}
 		
 		
@@ -113,20 +129,27 @@ namespace GISTranSim
 		/// <param name="e"></param>
 		void MenuBar_File_ConfigEnvr_Click(object sender, System.EventArgs e)
 		{
-			SimController.iCarCount =40;
+			SimController.iCarCount =2;
 			SimController.iRoadWidth = 100;
-			SimController.iSimInterval = 100;
+			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
 			
 //			SimController.ConfigSimEnvironment(this);
 			
 			this.LoadRoadNetwork();
-			SimController.InitializePainters(this);
+		//	SimController.InitializePainters(this);
 			
 			//打开仿真运行的按钮
 			this.menuBarSimulateSustained.Enabled = true;
 //
 		}
+//
+//		protected override void OnPaint(PaintEventArgs e)
+//		{
+//			base.OnPaint(e);
+//
+//				SimController.RepaintNetWork();
+//		}
 
 		void MenuBar_Config_FormBackColor_Click(object sender, System.EventArgs e)
 		{
@@ -152,6 +175,23 @@ namespace GISTranSim
 		/// <param name="e"></param>
 		void MenuBar_SimluateSustained_Click(object sender, System.EventArgs e)
 		{
+			//----------------------------------------------------
+			SimController.iCarCount =2;
+			SimController.iRoadWidth = 20;
+			SimController.iSimInterval = 100;
+			ModelSetting.dRate = 0.85;
+			
+			//SimController.ConfigSimEnvironment(this);
+			
+			this.LoadRoadNetwork();
+			
+			
+			//when pause repaint network
+			//frMain.MouseWheel+=RepaintNetWork;
+			
+			//打开仿真运行的按钮
+			this.menuBarSimulateSustained.Enabled = true;
+			//-------------------------------------------------
 			SimController.bIsExit = false;
 			menuBarConfigSimEnvr.Enabled =false;
 			//SimController.Run();
@@ -261,16 +301,21 @@ namespace GISTranSim
 //			roadNetwork.AddXNode(rnI);
 
 			//SimController.ReA= roadNetwork.AddWay(rnA,rnB);
-		//	SimController.ReB=roadNetwork.AddWay(rnB,rnC);
+			//	SimController.ReB=roadNetwork.AddWay(rnB,rnC);
 			
 			
-			     //创建路由ReA是路由参数
+			//创建路由ReA是路由参数
 			SimController.ReA1= roadNetwork.AddWay(rnA,rnB);
-            SimController.ReA2 = roadNetwork.AddWay(rnB,rnC);
-//            SimController.ReA3 = roadNetwork.AddWay(rnC, rnF);
-//            SimController.ReA4 = roadNetwork.AddWay(rnF, rnH);
-            //SimController.ReB1 = roadNetwork.AddWay(rnB, rnE);
-            //
+			SimController.ReA1.Name = "xiangming";
+			
+			SimController.ReA2 = roadNetwork.AddWay(rnB,rnC);
+			
+			SimController.ReA2.Name = "lixing";
+			
+			//            SimController.ReA3 = roadNetwork.AddWay(rnC, rnF);
+			//            SimController.ReA4 = roadNetwork.AddWay(rnF, rnH);
+			//SimController.ReB1 = roadNetwork.AddWay(rnB, rnE);
+			//
 			
 			roadNetwork.AddWay(rnB, rnA);
 			//
@@ -278,36 +323,36 @@ namespace GISTranSim
 
 //			roadNetwork.AddWay(rnD,rnE);
 //			roadNetwork.AddWay(rnE,rnD);
-//			
+//
 //			roadNetwork.AddWay(rnE,rnF);
 //			roadNetwork.AddWay(rnF,rnE);
-//			
+//
 //			roadNetwork.AddWay(rnG,rnH);
 //			roadNetwork.AddWay(rnH,rnG);
 //			roadNetwork.AddWay(rnH,rnI);
 //			roadNetwork.AddWay(rnI,rnH);
-//			
+//
 //			roadNetwork.AddWay(rnA,rnD);
 //			roadNetwork.AddWay(rnD,rnA);
-//			
+//
 //			roadNetwork.AddWay(rnB,rnE);
 //			roadNetwork.AddWay(rnE,rnB);
-//			
+//
 //			//roadNetwork.AddWay(rnC,rnF);
 //			roadNetwork.AddWay(rnF,rnC);
-//			
+//
 //			roadNetwork.AddWay(rnD,rnG);
 //			roadNetwork.AddWay(rnG,rnD);
-//			
+//
 //			roadNetwork.AddWay(rnE,rnH);
 //			roadNetwork.AddWay(rnH,rnE);
-//			
+//
 //			roadNetwork.AddWay(rnF,rnI);
 //			roadNetwork.AddWay(rnI,rnF);
 
 			foreach (var item in roadNetwork.Ways)
 			{
-				WayFactory.BuildTwoWay(item, 1, 1, 1);
+				WayFactory.BuildTwoWay(item, 0, 1, 0);
 			}
 			return roadNetwork;
 			
@@ -318,6 +363,8 @@ namespace GISTranSim
 		#region 编辑道路节点
 		bool _bIsRoadNetEditing = false;
 		MouseEventHandler RoadNetEditHandler;
+
+		
 		void MenuBar_Edit_RoadNetwork_Click(object sender, System.EventArgs e)
 		{
 			this._bIsRoadNetEditing = !this._bIsRoadNetEditing;

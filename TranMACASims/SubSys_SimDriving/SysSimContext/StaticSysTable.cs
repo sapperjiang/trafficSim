@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 
-namespace SubSys_SimDriving.SysSimContext
+namespace SubSys_SimDriving
 {
     /// <summary>
     /// 可以做用作的一维索引哈希表（Tvalue是类型），也可以做二维索引哈希表（Tvalue是集合）

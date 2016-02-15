@@ -5,7 +5,7 @@ using System.Drawing;
 using SubSys_MathUtility;
 using SubSys_SimDriving;
 using SubSys_SimDriving.RoutePlan;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 
 namespace SubSys_SimDriving.TrafficModel
 {
@@ -27,7 +27,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		/// <param name="from"></param>
 		/// <param name="to"></param>
-		internal Way(XNode from, XNode to)
+		public Way(XNode from, XNode to)
 		{
 			if (from ==null && to == null)
 			{
@@ -37,7 +37,7 @@ namespace SubSys_SimDriving.TrafficModel
 			this.XNodeTo = to;
 			this._lanes = new LaneChain();
 
-			this._EntityID = Way.iRoadCount++;
+			this._EntityID = ++Way.iRoadCount;
 
 		}
 		/// <summary>
@@ -51,7 +51,7 @@ namespace SubSys_SimDriving.TrafficModel
 			this.XNodeTo =  new XNode(to);
 			this._lanes = new LaneChain();
 
-			this._EntityID = Way.iRoadCount++;
+			this._EntityID = ++Way.iRoadCount;
 
 		}
 		
@@ -67,7 +67,7 @@ namespace SubSys_SimDriving.TrafficModel
 				int preNodeDistance = Coordinates.Distance(this.XNodeFrom.Grid, this.XNodeTo.Grid);
 
 				int iRealLength = preNodeDistance- 2* SimSettings.iMaxLanes;
-				if (iRealLength<10)
+				if (iRealLength<SimSettings.iMaxLanes)
 				{
 					ThrowHelper.ThrowArgumentException("两个节点之间距离太短");
 				}
@@ -137,7 +137,7 @@ namespace SubSys_SimDriving.TrafficModel
 				throw new ArgumentNullException();
 			}
 		}
-		internal void AddLane(LaneType lt)
+		public void AddLane(LaneType lt)
 		{
 			Lane rl = new Lane(this, lt);
 			this.AddLane(rl);
@@ -262,25 +262,26 @@ namespace SubSys_SimDriving.TrafficModel
 		public override void UpdateStatus()
 		{
 			////更新异步消息
-			for (int i = 0; i < this.asynAgents.Count; i++)
-			{
-				Agents.AbstractAgent visitorAgent = this.asynAgents[i];
-				visitorAgent.VisitUpdate(this);//.VisitUpdate();
-			}
+//			for (int i = 0; i < this.asynAgents.Count; i++)
+//			{
+//				Agents.AbstractAgent visitorAgent = this.asynAgents[i];
+//				visitorAgent.VisitUpdate(this);//.VisitUpdate();
+//			}
 			
-			//用roadedge调用元胞的drive 目的在于让车辆可以换道，这一段需要重写，不在使用元胞，而是用mobileentity
-			foreach (var lane in this.Lanes)
-			{
-				//			for (int i = 0; i < lane.CellCount; i++)
-//				{
-//					lane[i].Drive(this);//这是一个元胞的方法
-//				}
+		
+			Lane lane ;
+			for (int i = 0; i < this.Lanes.Count; i++) {
 				
-				foreach (var element in lane.Mobiles) {
-					element.Driver.DriveMobile(lane.Container as StaticEntity,element);
+				lane = this.Lanes[i];
+				
+				var mobileNode = lane.Mobiles.First;
+				
+				while(mobileNode!=null) {
+					var mobile = mobileNode.Value;
+					mobile.Driver.DriveMobile(lane.Container as StaticEntity,mobile);
+					mobileNode = mobileNode.Next;
 				}
-//
-				
+
 				lane.UpdateStatus();//调用注册在车道上的服务。
 			}
 			base.UpdateStatus();//调用注册在路段上的服务，如RoadEdgePaintService
@@ -332,9 +333,9 @@ namespace SubSys_SimDriving.TrafficModel
 					float ySplit = pY / dLq;//自身有正负号
 					//计算起点
 					int iOffset = SimSettings.iMaxLanes;
-					eShape.Add(new OxyzPointF(this.XNodeFrom.Grid.X + iOffset * xSplit, this.XNodeFrom.Grid.Y + iOffset * ySplit));
+					eShape.Add((new OxyzPointF(this.XNodeFrom.Grid.X + iOffset * xSplit, this.XNodeFrom.Grid.Y + iOffset * ySplit)).ToOxyzPoint());
 					//计算终点
-					eShape.Add(new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit));
+					eShape.Add((new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit)).ToOxyzPoint());
 				}
 				return eShape;
 			}
@@ -377,6 +378,18 @@ namespace SubSys_SimDriving.TrafficModel
 	}
 	public partial class Way : StaticEntity
 	{
+		
+		public Way(OxyzPoint opFrom,OxyzPoint opTo)
+		{
+			this.XNodeFrom =new XNode(opFrom);;
+			this.XNodeTo =  new XNode(opTo);
+			this._lanes = new LaneChain();
+
+			this._EntityID = ++Way.iRoadCount;
+			
+		}
+		
+		
 		/// <summary>
 		/// 新版更新函数，替代updateStatus函数
 		/// </summary>

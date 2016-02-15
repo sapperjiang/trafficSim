@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SubSys_SimDriving.TrafficModel;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 using SubSys_SimDriving.Agents;
 using System.Drawing;
 
@@ -88,6 +88,29 @@ namespace SubSys_SimDriving
             return re;
 
         }
+        
+//         public static Way BuildOneWay(int iLeftCount, int iStraightCount, int iRightCount)
+//        {
+//
+//        	Way  re=new Way(start,end);// eModelFactory.b
+//
+//            for (int i = 0; i < iLeftCount; i++)//左。
+//            {
+//                re.AddLane(LaneType.Left);
+//            }
+//            for (int i = 0; i < iStraightCount; i++)//直行
+//            {
+//                re.AddLane(LaneType.Straight);
+//            }
+//            for (int i = 0; i < iRightCount; i++)//右转
+//            {
+//                re.AddLane(LaneType.Right);
+//            }
+//            return re;
+//
+//        }
+        
+        
         /// <summary>
         /// 创建对称的两个RoadEdge，里面的车道数量由参数指定
         /// </summary>

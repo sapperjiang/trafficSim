@@ -415,28 +415,28 @@
       <FileName>RoutePlan\TripCostAnalyzer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.AgentHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.AgentHTable" Collapsed="true">
     <Position X="11.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\AgentHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.CarModelHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.CarModelHTable" Collapsed="true">
     <Position X="0.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\CarModelHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.DataRecorder" Collapsed="true">
+  <Class Name="SubSys_SimDriving.DataRecorder" Collapsed="true">
     <Position X="29.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIBAA=</HashCode>
       <FileName>SysSimContext\DataRecordHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.DataRecorder&lt;Tkey, Tvalue&gt;" Collapsed="true">
+  <Class Name="SubSys_SimDriving.DataRecorder&lt;Tkey, Tvalue&gt;" Collapsed="true">
     <Position X="1.75" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -444,91 +444,91 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.MyHashTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.MyHashTable" Collapsed="true">
     <Position X="29.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\MyHashTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.RoadEdgeHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.RoadEdgeHTable" Collapsed="true">
     <Position X="6.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\RoadEdgeHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.RoadLaneHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.RoadLaneHTable" Collapsed="true">
     <Position X="9" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\RoadLaneHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.RoadNodeHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.RoadNodeHTable" Collapsed="true">
     <Position X="29.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\RoadNodeHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.SignalLightHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.SignalLightHTable" Collapsed="true">
     <Position X="13.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\SignalLightHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.SimContext" Collapsed="true">
+  <Class Name="SubSys_SimDriving.SimContext" Collapsed="true">
     <Position X="28" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAAAAAAAkAAAAEBAACgAAAACAAAAACEAI=</HashCode>
       <FileName>SysSimContext\SimContext.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.SimSettings" Collapsed="true">
+  <Class Name="SubSys_SimDriving.SimSettings" Collapsed="true">
     <Position X="29.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACgAIIgAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\SimSettings.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.SpeedLimitHTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.SpeedLimitHTable" Collapsed="true">
     <Position X="2.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\SpeedLimitHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.StaticSysTable&lt;TKey, TValue&gt;" Collapsed="true">
+  <Class Name="SubSys_SimDriving.StaticSysTable&lt;TKey, TValue&gt;" Collapsed="true">
     <Position X="6.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAABAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\StaticSysTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.VMSHashTable" Collapsed="true">
+  <Class Name="SubSys_SimDriving.VMSHashTable" Collapsed="true">
     <Position X="4" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\VMSHTable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.Service.DataRecordService" Collapsed="true">
+  <Class Name="SubSys_SimDriving.Service.DataRecordService" Collapsed="true">
     <Position X="10.75" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAABAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\Service\DataRecordService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.Service.EventAttachService" Collapsed="true">
+  <Class Name="SubSys_SimDriving.Service.EventAttachService" Collapsed="true">
     <Position X="13" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>SysSimContext\Service\EventAttachService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.Service.Service" Collapsed="true">
+  <Class Name="SubSys_SimDriving.Service.Service" Collapsed="true">
     <Position X="13" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgABAIACwAAAAAAAAAAAAAACAAAAAAA=</HashCode>
@@ -536,14 +536,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.Service.RegisterService" Collapsed="true">
+  <Class Name="SubSys_SimDriving.Service.RegisterService" Collapsed="true">
     <Position X="15.25" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAABAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\Service\RegisterService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SubSys_SimDriving.SysSimContext.Service.ServiceMgr" Collapsed="true">
+  <Class Name="SubSys_SimDriving.Service.ServiceMgr" Collapsed="true">
     <Position X="26.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -671,14 +671,14 @@
       <FileName>ModelFactory\SimpleFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="SubSys_SimDriving.SysSimContext.IDataRecorder&lt;Tkey, Tvalue&gt;" Collapsed="true">
+  <Interface Name="SubSys_SimDriving.IDataRecorder&lt;Tkey, Tvalue&gt;" Collapsed="true">
     <Position X="24.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SysSimContext\IDataRecorder.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="SubSys_SimDriving.SysSimContext.Service.IService" Collapsed="true">
+  <Interface Name="SubSys_SimDriving.Service.IService" Collapsed="true">
     <Position X="29.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAAACAAAAAAA=</HashCode>

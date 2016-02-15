@@ -74,7 +74,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// 安全车头时距
 		/// </summary>
-		public int iSafeHeadWay = SysSimContext.SimSettings.iSafeHeadWay;
+		public int iSafeHeadWay = SimSettings.iSafeHeadWay;
 
 		public double dModerationRatio = TrafficModel.ModelSetting.dRate;//随机漫化概率Probability
 		public double dRandom

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using SubSys_SimDriving;
 using SubSys_SimDriving.RoutePlan;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
 
-namespace SubSys_SimDriving.SysSimContext.Service
+namespace SubSys_SimDriving.Service
 {
     public class DataRecordService : Service
     {
@@ -26,7 +26,10 @@ namespace SubSys_SimDriving.SysSimContext.Service
                     foreach (var item in tVar as Lane)
                     {
                          //Cell ce = (Cell)tVar;元胞，然后是其容器
-                        sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
+                 //       sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
+                 
+                 
+                 
                     }
                     break;
 
@@ -34,7 +37,7 @@ namespace SubSys_SimDriving.SysSimContext.Service
 
                     foreach (var item in tVar as XNode)
                     {
-                        sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
+                      //  sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
                     }
                     break;
                 default:

@@ -149,7 +149,7 @@ namespace SubSys_MathUtility
         }
 
         /// <summary>
-        /// 获取一个向量的法向量，该法向量位于向量右侧,向量不能为零向量
+        /// 获取一个向量的unit 法向量，该法向量位于向量右侧,向量不能为零向量
         /// </summary>
         /// <param name="vtr"></param>
         public static OxyzPointF GetNormal(OxyzPointF vtr)
@@ -182,6 +182,11 @@ namespace SubSys_MathUtility
                 return new OxyzPointF(p1._X,-p1._Y);
             }
             return new OxyzPointF(p2._X,-p2._Y);
+        }
+        
+        public static OxyzPointF GetMultiNormal(OxyzPointF uniVector,int iMuti)
+        {
+			return  new OxyzPointF(uniVector._X * iMuti, uniVector._Y * iMuti,uniVector._Z*iMuti);
         }
     }
 }

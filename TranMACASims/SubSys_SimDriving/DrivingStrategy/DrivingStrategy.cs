@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using SubSys_SimDriving.TrafficModel;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 using System.Drawing;
 using SubSys_MathUtility;
 
@@ -148,107 +148,107 @@ namespace SubSys_SimDriving.TrafficModel
 		internal XNodeDriveStrategy _WayStrategy;
 		internal WayDriveStrategy _XNodeStrategy;
 		
-		/// <summary>
-		/// 边界为红绿灯的地方是不更新和移动的或者做判断
-		/// </summary>
-		[System.Obsolete("replace with DriveMobile ")]
-		internal virtual void Drive(TrafficEntity staticEntity, Cell cell)
-		{
-			DriveContext ctx = new DriveContext(staticEntity, cell);
-			cell.GetEntityGap(out ctx.iLaneGap,out ctx.iXNodeGap);
-			ctx.iFrontHeadWay = ctx.iLaneGap+ctx.iXNodeGap;
-
-			ctx.iAcceleration = cell.Car.iAcceleration;
-			ctx.DriveParam.iSpeed = cell.Car.iSpeed;
-
-			switch (staticEntity.EntityType)
-			{
-				case EntityType.Way:
-					
-					//车道内部的计算方法
-					ctx.iFrontSpeed = cell.nextCell == null ? -1 : cell.nextCell.Car.iSpeed;
-
-					//控制权转移出去了，这几个函数只是决策，告诉drivingcontext 如何走，下一步是执行
-					_XNodeStrategy.LaneChanging(ctx);//换道
-					_XNodeStrategy.Accelerate(ctx);//符合条件就加速
-					
-					
-					_XNodeStrategy.Decelerate(ctx);//否则减速
-					_XNodeStrategy.NormalRun(ctx);//更新位置
-					
-					//以下处理车的位置
-					Way re = staticEntity as Way;
-					//处理车辆的前进和换道行为
-					Lane rl= cell.Container as Lane;
-
-					if (ctx.DriveParam.iMoveY==0)
-					{
-						break;
-					}
-					//还在路段内部
-					if (ctx.DriveParam.iMoveY <= ctx.iLaneGap && ctx.iLaneGap>0)
-					{
-						cell.Grid= new Point(cell.Grid.X,cell.Grid.Y+ ctx.DriveParam.iMoveY);
-					}else //进入了交叉口
-					{
-						int iToEntitMoveStep = ctx.DriveParam.iMoveY - ctx.iLaneGap;
-						//计算轨迹
-						cell.CalcTrack(1);//初始化到路段的在交叉口的入口处
-						//初始化元胞的位置
-						cell.Track.pCurrPos = cell.Track.pTempPos;//这里已经移动了一步了
-						
-						//交叉口内部移动指定的步长
-						cell.TrackMove(iToEntitMoveStep-1);//修改节点
-
-						re.XNodeTo.AddCell(cell);//进入交叉口
-						
-						rl.RemoveCell();//离开原来的路段删除最前面的元胞
-
-					}
-					break;
-
-				case EntityType.XNode:
-
-					XNode rn = staticEntity as XNode;
-
-					//控制权转移出去了
-					_WayStrategy.LaneChanging(ctx);//换道
-					_WayStrategy.Accelerate(ctx);//符合条件就加速
-					
-					_WayStrategy.Decelerate(ctx);//否则减速
-					_WayStrategy.NormalRun(ctx);//更新位置
-					//修改空间位置
-					if (ctx.DriveParam.iMoveY <= ctx.iLaneGap&&ctx.iLaneGap>0)
-					{//修改空间位置
-						Point old = cell.Track.pCurrPos;
-						//修改pCurrPos
-						cell.TrackMove(ctx.DriveParam.iMoveY);//计算坐标
-						rn.MoveCell(old, cell.Track.pCurrPos);//移动元胞到指定的位置
-					}
-					else //进入了路段
-					{
-						rn.RemoveCell(cell);//离开交叉口删除cell
-
-						int iToEntitMoveStep = ctx.DriveParam.iMoveY - ctx.iLaneGap;
-						Lane to = cell.Track.ToLane;
-						if (to!=null)
-						{
-							///转换坐标
-							cell.Track.pCurrPos = new Point(to.Rank,iToEntitMoveStep);
-							//进入下一个交通实体
-							cell.Track.ToLane.EnterWaitedQueue(cell);
-						}
-					}
-					break;
-				default:
-					ThrowHelper.ThrowArgumentException("不正确的参数");
-					break;
-			}
-			cell.Car.iAcceleration = Math.Max(ctx.DriveParam.iAcceleration,1);
-			cell.Car.iSpeed = ctx.DriveParam.iSpeed;
-		}
-		
-		
+//		/// <summary>
+//		/// 边界为红绿灯的地方是不更新和移动的或者做判断
+//		/// </summary>
+//		[System.Obsolete("replace with DriveMobile ")]
+//		internal virtual void Drive(TrafficEntity staticEntity, Cell cell)
+//		{
+//			DriveContext ctx = new DriveContext(staticEntity, cell);
+//			//cell.GetEntityGap(out ctx.iLaneGap,out ctx.iXNodeGap);
+//			ctx.iFrontHeadWay = ctx.iLaneGap+ctx.iXNodeGap;
+//
+//			ctx.iAcceleration = cell.Car.iAcceleration;
+//			ctx.DriveParam.iSpeed = cell.Car.iSpeed;
+//
+//			switch (staticEntity.EntityType)
+//			{
+//				case EntityType.Way:
+//					
+//					//车道内部的计算方法
+//					ctx.iFrontSpeed = cell.nextCell == null ? -1 : cell.nextCell.Car.iSpeed;
+//
+//					//控制权转移出去了，这几个函数只是决策，告诉drivingcontext 如何走，下一步是执行
+//					_XNodeStrategy.LaneChanging(ctx);//换道
+//					_XNodeStrategy.Accelerate(ctx);//符合条件就加速
+//					
+//					
+//					_XNodeStrategy.Decelerate(ctx);//否则减速
+//					_XNodeStrategy.NormalRun(ctx);//更新位置
+//					
+//					//以下处理车的位置
+//					Way re = staticEntity as Way;
+//					//处理车辆的前进和换道行为
+//					Lane rl= cell.Container as Lane;
+//
+//					if (ctx.DriveParam.iMoveY==0)
+//					{
+//						break;
+//					}
+//					//还在路段内部
+//					if (ctx.DriveParam.iMoveY <= ctx.iLaneGap && ctx.iLaneGap>0)
+//					{
+//						cell.Grid= new Point(cell.Grid.X,cell.Grid.Y+ ctx.DriveParam.iMoveY);
+//					}else //进入了交叉口
+//					{
+//						int iToEntitMoveStep = ctx.DriveParam.iMoveY - ctx.iLaneGap;
+//						//计算轨迹
+//						cell.CalcTrack(1);//初始化到路段的在交叉口的入口处
+//						//初始化元胞的位置
+//						cell.Track.pCurrPos = cell.Track.pTempPos;//这里已经移动了一步了
+//						
+//						//交叉口内部移动指定的步长
+//						cell.TrackMove(iToEntitMoveStep-1);//修改节点
+//
+//						re.XNodeTo.AddCell(cell);//进入交叉口
+//						
+//						rl.RemoveCell();//离开原来的路段删除最前面的元胞
+//
+//					}
+//					break;
+//
+//				case EntityType.XNode:
+//
+//					XNode rn = staticEntity as XNode;
+//
+//					//控制权转移出去了
+//					_WayStrategy.LaneChanging(ctx);//换道
+//					_WayStrategy.Accelerate(ctx);//符合条件就加速
+//					
+//					_WayStrategy.Decelerate(ctx);//否则减速
+//					_WayStrategy.NormalRun(ctx);//更新位置
+//					//修改空间位置
+//					if (ctx.DriveParam.iMoveY <= ctx.iLaneGap&&ctx.iLaneGap>0)
+//					{//修改空间位置
+//						Point old = cell.Track.pCurrPos;
+//						//修改pCurrPos
+//						cell.TrackMove(ctx.DriveParam.iMoveY);//计算坐标
+//						rn.MoveCell(old, cell.Track.pCurrPos);//移动元胞到指定的位置
+//					}
+//					else //进入了路段
+//					{
+//						rn.RemoveCell(cell);//离开交叉口删除cell
+//
+//						int iToEntitMoveStep = ctx.DriveParam.iMoveY - ctx.iLaneGap;
+//						Lane to = cell.Track.ToLane;
+//						if (to!=null)
+//						{
+//							///转换坐标
+//							cell.Track.pCurrPos = new Point(to.Rank,iToEntitMoveStep);
+//							//进入下一个交通实体
+//							cell.Track.ToLane.EnterWaitedQueue(cell);
+//						}
+//					}
+//					break;
+//				default:
+//					ThrowHelper.ThrowArgumentException("不正确的参数");
+//					break;
+//			}
+//			cell.Car.iAcceleration = Math.Max(ctx.DriveParam.iAcceleration,1);
+//			cell.Car.iSpeed = ctx.DriveParam.iSpeed;
+//		}
+//		
+//		
 	}
 	
 	/// <summary>
@@ -258,6 +258,10 @@ namespace SubSys_SimDriving.TrafficModel
 	{
 		internal virtual void DriveMobile(StaticEntity driveContainer,MobileEntity mobile)
 		{
+//			if (mobile.ID ==2) {
+//				;
+//			}
+			
 			var dctx=mobile.Observe();
 			
 			switch (driveContainer.EntityType)
@@ -281,7 +285,7 @@ namespace SubSys_SimDriving.TrafficModel
 						break;
 					}
 					//还在路段内部
-					if (dctx.DriveParam.iMoveY <= dctx.iLaneGap )
+					if (dctx.DriveParam.iMoveY <= dctx.iLaneGap)
 					{
 						mobile.Move(dctx.DriveParam.iMoveY);
 						mobile.iSpeed = dctx.DriveParam.iSpeed;

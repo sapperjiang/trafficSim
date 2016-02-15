@@ -12,7 +12,7 @@ namespace SubSys_SimDriving.Agents
         /// <summary>
         /// 被访问对象
         /// </summary>
-        protected SysSimContext.SimContext simContext = SysSimContext.SimContext.GetInstance();
+        protected SimContext simContext = SimContext.GetInstance();
         internal IRoadNet roadNet = RoadNet.GetInstance();
         internal AgentPriority priority;
         internal AgentType agentType;

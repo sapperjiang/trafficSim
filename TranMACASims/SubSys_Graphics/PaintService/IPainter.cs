@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using SubSys_SimDriving;
-using SubSys_SimDriving.SysSimContext.Service;
+using SubSys_SimDriving.Service;
 
 namespace SubSys_Graphics
 {
@@ -15,7 +15,7 @@ namespace SubSys_Graphics
             set;
         }
 
-        void PaintCar(Rectangle rec,ITrafficEntity car);
+       // void PaintCar(Rectangle rec,ITrafficEntity car);
         
     }
     

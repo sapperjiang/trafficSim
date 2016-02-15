@@ -1,10 +1,10 @@
 using System.Threading;
 using SubSys_SimDriving.TrafficModel;
 using System.Collections.Generic;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 using SubSys_SimDriving;
 
-namespace SubSys_SimDriving.SysSimContext
+namespace SubSys_SimDriving
 {
     public class SimSettings
     {

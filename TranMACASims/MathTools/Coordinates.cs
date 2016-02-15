@@ -56,7 +56,7 @@ namespace SubSys_MathUtility
 //		public OxyzPoint ToOxyzPoint()
 //		{	return new ox
 //		}
-//		
+//
 		//-----------------------------20160130-----------------------------
 		/// <summary>
 		/// 重写哈希值，避免两个对象的哈希值相同引起的插入错误
@@ -70,9 +70,13 @@ namespace SubSys_MathUtility
 		{
 			int hashCode = 0;
 			unchecked {
-				hashCode += 1000000007 * _X.GetHashCode();
-				hashCode += 1000000009 * _Y.GetHashCode();
-				hashCode += 1000000021 * _Z.GetHashCode();
+//				hashCode += 1000000007 * _X.GetHashCode();
+//				hashCode += 1000000009 * _Y.GetHashCode();
+//				hashCode += 1000000021 * _Z.GetHashCode();
+				
+				hashCode += 1000000007 * (int)_X;
+				hashCode += 1000000009 * (int)_Y;
+				hashCode += 1000000021 *(int) _Z;
 			}
 			return hashCode;
 		}
@@ -104,7 +108,15 @@ namespace SubSys_MathUtility
 			this._Y = Convert.ToInt32( opF._Y);
 			this._Z = Convert.ToInt32( opF._Z);
 		}
-
+		
+		public OxyzPoint(double dX,double dY,double dZ)
+		{
+			this._X = Convert.ToInt32(dX);
+			this._Y = Convert.ToInt32(dY);
+			this._Z = Convert.ToInt32(dZ);
+		}
+		public OxyzPoint(double dX,double dY):this(dX,dY,0f){}
+	
 		
 		public OxyzPointF ToOxyzPointF()
 		{
@@ -119,6 +131,10 @@ namespace SubSys_MathUtility
 		public Point ToPoint()
 		{
 			return new Point(this._X, this._Y);
+		}
+		public OxyzPoint Clone()
+		{
+			return new OxyzPoint(this._X,this._Y,this._Z);
 		}
 
 		#region Equals and GetHashCode implementation
@@ -138,7 +154,11 @@ namespace SubSys_MathUtility
 		
 		public static OxyzPoint Default=new OxyzPoint(-1,-1,-1);
 		
-		
+		public override string ToString()
+		{
+			return string.Format("[OxyzPoint X={0}, Y={1}, Z={2}]", _X, _Y, _Z);
+		}
+
 	}
 
 
@@ -160,10 +180,10 @@ namespace SubSys_MathUtility
 		///// 将元胞坐标系转换为屏幕坐标系;
 		///// </summary>
 		///// <param name="rltPos"></param>
-		///// <param name="offset"></param>
-		public static Point Project(Point rltPos, int iCellPixels)
+		///// <param name="iScaleFactor"></param>
+		public static Point Project(Point rltPos, int iScaleFactor)
 		{
-			return Coordinates.Project(new OxyzPointF(rltPos.X, rltPos.Y), iCellPixels);
+			return Coordinates.Project(new OxyzPointF(rltPos.X, rltPos.Y), iScaleFactor);
 		}
 		
 		/// <summary>
@@ -182,6 +202,21 @@ namespace SubSys_MathUtility
 			scrnPoint.Y -= Coordinates.GraphicsOffset.Y;
 			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
 		}
+		
+
+		
+		
+		public static PointF ProjectFloat(OxyzPointF mp, int iScaleFactor)
+		{
+			PointF scrnPoint = new Point();
+			scrnPoint.X = (float)Math.Round(iScaleFactor * mp._X);
+			scrnPoint.Y = (float)Math.Round(iScaleFactor * mp._Y);
+			//计算平移(偏移)
+			scrnPoint.X -= Coordinates.GraphicsOffset.X;
+			scrnPoint.Y -= Coordinates.GraphicsOffset.Y;
+			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
+		}
+		
 		/// <summary>
 		/// offset中x和y的值向左上偏移，其xy都为负值
 		/// </summary>
@@ -286,7 +321,7 @@ namespace SubSys_MathUtility
 			double iY = Math.Abs(p1._Y - p2._Y);
 			double iZ = Math.Abs(p1._Z - p2._Z);
 			
-			return Math.Sqrt(iX * iX + iY * iY+iZ * iZ);	
+			return Math.Sqrt(iX * iX + iY * iY+iZ * iZ);
 			
 		}
 		

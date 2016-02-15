@@ -24,6 +24,16 @@ namespace SubSys_SimDriving.RoutePlan
             
         }
  
+		public override void Add(Way nextWay)
+		{
+			if (this.routeList.Count>0) {
+				if (this.FindPrev(nextWay)==nextWay) {
+					ThrowHelper.ThrowArgumentException("相邻两条路线是同一条道路，应该为不同道路");
+				}
+			}
+			
+			base.Add(nextWay);
+		}
         public IEnumerator<Way> GetEnumerator()
         {
             return routeList.GetEnumerator();

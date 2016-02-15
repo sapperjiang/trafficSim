@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using SubSys_MathUtility;
 using SubSys_SimDriving.Agents;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
 
 using System.Drawing;
@@ -45,6 +45,15 @@ namespace SubSys_SimDriving.TrafficModel
 		internal bool IsBlocked(Point iRealXY)
 		{
 			return cells.IsBlocked(iRealXY.X, iRealXY.Y);
+		}
+		
+		//20160215
+		internal bool IsBlocked(OxyzPoint pPoint)
+		{
+			
+			ThrowHelper.ThrowArgumentException("not yet implemented");
+			return false;
+			//return cells.IsBlocked(pPoint._X, pPoint._Y);
 		}
 
 		
@@ -154,20 +163,20 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <returns></returns>
 		private HashMatrix<Cell> cells = new HashMatrix<Cell>();
 		
-		internal Cell this[int index]
-		{
-			get
-			{
-				return this.cells[index];
-			}
-		}
-		internal ICollection<int> Keys
-		{
-			get
-			{
-				return this.cells.Keys;
-			}
-		}
+//		internal Cell this[int index]
+//		{
+//			get
+//			{
+//				return this.cells[index];
+//			}
+//		}
+//		internal ICollection<int> Keys
+//		{
+//			get
+//			{
+//				return this.cells.Keys;
+//			}
+//		}
 		
 		#endregion
 		
@@ -307,10 +316,11 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 			
 			//通过操作另外一个集合进行
-			foreach (var item in new List<int>(this.Keys))
-			{
-				this[item].Drive(this);
-			}
+//			foreach (var item in new List<int>(this.Keys))
+//			{
+//				this[item].Drive(this);
+//			}
+			
 			base.UpdateStatus();//基类调用了OnStatusChanged 进行绘图服务
 		}
 
@@ -336,7 +346,7 @@ namespace SubSys_SimDriving.TrafficModel
 //					this.AddCell(this._mobilesInn.Dequeue());
 //				}
 //			}
-//			
+//
 		}
 		
 		
@@ -351,10 +361,20 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		public bool IsOccupied(OxyzPoint opPoint)
 		{
-			//if this point is not added to dictionary ,add it then 
+			//if this point is not added to dictionary ,add it then
 			return this._occupiedPoints.ContainsKey(opPoint.GetHashCode());
 		}
 
+		internal XNode(OxyzPoint pointCenter)
+		{
+			this._EntityID = ++iRoadNodeID;
+			//Random rd = new Random();
+			this.SpatialGrid = pointCenter;
+			
+			//this.Grid = pointCenter;
+		//	this.GISPosition = new OxyzPointF(rd.Next(65535), rd.Next(65535));
+		}
+		
 		
 	}
 }

@@ -20,18 +20,7 @@ namespace SubSys_SimDriving.TrafficModel
 //			_shapePoints = new List<MyPoint>();
 //		}
 		
-		/// <summary>
-		/// 重载一个浮点型的Add方法
-		/// </summary>
-		/// <param name="op"></param>
-		public void Add(OxyzPointF op)
-		{
-			this._dicGrids.Add(op.GetHashCode(),this.Count);
-			base.Add(op.ToOxyzPoint());
-					
-//			System.Diagnostics.Debug.Assert((this.Count-1)==base.FindLastIndex(op));
-			
-		}
+
 		/// <summary>
 		///  For a road with direction like this “----->”  ,start means a point at the end of the narrow .
 		/// and end means a point at the narrow
@@ -86,17 +75,32 @@ namespace SubSys_SimDriving.TrafficModel
 			//否则，则会返回 value 参数的类型默认值。该参数未经初始化即被传递。
 			_dicGrids.TryGetValue(op.GetHashCode(),out iIndex);
 			
-			int p1=-1 ;
-				_dicGrids.TryGetValue(op.GetHashCode(),out p1);
-			
-				
-			int p2 =-1;
-				_dicGrids.TryGetValue(op.GetHashCode(),out p2);
-				
-				
-				
-			return iIndex;
+//			int p1=-1 ;
+//			_dicGrids.TryGetValue(this[1].GetHashCode(),out p1);
+//
+//
+//			int p2 =-1;
+//				_dicGrids.TryGetValue(this[2].GetHashCode(),out p2);
+//
+//					int p3 =-1;
+//				_dicGrids.TryGetValue(this[3].GetHashCode(),out p3);
+			//哈希表找不到，默认值是0 这与索引是0的点冲突。所以这里采用一个偏移量，与Add函数一起作用
+			return iIndex-1;
 		}
+		
+		
+		/// <summary>
+		/// 重载一个浮点型的Add方法
+		/// </summary>
+		/// <param name="op"></param>
+		public  void Add(OxyzPoint op)
+		{
+			this._dicGrids.Add(op.GetHashCode(),this.Count+1);
+			base.Add(op);
+//			System.Diagnostics.Debug.Assert((this.Count-1)==base.FindLastIndex(op));
+			
+		}
+		
 	}
 	
 }

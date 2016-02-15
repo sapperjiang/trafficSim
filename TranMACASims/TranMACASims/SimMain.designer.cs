@@ -182,8 +182,9 @@
 			// 
 			// menuBarConfigSimEnvr
 			// 
+			this.menuBarConfigSimEnvr.Enabled = false;
 			this.menuBarConfigSimEnvr.Name = "menuBarConfigSimEnvr";
-			this.menuBarConfigSimEnvr.Size = new System.Drawing.Size(144, 26);
+			this.menuBarConfigSimEnvr.Size = new System.Drawing.Size(152, 26);
 			this.menuBarConfigSimEnvr.Text = "加载路网";
 			this.menuBarConfigSimEnvr.Click += new System.EventHandler(this.MenuBar_File_ConfigEnvr_Click);
 			// 
@@ -191,14 +192,14 @@
 			// 
 			this.MenuBarConfigParameterSet.Enabled = false;
 			this.MenuBarConfigParameterSet.Name = "MenuBarConfigParameterSet";
-			this.MenuBarConfigParameterSet.Size = new System.Drawing.Size(144, 26);
+			this.MenuBarConfigParameterSet.Size = new System.Drawing.Size(152, 26);
 			this.MenuBarConfigParameterSet.Text = "参数设置";
 			this.MenuBarConfigParameterSet.Click += new System.EventHandler(this.MenuBar_Config_Parameter_Click);
 			// 
 			// MenuBarConfigFormBackColor
 			// 
 			this.MenuBarConfigFormBackColor.Name = "MenuBarConfigFormBackColor";
-			this.MenuBarConfigFormBackColor.Size = new System.Drawing.Size(144, 26);
+			this.MenuBarConfigFormBackColor.Size = new System.Drawing.Size(152, 26);
 			this.MenuBarConfigFormBackColor.Text = "背景颜色";
 			this.MenuBarConfigFormBackColor.Click += new System.EventHandler(this.MenuBar_Config_FormBackColor_Click);
 			// 
@@ -216,9 +217,8 @@
 			// 
 			// menuBarSimulateSustained
 			// 
-			this.menuBarSimulateSustained.Enabled = false;
 			this.menuBarSimulateSustained.Name = "menuBarSimulateSustained";
-			this.menuBarSimulateSustained.Size = new System.Drawing.Size(144, 26);
+			this.menuBarSimulateSustained.Size = new System.Drawing.Size(152, 26);
 			this.menuBarSimulateSustained.Text = "启动仿真";
 			this.menuBarSimulateSustained.Click += new System.EventHandler(this.MenuBar_SimluateSustained_Click);
 			// 
@@ -226,27 +226,27 @@
 			// 
 			this.menuBarSimulateRunSingleStep.Enabled = false;
 			this.menuBarSimulateRunSingleStep.Name = "menuBarSimulateRunSingleStep";
-			this.menuBarSimulateRunSingleStep.Size = new System.Drawing.Size(144, 26);
+			this.menuBarSimulateRunSingleStep.Size = new System.Drawing.Size(152, 26);
 			this.menuBarSimulateRunSingleStep.Text = "单步运行";
 			// 
 			// menuBarSimulatePause
 			// 
 			this.menuBarSimulatePause.Name = "menuBarSimulatePause";
-			this.menuBarSimulatePause.Size = new System.Drawing.Size(144, 26);
+			this.menuBarSimulatePause.Size = new System.Drawing.Size(152, 26);
 			this.menuBarSimulatePause.Text = "暂停仿真";
 			this.menuBarSimulatePause.Click += new System.EventHandler(this.MenuBar_Simulate_Pause_Click);
 			// 
 			// menuBarSimulateResume
 			// 
 			this.menuBarSimulateResume.Name = "menuBarSimulateResume";
-			this.menuBarSimulateResume.Size = new System.Drawing.Size(144, 26);
+			this.menuBarSimulateResume.Size = new System.Drawing.Size(152, 26);
 			this.menuBarSimulateResume.Text = "恢复仿真";
 			this.menuBarSimulateResume.Click += new System.EventHandler(this.MenuBar_Simulate_Resume_Click);
 			// 
 			// MenubarSimlateStop
 			// 
 			this.MenubarSimlateStop.Name = "MenubarSimlateStop";
-			this.MenubarSimlateStop.Size = new System.Drawing.Size(144, 26);
+			this.MenubarSimlateStop.Size = new System.Drawing.Size(152, 26);
 			this.MenubarSimlateStop.Text = "结束仿真";
 			this.MenubarSimlateStop.Click += new System.EventHandler(this.Menubar_Simlate_Stop_Click);
 			// 
@@ -315,6 +315,7 @@
 			this.menuBar.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
+
 		}
 		private System.Windows.Forms.ToolStripMenuItem MenuBarConfigFormBackColor;
 		private System.Windows.Forms.ToolStripMenuItem MenuBarConfigParameterSet;

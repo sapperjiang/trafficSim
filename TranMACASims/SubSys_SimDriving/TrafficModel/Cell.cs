@@ -1,7 +1,7 @@
 ﻿using SubSys_MathUtility;
 using System;
 using System.Drawing;
-using SubSys_SimDriving.SysSimContext;
+using SubSys_SimDriving;
 
 using System.Collections;
 using System.Collections.Generic;
@@ -138,7 +138,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <param name="rN"></param>
 		internal void Drive(TrafficEntity rN)
 		{
-			this.Car.DriveStg.Drive(rN, this);
+		//	this.Car.DriveStg.Drive(rN, this);
 		}
 
 		/// <summary>
@@ -182,43 +182,43 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <param name="iEntityGap"></param>
 		/// <param name="iToEntityGap"></param>
 		[System.Obsolete("move to mobile entity observe，replace it")]
-		public void GetEntityGap(out int iEntityGap, out int iToEntityGap)
-		{
-			int EntityGap = 0;
-			int ToEntityGap = 0;
-			//车道，然后是路段
-			switch (this.Container.EntityType) {
-				case EntityType.Lane:
-					Way re = this.Container.Container as Way;
-					//车道内部的计算方法
-					if (this.nextCell == null) {//第一个元胞的车头时距是路段+交叉口的长度
-						EntityGap = this.Container.iLength - this.Grid.Y;
-						this.CalcTrack(1);//先填充轨迹
-						GetTrackGap(re.XNodeTo, this.Track.pTempPos, out ToEntityGap);//再计算剩余轨迹
-					} else {//后续都是路段上的，没有交叉口上的
-						EntityGap = this.nextCell.Grid.Y - this.Grid.Y;
-						ToEntityGap = 0;
-					}
-					break;
-
-				case EntityType.XNode:
-
-					XNode rN = this.Container as XNode;
-					//计算剩余轨迹数量
-					if (GetTrackGap(rN, this.Track.pCurrPos, out EntityGap) == false) {
-						ToEntityGap = 0;
-					} else {
-						if (this.Track.ToLane != null) {
-							ToEntityGap = this.Track.ToLane.iLastPos;
-						}
-					}
-					
-					break;
-			}
-			
-			iEntityGap = EntityGap;
-			iToEntityGap = ToEntityGap;
-		}
+//		public void GetEntityGap(out int iEntityGap, out int iToEntityGap)
+//		{
+//			int EntityGap = 0;
+//			int ToEntityGap = 0;
+//			//车道，然后是路段
+//			switch (this.Container.EntityType) {
+//				case EntityType.Lane:
+//					Way re = this.Container.Container as Way;
+//					//车道内部的计算方法
+//					if (this.nextCell == null) {//第一个元胞的车头时距是路段+交叉口的长度
+//						EntityGap = this.Container.iLength - this.Grid.Y;
+//						this.CalcTrack(1);//先填充轨迹
+//						GetTrackGap(re.XNodeTo, this.Track.pTempPos, out ToEntityGap);//再计算剩余轨迹
+//					} else {//后续都是路段上的，没有交叉口上的
+//						EntityGap = this.nextCell.Grid.Y - this.Grid.Y;
+//						ToEntityGap = 0;
+//					}
+//					break;
+//
+//				case EntityType.XNode:
+//
+//					XNode rN = this.Container as XNode;
+//					//计算剩余轨迹数量
+//					if (GetTrackGap(rN, this.Track.pCurrPos, out EntityGap) == false) {
+//						ToEntityGap = 0;
+//					} else {
+//						if (this.Track.ToLane != null) {
+//							ToEntityGap = this.Track.ToLane.iLastPos;
+//						}
+//					}
+//					
+//					break;
+//			}
+//			
+//			iEntityGap = EntityGap;
+//			iToEntityGap = ToEntityGap;
+	//	}
 
 		/// <summary>
 		/// 计算元胞在交叉口内部可以走多少步
@@ -278,115 +278,115 @@ namespace SubSys_SimDriving.TrafficModel
 
 	}
 	
-	/// <summary>
-	/// 元胞网格是组成元胞空间的实体，包含坐标xyz，网格编号是否被占据等元素。
-	/// </summary>
-	public class CellGrid
-	{
-		public OxyzPoint op;
-		/// <summary>
-		/// 相对于车道第一个点的元胞个数.1为第一个点
-		/// </summary>
-		public int iGridIndex;
-		
-		public bool bIsEmpty;
-		//=false;
-		public CellGrid(OxyzPoint op, bool isEmpty)
-		{
-			this.op = op;
-			this.iGridIndex = 0;
-			this.bIsEmpty = isEmpty;
-		}
-		public int GetHashCode()
-		{
-			int ihashCode = this.op._X.GetHashCode() + this.op._Y.GetHashCode() + this.op._Z.GetHashCode();
-			return ihashCode;
-		}
-	}
+//	/// <summary>
+//	/// 元胞网格是组成元胞空间的实体，包含坐标xyz，网格编号是否被占据等元素。
+//	/// </summary>
+//	public class CellGrid
+//	{
+//		public OxyzPoint op;
+//		/// <summary>
+//		/// 相对于车道第一个点的元胞个数.1为第一个点
+//		/// </summary>
+//		public int iGridIndex;
+//		
+//		public bool bIsEmpty;
+//		//=false;
+//		public CellGrid(OxyzPoint op, bool isEmpty)
+//		{
+//			this.op = op;
+//			this.iGridIndex = 0;
+//			this.bIsEmpty = isEmpty;
+//		}
+//		public int GetHashCode()
+//		{
+//			int ihashCode = this.op._X.GetHashCode() + this.op._Y.GetHashCode() + this.op._Z.GetHashCode();
+//			return ihashCode;
+//		}
+//	}
 	
 		
 	/// <summary>
 	/// 元胞空间，每个车道（道路）、交叉口（XNode）都有这个东西
 	/// 元胞空间要解决cell前后的空位置（车头时距、车后时距）计算问题
 	/// </summary>
-	public  class CellSpace//:Dictionary<int,CellGird>,LinkedList<Cell>
-	{
-		internal ITrafficEntity _Container;
-		
-		/// <summary>
-		/// 返回元胞空间中最后一个元胞的Cellgrid的index属性即可
-		/// </summary>
-		internal int iSpace
-		{
-			get{
-				
-				return this._llCellGrids.Last.Value.iGridIndex;
-			}
-		}
-		
-		internal CellSpace(ITrafficEntity container)
-		{
-			this._Container = container;
-		}
-				
-		/// <summary>
-		/// 禁止调用无参数构造函数
-		/// </summary>
-		private CellSpace()
-		{
-		}
-		/// <summary>
-		/// 数据结构的需求是
-		/// 1、快速遍历，判断某个cellgrid是否被占据。用字典解决。
-		/// 2、快速确定某点与基点的距离，用O（1）找到Cellgrid前后的Cellgrid，用于确定车头时距
-		///保存cellspacegrid的哈希表， key 用cell的xyz欧式坐标哈希值就是cell 坐标的xy，这样判断cell是否在元胞空间中就很简单,用dictionary.containskey。
-		/// 哈希表是为了快速判断元胞空间的状态，与cellspacequeue配合空间换时间。
-		///
-		/// </summary>
-		private Dictionary<int, CellGrid> _dicCellGrids = new  Dictionary<int, CellGrid>();
-		
-		/// <summary>
-		/// 利用cellgrid的iGridindex，对字典中的保存的Grid,利用GirdIndex进行排序.GUI画图时候可以只调用一次。可用于GUI画图
-		/// 链表的顺序不用改，链表cELLgrid坐标改一改就行。
-		/// </summary>
-		private LinkedList<CellGrid> _llCellGrids = new LinkedList< CellGrid>();
-		
-		/// <summary>
-		/// 元胞网格cellgrid 的个数，这也是CellSpace可以容纳的最多的Cell数量。
-		/// </summary>
-		public int Count {
-			get {
-//				return this._dicCellGrids.Count;
-				throw new NotImplementedException();
-			}
-		}
-		
-		/// <summary>
-		/// 添加元胞网格，元胞网格是组成车道的连续元胞点，字典的key是cellgrid的三坐标生成的。
-		/// </summary>
-		/// <param name="key"></param>
-		/// <param name="value"></param>
-		public   void Add(CellGrid value)
-		{
-			int ihashCode=value.GetHashCode();
-			this._llCellGrids.AddLast(value);
-			this._dicCellGrids.Add(ihashCode,value);
-		}
-		public   bool Remove(int hashCode)
-		{
-			var bIsRemoved = this._dicCellGrids.Remove(hashCode);
-			this._llCellGrids.RemoveFirst();
-			return bIsRemoved;
-		}
-		
-		
-		public bool TryGetValue(int key, out CellGrid cg)
-		{
-			return this._dicCellGrids.TryGetValue(key, out cg);
-		}
-		
-		
-	}
+//	public  class CellSpace//:Dictionary<int,CellGird>,LinkedList<Cell>
+//	{
+//		internal ITrafficEntity _Container;
+//		
+//		/// <summary>
+//		/// 返回元胞空间中最后一个元胞的Cellgrid的index属性即可
+//		/// </summary>
+//		internal int iSpace
+//		{
+//			get{
+//				
+//				return this._llCellGrids.Last.Value.iGridIndex;
+//			}
+//		}
+//		
+//		internal CellSpace(ITrafficEntity container)
+//		{
+//			this._Container = container;
+//		}
+//				
+//		/// <summary>
+//		/// 禁止调用无参数构造函数
+//		/// </summary>
+//		private CellSpace()
+//		{
+//		}
+//		/// <summary>
+//		/// 数据结构的需求是
+//		/// 1、快速遍历，判断某个cellgrid是否被占据。用字典解决。
+//		/// 2、快速确定某点与基点的距离，用O（1）找到Cellgrid前后的Cellgrid，用于确定车头时距
+//		///保存cellspacegrid的哈希表， key 用cell的xyz欧式坐标哈希值就是cell 坐标的xy，这样判断cell是否在元胞空间中就很简单,用dictionary.containskey。
+//		/// 哈希表是为了快速判断元胞空间的状态，与cellspacequeue配合空间换时间。
+//		///
+//		/// </summary>
+//		private Dictionary<int, CellGrid> _dicCellGrids = new  Dictionary<int, CellGrid>();
+//		
+//		/// <summary>
+//		/// 利用cellgrid的iGridindex，对字典中的保存的Grid,利用GirdIndex进行排序.GUI画图时候可以只调用一次。可用于GUI画图
+//		/// 链表的顺序不用改，链表cELLgrid坐标改一改就行。
+//		/// </summary>
+//		private LinkedList<CellGrid> _llCellGrids = new LinkedList< CellGrid>();
+//		
+//		/// <summary>
+//		/// 元胞网格cellgrid 的个数，这也是CellSpace可以容纳的最多的Cell数量。
+//		/// </summary>
+//		public int Count {
+//			get {
+////				return this._dicCellGrids.Count;
+//				throw new NotImplementedException();
+//			}
+//		}
+//		
+//		/// <summary>
+//		/// 添加元胞网格，元胞网格是组成车道的连续元胞点，字典的key是cellgrid的三坐标生成的。
+//		/// </summary>
+//		/// <param name="key"></param>
+//		/// <param name="value"></param>
+//		public   void Add(CellGrid value)
+//		{
+//			int ihashCode=value.GetHashCode();
+//			this._llCellGrids.AddLast(value);
+//			this._dicCellGrids.Add(ihashCode,value);
+//		}
+//		public   bool Remove(int hashCode)
+//		{
+//			var bIsRemoved = this._dicCellGrids.Remove(hashCode);
+//			this._llCellGrids.RemoveFirst();
+//			return bIsRemoved;
+//		}
+//		
+//		
+//		public bool TryGetValue(int key, out CellGrid cg)
+//		{
+//			return this._dicCellGrids.TryGetValue(key, out cg);
+//		}
+//		
+//		
+//	}
 
 	public class EntityContainer:LinkedList<MobileEntity>
 	{}
