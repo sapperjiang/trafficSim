@@ -101,6 +101,17 @@ namespace SubSys_SimDriving.TrafficModel
 			
 		}
 		
+		public EntityShape DeepClone()
+		{
+			var eShape = new EntityShape();
+			
+			for (int i = 0; i < this.Count; i++) {
+				eShape.Add(this[i]);
+			}
+			return eShape;
+			
+		}
+		
 	}
 	
 }

@@ -25,19 +25,7 @@ namespace SubSys_SimDriving
 	/// </summary>
 	public abstract partial class StaticEntity:TrafficEntity
 	{
-		//LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
-		public MobilesShelter MobilesShelter;
-		/// <summary>
-		/// 用来保存存储在交叉口和车道等内部的车辆。
-		/// </summary>
-		public LinkedList<MobileEntity> Mobiles {
-			get {
-				if (this.MobilesShelter==null) {
-					this.MobilesShelter = new MobilesShelter(this);
-				}
-				return MobilesShelter.Mobiles;
-			}
-		}
+	
 		
 		#region 处理等待的mobileentity的数据结构和函数
 		

@@ -23,22 +23,22 @@ namespace SubSys_SimDriving.Service
             {
                 case EntityType.Lane://附加到车道上，如车道收集器
 
-                    foreach (var item in tVar as Lane)
-                    {
-                         //Cell ce = (Cell)tVar;元胞，然后是其容器
-                 //       sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
-                 
-                 
-                 
-                    }
+//                    foreach (var item in tVar as Lane)
+//                    {
+//                         //Cell ce = (Cell)tVar;元胞，然后是其容器
+//                 //       sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
+//                 
+//                 
+//                 
+//                    }
                     break;
 
                 case EntityType.XNode:
 
-                    foreach (var item in tVar as XNode)
-                    {
-                      //  sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
-                    }
+//                    foreach (var item in tVar as XNode)
+//                    {
+//                      //  sc.DataRecorder.Record(item.Container.GetHashCode(), item.GetCarInfo());
+//                    }
                     break;
                 default:
                     ThrowHelper.ThrowArgumentException("不支持的记录类型，应当使用在车道和交叉口上");

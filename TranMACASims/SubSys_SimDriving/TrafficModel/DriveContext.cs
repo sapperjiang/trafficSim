@@ -93,12 +93,12 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		/// <param name="roadE"></param>
 		/// <param name="ce"></param>
-		[System.Obsolete("abandoned")]
-		public DriveContext(TrafficEntity te,Cell ce)
-		{
-			DriveParam = new MobileParam();
-			this.Container = te;
-		}
+//		[System.Obsolete("abandoned")]
+//		public DriveContext(TrafficEntity te,Cell ce)
+//		{
+//			DriveParam = new MobileParam();
+//			this.Container = te;
+//		}
 		
 	}
 	

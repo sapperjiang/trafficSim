@@ -52,8 +52,8 @@ namespace SubSys_SimDriving.Service
 				if (rn != null)
 				{
 					rn.EntityType = EntityType.XNode;
-					rn.iLength = SimSettings.iMaxLanes * 2;//2倍的矩形
-					rn.iWidth = rn.iLength;//长宽相等的矩形
+					rn.Length = SimSettings.iMaxLanes * 2;//2倍的矩形
+					rn.Width = rn.Length;//长宽相等的矩形
 
 					rn.Container = RoadNet.GetInstance();
 

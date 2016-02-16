@@ -75,9 +75,9 @@ namespace GISTranSim
 			this.Invalidate();
 
 			if (e.Delta > 0) {
-				GraphicsConfiger.ScaleCellPixels(1);
+				GraphicsCfger.ScalePixels(1);
 			} else {
-				GraphicsConfiger.ScaleCellPixels(-1);
+				GraphicsCfger.ScalePixels(-1);
 			}
 			
 			//	SimController.RepaintNetWork();

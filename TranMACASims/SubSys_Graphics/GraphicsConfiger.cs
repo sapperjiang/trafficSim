@@ -6,9 +6,12 @@ using System.Text;
 
 namespace SubSys_Graphics
 {
-	public static class GraphicsConfiger
+	public static class GraphicsCfger
 	{
-		public static int iCellPixels = CellPixels.iMedium;
+		/// <summary>
+		/// define a point means graphics pixels
+		/// </summary>
+		public static int iPixels = Pixels.iMedium;
 		//internal static int iGUI_CellShapeMargin = 1;
 		//        internal static int iG_BentchWidth = 1024;
 		internal static int iG_BentchWidth = 1440;
@@ -20,18 +23,18 @@ namespace SubSys_Graphics
 		/// <summary>
 		/// 这个代表像素宽度例如，一个元胞对应多少像素
 		/// </summary>
-		public struct CellPixels
+		public struct Pixels
 		{
 			//        	   public static int
 			public static int iMin = 2;//4像素
 			public static int iMedium = 4;//8像素
 			public static int iMax = 8;//12像素级放大
 		}
-		public static void ScaleCellPixels(int i)
+		public static void ScalePixels(int i)
 		{
-			iCellPixels +=i;//增加像素
-			if (iCellPixels<CellPixels.iMin) {
-				iCellPixels -=i;//超出像素最小值就恢复原值
+			iPixels +=i;//增加像素
+			if (iPixels<Pixels.iMin) {
+				iPixels -=i;//超出像素最小值就恢复原值
 //				throw new Exception();
 			}
 		}

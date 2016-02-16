@@ -20,7 +20,7 @@ namespace SubSys_SimDriving.TrafficModel
 			cm.IsCopyed = true;
 			return cm;
 		}
-		public System.Drawing.Color Color;
+		public System.Drawing.Color Color=Color.Red;
 		
 		//        public EdgeRoute EdgeRoute;
 		//        public NodeRoute NodeRoute;
@@ -76,6 +76,11 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		internal int iAcceleration = 1;
 
+		public override int GetHashCode()
+		{
+		//	return this.ID.GetHashCode();
+			return base.GetHashCode();
+		}
 		
 	}
 	

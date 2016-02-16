@@ -48,12 +48,12 @@ namespace SubSys_SimDriving
 //        [System.obse]
         OxyzPointF ToVector();
 		 
-        int iWidth
+        int Width
         {
             get;
             set;
         }
-	int iLength
+	int Length
         {
             get;
             set;

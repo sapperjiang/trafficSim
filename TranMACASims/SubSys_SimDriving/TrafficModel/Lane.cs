@@ -19,14 +19,14 @@ namespace SubSys_SimDriving.TrafficModel
 		private static int iLaneCount=0;
 
 		
-		public override int iLength
+		public override int Length
 		{
 			get
 			{
 				return this.Shape.Count;
 			}
 		}
-		public override int iWidth
+		public override int Width
 		{
 			get
 			{
@@ -109,11 +109,11 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 
 			eShape.Add(pFEnd.ToOxyzPoint());
-				if (pFEnd._X-opf._X!=1) {
+			if (pFEnd._X-opf._X!=1) {
 				;
 			}
 			//System.Diagnostics.Debug.Assert(pFEnd._X-opf._X==1);
-		
+			
 		}
 		//	private bool bDebug=true;
 		
@@ -231,10 +231,10 @@ namespace SubSys_SimDriving.TrafficModel
 
 			Container = re;
 			this.laneType = lt;
-			this._EntityID = Lane.iLaneCount++;
+			this._entityID = Lane.iLaneCount++;
 			
 			//初始化cellspace
-		//	this._Grids = new CellSpace(this);
+			//	this._Grids = new CellSpace(this);
 
 		}
 		#endregion
@@ -243,7 +243,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 过时的，这个函数需要修改
 		/// </summary>
 		/// <param name="ce"></param>
-		[System.Obsolete("过时的，这个函数需要修改")]
+//		[System.Obsolete("过时的，这个函数需要修改")]
 //		public void AddCell(Cell ce)
 //		{
 //			//给容器赋值；
@@ -263,34 +263,34 @@ namespace SubSys_SimDriving.TrafficModel
 //		}
 		internal LaneType laneType;
 		
-	[System.Obsolete("过时的，这个变量不在需要")]
-		private CellQueue _cells = new CellQueue();
+	//	[System.Obsolete("过时的，这个变量不在需要")]
+	//	private CellQueue _cells = new CellQueue();
 
 		#region 进入车道的情况，进一步将由cellspace替代
 		/// <summary>
 		/// 等待进入该车道的等待队列，过时，用mobileInn代替
 		/// </summary>
-		private Queue<Cell> _waitedQueue = new Queue<Cell>();
+	//	private Queue<Cell> _waitedQueue = new Queue<Cell>();
 
 		/// <summary>
 		///过时，
 		/// </summary>
 		/// <param name="ce"></param>
-		[System.Obsolete("过时的，新版由父类的MobilesInn代替")]
-		public void EnterWaitedQueue(Cell ce)
-		{
-			//给容器赋值；
-			ce.Container = this;
-			this._waitedQueue.Enqueue(ce);
-			
-		}
+//		[System.Obsolete("过时的，新版由父类的MobilesInn代替")]
+//		public void EnterWaitedQueue(Cell ce)
+//		{
+//			//给容器赋值；
+//			ce.Container = this;
+//			this._waitedQueue.Enqueue(ce);
+//			
+//		}
 		
 		/// <summary>
 		/// 将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
 		/// </summary>
-		[System.Obsolete("过时的，新版由父类的MobilesInn代替")]
-		private void DisposeWaitedQueue()
-		{
+//		[System.Obsolete("过时的，新版由父类的MobilesInn代替")]
+//		private void DisposeWaitedQueue()
+//		{
 //			while (this._waitedQueue.Count > 0)
 //			{
 //				if (this.iLastPos == 0)//如果车道已经满了就不能处理队列了
@@ -299,7 +299,7 @@ namespace SubSys_SimDriving.TrafficModel
 //				}
 //				this.AddCell(this._waitedQueue.Dequeue());
 //			}
-		}
+//		}
 		#endregion
 		
 
@@ -318,9 +318,8 @@ namespace SubSys_SimDriving.TrafficModel
 
 			this.ServeMobiles();
 			//调用基类的日志服务
-			this.InvokeService(this);//利用日志服务记录roadLane变量
-			
-			
+			this.InvokeServices(this);//利用日志服务记录roadLane变量
+
 		}
 
 
@@ -352,14 +351,14 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// this index operator need to be modified
 		/// </summary>
-		[System.Obsolete("过时的，新版抛弃Cell")]
-		public Cell this[int index]
-		{
-			get
-			{
-				return this._cells[index];
-			}
-		}
+//		[System.Obsolete("过时的，新版抛弃Cell")]
+//		public MobileEntity this[int index]
+//		{
+//			get
+//			{
+//				return null;// this._cells[index];
+//			}
+//		}
 		
 //		/// <summary>
 //		/// obselete
@@ -373,10 +372,10 @@ namespace SubSys_SimDriving.TrafficModel
 //			}
 //		}
 
-		public IEnumerator<Cell> GetEnumerator()
-		{
-			return this._cells.GetEnumerator();
-		}
+//		public IEnumerator<Cell> GetEnumerator()
+//		{
+//			return this._cells.GetEnumerator();
+//		}
 	}
 
 
@@ -390,14 +389,28 @@ namespace SubSys_SimDriving.TrafficModel
 //		/// cellspace 类型的元胞网格空间,，包含该lane的所有元素
 //		/// </summary>
 //		private CellSpace _Grids;
-//		
+
+		//LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
+		private LinkedList<MobileEntity> _mobiles ;//= new LinkedList<MobileEntity>();
+		//public MobilesShelter MobilesShelter;
+		/// <summary>
+		/// 用来保存存储在交叉口和车道等内部的车辆。
+		/// </summary>
+		public LinkedList<MobileEntity> Mobiles {
+			get {
+				if (this._mobiles==null) {
+					this._mobiles = new LinkedList<MobileEntity>();
+				}
+				return this._mobiles;
+			}
+		}
+		
 		/// <summary>
 		/// 将等待队列中的元胞添加到车道元胞中
 		/// </summary>
 		internal override void ServeMobiles()
 		{
 			//as long as theres space for mobile to enter ,serve this mobile
-
 			while(this.MobilesInn.Count>0)
 			{
 				var mobile = this.MobilesInn.Peek();
@@ -419,7 +432,7 @@ namespace SubSys_SimDriving.TrafficModel
 				//如果车道内没有元胞
 				if (this.Mobiles.Count==0)
 				{//返回车道网格的数量
-					return this.iLength;//Shape.Count;
+					return this.Length;//Shape.Count;
 				}
 				//实体形状的最后一个点,考虑实体有长度
 				MobileEntity me = this.Mobiles.Last.Value;
@@ -480,85 +493,85 @@ namespace SubSys_SimDriving.TrafficModel
 	}
 
 	//_______________2016年1月新增的内容，原有的成员和方法将被部分废弃
-	public class MobilesShelter
-	{
-		internal StaticEntity _Container;
-		
-		internal MobilesShelter(StaticEntity container)
-		{
-			this._Container = container;
-		}
-		/// <summary>
-		/// 禁止调用无参数构造函数
-		/// </summary>
-		private MobilesShelter()
-		{
-		}
-		
-		
-		private LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
-		
-		/// <summary>
-		/// 第一辆的索引是第一个
-		/// </summary>
-		public LinkedList<MobileEntity> Mobiles
-		{
-			get{return this._mobiles;}
-		}
-		
-//		protected void Enter(MobileEntity me)
+//	public class MobilesShelter
+//	{
+//		internal StaticEntity _Container;
+//		
+//		internal MobilesShelter(StaticEntity container)
 //		{
-////			int iShapeCount =this._mobiles.Count;
-////			
-////			
-////			//如果队列里没有车辆，允许新增进入。
-////			//如果车道元胞空间的末尾有空余车位，且空余空间大于车辆长度，则允许车辆进入
-////			if (this._cellSpace.iSpace>me.Shape.Count) {
-////				
-////				//下面要做两个事情1、修改元胞空间的状态，该元宝空间被占据了。2、修改车辆形状的坐标。
-////				this._mobiles.AddLast(me);
-////				
-////				//修改车辆的元胞坐标系
-////				for (int i = 0; i < me.Shape.Count; i++) {
-////		//			me.Shape[i]=this._Container.Shape[i];//container 是lane
-////		//			CellGrid cg = new CellGrid(me.Shape[i],true);
-////					//修改元胞空间的坐标
-////					this._cellSpace.Add(cg);
-////				}
-//		//	}
-//			
-//			//把车辆加入
-//		//	this._mobiles.AddLast(me);
-//			
+//			this._Container = container;
 //		}
 //		/// <summary>
-//		/// 车辆退出车道。换车道这种东西，需要插入和更新。
+//		/// 禁止调用无参数构造函数
 //		/// </summary>
-//		/// <param name="me"></param>
-//		protected void Exit(MobileEntity me)
+//		private MobilesShelter()
 //		{
-//			this._mobiles.RemoveFirst();
-//			
-//			for (int i = 0; i < me.Shape.Count; i++)
-//			{
-//				//this._cellSpace.Remove(me.Shape[i].GetHashCode());
-//			}
 //		}
-		
-		protected bool Move(int iStepForward)
-		{
-			return false;
-		}
-		
-		protected bool IsEmpty()
-		{
-			return false;
-		}
-		
-		
-		
-		
-
-	}
+//		
+//		
+//		private LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
+//		
+//		/// <summary>
+//		/// 第一辆的索引是第一个
+//		/// </summary>
+//		public LinkedList<MobileEntity> Mobiles
+//		{
+//			get{return this._mobiles;}
+//		}
+//		
+////		protected void Enter(MobileEntity me)
+////		{
+//		////			int iShapeCount =this._mobiles.Count;
+//		////
+//		////
+//		////			//如果队列里没有车辆，允许新增进入。
+//		////			//如果车道元胞空间的末尾有空余车位，且空余空间大于车辆长度，则允许车辆进入
+//		////			if (this._cellSpace.iSpace>me.Shape.Count) {
+//		////
+//		////				//下面要做两个事情1、修改元胞空间的状态，该元宝空间被占据了。2、修改车辆形状的坐标。
+//		////				this._mobiles.AddLast(me);
+//		////
+//		////				//修改车辆的元胞坐标系
+//		////				for (int i = 0; i < me.Shape.Count; i++) {
+//		////		//			me.Shape[i]=this._Container.Shape[i];//container 是lane
+//		////		//			CellGrid cg = new CellGrid(me.Shape[i],true);
+//		////					//修改元胞空间的坐标
+//		////					this._cellSpace.Add(cg);
+//		////				}
+////		//	}
+////
+////			//把车辆加入
+////		//	this._mobiles.AddLast(me);
+////
+////		}
+////		/// <summary>
+////		/// 车辆退出车道。换车道这种东西，需要插入和更新。
+////		/// </summary>
+////		/// <param name="me"></param>
+////		protected void Exit(MobileEntity me)
+////		{
+////			this._mobiles.RemoveFirst();
+////
+////			for (int i = 0; i < me.Shape.Count; i++)
+////			{
+////				//this._cellSpace.Remove(me.Shape[i].GetHashCode());
+////			}
+////		}
+//		
+//		protected bool Move(int iStepForward)
+//		{
+//			return false;
+//		}
+//		
+//		protected bool IsEmpty()
+//		{
+//			return false;
+//		}
+//		
+//		
+//		
+//		
+//
+//	}
 }
 

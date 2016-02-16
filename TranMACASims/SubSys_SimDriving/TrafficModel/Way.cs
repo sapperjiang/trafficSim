@@ -37,7 +37,7 @@ namespace SubSys_SimDriving.TrafficModel
 			this.XNodeTo = to;
 			this._lanes = new LaneChain();
 
-			this._EntityID = ++Way.iRoadCount;
+			this._entityID = ++Way.iRoadCount;
 
 		}
 		/// <summary>
@@ -51,7 +51,7 @@ namespace SubSys_SimDriving.TrafficModel
 			this.XNodeTo =  new XNode(to);
 			this._lanes = new LaneChain();
 
-			this._EntityID = ++Way.iRoadCount;
+			this._entityID = ++Way.iRoadCount;
 
 		}
 		
@@ -61,7 +61,7 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 		#endregion
 
-		public override int iLength
+		public override int Length
 		{
 			get {
 				int preNodeDistance = Coordinates.Distance(this.XNodeFrom.Grid, this.XNodeTo.Grid);
@@ -74,7 +74,7 @@ namespace SubSys_SimDriving.TrafficModel
 				return iRealLength;
 			}
 		}
-		public override int iWidth
+		public override int Width
 		{
 			get { return this.Lanes.Count*SimSettings.iCarWidth; }
 		}
@@ -262,11 +262,11 @@ namespace SubSys_SimDriving.TrafficModel
 		public override void UpdateStatus()
 		{
 			////更新异步消息
-//			for (int i = 0; i < this.asynAgents.Count; i++)
-//			{
-//				Agents.AbstractAgent visitorAgent = this.asynAgents[i];
-//				visitorAgent.VisitUpdate(this);//.VisitUpdate();
-//			}
+			for (int i = 0; i < this.asynAgents.Count; i++)
+			{
+				Agents.AbstractAgent visitorAgent = this.asynAgents[i];
+				visitorAgent.VisitUpdate(this);
+			}
 			
 		
 			Lane lane ;
@@ -276,9 +276,10 @@ namespace SubSys_SimDriving.TrafficModel
 				
 				var mobileNode = lane.Mobiles.First;
 				
+				//update mobile on a lane one by one
 				while(mobileNode!=null) {
 					var mobile = mobileNode.Value;
-					mobile.Driver.DriveMobile(lane.Container as StaticEntity,mobile);
+					mobile.Run(this as StaticEntity);
 					mobileNode = mobileNode.Next;
 				}
 
@@ -292,7 +293,7 @@ namespace SubSys_SimDriving.TrafficModel
 		[System.Obsolete("调用了服务")]
 		protected override void OnStatusChanged()
 		{
-			this.InvokeService(this);
+			this.InvokeServices(this);
 		}
 
 		/// <summary>
@@ -328,7 +329,7 @@ namespace SubSys_SimDriving.TrafficModel
 					int pX =this.XNodeTo.Grid.X - this.XNodeFrom.Grid.X;
 					int pY =  this.XNodeTo.Grid.Y - this.XNodeFrom.Grid.Y;
 					//向量等分
-					float dLq = this.iLength + 2 * SimSettings.iMaxLanes;//分母
+					float dLq = this.Length + 2 * SimSettings.iMaxLanes;//分母
 					float xSplit = pX / dLq;//自身有正负号
 					float ySplit = pY / dLq;//自身有正负号
 					//计算起点
@@ -354,7 +355,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 存储从交叉口roadNode进入路段的车辆，因为时间超前一个时间步长，
 		/// 需要放入队列中防止一个元胞先更新到路段，然后在路段内又更新一次更新两次
 		/// </summary>
-		private Queue<Cell> queWaitedCell = new Queue<Cell>();
+		//private Queue<Cell> queWaitedCell = new Queue<Cell>();
 
 		/// <summary>
 		/// 修改信号灯组合
@@ -385,39 +386,13 @@ namespace SubSys_SimDriving.TrafficModel
 			this.XNodeTo =  new XNode(opTo);
 			this._lanes = new LaneChain();
 
-			this._EntityID = ++Way.iRoadCount;
+			this._entityID = ++Way.iRoadCount;
 			
 		}
-		
-		
-		/// <summary>
-		/// 新版更新函数，替代updateStatus函数
-		/// </summary>
-		public override void Update()
-		{
-			////更新异步消息
-			for (int i = 0; i < this.asynAgents.Count; i++)
-			{
-				Agents.AbstractAgent visitorAgent = this.asynAgents[i];
-				visitorAgent.VisitUpdate(this);//.VisitUpdate();
-			}
-			
-			//调用mobileEntity的drive方法，不在用cell方法：
-			foreach (var lane in this.Lanes)
-			{
-				foreach (var element in lane.Mobiles) {
-					element.Driver.DriveMobile(this,element);
-				}
-				
-				lane.UpdateStatus();//调用注册在车道上的服务。
-			}
-			base.UpdateStatus();//调用注册在路段上的服务，如RoadEdgePaintService
-		}
-		
-		
+
 		internal override void ServeMobiles()
 		{
-			
+			throw  new Exception("this. function should not be called ,call lane serveMobiles instead!");
 		}
 		
 	}

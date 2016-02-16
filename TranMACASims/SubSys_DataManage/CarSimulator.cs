@@ -29,12 +29,12 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 
 
-		public static Cell MakeCell(EdgeRoute er)
-		{
-			return null;// new Cell(new SmallCar(MobileSimulator.MakeMobile(er,null)));
-		//	return new Cell(MobileSimulator.Make(er));
-		}
-		
+//		public static Cell MakeCell(EdgeRoute er)
+//		{
+//			return null;// new Cell(new SmallCar(MobileSimulator.MakeMobile(er,null)));
+//		//	return new Cell(MobileSimulator.Make(er));
+//		}
+//		
 		//--------------------------20160131--------------------------------------	
 		public static MobileEntity MakeMobile(EdgeRoute route,StaticEntity container)
 		{

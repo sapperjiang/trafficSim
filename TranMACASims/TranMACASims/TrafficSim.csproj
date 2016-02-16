@@ -184,13 +184,13 @@
     </Compile>
     <Compile Include="SimConfig\RoadConfig.cs" />
     <Compile Include="SimConfig\RoadConfig.Designer.cs" />
+    <Compile Include="SimConfig\SimController.cs" />
     <Compile Include="SimMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SimMain.designer.cs">
       <DependentUpon>SimMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="SimController.cs" />
     <Compile Include="TranSimGISPlugin.cs" />
     <Compile Include="WinDrivingStratigySetUp.cs">
       <SubType>Form</SubType>

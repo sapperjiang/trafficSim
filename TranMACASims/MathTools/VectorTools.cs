@@ -13,15 +13,15 @@ namespace SubSys_MathUtility
             iCos = iCosine;
         }
 
-        public override bool Equals(object obj)
-        {
-            SinCos item = (SinCos)obj;
-            if (item.iSin == this.iSin
-                && item.iCos == this.iCos)
-            {
-                return true;
-            } return false;
-        }
+//        public override bool Equals(object obj)
+//        {
+//            SinCos item = (SinCos)obj;
+//            if (item.iSin == this.iSin
+//                && item.iCos == this.iCos)
+//            {
+//                return true;
+//            } return false;
+//        }
     } 
 
     /// <summary>
@@ -160,8 +160,8 @@ namespace SubSys_MathUtility
             double dx = 0d;
             double dy = 0d;
 
-            OxyzPointF p1 = null;
-            OxyzPointF p2 = null;
+            OxyzPointF p1=new OxyzPointF(0f,0f,0f) ;
+            OxyzPointF p2=new OxyzPointF(0f,0f,0f) ; 
 
             if (vtr._Y != 0)
             {

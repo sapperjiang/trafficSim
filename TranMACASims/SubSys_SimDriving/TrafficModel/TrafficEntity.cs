@@ -29,11 +29,11 @@ namespace SubSys_SimDriving
 		/// 调用服务的功能
 		/// </summary>
 		/// <param name="te"></param>
-		public virtual void InvokeService(ITrafficEntity te)
+		public virtual void InvokeServices(ITrafficEntity entity)
 		{
-			foreach (IService item in this._serviceMgr)
+			foreach (IService service in this._serviceMgr)
 			{
-				item.Perform(te);
+				service.Perform(entity);
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace SubSys_SimDriving
 
 		#region ITrafficEntity 成员
 
-		protected int _EntityID;
+		protected int _entityID;
 		private int _iWidth;
 		private int _iLength;
 		
@@ -81,7 +81,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 用元胞个数计算的实体的宽度，实际宽度等于iWidth*元胞代表的距离
 		/// </summary>
-		public virtual int iWidth
+		public virtual int Width
 		{
 			get { return _iWidth; }
 			set { _iWidth = value; }
@@ -89,7 +89,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 用元胞个数计算的实体的长度。实际长度等于iLength*元胞代表的距离
 		/// </summary>
-		public virtual int iLength
+		public virtual int Length
 		{
 			get { return _iLength; }
 			set { _iLength = value; }
@@ -119,7 +119,7 @@ namespace SubSys_SimDriving
 		{
 			get
 			{
-				return this._EntityID;
+				return this._entityID;
 			}
 		}
 

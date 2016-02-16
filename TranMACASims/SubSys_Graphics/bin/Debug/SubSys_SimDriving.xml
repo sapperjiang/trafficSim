@@ -338,7 +338,7 @@
             交通实体的形状可以是曲线，利用GDI画曲线函数进行渲染，不再局限于直线形状
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficEntity.InvokeService(SubSys_SimDriving.ITrafficEntity)">
+        <member name="M:SubSys_SimDriving.TrafficEntity.InvokeServices(SubSys_SimDriving.ITrafficEntity)">
             <summary>
             调用服务的功能
             </summary>
@@ -392,12 +392,12 @@
             元胞坐标系,过时，建议使用spaceGrid
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.TrafficEntity.iWidth">
+        <member name="P:SubSys_SimDriving.TrafficEntity.Width">
             <summary>
             用元胞个数计算的实体的宽度，实际宽度等于iWidth*元胞代表的距离
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.TrafficEntity.iLength">
+        <member name="P:SubSys_SimDriving.TrafficEntity.Length">
             <summary>
             用元胞个数计算的实体的长度。实际长度等于iLength*元胞代表的距离
             </summary>
@@ -487,6 +487,12 @@
             <param name="iCurrentEnd">rear of current mobile index</param>
             <param name="dc">out parameters</param>
         </member>
+        <member name="M:SubSys_SimDriving.MobileEntity.GetHashCode">
+            <summary>
+            crossing to judge if a mobile is within crossing
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:SubSys_SimDriving.MobileEntity.FrontMobile">
             <summary>
             获取车道上先进入的前一辆车，前一辆车不存在返null,the frontmobile is that entered a lane early than the current one
@@ -512,135 +518,6 @@
             汽车工厂
             </summary>
         </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.Cell">
-            <summary>
-            程序的GUI可能要求使用对象的坐标来查询路段顶点的位置，采用对象的position用作
-            </summary>
-            <typeparam name="T">int</typeparam>
-            <summary>
-            2015年1月9日，重新修改基础原理，增加空间属性，删除原有的该类型有太多车辆的行为，
-            将由不同的Mobile代替。实现仿真软件对大车、中型车、小型车的仿真支持
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Cell.iTimeStep">
-            <summary>
-            用作记录态哈希表记录车辆的时间信息，以及用来确定什么时候进入路段
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Cell.nextCell">
-            <summary>
-            使用链式结构支持快速下游访问
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Cell.Car">
-            <summary>
-            代表的车辆模型
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Cell.Track">
-            <summary>
-            包围在交叉口内部的节点,内部点使用绝对坐标系
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Cell.TrackMove(System.Int32)">
-            <summary>
-            使用在交叉口上
-            </summary>
-            <param name="iStep"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Cell.CalcTrack(System.Int32)">
-            <summary>
-            只应当在转换的时候调用一次，寻找轨迹的一个东西，从起始位置出发，前进iAheadSpace个间距时距
-            </summary>
-            <param name="iAheadSpace"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Cell.Drive(SubSys_SimDriving.TrafficEntity)">
-            <summary>
-            该函数是仿真运行的核心函数
-            </summary>
-            <param name="rN"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Cell.Copy">
-            <summary>
-            创建浅表副本
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Cell.GetTrackGap(SubSys_SimDriving.TrafficModel.XNode,System.Drawing.Point,System.Int32@)">
-            <summary>
-            计算当前元胞可以前进的车头时距
-            </summary>
-            <param name="iEntityGap"></param>
-            <param name="iToEntityGap"></param>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Cell.Grid">
-            <summary>
-            实体的元胞空间坐标，过时的，建议用spacegrid代替
-            </summary>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Cell.iSpaceIndex">
-            <summary>
-            相对于车道元胞空间第一个点的位置
-            </summary>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Cell.SpatialGrid">
-            <summary>
-            元胞坐标系的三维坐标
-            </summary>
-        </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.CellGrid">
-            <summary>
-            元胞网格是组成元胞空间的实体，包含坐标xyz，网格编号是否被占据等元素。
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.CellGrid.iGridIndex">
-            <summary>
-            相对于车道第一个点的元胞个数.1为第一个点
-            </summary>
-        </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.CellSpace">
-            <summary>
-            元胞空间，每个车道（道路）、交叉口（XNode）都有这个东西
-            元胞空间要解决cell前后的空位置（车头时距、车后时距）计算问题
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.CellSpace.#ctor">
-            <summary>
-            禁止调用无参数构造函数
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.CellSpace._dicCellGrids">
-             <summary>
-             数据结构的需求是
-             1、快速遍历，判断某个cellgrid是否被占据。用字典解决。
-             2、快速确定某点与基点的距离，用O（1）找到Cellgrid前后的Cellgrid，用于确定车头时距
-            保存cellspacegrid的哈希表， key 用cell的xyz欧式坐标哈希值就是cell 坐标的xy，这样判断cell是否在元胞空间中就很简单,用dictionary.containskey。
-             哈希表是为了快速判断元胞空间的状态，与cellspacequeue配合空间换时间。
-            
-             </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.CellSpace._llCellGrids">
-            <summary>
-            利用cellgrid的iGridindex，对字典中的保存的Grid,利用GirdIndex进行排序.GUI画图时候可以只调用一次。可用于GUI画图
-            链表的顺序不用改，链表cELLgrid坐标改一改就行。
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.CellSpace.Add(SubSys_SimDriving.TrafficModel.CellGrid)">
-            <summary>
-            添加元胞网格，元胞网格是组成车道的连续元胞点，字典的key是cellgrid的三坐标生成的。
-            </summary>
-            <param name="key"></param>
-            <param name="value"></param>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.CellSpace.iSpace">
-            <summary>
-            返回元胞空间中最后一个元胞的Cellgrid的index属性即可
-            </summary>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.CellSpace.Count">
-            <summary>
-            元胞网格cellgrid 的个数，这也是CellSpace可以容纳的最多的Cell数量。
-            </summary>
-        </member>
         <member name="T:SubSys_SimDriving.TrafficModel.AdjacencyTable`1">
             <summary>
             程序的GUI可能要求使用对象的坐标来查询路段顶点的位置，采用对象的position用作
@@ -660,43 +537,12 @@
             <param name="fromRoadNodeHash">要将将边添加到RoadNode哈希表中的RoadNode</param>
             <param name="Edge">要添加的边</param>
         </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.CellQueue">
-            <summary>
-            运行态使用的数据结构，主要是roadlane 内部使用
-            设计为GUI驱动模型的接口类
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.CellQueue.Enqueue(SubSys_SimDriving.TrafficModel.Cell)">
-            <summary>
-            将元素插入队列末尾,并且更新元素指针
-            </summary>
-            <param name="ca"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.CellQueue.Dequeue">
-            <summary>
-            返回队列的第一个元素，末尾为队列头，路段结尾处的元素
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.CellQueue.PeekLast">
-            <summary>
-            返回队列队列末尾的第一个元素，队列末尾处为最近进入的元素
-            因此依照链表遍历就是从后往前遍历
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.CellQueue.PeekFirst">
-            <summary>
-            返回队列列首第一个元素，列首为最新进入的元素
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.HashMatrix`1.iMaxWidth">
+        <member name="F:SubSys_SimDriving.TrafficModel.HashMatrix.iMaxWidth">
             <summary>
             最大六个车道，坐标远点是RoadNode的positon
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix`1.IsBlocked(System.Int32,System.Int32)">
+        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.IsBlocked(System.Int32,System.Int32)">
             <summary>
             判断元胞是否被占用了
             </summary>
@@ -704,12 +550,7 @@
             <param name="y"></param>
             <returns></returns>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix`1.Move(System.Drawing.Point,System.Drawing.Point)">
-            <summary>
-            把元宝从o点移动到d点
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix`1.GetEnumerator">
+        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.GetEnumerator">
             <summary>
             提供对存储元素的高效遍历
             </summary>
@@ -803,16 +644,6 @@
             抽象方法、需要lane和xnode实现，将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.StaticEntity._Grids">
-            <summary>
-            cellspace 类型的元胞网格空间,，包含该lane的所有元素
-            </summary>
-        </member>
-        <member name="P:SubSys_SimDriving.StaticEntity.Mobiles">
-            <summary>
-            用来保存存储在交叉口和车道等内部的车辆。
-            </summary>
-        </member>
         <member name="P:SubSys_SimDriving.StaticEntity.MobilesInn">
             <summary>
             等待进入实体的道的等待mobileEntity，实际上是等待队列，交叉口和车道都有。
@@ -893,12 +724,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Way.queWaitedCell">
-            <summary>
-            存储从交叉口roadNode进入路段的车辆，因为时间超前一个时间步长，
-            需要放入队列中防止一个元胞先更新到路段，然后在路段内又更新一次更新两次
-            </summary>
-        </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.ModifySignalGroup(SubSys_SimDriving.SignalLight,SubSys_SimDriving.TrafficModel.LaneType)">
             <summary>
             修改信号灯组合
@@ -909,11 +734,6 @@
         <member name="F:SubSys_SimDriving.TrafficModel.Way.iSpeedLimit">
             <summary>
             路段限速
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Way.Update">
-            <summary>
-            新版更新函数，替代updateStatus函数
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Way.Lanes">
@@ -992,22 +812,6 @@
             </summary>
             <param name="ce"></param>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Lane._waitedQueue">
-            <summary>
-            等待进入该车道的等待队列，过时，用mobileInn代替
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Lane.EnterWaitedQueue(SubSys_SimDriving.TrafficModel.Cell)">
-             <summary>
-            过时，
-             </summary>
-             <param name="ce"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Lane.DisposeWaitedQueue">
-            <summary>
-            将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
-            </summary>
-        </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.UpdateStatus">
             <summary>
             没有调用visitor模式，调用所有附加的服务、处理等待队列
@@ -1021,11 +825,6 @@
             <param name="to"></param>
             <returns></returns>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.Lane._Grids">
-            <summary>
-            cellspace 类型的元胞网格空间,，包含该lane的所有元素
-            </summary>
-        </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.ServeMobiles">
             <summary>
             将等待队列中的元胞添加到车道元胞中
@@ -1038,14 +837,9 @@
             索引的大小与车道的方向相反。
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Item(System.Int32)">
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Mobiles">
             <summary>
-            this index operator need to be modified
-            </summary>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Lane.CellCount">
-            <summary>
-            obselete
+            用来保存存储在交叉口和车道等内部的车辆。
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Lane.LaneSpace">
@@ -1061,27 +855,6 @@
         <member name="P:SubSys_SimDriving.TrafficModel.Lane.RightLane">
             <summary>
             the right lane of current lane
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.MobilesShelter._cellSpace">
-            <summary>
-            cellspace 类型的元胞网格空间,，包含该lane的所有元素
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.MobilesShelter.#ctor">
-            <summary>
-            禁止调用无参数构造函数
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.MobilesShelter.Exit(SubSys_SimDriving.MobileEntity)">
-            <summary>
-            车辆退出车道。换车道这种东西，需要插入和更新。
-            </summary>
-            <param name="me"></param>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.MobilesShelter.Mobiles">
-            <summary>
-            第一辆的索引是第一个
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.RoadNet">
@@ -1118,18 +891,14 @@
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.XNode">
             <summary>
-            使用矩阵类型的结构意味着不支持五路交叉.环路的支持有待讨论，三路交叉是支持的
+            使用矩阵类型data structure
+            五路交叉.环路的支持有待讨论，三路交叉,crossings are supported
             表示道路交叉口的类
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.MakeCenterXY(SubSys_SimDriving.TrafficModel.Lane,System.Int32)">
             <summary>
             路段转化为中心坐标点,iahead  不应当小于零
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsBlocked(SubSys_SimDriving.TrafficModel.Lane,System.Int32)">
-            <summary>
-            判断指定车道前部第Ahead个位置处是否有元胞占据
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsBlocked(System.Drawing.Point)">
@@ -1149,44 +918,13 @@
             </summary>
             <param name="rl"></param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsLaneBlocked(SubSys_SimDriving.TrafficModel.Lane,System.Int32)">
-            <summary>
-            判断第x个车道前面是否有iAheadSpace个车辆
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.AddCell(SubSys_SimDriving.TrafficModel.Lane,System.Int32)">
-            <summary>
-            为红绿灯添加准备的方法，不是正常的元胞
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.AddCell(SubSys_SimDriving.TrafficModel.Cell)">
-            <summary>
-            在指定的点添加一个元胞，
-            </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.MoveCell(System.Drawing.Point,System.Drawing.Point)">
-            <summary>
-            要求两个参数是绝对坐标
-            </summary>
-            <param name="iOldPoint"></param>
-            <param name="iNewPoint"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.RemoveCell(SubSys_SimDriving.TrafficModel.Lane,System.Int32)">
-            <summary>
-            按照指定的路段，路段前部的距离进行删除元胞
-            </summary>
-            <param name="rl">旋转坐标系所要用到的计算旋转角度的向量</param>
-            <param name="iAheadSpace">前行距离数</param>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.XNode.cells">
+        <member name="F:SubSys_SimDriving.TrafficModel.XNode._mobiles">
             <summary>
             新的roadnode的哈希散列值由其中心Position的哈希值和其ID构成
             </summary>
             <returns></returns>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.XNode.dicEdge">
+        <member name="F:SubSys_SimDriving.TrafficModel.XNode._dicEdges">
             <summary>
             存贮本节点所有出边的哈希表，键值是代表边的RoadEdge哈希，值是代表RoadEdge
             </summary>
@@ -1228,12 +966,8 @@
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.ServeMobiles">
             <summary>
-            处理交叉口的等待车辆数量
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.XNode._occupiedPoints">
-            <summary>
-            a container to tell if  a point within a xnode is occupied!
+            处理交叉口的等待车辆数量,a mobile that can enter xnode was added to mobilesInn.
+            see driverstratigy for details
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsOccupied(SubSys_MathUtility.OxyzPoint)">
@@ -1359,13 +1093,6 @@
             <summary>
             安全车头时距
             </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.DriveContext.#ctor(SubSys_SimDriving.TrafficEntity,SubSys_SimDriving.TrafficModel.Cell)">
-            <summary>
-            仅仅初始化不做赋值
-            </summary>
-            <param name="roadE"></param>
-            <param name="ce"></param>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.ModelSetting.dRate">
             <summary>

@@ -6,7 +6,7 @@ namespace SubSys_MathUtility
 	/// <summary>
 	/// 用于计算双精度浮点数的POINT，这个类原来为2d的mypoint，现在升级为3d的point为了提高精度
 	/// </summary>
-	public partial class OxyzPointF
+	public partial struct OxyzPointF
 	{
 		public double _X;
 		public double _Y;
@@ -33,9 +33,9 @@ namespace SubSys_MathUtility
 		
 
 	}
-	public partial class OxyzPointF
+	public partial struct OxyzPointF
 	{
-		public double _Z=0F;
+		public double _Z;
 
 //		private static UInt32 ID = 0;
 //		private UInt32 _id =0;
@@ -85,14 +85,14 @@ namespace SubSys_MathUtility
 	
 	
 	/// <summary>
-	/// 整形类
+	/// 整形structure
 	/// </summary>
-	public partial class OxyzPoint
+	public partial struct OxyzPoint
 	{
 		
 		public int _X;
 		public int _Y;
-		public int _Z=0;
+		public int _Z;
 		
 		public OxyzPoint(int x,int y,int z)
 		{
@@ -116,7 +116,7 @@ namespace SubSys_MathUtility
 			this._Z = Convert.ToInt32(dZ);
 		}
 		public OxyzPoint(double dX,double dY):this(dX,dY,0f){}
-	
+		
 		
 		public OxyzPointF ToOxyzPointF()
 		{
@@ -181,34 +181,20 @@ namespace SubSys_MathUtility
 		///// </summary>
 		///// <param name="rltPos"></param>
 		///// <param name="iScaleFactor"></param>
-		public static Point Project(Point rltPos, int iScaleFactor)
+		public static PointF Project(PointF p, int iScaleFactor)
 		{
-			return Coordinates.Project(new OxyzPointF(rltPos.X, rltPos.Y), iScaleFactor);
+			return Coordinates.Project(new OxyzPointF(p.X, p.Y), iScaleFactor);
 		}
-		
+//		
 		/// <summary>
 		/// 将元胞坐标系转化为屏幕坐标系
 		/// </summary>
 		/// <param name="mp"></param>
 		/// <param name="iScaleFactor">一个元胞长度对应的屏幕像素点数</param>
 		/// <returns></returns>
-		public static Point Project(OxyzPointF mp, int iScaleFactor)
+		public static PointF Project(OxyzPointF mp, int iScaleFactor)
 		{
-			Point scrnPoint = new Point();
-			scrnPoint.X = (int)Math.Round(iScaleFactor * mp._X);
-			scrnPoint.Y = (int)Math.Round(iScaleFactor * mp._Y);
-			//计算平移(偏移)
-			scrnPoint.X -= Coordinates.GraphicsOffset.X;
-			scrnPoint.Y -= Coordinates.GraphicsOffset.Y;
-			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
-		}
-		
-
-		
-		
-		public static PointF ProjectFloat(OxyzPointF mp, int iScaleFactor)
-		{
-			PointF scrnPoint = new Point();
+			PointF scrnPoint = new PointF();
 			scrnPoint.X = (float)Math.Round(iScaleFactor * mp._X);
 			scrnPoint.Y = (float)Math.Round(iScaleFactor * mp._Y);
 			//计算平移(偏移)
@@ -217,13 +203,24 @@ namespace SubSys_MathUtility
 			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
 		}
 		
+
+		public static Point Project(OxyzPoint mp, int iScaleFactor)
+		{
+			var temp = Coordinates.Project(mp.ToOxyzPointF(),iScaleFactor);
+			int ix = Convert.ToInt32(temp.X);
+			int iy = Convert.ToInt32(temp.Y);
+			return new Point(ix,iy);
+		}
+		
+		
+	
 		/// <summary>
 		/// offset中x和y的值向左上偏移，其xy都为负值
 		/// </summary>
 		/// <param name="scrnPoint">原坐标系</param>
 		/// <param name="offset">偏移坐标</param>
 		/// <returns>返回值为新参数</returns>
-		public static Point Offset(Point scrnPoint, Point offset)
+		public static PointF Offset(PointF scrnPoint, PointF offset)
 		{
 			//计算平移(偏移)
 			scrnPoint.X -= offset.X;
@@ -291,16 +288,16 @@ namespace SubSys_MathUtility
 		/// </summary>
 		/// <param name="vector"></param>
 		/// <returns></returns>
-		public static Point GetRealXY(Point point, OxyzPointF newVector)
-		{
-			if (newVector == null)
-			{
-				throw new ArgumentException("输入的参数不能为零");
-			}
-			//获取正弦和余弦值并且进行旋转变换
-			SinCos sc = VectorTools.GetSinCos(mpBaseVector, newVector);
-			return Coordinates.Rotate(point, sc);
-		}
+//		public static Point GetRealXY(Point point, OxyzPointF newVector)
+//		{
+//			if (newVector == null)
+//			{
+//				throw new ArgumentException("输入的参数不能为零");
+//			}
+//			//获取正弦和余弦值并且进行旋转变换
+//			SinCos sc = VectorTools.GetSinCos(mpBaseVector, newVector);
+//			return Coordinates.Rotate(point, sc);
+//		}
 		
 		/// <summary>
 		/// 两个点的欧式距离

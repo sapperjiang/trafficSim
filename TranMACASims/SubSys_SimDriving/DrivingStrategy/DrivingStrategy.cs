@@ -258,17 +258,13 @@ namespace SubSys_SimDriving.TrafficModel
 	{
 		internal virtual void DriveMobile(StaticEntity driveContainer,MobileEntity mobile)
 		{
-//			if (mobile.ID ==2) {
-//				;
-//			}
 			
 			var dctx=mobile.Observe();
 			
 			switch (driveContainer.EntityType)
 			{
 				case EntityType.Way:
-					
-					
+	
 					//Before updating mobiles status,update that on roadNode
 					//the following four funtions are in charge of making decisions,not executing
 					_XNodeStrategy.LaneChanging(dctx);//换道
@@ -296,8 +292,7 @@ namespace SubSys_SimDriving.TrafficModel
 						var currLane = mobile.Container as Lane;
 						//原有的车道删除该车辆
 						currLane.Mobiles.RemoveFirst();
-						
-						
+
 						//进入交叉口
 						mobile.Container = currWay.XNodeTo;
 						//calculate steps  to move in a xnode
@@ -333,7 +328,7 @@ namespace SubSys_SimDriving.TrafficModel
 							ThrowHelper.ThrowArgumentException("前进距离大于车头时距会导致撞车");
 						}
 						
-						currNode.Mobiles.Remove(mobile);//.RemoveCell(cell);//离开交叉口删除cell
+						currNode.Mobiles.Remove(mobile);
 						//var mobiledebug =
 						
 						int iXNodeMoveStep = dctx.DriveParam.iMoveY - dctx.iXNodeGap;
@@ -343,7 +338,7 @@ namespace SubSys_SimDriving.TrafficModel
 						{
 							toLane.MobilesInn.Enqueue(mobile);
 							
-							//tempraryly modify mobile toget prepare for function move
+							//tempraryly modify mobile to get prepareed for moving 
 							//mobile.Shape.Start = toLane.Shape.Start;//bug here to modified in the future
 							mobile.Container=toLane;//a moible cross a lane and a xnode since it has a ilength
 							

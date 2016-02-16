@@ -19,7 +19,7 @@ namespace SubSys_Graphics
 	/// </summary>
 	internal class LanePainter : AbstractPainter
 	{
-		Brush roadBrush = new SolidBrush(GraphicsConfiger.roadColor);
+		Brush roadBrush = new SolidBrush(GraphicsCfger.roadColor);
 		internal LanePainter(System.Windows.Forms.Control canvas)
 		{
 			this.Canvas = canvas;
@@ -153,26 +153,25 @@ namespace SubSys_Graphics
 			
 			var vtMulti =VectorTools.GetMultiNormal(vtUnitOffset,lane.Rank-1);
 			
-			var liUpper = new List<Point>(lane.Shape.Count*2);
-			var tempShapeDown = new Stack<Point>(lane.Shape.Count);
+			var liUpper = new List<PointF>(lane.Shape.Count*2);
+			var stDown = new Stack<PointF>(lane.Shape.Count);
 			foreach (var element in lane.Shape) {
 				
 				var pUpper = Coordinates.Offset(element.ToOxyzPointF(),vtMulti);
 				//move down for one unit
 				var pDown = Coordinates.Offset(pUpper,vtUnitOffset);
 				
-				var spUpper = Coordinates.Project(pUpper, GraphicsConfiger.iCellPixels);
+				var spUpper = Coordinates.Project(pUpper, GraphicsCfger.iPixels);
 				
-				var spDown = Coordinates.Project(pDown, GraphicsConfiger.iCellPixels);
+				var spDown = Coordinates.Project(pDown, GraphicsCfger.iPixels);
 				liUpper.Add(spUpper);
 				
-				tempShapeDown.Push(spDown);
+				stDown.Push(spDown);
 			}
 
-			//		Point[] p =liUpper.ToArray();
 			
-			while (tempShapeDown.Count>0) {
-				liUpper.Add(tempShapeDown.Pop());
+			while (stDown.Count>0) {
+				liUpper.Add(stDown.Pop());
 			}
 
 			g.FillClosedCurve(roadBrush, liUpper.ToArray());
@@ -198,21 +197,15 @@ namespace SubSys_Graphics
 			foreach (var mobile in lane.Mobiles) {
 				//draw mobile
 				for (int i = 0; i < mobile.Shape.Count; i++) {
-					
-					
+								
 					var mobilePrev = mobile.PrevShape[i];
-					
+				
 					var mobileShape = mobile.Shape[i];
-					//PaintCar(GraphicsConfiger.roadColor, element.ToOxyzPointF());
-					//PaintCar(moblie._Color, element.ToOxyzPointF());
-					
-					
-					
 
-					int iWidth =GraphicsConfiger.iCellPixels;
-					Point pDraw = Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
+					int iWidth =GraphicsCfger.iPixels;
+					PointF pMobile = Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
 					
-					Point pMobilePrev = Coordinates.Project(mobilePrev.ToOxyzPointF(), iWidth);
+					PointF pMobilePrev = Coordinates.Project(mobilePrev.ToOxyzPointF(), iWidth);
 
 					//获取单位平移向量(法向量)
 					OxyzPointF mpOffset = VectorTools.GetNormal((lane.Container as Way).ToVector());
@@ -220,31 +213,30 @@ namespace SubSys_Graphics
 					//get offset vector
 					OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (lane.Rank - 1), mpOffset._Y * (lane.Rank - 1));
 					
-					pDraw = Coordinates.Offset(pDraw, mpMulti.ToPoint());
+					pMobile = Coordinates.Offset(pMobile, mpMulti.ToPoint());
 					
 					pMobilePrev= Coordinates.Offset(pMobilePrev, mpMulti.ToPoint());
 					
-					
-					_graphic.FillEllipse(new SolidBrush(GraphicsConfiger.roadColor), pMobilePrev.X -iWidth / 2, pMobilePrev.Y - iWidth / 2,iWidth, iWidth);
+					//cover old track
+					_graphic.FillEllipse(new SolidBrush(GraphicsCfger.roadColor), pMobilePrev.X, pMobilePrev.Y ,iWidth, iWidth);
 					
 //					graphic.FillEllipse(new SolidBrush(Color.Red), pDraw.X -iWidth / 2, pDraw.Y - iWidth / 2,iWidth, iWidth);
-					_graphic.FillEllipse(new SolidBrush(Color.Red), pDraw.X, pDraw.Y ,iWidth, iWidth);
+				//	_graphic.FillEllipse(new SolidBrush(mobile.Color), pMobile.X, pMobile.Y ,iWidth, iWidth);
+					_graphic.FillEllipse(new SolidBrush(Color.Red), pMobile.X, pMobile.Y ,iWidth, iWidth);
 
-					
-					
 					//debug
 					
 					string strMsg = mobile.ID.ToString();//.Shape.Start.ToString()+mobile.Shape.End.ToString();
 					
-					PointF pF=  Coordinates.ProjectFloat(mobileShape.ToOxyzPointF(), iWidth);
-					_graphic.DrawString(strMsg,new Font("Arial", 8),new SolidBrush(Color.Red),pDraw.X,pDraw.Y-20f);
+					PointF pF=  Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
+					_graphic.DrawString(strMsg,new Font("Arial", 8),new SolidBrush(Color.Red),pMobile.X,pMobile.Y-20f);
 //					_graphic.DrawString(strMsg,new Font("Arial", 8),new SolidBrush(Color.Red),pDraw.X,pDraw.Y-20f);
 					
 					
-					Point pLane=  Coordinates.Project(lane.Shape.Start.ToPoint(), iWidth);
+					PointF pLane=  Coordinates.Project(lane.Shape.Start.ToPoint(), iWidth);
 //
 					strMsg = "Lane:"+lane.Shape.End.ToString();
-					_graphic.DrawString(strMsg,new Font("Arial", 12),new SolidBrush(Color.Red),pLane.X+40,pLane.Y);
+					_graphic.DrawString(strMsg,new Font("Arial", 12),new SolidBrush(Color.Red),pLane.X,pLane.Y+40);
 					
 				}
 			}

@@ -116,11 +116,9 @@
     <Compile Include="TrafficModel\CarModel.cs" />
     <Compile Include="TrafficModel\MobileFactory.cs" />
     <Compile Include="TrafficModel\CarStatus.cs" />
-    <Compile Include="TrafficModel\Cell.cs" />
     <Compile Include="TrafficModel\dataStructure\AbstractChain.cs" />
     <Compile Include="TrafficModel\dataStructure\AdjacencyTable.cs" />
     <Compile Include="TrafficModel\dataStructure\CarInfoQueue.cs" />
-    <Compile Include="TrafficModel\dataStructure\CellLinkedQueue.cs" />
     <Compile Include="TrafficModel\dataStructure\HashMatrix.cs" />
     <Compile Include="TrafficModel\dataStructure\LaneChain.cs" />
     <Compile Include="TrafficModel\dataStructure\WaitQueue.cs" />

@@ -19,14 +19,15 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 	}
 	
-	internal class HashMatrix<T>
+	public class HashMatrix
 	{
 		/// <summary>
 		/// 最大六个车道，坐标远点是RoadNode的positon
 		/// </summary>
 		internal readonly int iMaxWidth = SimSettings.iMaxLanes;
 
-		private Dictionary<int, T> hashMat = new Dictionary<int, T>();
+		private List<MobileEntity> lsMat = new List<MobileEntity>();
+		private Dictionary<int, MobileEntity> hashMat = new Dictionary<int, MobileEntity>();
 		/// <summary>
 		/// 判断元胞是否被占用了
 		/// </summary>
@@ -37,44 +38,30 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			return hashMat.ContainsKey(HashKeyProvider.GetHashCode(x, y));
 		}
-		/// <summary>
-		/// 把元宝从o点移动到d点
-		/// </summary>
-		internal bool Move(Point inXY, Point inXY_D)
+		
+		internal bool ContainsKey(int iKey)
 		{
-			int iHashkey = HashKeyProvider.GetHashCode(inXY.X, inXY.Y);
-			T cac;
-			if (hashMat.TryGetValue(iHashkey, out cac) == true)
-			{
-				hashMat.Remove(iHashkey);
-				iHashkey = HashKeyProvider.GetHashCode(inXY_D.X, inXY_D.Y);
-				if (hashMat.ContainsKey(iHashkey)==true)
-				{
-					return false;
-				}else
-				{
-					hashMat.Add(iHashkey, cac);
-					return true;
-				}
-			}
-			return false;
+			return this.hashMat.ContainsKey(iKey);
 		}
-		internal void Add(int x, int y, T cell)
+		internal void Add(MobileEntity mobile)
 		{
-			//更新行和列的最大索引
-			if (Math.Abs(x) > this.iMaxWidth || Math.Abs(y) > this.iMaxWidth)
-			{
-				throw new ArgumentOutOfRangeException("x或者y 参数超出了默认的最大数值");
-			}
-			int iHKey = HashKeyProvider.GetHashCode(x, y);
+			int iHKey = mobile.GetHashCode();//.GetHashCode();
 			if (!hashMat.ContainsKey(iHKey))
 			{
-				hashMat.Add(iHKey, cell);
+				lsMat.Add(mobile);
+				hashMat.Add(iHKey,mobile);
+				
 			}
+			
+			//System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
+			
 		}
-		internal bool Remove(int x, int y)
+
+		internal bool Remove(MobileEntity mobile)
 		{
-			return hashMat.Remove(HashKeyProvider.GetHashCode(x, y));
+			this.lsMat.Remove(mobile);
+			int iKey = mobile.GetHashCode();
+			return hashMat.Remove(mobile.GetHashCode());
 		}
 		
 		internal int Count
@@ -82,10 +69,11 @@ namespace SubSys_SimDriving.TrafficModel
 			get
 			{
 				return hashMat.Count;
+				System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
 			}
 		}
 
-		internal Dictionary<int, T>.ValueCollection Values
+		internal Dictionary<int, MobileEntity>.ValueCollection Values
 		{
 			get { return hashMat.Values; }
 		}
@@ -94,17 +82,17 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 提供对存储元素的高效遍历
 		/// </summary>
 		/// <returns></returns>
-		internal IEnumerator<T> GetEnumerator()
+		public IEnumerator<MobileEntity> GetEnumerator()
 		{
 			return this.hashMat.Values.GetEnumerator();
 		}
 		#endregion
 
-		internal T this[int index]
+		internal MobileEntity this[int index]
 		{
 			get
 			{
-				return hashMat[index];
+				return lsMat[index];
 			}
 		}
 
@@ -116,4 +104,90 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 	}
+	
+//	public class HashMatrix<T>
+//	{
+//		/// <summary>
+//		/// 最大六个车道，坐标远点是RoadNode的positon
+//		/// </summary>
+//		internal readonly int iMaxWidth = SimSettings.iMaxLanes;
+//
+//		private List<T> lsMat = new List<T>();
+//		private Dictionary<int, T> hashMat = new Dictionary<int, T>();
+//		/// <summary>
+//		/// 判断元胞是否被占用了
+//		/// </summary>
+//		/// <param name="x"></param>
+//		/// <param name="y"></param>
+//		/// <returns></returns>
+//		internal bool IsBlocked(int x, int y)
+//		{
+//			return hashMat.ContainsKey(HashKeyProvider.GetHashCode(x, y));
+//		}
+//		
+//		internal bool ContainsKey(int iKey)
+//		{
+//			return this.hashMat.ContainsKey(iKey);
+//		}
+//		internal void Add(T mobile)
+//		{
+//			int iHKey = mobile.GetHashCode();//.GetHashCode();
+//			if (!hashMat.ContainsKey(iHKey))
+//			{
+//				lsMat.Add(mobile);
+//				hashMat.Add(iHKey,mobile);
+//				
+//			}
+//			
+//			//System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
+//			
+//		}
+//
+//		internal bool Remove(T mobile)
+//		{
+//			this.lsMat.Remove(mobile);
+//			int iKey = mobile.GetHashCode();
+//			return hashMat.Remove(mobile.GetHashCode());
+//		}
+//		
+//		internal int Count
+//		{
+//			get
+//			{
+//				return hashMat.Count;
+//				System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
+//			}
+//		}
+//
+//		internal Dictionary<int, T>.ValueCollection Values
+//		{
+//			get { return hashMat.Values; }
+//		}
+//		#region 枚举器
+//		/// <summary>
+//		/// 提供对存储元素的高效遍历
+//		/// </summary>
+//		/// <returns></returns>
+//		public IEnumerator<T> GetEnumerator()
+//		{
+//			return this.hashMat.Values.GetEnumerator();
+//		}
+//		#endregion
+//
+//		internal T this[int index]
+//		{
+//			get
+//			{
+//				return lsMat[index];
+//			}
+//		}
+//
+//		internal ICollection<int> Keys
+//		{
+//			get
+//			{
+//				return hashMat.Keys;
+//			}
+//		}
+//	}
 }
