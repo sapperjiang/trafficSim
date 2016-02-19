@@ -11,7 +11,7 @@ namespace SubSys_Graphics
 		/// <summary>
 		/// define a point means graphics pixels
 		/// </summary>
-		public static int iPixels = Pixels.iMedium;
+		public static int iPixels = Pixels.iMin;
 		//internal static int iGUI_CellShapeMargin = 1;
 		//        internal static int iG_BentchWidth = 1024;
 		internal static int iG_BentchWidth = 1440;
@@ -26,9 +26,9 @@ namespace SubSys_Graphics
 		public struct Pixels
 		{
 			//        	   public static int
-			public static int iMin = 2;//4像素
-			public static int iMedium = 4;//8像素
-			public static int iMax = 8;//12像素级放大
+			public static int iMin = 8;//4像素
+			public static int iMedium = 10;//8像素
+			public static int iMax = 12;//12像素级放大
 		}
 		public static void ScalePixels(int i)
 		{

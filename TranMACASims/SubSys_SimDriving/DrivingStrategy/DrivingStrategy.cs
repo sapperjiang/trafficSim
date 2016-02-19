@@ -9,38 +9,92 @@ using SubSys_MathUtility;
 
 namespace SubSys_SimDriving.TrafficModel
 {
-	internal abstract class XNodeDriveStrategy
+	/// <summary>
+	/// 	//should be abstract
+	/// </summary>
+	internal  class XNodeDriver
 	{
+		internal virtual void DriveMobile(MobileEntity mobile,DriveCtx dctx)
+		{
+
+			var currNode = mobile.Container as XNode;
+			
+			//控制权转移出去了
+			this.LaneChanging(dctx);//换道
+			this.Accelerate(dctx);//符合条件就加速
+
+			this.Decelerate(dctx);//否则减速
+			this.NormalRun(dctx);//更新位置
+			
+//			if (mobile.ID ==2) {
+//				;
+//			}
+			//still runing within a xnode
+			if (dctx.Params.iMoveY <= dctx.iXNodeGap&&dctx.iXNodeGap>0)
+			{
+				//modify a mobiles's position
+				mobile.Move(dctx.Params.iMoveY);
+			}
+			else //enter a lane from its container xnode
+			{
+				if (dctx.Params.iMoveY >dctx.iFrontHeadWay) {
+					ThrowHelper.ThrowArgumentException("前进距离大于车头时距会导致撞车");
+				}
+				
+				currNode.Mobiles.Remove(mobile);
+				
+				int iXNodeStep = dctx.Params.iMoveY - dctx.iXNodeGap;
+				
+				var toLane = mobile.Track.ToLane;
+				if (toLane!=null)
+				{
+					toLane.MobilesInn.Enqueue(mobile);
+					
+					//tempraryly modify mobile to get prepareed for moving
+					//mobile.Shape.Start = toLane.Shape.Start;//bug here to modified in the future
+					mobile.Container=toLane;//a moible cross a lane and a xnode since it has a ilength
+					
+					mobile.Move(iXNodeStep);
+				}
+			}
+
+			mobile.iAcceleration = Math.Max(dctx.Params.iAcceleration,1);
+			mobile.iSpeed = dctx.Params.iSpeed;
+			
+		}
+		
+		
 		/// <summary>
 		/// 城市路网中，三个元胞.交叉口的期望速度
 		/// </summary>
 		internal int iDesiredSpeed = 2;
-		/// <summary>
-		/// 用来临时存储状态，三种状态的修改等于是修改其克隆副本
-		/// 最终是要修改和反映到cell中的
-		/// </summary>
 
-		[System.Obsolete("交叉口不添加换道，请重载")]
-		internal virtual void LaneChanging(DriveContext dctx)
+
+		
+		/// <summary>
+		/// To make a mobile on a crossing chang its drive track
+		/// </summary>
+		/// <param name="dctx"></param>
+		internal virtual void LaneChanging(DriveCtx dctx)
 		{ }
-		internal virtual void Accelerate(DriveContext dctx)
+		internal virtual void Accelerate(DriveCtx dctx)
 		{
-			if (dctx.iLaneGap >= 2 && dctx.DriveParam.iSpeed < this.iDesiredSpeed)
+			if (dctx.iFrontHeadWay >= 2 && dctx.Params.iSpeed < this.iDesiredSpeed)
 			{
-				dctx.DriveParam.iSpeed += dctx.iAcceleration;
+				dctx.Params.iSpeed += dctx.iAcceleration;
 			}
 		}
-		internal virtual void Decelerate(DriveContext crc)
+		internal virtual void Decelerate(DriveCtx dctx)
 		{
 			//交通规则限制减速
-			if (crc.DriveParam.iSpeed > this.iDesiredSpeed)
+			if (dctx.Params.iSpeed > this.iDesiredSpeed)
 			{
-				crc.DriveParam.iSpeed -= crc.iAcceleration;
+				dctx.Params.iSpeed -= dctx.iAcceleration;
 			}
 			//空间限制而减速
-			if (crc.iFrontHeadWay < crc.DriveParam.iSpeed)
+			if (dctx.iFrontHeadWay < dctx.Params.iSpeed)
 			{
-				crc.DriveParam.iSpeed = crc.iLaneGap;//-crc.iSaftySpace
+				dctx.Params.iSpeed = dctx.iFrontHeadWay;//-crc.iSaftySpace
 			}
 
 		}
@@ -48,21 +102,80 @@ namespace SubSys_SimDriving.TrafficModel
 		/// Prudent .neither aggressive nor slow
 		/// </summary>
 		/// <param name="crc"></param>
-		internal virtual void NormalRun(DriveContext crc)
+		internal virtual void NormalRun(DriveCtx crc)
 		{
 			//if (crc.iEntityGap > crc.Out.iSpeed)
 			//{
-			crc.DriveParam.iMoveY = crc.DriveParam.iSpeed;
+			crc.Params.iMoveY = crc.Params.iSpeed;
 			//}
 			//else
 			//{
 			//    crc.Out.iMoveStepY
 			//}
 		}
-	}
+		
 
-	internal abstract class WayDriveStrategy
+	}
+	/// <summary>
+	/// 	//should be abstract
+	/// </summary>
+	internal  class WayDriver
 	{
+		
+		internal virtual void DriveMobile(MobileEntity mobile,DriveCtx dctx)
+		{
+	
+			var currLane = mobile.Container as Lane;
+			var currWay = currLane.Container as Way;
+			
+			if (dctx.IsReachEnd == true) {
+				currLane.Mobiles.RemoveFirst();
+				return;
+			}
+			
+			//Before updating mobiles status,update that on roadNode
+			//the following four funtions are in charge of making decisions,not executing
+			this.LaneChanging(dctx);//换道
+			this.Accelerate(dctx);//符合条件就加速
+			this.Decelerate(dctx);//否则减速
+			this.NormalRun(dctx);//更新位置
+			
+			//To execute params setted hereinbefore
+			
+			// if a mobile stops ,it must be blocked by traffic light or a mobile ahead
+			if (dctx.Params.iMoveY==0)
+			{
+				return;
+			}
+			//还在路段内部
+			if (dctx.Params.iMoveY <= dctx.iLaneGap)
+			{
+				mobile.Move(dctx.Params.iMoveY);
+				mobile.iSpeed = dctx.Params.iSpeed;
+				mobile.iAcceleration = dctx.Params.iAcceleration;
+				
+			}else //进入了交叉口
+			{
+				//原有的车道删除该车辆
+				currLane.Mobiles.RemoveFirst();
+
+				//进入交叉口
+				mobile.Container = currWay.XNodeTo;
+				//calculate steps  to move in a xnode
+				int iXNodeMoveStep = dctx.Params.iMoveY - dctx.iLaneGap;
+				
+				//recalculate moblie shape position
+				mobile.Move(iXNodeMoveStep);
+				//进入交叉口的等待队列
+				currWay.XNodeTo.MobilesInn.Enqueue(mobile);
+			}
+			
+			mobile.iAcceleration = Math.Max(dctx.Params.iAcceleration,1);
+			mobile.iSpeed = dctx.Params.iSpeed;
+			
+		}
+		
+		
 		/// <summary>
 		/// 城市路段的期望速度
 		/// </summary>
@@ -73,41 +186,41 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 2.由于寻求合适的理想行驶状态
 		/// </summary>
 		[System.Obsolete("换道模型暂时不实现")]
-		internal virtual void LaneChanging(DriveContext crx)
+		internal virtual void LaneChanging(DriveCtx crx)
 		{
 		}
 		/// <summary>
 		/// 匀速行驶
 		/// </summary>
 		/// <param name="crx"></param>
-		internal virtual void NormalRun(DriveContext crx)
+		internal virtual void NormalRun(DriveCtx crx)
 		{
 
-			if (crx.DriveParam.iSpeed <= crx.iFrontHeadWay)
+			if (crx.Params.iSpeed +crx.iSafeHeadWay<= crx.iFrontHeadWay)
 			{
-				crx.DriveParam.iMoveY = crx.DriveParam.iSpeed;
+				crx.Params.iMoveY = crx.Params.iSpeed;
 			}
 			else//小于速度个车头时距
 			{
-				crx.DriveParam.iMoveY = crx.DriveParam.iSpeed;
+				crx.Params.iMoveY = crx.Params.iSpeed-crx.iSafeHeadWay;
 			}
 
 			//确保前进的距离不是负值
-			crx.DriveParam.iMoveY = Math.Max(0,crx.DriveParam.iMoveY);
+			crx.Params.iMoveY = Math.Max(0,crx.Params.iMoveY);
 
 		}
 		/// <summary>
 		/// 加速行驶
 		/// </summary>
 		/// <param name="crx"></param>
-		internal virtual void Accelerate(DriveContext crx)
+		internal virtual void Accelerate(DriveCtx crx)
 		{
-			if (crx.iFrontHeadWay > 2 * crx.DriveParam.iSpeed)//保证了加速
+			if (crx.iFrontHeadWay > 2 * crx.Params.iSpeed)//保证了加速
 			{
-				if (crx.DriveParam.iSpeed < this.iDesiredSpeed)
+				if (crx.Params.iSpeed < this.iDesiredSpeed)
 				{
 					//crx.iAcceleration += 1;
-					crx.DriveParam.iSpeed+=crx.iAcceleration;
+					crx.Params.iSpeed+=crx.iAcceleration;
 					//crx.iAcceleration = 1;
 				}
 			}//否则不加速
@@ -116,283 +229,369 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 减速行驶
 		/// </summary>
 		/// <param name="crx"></param>
-		internal virtual void Decelerate(DriveContext crx)
+		internal virtual void Decelerate(DriveCtx crx)
 		{
 			//大于期望车速减速
-			if (crx.DriveParam.iSpeed > this.iDesiredSpeed)
+			if (crx.Params.iSpeed > this.iDesiredSpeed)
 			{
-				crx.DriveParam.iSpeed -= crx.iAcceleration;
+				crx.Params.iSpeed -= crx.iAcceleration;
 			}
 			///危险减速或者是前进距离过大减速
-			if (crx.iFrontHeadWay < crx.DriveParam.iSpeed)//可能有bug
+			if ( crx.Params.iSpeed > crx.iFrontHeadWay+crx.iSafeHeadWay)//可能有bug
 			{
-				crx.DriveParam.iSpeed = crx.iFrontHeadWay-1;
+				crx.Params.iSpeed = crx.iFrontHeadWay-crx.iSafeHeadWay;
 			}
 
-			if (crx.dRandom<crx.dModerationRatio && crx.DriveParam.iSpeed>1)//随机漫化
+			if (crx.dRandom<crx.dModerationRatio && crx.Params.iSpeed>1)//随机漫化
 			{
-				crx.DriveParam.iSpeed -= crx.iAcceleration;
+				crx.Params.iSpeed -= crx.iAcceleration;
 			}
 			//确保车速不小于零
-			crx.DriveParam.iSpeed = Math.Max(crx.DriveParam.iSpeed,0);
+			crx.Params.iSpeed = Math.Max(crx.Params.iSpeed,0);
 
 		}
+		
+		
+		
 		
 	}
 	
 	/// <summary>
 	/// 驾驶员的驾驶行为策略，每个mobileebtity驾驶员行为不一样
+	/// an abstract driver interfaces
 	/// </summary>
-	public abstract partial class DriveStrategy
+	public abstract partial class MobileDriver
 	{
-		internal XNodeDriveStrategy _WayStrategy;
-		internal WayDriveStrategy _XNodeStrategy;
+		internal XNodeDriver _XNodeDriver;
+		internal WayDriver _WayDriver;
 		
-//		/// <summary>
-//		/// 边界为红绿灯的地方是不更新和移动的或者做判断
-//		/// </summary>
-//		[System.Obsolete("replace with DriveMobile ")]
-//		internal virtual void Drive(TrafficEntity staticEntity, Cell cell)
-//		{
-//			DriveContext ctx = new DriveContext(staticEntity, cell);
-//			//cell.GetEntityGap(out ctx.iLaneGap,out ctx.iXNodeGap);
-//			ctx.iFrontHeadWay = ctx.iLaneGap+ctx.iXNodeGap;
-//
-//			ctx.iAcceleration = cell.Car.iAcceleration;
-//			ctx.DriveParam.iSpeed = cell.Car.iSpeed;
-//
-//			switch (staticEntity.EntityType)
-//			{
-//				case EntityType.Way:
-//					
-//					//车道内部的计算方法
-//					ctx.iFrontSpeed = cell.nextCell == null ? -1 : cell.nextCell.Car.iSpeed;
-//
-//					//控制权转移出去了，这几个函数只是决策，告诉drivingcontext 如何走，下一步是执行
-//					_XNodeStrategy.LaneChanging(ctx);//换道
-//					_XNodeStrategy.Accelerate(ctx);//符合条件就加速
-//					
-//					
-//					_XNodeStrategy.Decelerate(ctx);//否则减速
-//					_XNodeStrategy.NormalRun(ctx);//更新位置
-//					
-//					//以下处理车的位置
-//					Way re = staticEntity as Way;
-//					//处理车辆的前进和换道行为
-//					Lane rl= cell.Container as Lane;
-//
-//					if (ctx.DriveParam.iMoveY==0)
-//					{
-//						break;
-//					}
-//					//还在路段内部
-//					if (ctx.DriveParam.iMoveY <= ctx.iLaneGap && ctx.iLaneGap>0)
-//					{
-//						cell.Grid= new Point(cell.Grid.X,cell.Grid.Y+ ctx.DriveParam.iMoveY);
-//					}else //进入了交叉口
-//					{
-//						int iToEntitMoveStep = ctx.DriveParam.iMoveY - ctx.iLaneGap;
-//						//计算轨迹
-//						cell.CalcTrack(1);//初始化到路段的在交叉口的入口处
-//						//初始化元胞的位置
-//						cell.Track.pCurrPos = cell.Track.pTempPos;//这里已经移动了一步了
-//						
-//						//交叉口内部移动指定的步长
-//						cell.TrackMove(iToEntitMoveStep-1);//修改节点
-//
-//						re.XNodeTo.AddCell(cell);//进入交叉口
-//						
-//						rl.RemoveCell();//离开原来的路段删除最前面的元胞
-//
-//					}
-//					break;
-//
-//				case EntityType.XNode:
-//
-//					XNode rn = staticEntity as XNode;
-//
-//					//控制权转移出去了
-//					_WayStrategy.LaneChanging(ctx);//换道
-//					_WayStrategy.Accelerate(ctx);//符合条件就加速
-//					
-//					_WayStrategy.Decelerate(ctx);//否则减速
-//					_WayStrategy.NormalRun(ctx);//更新位置
-//					//修改空间位置
-//					if (ctx.DriveParam.iMoveY <= ctx.iLaneGap&&ctx.iLaneGap>0)
-//					{//修改空间位置
-//						Point old = cell.Track.pCurrPos;
-//						//修改pCurrPos
-//						cell.TrackMove(ctx.DriveParam.iMoveY);//计算坐标
-//						rn.MoveCell(old, cell.Track.pCurrPos);//移动元胞到指定的位置
-//					}
-//					else //进入了路段
-//					{
-//						rn.RemoveCell(cell);//离开交叉口删除cell
-//
-//						int iToEntitMoveStep = ctx.DriveParam.iMoveY - ctx.iLaneGap;
-//						Lane to = cell.Track.ToLane;
-//						if (to!=null)
-//						{
-//							///转换坐标
-//							cell.Track.pCurrPos = new Point(to.Rank,iToEntitMoveStep);
-//							//进入下一个交通实体
-//							cell.Track.ToLane.EnterWaitedQueue(cell);
-//						}
-//					}
-//					break;
-//				default:
-//					ThrowHelper.ThrowArgumentException("不正确的参数");
-//					break;
-//			}
-//			cell.Car.iAcceleration = Math.Max(ctx.DriveParam.iAcceleration,1);
-//			cell.Car.iSpeed = ctx.DriveParam.iSpeed;
-//		}
-//		
-//		
-	}
-	
-	/// <summary>
-	/// 2016/1/27
-	/// </summary>
-	public abstract partial class DriveStrategy
-	{
+		internal XNodeDriver XNodeDriver
+		{
+			get{
+				if (this._XNodeDriver==null) {
+					this._XNodeDriver= new XNodeDriver();
+				}
+				return this._XNodeDriver;
+			}
+		}
+		internal WayDriver WayDriver
+		{
+			get{
+				if (this._WayDriver==null) {
+					this._WayDriver= new WayDriver();// XNodeDriver();
+					
+				}
+				
+				return this._WayDriver;
+			}
+		}
+
+		/// <summary>
+		/// template method
+		/// </summary>
+		/// <param name="driveContainer"></param>
+		/// <param name="mobile"></param>
 		internal virtual void DriveMobile(StaticEntity driveContainer,MobileEntity mobile)
 		{
-			
-			var dctx=mobile.Observe();
+
+			var dctx=this.Observe(driveContainer,mobile);
 			
 			switch (driveContainer.EntityType)
 			{
-				case EntityType.Way:
-	
-					//Before updating mobiles status,update that on roadNode
-					//the following four funtions are in charge of making decisions,not executing
-					_XNodeStrategy.LaneChanging(dctx);//换道
-					_XNodeStrategy.Accelerate(dctx);//符合条件就加速
-					_XNodeStrategy.Decelerate(dctx);//否则减速
-					_XNodeStrategy.NormalRun(dctx);//更新位置
+					//use way  as container for lane changing
+				case EntityType.Lane:
 					
-					//To execute params setted hereinbefore
-
-					Way currWay = driveContainer as Way;
-					// if a mobile stops ,it must be blocked by traffic light or a mobile ahead
-					if (dctx.DriveParam.iMoveY==0)
-					{
-						break;
-					}
-					//还在路段内部
-					if (dctx.DriveParam.iMoveY <= dctx.iLaneGap)
-					{
-						mobile.Move(dctx.DriveParam.iMoveY);
-						mobile.iSpeed = dctx.DriveParam.iSpeed;
-						mobile.iAcceleration = dctx.DriveParam.iAcceleration;
-						
-					}else //进入了交叉口
-					{
-						var currLane = mobile.Container as Lane;
-						//原有的车道删除该车辆
-						currLane.Mobiles.RemoveFirst();
-
-						//进入交叉口
-						mobile.Container = currWay.XNodeTo;
-						//calculate steps  to move in a xnode
-						int iXNodeMoveStep = dctx.DriveParam.iMoveY - dctx.iLaneGap;
-						
-						//recalculate moblie shape position
-						mobile.Move(iXNodeMoveStep);
-						//进入交叉口的等待队列
-						currWay.XNodeTo.MobilesInn.Enqueue(mobile);
-					}
+					this.WayDriver.DriveMobile(mobile,dctx);
+					
 					break;
 
 				case EntityType.XNode:
-
-					var currNode = driveContainer as XNode;
+				
+					this.XNodeDriver.DriveMobile(mobile,dctx);
 					
-					//控制权转移出去了
-					_WayStrategy.LaneChanging(dctx);//换道
-					_WayStrategy.Accelerate(dctx);//符合条件就加速
-
-					_WayStrategy.Decelerate(dctx);//否则减速
-					_WayStrategy.NormalRun(dctx);//更新位置
-					
-					//still runing within a xnode
-					if (dctx.DriveParam.iMoveY <= dctx.iXNodeGap&&dctx.iXNodeGap>0)
-					{
-						//modify a mobiles's position
-						mobile.Move(dctx.DriveParam.iMoveY);
-					}
-					else //进入了路段
-					{
-						if (dctx.DriveParam.iMoveY >dctx.iFrontHeadWay) {
-							ThrowHelper.ThrowArgumentException("前进距离大于车头时距会导致撞车");
-						}
-						
-						currNode.Mobiles.Remove(mobile);
-						//var mobiledebug =
-						
-						int iXNodeMoveStep = dctx.DriveParam.iMoveY - dctx.iXNodeGap;
-						
-						var toLane = mobile.Track.ToLane;
-						if (toLane!=null)
-						{
-							toLane.MobilesInn.Enqueue(mobile);
-							
-							//tempraryly modify mobile to get prepareed for moving 
-							//mobile.Shape.Start = toLane.Shape.Start;//bug here to modified in the future
-							mobile.Container=toLane;//a moible cross a lane and a xnode since it has a ilength
-							
-							mobile.Move(iXNodeMoveStep);		
-						}
-
-					}
 					break;
 				default:
 					ThrowHelper.ThrowArgumentException("不正确的参数");
 					break;
 			}
 			
-			mobile.iAcceleration = Math.Max(dctx.DriveParam.iAcceleration,1);
-			mobile.iSpeed = dctx.DriveParam.iSpeed;
+			mobile.iAcceleration = Math.Max(dctx.Params.iAcceleration,1);
+			mobile.iSpeed = dctx.Params.iSpeed;
 			
 		}
 		
-	}
-	
-	
-	internal class WayStrategy : WayDriveStrategy { }
-	internal class XNodeStrategy : XNodeDriveStrategy { }
-	
+		
+		///////////////////////////////////////////////////
+		internal DriveCtx Observe(StaticEntity driveEn,MobileEntity mobile)
+		{
+			DriveCtx dctx = new DriveCtx(driveEn);
+				
 
-	public class DefaultDriveAgent:DriveStrategy
-	{
-		public DefaultDriveAgent()
-		{
-			this._WayStrategy = new XNodeStrategy();
-			this._XNodeStrategy = new WayStrategy();
-		}
-	}
-	
-	public enum StrategyType
-	{
-		Default= 0,
-		other = 1
-	}
-	public class StrategyFactory
-	{
-		
-		public static DriveStrategy Create(StrategyType st)
-		{
-			switch (st) {
-				case StrategyType.Default:
-					return new DefaultDriveAgent() ;
-					//    				break;
+			dctx.iAcceleration = mobile.iAcceleration;
+			dctx.iSpeed = mobile.iSpeed;
+			
+			switch (driveEn.EntityType) {
+					
+					// calculate headway on the left/right/current lane of current mobile
+				case EntityType.Lane:
+					
+					var currLane = mobile.Container as Lane;
+					
+					var currWay = currLane.Container as Way;
+					//current mobile
+					int iCurrStart = currLane.Shape.GetIndex(mobile.Shape.Start);
+					//current mobile
+					int iCurrEnd	  = currLane.Shape.GetIndex(mobile.Shape.End);
+//					int iLaneGap =  currLane.iLength-iCurrentStart;
+					
+					if (mobile.Front!=null){
+						//behiand 14 .front 15. iLaneGap need to reduce 1
+						dctx.iLaneGap = currLane.Shape.GetIndex(mobile.Front.Shape.End)-iCurrStart-1;
+						dctx.iFrontSpeed = mobile.Front.iSpeed;
+						dctx.iXNodeGap = 0;
+						dctx.iFrontHeadWay = dctx.iLaneGap+dctx.iXNodeGap;
+					}
+					//front mobile is null, current mobile is the first one on this lane
+					//the first mobile needs to deal with a traffic light or/and a crossing(XNode)
+					else {//this.FrontMobile==null)
+						
+						//front mobile,there's a signal light playing on the lane
+						
+						//deal with that signal light
+						if (currLane.IsBlocked==true) {
+							dctx.iFrontHeadWay=currLane.Length-iCurrStart;
+						}
+						//deal with that crossing
+						else{//the current mobile is the first one to deal with a crossing
+							//先计算车辆的轨迹，where a mobile is heading for. right .left or straight forward
+							int iXNodeGap  = 0;
+							int iLaneGap =  currLane.Length-1-iCurrStart;
+							if (iLaneGap<=3*mobile.iSpeed)//space si more than triple car speed.
+							{
+								mobile.Track.Update();
+								
+								if (mobile.Track.ToLane!=null) {
+									
+									//class acts as parameters will pass its address to functions,so clone is used here
+									var temp  = currLane.Shape.End;
+//									if (this.ID == 2) {
+//										;
+//									}
+									//再计算剩余轨迹
+									GetXNodeGap(currWay.XNodeTo, temp, out iXNodeGap,mobile);
+								}else//toLane == null. reach destination
+								{
+									dctx.IsReachEnd =true;
+									iXNodeGap = 10;//to let the first car go away
+									iLaneGap = 0;
+								}
+							}
+
+							dctx.iXNodeGap = iXNodeGap;
+							dctx.iLaneGap = iLaneGap;
+							dctx.iFrontHeadWay = iXNodeGap+iLaneGap;
+							dctx.iFrontSpeed = -1;
+						}
+					}
+					
+					//rear mobile
+					dctx.iRearHeadWay = iCurrStart;
+					if (mobile.Rear!=null) {
+						dctx.iRearHeadWay = iCurrEnd-currLane.Shape.GetIndex(mobile.Rear.Shape.Start);
+						dctx.iRearSpeed = mobile.Rear.iSpeed;
+						
+					}else{//rear mobile is empty
+						dctx.iRearHeadWay = iCurrStart;//rear mobiel
+						dctx.iRightRearSpeed = -1;
+					}
+					
+					//get dirving context on the left lane
+					this.GetSidesContext(currLane.Left,LaneType.Left,iCurrStart,iCurrEnd,ref dctx);
+					//get dirving context on the right lane
+					this.GetSidesContext(currLane.Right,LaneType.Right,iCurrStart,iCurrEnd,ref dctx);
+					
+					break;
+					
+				case EntityType.XNode:
+					
+					var xnode = driveEn as XNode;
+					
+					int iLaneEnGap = 0;
+					int iXNodeEnGap = 0;
+					//计算剩余轨迹数量//如果pcurrPos没到头，iXnodeGap等于零
+					
+					//when a mobile is on a xnode .its headway is xnodeGap for a secend mobile
+					//the frist mobile bIsBlocked is never true;while its following may be true
+					var bIsBlocked =this.GetXNodeGap(xnode, mobile.Track.Current, out iXNodeEnGap,mobile);
+
+					if (bIsBlocked == false) {//the first mobile
+						var toLane = mobile.Track.ToLane;
+						//计算车道上的长度
+						if (toLane != null) {//no destination lane means a mobile has reach its destnation.
+							if (toLane.MobilesInn.Count>0) {//theres already mobiles waiting to enter tolane.
+								iLaneEnGap = 0;
+							}else {
+								var lastMobile = toLane.Mobiles.Last;
+								if (lastMobile!=null) {
+									iLaneEnGap = toLane.Shape.GetIndex(lastMobile.Value.Shape.End);
+								}else//no mobiles running at tolane
+								{
+									iLaneEnGap = toLane.Length;
+								}
+							}
+						}
+					}else//the a mobile blocked by its previous mobile on a xnode
+					{
+						iLaneEnGap = 0;
+					}
+
+					
+					dctx.iLaneGap=iLaneEnGap;
+					dctx.iXNodeGap = iXNodeEnGap;
+					
+					dctx.iFrontHeadWay = iXNodeEnGap+iLaneEnGap;
+					
+					
+					break;
+					
+				case EntityType.Way:
+					throw new NotImplementedException("不应该传入这个参数，应在在车道上，或者是交叉口上");
+					break;
+					
 					default:break;
+					
 			}
-			throw new ArgumentNullException("没有该类型");
+			
+			return dctx;
 			
 		}
+
+
+		/// <summary>
+		/// get left and right driving context
+		/// </summary>
+		/// <param name="lane">lane</param>
+		/// <param name="lanetype">lanetype of current lane</param>
+		/// <param name="iCurrentStart">headway of current mobile index</param>
+		/// <param name="iCurrentEnd">rear of current mobile index</param>
+		/// <param name="dc">out parameters</param>
+		private void  GetSidesContext(Lane lane,LaneType lanetype,int iCurrentStart,int iCurrentEnd ,ref DriveCtx dc)
+		{
+			//to make sure current lane got a lefe lane
+			if (lane==null)return ;
+			
+			//headway on the lane
+			int iFrontHeadWay	=-1;
+			int iRearHeadWay	=-1;
+			int iFrontSpeed =-1;
+			int iRearSpeed	=-1;
+			
+			//there's no mobile on lane
+			if (lane.Mobiles.Count>0)
+			{
+				
+				//there's mobiles on lane
+				int iLeastGap = lane.Length;
+				int iTempGap = iLeastGap;
+				MobileEntity mobile=null;
+				
+				//loop to find two adjacent mobiles on the lane.one rear,one ahead of the current mobile
+				foreach (var element in lane.Mobiles) {
+					iTempGap = lane.Shape.GetIndex(element.Shape.End)-iCurrentStart;
+					//make it positive,to find the nearest mobile on the left lane
+					if (Math.Abs(iTempGap)<Math.Abs(iLeastGap)) {
+						iLeastGap = iTempGap;
+						mobile=element;
+					}
+				}
+				
+				//nearest mobile on the left is at the front
+				if (iLeastGap>=0) {
+					iFrontHeadWay=iLeastGap;
+					iFrontSpeed = mobile.iSpeed;
+					
+					var rearMobile = mobile.Rear;
+					if (rearMobile!=null) {
+						iRearHeadWay =iCurrentEnd - lane.Shape.GetIndex(rearMobile.Shape.Start);
+						iRearSpeed = rearMobile.iSpeed;
+						
+					}
+				}//nearest mobile on the left is at the behind
+				else{
+					//make it postive
+					iRearHeadWay = Math.Abs(iLeastGap);
+					iRearSpeed=mobile.iSpeed;
+					
+					var frontMobile = mobile.Front;
+					if (frontMobile!=null) {
+						iFrontHeadWay =lane.Shape.GetIndex(frontMobile.Shape.End)-iCurrentStart;
+						iFrontSpeed=mobile.Front.iSpeed;
+					}
+				}
+			}
+			else {
+				iFrontHeadWay = lane.Length-iCurrentStart;
+				iRearHeadWay = iCurrentEnd;
+			}
+			//make driving observation true
+			switch (lanetype) {
+				case LaneType.Right:
+					dc.iRightFrontHeadWay 	= iFrontHeadWay;
+					dc.iRightFrontSpeed = iFrontSpeed;
+					dc.iRightRearHeadWay 	= iRearHeadWay;
+					dc.iRightRearSpeed  =iRearSpeed;
+					break;
+				case LaneType.Left:
+					dc.iLeftFrontHeadWay 	= iFrontHeadWay;
+					dc.iLeftFrontSpeed  = iFrontSpeed;
+					dc.iLeftRearHeadWay 	= iRearHeadWay;
+					dc.iLeftRearSpeed   =iRearSpeed;
+					break;
+				default:
+					throw new ArgumentException("parameter lanetype error!");
+					break;
+			}
+		}
+
+		
+		/// <summary>
+		/// 计算mobile在交叉口内部可以走多少步
+		/// </summary>
+		/// <param name="rN"></param>
+		/// <param name="pCurrent">current position</param>
+		/// <param name="Gap">return value</param>
+		/// <returns></returns>
+		private bool GetXNodeGap(XNode node, OxyzPoint opCurr, out int iGap,MobileEntity mobile)
+		{
+			//indicator to tell whether or not  a mobile is blocked
+			//bool bReachEnd = false;
+			bool bOccupied = false;
+			int iCount = 0;
+
+			OxyzPoint p = mobile.Track.NextPoint(opCurr);
+
+			while ((bOccupied=node.IsOccupied(p)) == false) {
+				if (p._X == 0 && p._Y == 0) {
+//					bReachEnd = true;
+					break;
+				}
+				p = mobile.Track.NextPoint(p);
+
+				iCount++;
+			}
+			iGap = iCount;
+			//return bReachEnd
+			return bOccupied;
+		}
+		
+		////////////////////////////////////////////////////////////////
+		
 	}
 	
+	public class DefaultDriver:MobileDriver
+	{}
 	
+	//internal class WayAgent : WayDriver { }
+	//internal class XNodeAgent : XNodeDriver { }
+
 }

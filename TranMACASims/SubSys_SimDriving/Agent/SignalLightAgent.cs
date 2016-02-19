@@ -33,7 +33,7 @@ namespace SubSys_SimDriving.Agents
         internal override void VisitUpdate(XNode rN)
         {
             Way reverse = null;
-            foreach (Way re in rN.RoadEdges)
+            foreach (Way re in rN.Ways)
             {   //找到反向的边
                 reverse = roadNet.FindWay(re.XNodeTo, re.XNodeFrom);
                 System.Diagnostics.Debug.Assert(reverse != null);

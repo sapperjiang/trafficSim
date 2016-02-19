@@ -75,9 +75,9 @@ namespace GISTranSim
 			this.Invalidate();
 
 			if (e.Delta > 0) {
-				GraphicsCfger.ScalePixels(1);
+				GraphicsCfger.ScalePixels(2);
 			} else {
-				GraphicsCfger.ScalePixels(-1);
+				GraphicsCfger.ScalePixels(-2);
 			}
 			
 			//	SimController.RepaintNetWork();
@@ -129,7 +129,7 @@ namespace GISTranSim
 		/// <param name="e"></param>
 		void MenuBar_File_ConfigEnvr_Click(object sender, System.EventArgs e)
 		{
-			SimController.iCarCount =2;
+	//		SimController.iCarCount =2;
 			SimController.iRoadWidth = 100;
 			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
@@ -176,7 +176,7 @@ namespace GISTranSim
 		void MenuBar_SimluateSustained_Click(object sender, System.EventArgs e)
 		{
 			//----------------------------------------------------
-			SimController.iCarCount =2;
+//			SimController.iCarCount =2;
 			SimController.iRoadWidth = 20;
 			SimController.iSimInterval = 100;
 			ModelSetting.dRate = 0.85;

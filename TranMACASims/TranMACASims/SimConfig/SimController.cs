@@ -39,7 +39,7 @@ namespace SubSys_SimDriving
 		internal static int iSimInterval = 100;
 		internal static int iSimTimeSteps = 4200;
 		internal static bool bIsPause = false;
-		internal static int iCarCount = 2;
+		internal static int iMobileCount = 2;
 		
 		//添加路由表内容-fis
 		internal static Way ReA1;
@@ -62,7 +62,7 @@ namespace SubSys_SimDriving
 
 			foreach (XNode item in iroadNet.XNodes)
 			{
-				foreach (Way roadEdge in item.RoadEdges)
+				foreach (Way roadEdge in item.Ways)
 				{
 					roadEdge.GetReverse().ModifySignalGroup(sl, LaneType.Straight);
 				}
@@ -142,7 +142,7 @@ namespace SubSys_SimDriving
 		private static void LoadMobiles()
 		{
 
-			if (--SimController.iCarCount > 0)
+			if (SimController.iMobileCount-- > 0)
 			{
 				int iLane = 0;// iCarCount % 3;
 				//新建一条路由
@@ -175,6 +175,7 @@ namespace SubSys_SimDriving
 			
 			var network =SimController.ISimCtx.RoadNet;
 			
+			
 			while (true) {
 				//t退出命令或者仿真到了设定的仿真时长
 				if (bIsExit == true||ISimCtx.iCurrTimeStep>= iSimTimeSteps)
@@ -190,7 +191,8 @@ namespace SubSys_SimDriving
 				//处理应用程序界面事件。如点击鼠标、点击菜单等
 				Application.DoEvents();
 				
-				SimController.LoadMobiles();
+				
+				
 				
 				if (bIsPause==false) {//如果没有暂停
 					while (ISimCtx.iCurrTimeStep++ <= iSimTimeSteps)
@@ -204,6 +206,8 @@ namespace SubSys_SimDriving
 						SimController.iSimInterval =500;
 						Thread.Sleep(SimController.iSimInterval);
 						Application.DoEvents();
+						//add mobile one by one
+						SimController.LoadMobiles();
 
 						//更新RoadNodes
 						foreach (XNode item in network.XNodes)

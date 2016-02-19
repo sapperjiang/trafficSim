@@ -13,15 +13,6 @@ namespace SubSys_MathUtility
             iCos = iCosine;
         }
 
-//        public override bool Equals(object obj)
-//        {
-//            SinCos item = (SinCos)obj;
-//            if (item.iSin == this.iSin
-//                && item.iCos == this.iCos)
-//            {
-//                return true;
-//            } return false;
-//        }
     } 
 
     /// <summary>

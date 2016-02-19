@@ -279,7 +279,8 @@ namespace SubSys_SimDriving.TrafficModel
 				//update mobile on a lane one by one
 				while(mobileNode!=null) {
 					var mobile = mobileNode.Value;
-					mobile.Run(this as StaticEntity);
+					//mobile is possibaly be deleted
+					mobile.Run(lane);
 					mobileNode = mobileNode.Next;
 				}
 
@@ -290,7 +291,6 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// 路段的OnStatusChanged委托给RoadLane处理
 		/// </summary>
-		[System.Obsolete("调用了服务")]
 		protected override void OnStatusChanged()
 		{
 			this.InvokeServices(this);

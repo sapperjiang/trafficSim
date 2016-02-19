@@ -148,6 +148,13 @@ namespace SubSys_MathUtility
 			}
 			return hashCode;
 		}
+		public  bool Equals(OxyzPoint obj)
+		{
+			if (this._X==obj._X&&this._Y==obj._Y&&this._Z==obj._Z) {
+				return true;
+			}
+			return false;
+		}
 
 		#endregion
 		
@@ -185,7 +192,7 @@ namespace SubSys_MathUtility
 		{
 			return Coordinates.Project(new OxyzPointF(p.X, p.Y), iScaleFactor);
 		}
-//		
+//
 		/// <summary>
 		/// 将元胞坐标系转化为屏幕坐标系
 		/// </summary>
@@ -213,7 +220,7 @@ namespace SubSys_MathUtility
 		}
 		
 		
-	
+		
 		/// <summary>
 		/// offset中x和y的值向左上偏移，其xy都为负值
 		/// </summary>

@@ -47,14 +47,12 @@ namespace SubSys_SimDriving.TrafficModel
 
 				if (eShape.Count == 0)//shape 没有初始化
 				{
-					CreateShape(ref eShape);
-					
-					
+					CreateShape(ref eShape);		
 				}
 
-				if (eShape.End._X == 28&&eShape.End._Y==20&&eShape[0]._X==8) {
-					;
-				}
+//				if (eShape.End._X == 28&&eShape.End._Y==20&&eShape[0]._X==8) {
+//					;
+//				}
 				return eShape;
 			}
 		}
@@ -163,8 +161,8 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		public int Rank;
 
-		[System.Obsolete("已过时，记录车道车队相对位置的数组，新的元胞空间理论建立后停止使用该属性")]
-		public int[] PrevCarPos;
+//		[System.Obsolete("已过时，记录车道车队相对位置的数组，新的元胞空间理论建立后停止使用该属性")]
+//		public int[] PrevCarPos;
 
 		/// <summary>
 		/// 分车道的信号
@@ -204,18 +202,13 @@ namespace SubSys_SimDriving.TrafficModel
 		
 		#region 构造函数
 		
-		[System.Obsolete("禁止使用的构造形")]
+		//[System.Obsolete("禁止使用的构造形")]
 		private Lane()
 		{
 			this.laneType = LaneType.Straight;
 		}
 
-		/// <summary>
-		/// 调用了两参数构造形
-		/// </summary>
-		/// <param name="re"></param>
-		internal Lane(Way re):this(re,LaneType.Straight){
-		}
+		
 		internal Lane(LaneType lt):this(null,lt)
 		{
 		}
@@ -226,15 +219,15 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <param name="lt"></param>
 		internal Lane(Way re,LaneType lt)
 		{
-			this.PrevCarPos = new int[512];
-			this.PrevCarPos[0] = -1;
+//			this.PrevCarPos = new int[512];
+//			this.PrevCarPos[0] = -1;
 
 			Container = re;
 			this.laneType = lt;
-			this._entityID = Lane.iLaneCount++;
-			
-			//初始化cellspace
-			//	this._Grids = new CellSpace(this);
+			this._entityID = ++Lane.iLaneCount;
+			//id property is setted by base.
+			//this.ID
+
 
 		}
 		#endregion
@@ -445,7 +438,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		///The Left lane of current lane
 		/// </summary>
-		public Lane LeftLane
+		public Lane Left
 		{
 			get {
 				
@@ -463,7 +456,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// the right lane of current lane
 		/// </summary>
-		public Lane RightLane
+		public Lane Right
 		{
 			get {
 				

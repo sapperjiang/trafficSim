@@ -72,59 +72,93 @@
             同步更新规则，一个时间步长内全部更新的规则，不应当使用无参数的构造函数创建该类
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.XNodeDriveStrategy.iDesiredSpeed">
+        <member name="T:SubSys_SimDriving.TrafficModel.XNodeDriver">
+            <summary>
+            	//should be abstract
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.XNodeDriver.iDesiredSpeed">
             <summary>
             城市路网中，三个元胞.交叉口的期望速度
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNodeDriveStrategy.LaneChanging(SubSys_SimDriving.TrafficModel.DriveContext)">
+        <member name="M:SubSys_SimDriving.TrafficModel.XNodeDriver.LaneChanging(SubSys_SimDriving.TrafficModel.DriveCtx)">
             <summary>
-            用来临时存储状态，三种状态的修改等于是修改其克隆副本
-            最终是要修改和反映到cell中的
+            To make a mobile on a crossing chang its drive track
             </summary>
+            <param name="dctx"></param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNodeDriveStrategy.NormalRun(SubSys_SimDriving.TrafficModel.DriveContext)">
+        <member name="M:SubSys_SimDriving.TrafficModel.XNodeDriver.NormalRun(SubSys_SimDriving.TrafficModel.DriveCtx)">
             <summary>
             Prudent .neither aggressive nor slow
             </summary>
             <param name="crc"></param>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.WayDriveStrategy.iDesiredSpeed">
+        <member name="T:SubSys_SimDriving.TrafficModel.WayDriver">
+            <summary>
+            	//should be abstract
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.WayDriver.iDesiredSpeed">
             <summary>
             城市路段的期望速度
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.WayDriveStrategy.LaneChanging(SubSys_SimDriving.TrafficModel.DriveContext)">
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.LaneChanging(SubSys_SimDriving.TrafficModel.DriveCtx)">
             <summary>
             换道的几种原因，1.由于路口转向必须换道，
             2.由于寻求合适的理想行驶状态
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.WayDriveStrategy.NormalRun(SubSys_SimDriving.TrafficModel.DriveContext)">
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.NormalRun(SubSys_SimDriving.TrafficModel.DriveCtx)">
             <summary>
             匀速行驶
             </summary>
             <param name="crx"></param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.WayDriveStrategy.Accelerate(SubSys_SimDriving.TrafficModel.DriveContext)">
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.Accelerate(SubSys_SimDriving.TrafficModel.DriveCtx)">
             <summary>
             加速行驶
             </summary>
             <param name="crx"></param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.WayDriveStrategy.Decelerate(SubSys_SimDriving.TrafficModel.DriveContext)">
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.Decelerate(SubSys_SimDriving.TrafficModel.DriveCtx)">
             <summary>
             减速行驶
             </summary>
             <param name="crx"></param>
         </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.DriveStrategy">
+        <member name="T:SubSys_SimDriving.TrafficModel.MobileDriver">
             <summary>
             驾驶员的驾驶行为策略，每个mobileebtity驾驶员行为不一样
+            an abstract driver interfaces
             </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.DriveMobile(SubSys_SimDriving.StaticEntity,SubSys_SimDriving.MobileEntity)">
             <summary>
-            2016/1/27
+            template method
             </summary>
+            <param name="driveContainer"></param>
+            <param name="mobile"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.GetSidesContext(SubSys_SimDriving.TrafficModel.Lane,SubSys_SimDriving.TrafficModel.LaneType,System.Int32,System.Int32,SubSys_SimDriving.TrafficModel.DriveCtx@)">
+            <summary>
+            get left and right driving context
+            </summary>
+            <param name="lane">lane</param>
+            <param name="lanetype">lanetype of current lane</param>
+            <param name="iCurrentStart">headway of current mobile index</param>
+            <param name="iCurrentEnd">rear of current mobile index</param>
+            <param name="dc">out parameters</param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.GetXNodeGap(SubSys_SimDriving.TrafficModel.XNode,SubSys_MathUtility.OxyzPoint,System.Int32@,SubSys_SimDriving.MobileEntity)">
+            <summary>
+            计算mobile在交叉口内部可以走多少步
+            </summary>
+            <param name="rN"></param>
+            <param name="pCurrent">current position</param>
+            <param name="Gap">return value</param>
+            <returns></returns>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Edge">
             <summary>
@@ -456,36 +490,16 @@
             用作记录态哈希表记录车辆的时间信息，以及用来确定什么时候进入路段
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.MobileEntity.track">
+        <member name="F:SubSys_SimDriving.MobileEntity._track">
             <summary>
             包围在交叉口内部的节点,内部点使用绝对坐标系
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.MobileEntity.GetXNodeTrackGap(SubSys_SimDriving.TrafficModel.XNode,SubSys_MathUtility.OxyzPoint,System.Int32@)">
+        <member name="M:SubSys_SimDriving.MobileEntity.Move(System.Int32)">
             <summary>
-            计算mobile在交叉口内部可以走多少步
+            move a car ahead for isteps
             </summary>
-            <param name="rN"></param>
-            <param name="pCurrent">current position</param>
-            <param name="Gap">return value</param>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.MobileEntity.Observe">
-            <summary>
-            All mobiles can observe and return its runnning context
-            observe function must be called with the first mobile in front
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.MobileEntity.GetSidesDrivingContext(SubSys_SimDriving.TrafficModel.Lane,SubSys_SimDriving.TrafficModel.LaneType,System.Int32,System.Int32,SubSys_SimDriving.TrafficModel.DriveContext@)">
-            <summary>
-            get left and right driving context
-            </summary>
-            <param name="lane">lane</param>
-            <param name="lanetype">lanetype of current lane</param>
-            <param name="iCurrentStart">headway of current mobile index</param>
-            <param name="iCurrentEnd">rear of current mobile index</param>
-            <param name="dc">out parameters</param>
+            <param name="iStep"></param>
         </member>
         <member name="M:SubSys_SimDriving.MobileEntity.GetHashCode">
             <summary>
@@ -493,12 +507,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:SubSys_SimDriving.MobileEntity.FrontMobile">
+        <member name="P:SubSys_SimDriving.MobileEntity.Front">
             <summary>
-            获取车道上先进入的前一辆车，前一辆车不存在返null,the frontmobile is that entered a lane early than the current one
+            获取车道上先进入的前一辆车，前一辆车不存在返null,
+            the frontmobile is that entered a lane early than the current one
+            if called on a xnode. return null
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.MobileEntity.RearMobile">
+        <member name="P:SubSys_SimDriving.MobileEntity.Rear">
              <summary>
             在车道上获取车辆的后一辆车
              </summary>
@@ -542,7 +558,12 @@
             最大六个车道，坐标远点是RoadNode的positon
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.IsBlocked(System.Int32,System.Int32)">
+        <member name="F:SubSys_SimDriving.TrafficModel.HashMatrix.hashMat">
+            <summary>
+            to get if a point within a xnode is occupied by a mobile's shape point
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.IsOccupied(SubSys_MathUtility.OxyzPoint)">
             <summary>
             判断元胞是否被占用了
             </summary>
@@ -591,6 +612,16 @@
         <member name="M:SubSys_SimDriving.Track.Update">
             <summary>
             在转弯的时候调用，根据车辆路径，寻找车辆要进入的下一条车道（左右转、直行）。从起始位置出发，前进iAheadSpace个间距时距
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.Track.Current">
+            <summary>
+            return a copy of mobile shape start
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.Track.Next">
+            <summary>
+            return a copyfo mobile's next track point
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.IRoad">
@@ -793,12 +824,6 @@
             </summary>
             <param name="iCrtTimeStep">红灯时长</param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Lane.#ctor(SubSys_SimDriving.TrafficModel.Way)">
-            <summary>
-            调用了两参数构造形
-            </summary>
-            <param name="re"></param>
-        </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.#ctor(SubSys_SimDriving.TrafficModel.Way,SubSys_SimDriving.TrafficModel.LaneType)">
             <summary>
             没有进行内部注册，应当由其管理者调用registere进行注册
@@ -847,12 +872,12 @@
             判断从道路起点处到有车占据的地方的元胞网格个数
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Lane.LeftLane">
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Left">
              <summary>
             The Left lane of current lane
              </summary>
         </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Lane.RightLane">
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Right">
             <summary>
             the right lane of current lane
             </summary>
@@ -896,15 +921,12 @@
             表示道路交叉口的类
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.MakeCenterXY(SubSys_SimDriving.TrafficModel.Lane,System.Int32)">
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsBlocked(SubSys_MathUtility.OxyzPoint)">
             <summary>
-            路段转化为中心坐标点,iahead  不应当小于零
+            if a oxyzpoint within a xnode is occupied by a traffic light return true ,else false;
             </summary>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsBlocked(System.Drawing.Point)">
-            <summary>
-            判断指定车道前部第Ahead个位置处是否有元胞占据
-            </summary>
+            <param name="pPoint"></param>
+            <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.BlockLane(SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
@@ -1083,13 +1105,18 @@
             mobile's next acceleration
             </summary>
         </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.DriveContext">
+        <member name="T:SubSys_SimDriving.TrafficModel.DriveCtx">
             <summary>
             Envirnment of a mobile ,如前后车头时距，左右车头时距，
             车道编号、左右车道，运行的地点（路段或者交叉口）
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.DriveContext.iSafeHeadWay">
+        <member name="F:SubSys_SimDriving.TrafficModel.DriveCtx.Params">
+            <summary>
+            to carry mobile driving behavior message
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.DriveCtx.iSafeHeadWay">
             <summary>
             安全车头时距
             </summary>

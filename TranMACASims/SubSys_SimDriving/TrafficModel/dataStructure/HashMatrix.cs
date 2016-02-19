@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Drawing;
+using SubSys_MathUtility;
 using System.Collections.Generic;
 using SubSys_SimDriving;
 
@@ -19,57 +20,113 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 	}
 	
-	public class HashMatrix
+	public class HashMatrix:LinkedList<MobileEntity>
 	{
 		/// <summary>
 		/// 最大六个车道，坐标远点是RoadNode的positon
 		/// </summary>
 		internal readonly int iMaxWidth = SimSettings.iMaxLanes;
-
-		private List<MobileEntity> lsMat = new List<MobileEntity>();
+		
+		/// <summary>
+		/// to get if a point within a xnode is occupied by a mobile's shape point
+		/// </summary>
 		private Dictionary<int, MobileEntity> hashMat = new Dictionary<int, MobileEntity>();
+		
+		//private Dictionary<int, MobileEntity> hashMat = new Dictionary<int, MobileEntity>();
 		/// <summary>
 		/// 判断元胞是否被占用了
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		internal bool IsBlocked(int x, int y)
+		internal bool IsOccupied(OxyzPoint opP)
 		{
-			return hashMat.ContainsKey(HashKeyProvider.GetHashCode(x, y));
-		}
-		
-		internal bool ContainsKey(int iKey)
-		{
-			return this.hashMat.ContainsKey(iKey);
-		}
-		internal void Add(MobileEntity mobile)
-		{
-			int iHKey = mobile.GetHashCode();//.GetHashCode();
-			if (!hashMat.ContainsKey(iHKey))
-			{
-				lsMat.Add(mobile);
-				hashMat.Add(iHKey,mobile);
-				
+			
+//			var mobileNode = base.First;
+//			//update mobile on a lane one by one
+//			while(mobileNode!=null) {
+//				var mobile = mobileNode.Value;
+//				//mobile is possibaly be deleted
+//
+//				if (mobile.IsMoved==true) {
+//					//switch off
+//					mobile.IsMoved = false;
+//
+//					foreach (var prevShap in mobile.PrevShape) {
+//						int iKey = prevShap.GetHashCode();
+//						if (this.hashMat.ContainsKey(iKey)==true) {
+//							this.hashMat.Remove(iKey);
+//						}
+//
+//					}
+//
+//					foreach (var Shap in mobile.Shape) {
+//						int iKey = Shap.GetHashCode();
+//						if (this.hashMat.ContainsKey(iKey)==false) {
+//							this.hashMat.Add(iKey,mobile);
+//						}
+//					}
+//
+//				}
+//				mobileNode = mobileNode.Next;
+//			}
+//
+//			return this.hashMat.ContainsKey(opP.GetHashCode());
+
+			//-----------------------------------------------------------
+			var mobileNode = base.First;
+			//update mobile on a lane one by one
+				while(mobileNode!=null) {
+				var mobile = mobileNode.Value;
+				//	mobile is possibaly be deleted
+				foreach (var Shap in mobile.Shape) {
+					if (Shap.Equals(opP)) {
+						return true;
+					}
+				}
+				mobileNode = mobileNode.Next;
 			}
 			
-			//System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
+			return false;
+			//-----------------------------------------------------------
+		}
+		
+		internal void Add(MobileEntity mobile)
+		{
+			base.AddFirst(mobile);
 			
+//			int iKey ;
+//			foreach (var shap in mobile.Shape) {
+//				iKey = shap.GetHashCode();//struct
+//				if (hashMat.ContainsKey(iKey)==false)
+//				{
+//					//as long as a point is occupied by a mobile ,tag this mobile
+//					hashMat.Add(iKey,mobile);
+//				}
+//			}
 		}
 
 		internal bool Remove(MobileEntity mobile)
 		{
-			this.lsMat.Remove(mobile);
-			int iKey = mobile.GetHashCode();
-			return hashMat.Remove(mobile.GetHashCode());
+			bool b= base.Remove(mobile);
+			
+//			int iKey ;
+//			//when removed ,a mobiles' prevShape is within a hashMat
+//			foreach (var shap in mobile.PrevShape) {
+//				iKey = shap.GetHashCode();
+//				//as long as a point is occupied by a mobile ,tag this mobile
+//				if (hashMat.ContainsKey(iKey)==true) {
+//					hashMat.Remove(iKey);
+//				}
+//			}
+			return b;
 		}
 		
 		internal int Count
 		{
 			get
 			{
-				return hashMat.Count;
-				System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
+				return base.Count;
 			}
 		}
 
@@ -84,25 +141,18 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <returns></returns>
 		public IEnumerator<MobileEntity> GetEnumerator()
 		{
-			return this.hashMat.Values.GetEnumerator();
+			return base.GetEnumerator();
 		}
 		#endregion
 
-		internal MobileEntity this[int index]
-		{
-			get
-			{
-				return lsMat[index];
-			}
-		}
 
-		internal ICollection<int> Keys
-		{
-			get
-			{
-				return hashMat.Keys;
-			}
-		}
+//		internal ICollection<int> Keys
+//		{
+//			get
+//			{
+//				return hashMat.Keys;
+//			}
+//		}
 	}
 	
 //	public class HashMatrix<T>
@@ -124,7 +174,7 @@ namespace SubSys_SimDriving.TrafficModel
 //		{
 //			return hashMat.ContainsKey(HashKeyProvider.GetHashCode(x, y));
 //		}
-//		
+//
 //		internal bool ContainsKey(int iKey)
 //		{
 //			return this.hashMat.ContainsKey(iKey);
@@ -136,11 +186,11 @@ namespace SubSys_SimDriving.TrafficModel
 //			{
 //				lsMat.Add(mobile);
 //				hashMat.Add(iHKey,mobile);
-//				
+//
 //			}
-//			
+//
 //			//System.Diagnostics.Debug.Assert(this.hashMat.Count == this.lsMat.Count);
-//			
+//
 //		}
 //
 //		internal bool Remove(T mobile)
@@ -149,7 +199,7 @@ namespace SubSys_SimDriving.TrafficModel
 //			int iKey = mobile.GetHashCode();
 //			return hashMat.Remove(mobile.GetHashCode());
 //		}
-//		
+//
 //		internal int Count
 //		{
 //			get

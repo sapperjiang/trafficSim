@@ -174,11 +174,9 @@ namespace SubSys_Graphics
 				liUpper.Add(stDown.Pop());
 			}
 
-			g.FillClosedCurve(roadBrush, liUpper.ToArray());
-			//g.FillClosedCurve
+			//g.FillClosedCurve(roadBrush, liUpper.ToArray());
 
-
-			PaintMobile(lane);//画车
+				PaintMobile(lane);//画车
 			
 			g.Dispose();
 		}
@@ -197,9 +195,9 @@ namespace SubSys_Graphics
 			foreach (var mobile in lane.Mobiles) {
 				//draw mobile
 				for (int i = 0; i < mobile.Shape.Count; i++) {
-								
+					
 					var mobilePrev = mobile.PrevShape[i];
-				
+					
 					var mobileShape = mobile.Shape[i];
 
 					int iWidth =GraphicsCfger.iPixels;
@@ -221,7 +219,7 @@ namespace SubSys_Graphics
 					_graphic.FillEllipse(new SolidBrush(GraphicsCfger.roadColor), pMobilePrev.X, pMobilePrev.Y ,iWidth, iWidth);
 					
 //					graphic.FillEllipse(new SolidBrush(Color.Red), pDraw.X -iWidth / 2, pDraw.Y - iWidth / 2,iWidth, iWidth);
-				//	_graphic.FillEllipse(new SolidBrush(mobile.Color), pMobile.X, pMobile.Y ,iWidth, iWidth);
+					//	_graphic.FillEllipse(new SolidBrush(mobile.Color), pMobile.X, pMobile.Y ,iWidth, iWidth);
 					_graphic.FillEllipse(new SolidBrush(Color.Red), pMobile.X, pMobile.Y ,iWidth, iWidth);
 
 					//debug

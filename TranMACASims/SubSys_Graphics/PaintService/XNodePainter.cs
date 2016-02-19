@@ -57,7 +57,7 @@ namespace SubSys_Graphics
 			pI = Coordinates.Project(pI , iPixels);
 
 			PointF[] pits = { pD, pC, pA, pB,pG,pI,pF,pE };
-			_graphic.FillPolygon(new SolidBrush(GraphicsCfger.roadColor), pits);
+//			_graphic.FillPolygon(new SolidBrush(GraphicsCfger.roadColor), pits);
 			
 		}
 
@@ -69,9 +69,7 @@ namespace SubSys_Graphics
 		{
 			var node = mobileContainer as XNode;
 			int iLength = node.Length;
-			OxyzPoint mobilePoint;
 			//use GetEnumerator() method
-			Point pDraw;
 			int iWidth =GraphicsCfger.iPixels;
 			foreach (var mobile in node.Mobiles)
 			{			
@@ -80,6 +78,8 @@ namespace SubSys_Graphics
 					var mobilePrev = mobile.PrevShape[i];
 					
 					var mobileShape = mobile.Shape[i];
+					
+
 
 					PointF pMobile = Coordinates.Project(mobileShape, iWidth);
 					
@@ -95,8 +95,11 @@ namespace SubSys_Graphics
 					
 					pMobilePrev= Coordinates.Offset(pMobilePrev, mpMulti.ToPoint());
 					
-					//cover old track
+									if (!mobilePrev.Equals(mobileShape)) {
 					_graphic.FillEllipse(new SolidBrush(GraphicsCfger.roadColor), pMobilePrev.X, pMobilePrev.Y ,iWidth, iWidth);
+			
+					}
+					//cover old track
 					
 //					graphic.FillEllipse(new SolidBrush(Color.Red), pDraw.X -iWidth / 2, pDraw.Y - iWidth / 2,iWidth, iWidth);
 					//_graphic.FillEllipse(new SolidBrush(mobile.Color), pMobile.X, pMobile.Y ,iWidth, iWidth);
@@ -106,8 +109,12 @@ namespace SubSys_Graphics
 					string strMsg = mobile.ID.ToString();//.Shape.Start.ToString()+mobile.Shape.End.ToString();
 					
 					PointF pF=  Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
-					_graphic.DrawString(strMsg,new Font("Arial", 8),new SolidBrush(mobile.Color),pMobile.X,pMobile.Y-20f);
+					_graphic.DrawString(strMsg,new Font("Arial",6),new SolidBrush(Color.Red),pMobile.X,pMobile.Y-30f);
 					
+//					 strMsg = pMobilePrev.X.ToString();//.Shape.Start.ToString()+mobile.Shape.End.ToString();
+//					
+//					_graphic.DrawString(strMsg,new Font("Arial",4),new SolidBrush(Color.Red),pMobile.X,pMobile.Y-10f);
+//					
 				}
 				
 			}

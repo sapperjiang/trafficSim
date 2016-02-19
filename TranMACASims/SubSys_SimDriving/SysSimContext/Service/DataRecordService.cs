@@ -46,7 +46,7 @@ namespace SubSys_SimDriving.Service
             }
         }
 
-        [System.Obsolete("Datarecorder 的ulog方法没有实现 ")]
+       // [System.Obsolete("Datarecorder 的ulog方法没有实现 ")]
         protected override void SubRevoke(ITrafficEntity tVar)
         {
             throw new System.NotImplementedException();

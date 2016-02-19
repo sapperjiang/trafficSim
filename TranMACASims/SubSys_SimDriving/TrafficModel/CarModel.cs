@@ -8,7 +8,6 @@ namespace SubSys_SimDriving.TrafficModel
 	/// <summary>
 	/// 过时的，为了保持兼容，建议使用新的类型。
 	/// </summary>
-	[System.Obsolete("为了向下兼容使用，建议使用新的类型")]
 	public class SmallCar: MobileEntity
 	{
 		private static int smallCarID = 0;
@@ -25,7 +24,7 @@ namespace SubSys_SimDriving.TrafficModel
 		//        public EdgeRoute EdgeRoute;
 		//        public NodeRoute NodeRoute;
 
-		internal DriveStrategy DriveStg = new DefaultDriveAgent();
+		internal MobileDriver DriveStg;// = new DefaultDriveAgent();
 
 		[System.Obsolete("use bornContainer Instead")]
 		//        public SmallCar()

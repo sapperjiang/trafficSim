@@ -36,7 +36,7 @@ namespace SubSys_SimDriving.TrafficModel
 	/// Envirnment of a mobile ,如前后车头时距，左右车头时距，
 	/// 车道编号、左右车道，运行的地点（路段或者交叉口）
 	/// </summary>
-	internal partial class DriveContext
+	internal partial class DriveCtx
 	{
 		//运行的交通实体
 		TrafficEntity Container;
@@ -55,7 +55,10 @@ namespace SubSys_SimDriving.TrafficModel
 		public int iRightRearHeadWay;
 
 
-		public MobileParam DriveParam;
+		/// <summary>
+		/// to carry mobile driving behavior message
+		/// </summary>
+		public MobileParam Params;
 		//
 		//速度参数
 		public int iSpeedLimit=0;//路段限速
@@ -103,12 +106,13 @@ namespace SubSys_SimDriving.TrafficModel
 	}
 	
 	//2016/1/21
-	internal partial class DriveContext
+	internal partial class DriveCtx
 	{
+		public bool IsReachEnd =false;
 		
-		public DriveContext(StaticEntity te)
+		public DriveCtx(StaticEntity te)
 		{
-			DriveParam = new MobileParam();
+			Params = new MobileParam();
 			this.Container = te;
 		}
 		

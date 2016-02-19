@@ -47,7 +47,7 @@ namespace SubSys_SimDriving.TrafficModel
                 int iCount = 0;
                 foreach (XNode item in dicRoadNode.Values)
                 {
-                    iCount += item.RoadEdges.Count;
+                    iCount += item.Ways.Count;
                 }
                 return iCount;
             }
@@ -78,12 +78,12 @@ namespace SubSys_SimDriving.TrafficModel
         /// </summary>
         /// <param name="fromRoadNodeHash">要将将边添加到RoadNode哈希表中的RoadNode</param>
         /// <param name="Edge">要添加的边</param>
-        internal void AddDirectedEdge(T fromRoadNodeHash,Way Edge)
+        internal void AddDirectedEdge(T fromXNodeHash,Way way)
         {
-            XNode rn= this.Find(fromRoadNodeHash);
+            XNode rn= this.Find(fromXNodeHash);
             if(rn!=null)
             {
-                rn.AddWay(Edge);
+                rn.AddWay(way);
             }
         }
         internal void RemoveDirectedEdge(T roadNodeHash, Way edge)

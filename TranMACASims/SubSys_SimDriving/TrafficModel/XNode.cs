@@ -19,13 +19,13 @@ namespace SubSys_SimDriving.TrafficModel
 	/// </summary>
 	public class XNode : StaticEntity
 	{
-		/// <summary>
-		/// 路段转化为中心坐标点,iahead  不应当小于零
-		/// </summary>
-		private Point MakeCenterXY(Lane rl, int iAhead)
-		{
-			return new Point(rl.Rank, iAhead - SimSettings.iMaxLanes);
-		}
+//		/// <summary>
+//		/// 路段转化为中心坐标点,iahead  不应当小于零
+//		/// </summary>
+//		private Point MakeCenterXY(Lane rl, int iAhead)
+//		{
+//			return new Point(rl.Rank, iAhead - SimSettings.iMaxLanes);
+//		}
 
 
 		#region 车道操作函数
@@ -40,25 +40,25 @@ namespace SubSys_SimDriving.TrafficModel
 //			Point iRealXY = Coordinates.GetRealXY(irltXY,rl.ToVector());
 //			return _mobiles.IsBlocked(iRealXY.X, iRealXY.Y);
 //		}
-		/// <summary>
-		/// 判断指定车道前部第Ahead个位置处是否有元胞占据
-		/// </summary>
-		internal bool IsBlocked(Point iRealXY)
-		{
-			return _mobiles.IsBlocked(iRealXY.X, iRealXY.Y);
-		}
-		
+//		/// <summary>
+//		/// 判断指定车道前部第Ahead个位置处是否有元胞占据
+//		/// </summary>
+//		internal bool IsBlocked(Point iRealXY)
+//		{
+//			return _mobiles.IsBlocked(iRealXY.X, iRealXY.Y);
+//		}
+//
 		//20160215
+		/// <summary>
+		/// if a oxyzpoint within a xnode is occupied by a traffic light return true ,else false;
+		/// </summary>
+		/// <param name="pPoint"></param>
+		/// <returns></returns>
 		internal bool IsBlocked(OxyzPoint pPoint)
 		{
-			
-			ThrowHelper.ThrowArgumentException("not yet implemented");
-			return false;
-			//return cells.IsBlocked(pPoint._X, pPoint._Y);
+			throw new Exception();//
+			//	return this.Mobiles.IsOccupied(pPoint);
 		}
-
-		
-		
 		/// <summary>
 		/// 将车道堵塞
 		/// </summary>
@@ -102,7 +102,7 @@ namespace SubSys_SimDriving.TrafficModel
 //					break;
 //			}
 //			return isBlocked;
-	//	}
+		//	}
 //
 //		internal bool IsLaneBlocked(Lane rl)
 //		{
@@ -194,7 +194,7 @@ namespace SubSys_SimDriving.TrafficModel
 			return this._mobiles.GetEnumerator();
 		}
 
-		public ICollection RoadEdges
+		public ICollection Ways
 		{
 			get
 			{
@@ -307,18 +307,19 @@ namespace SubSys_SimDriving.TrafficModel
 		public override void UpdateStatus()
 		{
 			//更新异步agent，如果有的话
-//			for (int i = 0; i < this.asynAgents.Count; i++)
-//			{
-//				AbstractAgent visitor = this.asynAgents[i];
-//				visitor.VisitUpdate(this);//.VisitUpdate();
-//			}
-			
-			int iCount = this.Mobiles.Count;
-			if (iCount>0) {
-				for (int i = 0; i < iCount; i++) {
-					var mobile = this.Mobiles[i];
-					mobile.Run(this);
-				}
+			for (int i = 0; i < this.asynAgents.Count; i++)
+			{
+				AbstractAgent visitor = this.asynAgents[i];
+				visitor.VisitUpdate(this);//.VisitUpdate();
+			}
+		
+			var mobileNode = this.Mobiles.First;
+			//update mobile on a lane one by one
+			while(mobileNode!=null) {
+				var mobile = mobileNode.Value;
+				//mobile is possibaly be deleted
+				mobile.Run(this as StaticEntity);
+				mobileNode = mobileNode.Next;
 			}
 			
 			
@@ -359,7 +360,7 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			//if this point is not added to dictionary ,add it then
 			//return this._occupiedPoints.;
-			return this.Mobiles.ContainsKey(opPoint.GetHashCode());
+			return this.Mobiles.IsOccupied(opPoint);
 		}
 
 		internal XNode(OxyzPoint pointCenter)
