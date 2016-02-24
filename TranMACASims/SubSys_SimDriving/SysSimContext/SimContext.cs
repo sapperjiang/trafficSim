@@ -12,7 +12,7 @@ namespace SubSys_SimDriving
 	{
 		event TimeStepChangHandler OnTimeStepChanged;
 		
-		int iCurrTimeStep
+		int iTimePulse
 		{
 			get;
 			set;
@@ -142,7 +142,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// µ¥ÀýÄ£Ê½
 		/// </summary>
-		int ISimContext.iCurrTimeStep
+		int ISimContext.iTimePulse
 		{
 			get
 			{

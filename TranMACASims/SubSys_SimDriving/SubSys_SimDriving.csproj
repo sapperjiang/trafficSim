@@ -80,8 +80,8 @@
     <Compile Include="Agent\SpeedUpDownAgent.cs" />
     <Compile Include="Agent\SynchronicAgents.cs" />
     <Compile Include="Agent\VMSAgent.cs" />
-    <Compile Include="DrivingStrategy\DrivingStrategy.cs" />
-    <Compile Include="DrivingStrategy\RushDrivingStrategy.cs" />
+    <Compile Include="DrivingStrategy\AbstractDriver.cs" />
+    <Compile Include="DrivingStrategy\BridgedDriver.cs" />
     <Compile Include="ModelFactory\SimpleFactory.cs" />
     <Compile Include="RoutePlan\AntiOneDecisionRoutePlanner.cs" />
     <Compile Include="RoutePlan\AStarShortestPath.cs" />

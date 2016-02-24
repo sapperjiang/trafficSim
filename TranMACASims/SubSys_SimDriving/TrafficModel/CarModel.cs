@@ -19,28 +19,9 @@ namespace SubSys_SimDriving.TrafficModel
 			cm.IsCopyed = true;
 			return cm;
 		}
-		public System.Drawing.Color Color=Color.Red;
-		
-		//        public EdgeRoute EdgeRoute;
-		//        public NodeRoute NodeRoute;
 
 		internal MobileDriver DriveStg;// = new DefaultDriveAgent();
 
-		[System.Obsolete("use bornContainer Instead")]
-		//        public SmallCar()
-		//        {
-		//        	this._EntityID = ++TrafficEntity.EntityID;
-		//        	this.TypeID = ++SmallCar.smallCarID;
-		//            this.EntityType = EntityType.SmallCar;
-		//            this.Color = Color.Green;
-		//            this.iSpeed = 0;
-		//            base.Register();
-		//            this.EdgeRoute = new EdgeRoute();
-		//            this.NodeRoute = new NodeRoute();
-		//            //this.Shape[0]=new SubSys_MathUtility.OxyzPoint(this.Container.Shape[0]);
-//
-		//        }
-		
 		/// <summary>
 		/// base constructor is called first .base constructor is used to do common things
 		/// while derived class is used to do characterful charactors
@@ -50,7 +31,7 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			this.TypeID = ++SmallCar.smallCarID;
 			this.EntityType = EntityType.SmallCar;
-			this.Color = Color.Green;
+		//	this.Color = Color.Green;
 			this.iSpeed = 0;
 			this.iAcceleration = 1;
 			//base.Register();

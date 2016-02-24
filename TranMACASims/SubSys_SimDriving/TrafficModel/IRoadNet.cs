@@ -16,7 +16,7 @@ namespace SubSys_SimDriving.TrafficModel
     public interface IRoadNet
     {
 
-        int iCurrTimeStep
+        int iTimePulse
         {
         	
             get;

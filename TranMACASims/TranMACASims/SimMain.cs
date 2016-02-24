@@ -279,7 +279,7 @@ namespace GISTranSim
 			int iBase = 2;
 			XNode rnA= iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase,20)),EntityType.XNode) as XNode;
 			XNode rnB = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 20)), EntityType.XNode) as XNode;
-			XNode rnC = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 20)), EntityType.XNode) as XNode;
+			XNode rnC = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth,iBase + 2 * iRoadWidth)), EntityType.XNode) as XNode;
 //			XNode rnD = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 70)), EntityType.XNode) as XNode;
 //			XNode rnE = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 70)), EntityType.XNode) as XNode;
 //			XNode rnF = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 70)), EntityType.XNode) as XNode;
@@ -288,7 +288,7 @@ namespace GISTranSim
 //			XNode rnI = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 120)), EntityType.XNode) as XNode;
 
 			
-			RoadNet   roadNetwork = SimController.ISimCtx.RoadNet;
+			RoadNet roadNetwork = SimController.ISimCtx.RoadNet;
 			
 			roadNetwork.AddXNode(rnA);
 			roadNetwork.AddXNode(rnB);

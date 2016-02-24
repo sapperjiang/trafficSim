@@ -16,7 +16,11 @@ namespace SubSys_Graphics
 			this.Canvas = canvas;
 			this._graphic = canvas.CreateGraphics();
 		}
-		
+		 ~XNodePainter()
+		{
+			//this.Canvas = canvas;
+			this._graphic.Dispose();
+		}
 		/// <summary>
 		///画一个矩形表示交叉口
 		/// </summary>
@@ -50,89 +54,27 @@ namespace SubSys_Graphics
 			pC = Coordinates.Project(pC, iPixels);
 			pD = Coordinates.Project(pD , iPixels);
 			
-			pE = Coordinates.Project(pE, iPixels);//);
+			pE = Coordinates.Project(pE, iPixels);
 			pF= Coordinates.Project( pF , iPixels);
 			
 			pG = Coordinates.Project(pG , iPixels);
 			pI = Coordinates.Project(pI , iPixels);
 
 			PointF[] pits = { pD, pC, pA, pB,pG,pI,pF,pE };
-//			_graphic.FillPolygon(new SolidBrush(GraphicsCfger.roadColor), pits);
+			_graphic.FillPolygon(new SolidBrush(GraphicsCfger.roadColor), pits);
 			
 		}
 
-		/// <summary>
-		/// paint a mobile within a XNode
-		/// </summary>
-		/// <param name="mobileContainer"></param>
-		private void PaintMobile(ITrafficEntity mobileContainer)
+
+		protected override void SubPerform(ITrafficEntity mobilesInn)
 		{
-			var node = mobileContainer as XNode;
-			int iLength = node.Length;
-			//use GetEnumerator() method
-			int iWidth =GraphicsCfger.iPixels;
-			foreach (var mobile in node.Mobiles)
-			{			
-				//mobilePoint = mobile.Track.Current.Clone();//clone to avoid be modified;
-				for (int i = 0; i < mobile.Shape.Count; i++) {
-					var mobilePrev = mobile.PrevShape[i];
-					
-					var mobileShape = mobile.Shape[i];
-					
 
-
-					PointF pMobile = Coordinates.Project(mobileShape, iWidth);
-					
-					PointF pMobilePrev = Coordinates.Project(mobilePrev, iWidth);
-
-					//获取单位平移向量(法向量)
-					OxyzPointF mpOffset = VectorTools.GetNormal((mobile.Track.FromLane.Container as Way).ToVector());
-					//	OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (rl.Rank - 1), mpOffset._Y * (rl.Rank - 1));
-					//get offset vector
-					OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (2 - 1), mpOffset._Y * (2 - 1));
-					
-					pMobile = Coordinates.Offset(pMobile, mpMulti.ToPoint());
-					
-					pMobilePrev= Coordinates.Offset(pMobilePrev, mpMulti.ToPoint());
-					
-									if (!mobilePrev.Equals(mobileShape)) {
-					_graphic.FillEllipse(new SolidBrush(GraphicsCfger.roadColor), pMobilePrev.X, pMobilePrev.Y ,iWidth, iWidth);
+			//this.DrawXnode(mobilesInn);
 			
-					}
-					//cover old track
-					
-//					graphic.FillEllipse(new SolidBrush(Color.Red), pDraw.X -iWidth / 2, pDraw.Y - iWidth / 2,iWidth, iWidth);
-					//_graphic.FillEllipse(new SolidBrush(mobile.Color), pMobile.X, pMobile.Y ,iWidth, iWidth);
-					_graphic.FillEllipse(new SolidBrush(Color.Red), pMobile.X, pMobile.Y ,iWidth, iWidth);
-
-					//debug
-					string strMsg = mobile.ID.ToString();//.Shape.Start.ToString()+mobile.Shape.End.ToString();
-					
-					PointF pF=  Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
-					_graphic.DrawString(strMsg,new Font("Arial",6),new SolidBrush(Color.Red),pMobile.X,pMobile.Y-30f);
-					
-//					 strMsg = pMobilePrev.X.ToString();//.Shape.Start.ToString()+mobile.Shape.End.ToString();
-//					
-//					_graphic.DrawString(strMsg,new Font("Arial",4),new SolidBrush(Color.Red),pMobile.X,pMobile.Y-10f);
-//					
-				}
-				
-			}
+			var node = mobilesInn as XNode;
 			
+			MobilePainter.Paint(node.Mobiles,_graphic);
 
-		}
-
-
-		protected override void SubPerform(ITrafficEntity tVar)
-		{
-			Graphics g = this.Canvas.CreateGraphics();
-			
-			//   Rectangle rect = this.DrawEntity(tVar);
-			this.DrawXnode(tVar);
-			
-			PaintMobile(tVar);
-
-			g.Dispose();
 		}
 
 		protected override void SubRevoke(ITrafficEntity tVar)

@@ -163,7 +163,7 @@ namespace SubSys_MathUtility
 		
 		public override string ToString()
 		{
-			return string.Format("[OxyzPoint X={0}, Y={1}, Z={2}]", _X, _Y, _Z);
+			return string.Format("[X={0},Y={1},Z={2}]", _X, _Y, _Z);
 		}
 
 	}
@@ -184,41 +184,37 @@ namespace SubSys_MathUtility
 		/// </summary>
 		public static Point GraphicsOffset = new Point(0, 0);
 		///// <summary>
-		///// 将元胞坐标系转换为屏幕坐标系;
+		///// convert cartesian coordinates to screen coordinates and enlarge it 转换为屏幕坐标系;
 		///// </summary>
 		///// <param name="rltPos"></param>
 		///// <param name="iScaleFactor"></param>
 		public static PointF Project(PointF p, int iScaleFactor)
 		{
-			return Coordinates.Project(new OxyzPointF(p.X, p.Y), iScaleFactor);
+			return Coordinates.Project(new OxyzPointF(p.X, p.Y), iScaleFactor).ToPointF();
+		}
+		
+		public static PointF Project(OxyzPoint p, int iScaleFactor)
+		{
+			return Coordinates.Project(p.ToOxyzPointF(), iScaleFactor).ToPointF();
 		}
 //
 		/// <summary>
-		/// 将元胞坐标系转化为屏幕坐标系
+		/// screen coordinates scalaor
 		/// </summary>
-		/// <param name="mp"></param>
+		/// <param name="mp">cartesian coordinates</param>
 		/// <param name="iScaleFactor">一个元胞长度对应的屏幕像素点数</param>
 		/// <returns></returns>
-		public static PointF Project(OxyzPointF mp, int iScaleFactor)
+		public static OxyzPointF Project(OxyzPointF mp, int iScaleFactor)
 		{
-			PointF scrnPoint = new PointF();
-			scrnPoint.X = (float)Math.Round(iScaleFactor * mp._X);
-			scrnPoint.Y = (float)Math.Round(iScaleFactor * mp._Y);
-			//计算平移(偏移)
-			scrnPoint.X -= Coordinates.GraphicsOffset.X;
-			scrnPoint.Y -= Coordinates.GraphicsOffset.Y;
+			OxyzPointF scrnPoint = new OxyzPointF();
+			scrnPoint._X = (float)Math.Round(iScaleFactor * mp._X);
+			scrnPoint._Y = (float)Math.Round(iScaleFactor * mp._Y);
+//
+//			//计算平移(偏移)
+//			scrnPoint.X -= Coordinates.GraphicsOffset.X;
+//			scrnPoint.Y -= Coordinates.GraphicsOffset.Y;
 			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
 		}
-		
-
-		public static Point Project(OxyzPoint mp, int iScaleFactor)
-		{
-			var temp = Coordinates.Project(mp.ToOxyzPointF(),iScaleFactor);
-			int ix = Convert.ToInt32(temp.X);
-			int iy = Convert.ToInt32(temp.Y);
-			return new Point(ix,iy);
-		}
-		
 		
 		
 		/// <summary>
@@ -230,31 +226,66 @@ namespace SubSys_MathUtility
 		public static PointF Offset(PointF scrnPoint, PointF offset)
 		{
 			//计算平移(偏移)
-			scrnPoint.X -= offset.X;
-			scrnPoint.Y -= offset.Y;
-			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
+//			scrnPoint.X += offset.X;
+//			scrnPoint.Y += offset.Y;
+//			return scrnPoint;//这个是个结构参数复制，然后返回新的结果
+			
+			return Coordinates.Offset(new OxyzPointF(scrnPoint.X,scrnPoint.Y,0f),new OxyzPointF(offset.X,offset.Y,0f)).ToPointF();
+			
 		}
 
+		/// <summary>
+		/// vector use math coordinates .while offset servers screen coordinates,Y is reversed .so .Y needs to be reverse
+		/// </summary>
+		/// <param name="scrnPoint"></param>
+		/// <param name="offset"></param>
+		/// <returns></returns>
 		public static OxyzPointF Offset(OxyzPointF scrnPoint, OxyzPointF offset)
 		{
 			OxyzPointF mp = new OxyzPointF(scrnPoint._X, scrnPoint._Y);
 			//计算平移(偏移)
-			mp._X -= offset._X;
+			mp._X += offset._X;
 			mp._Y -= offset._Y;
 			return mp;
 		}
 		
-
 		public static OxyzPointF Offset(OxyzPoint scrnPoint, OxyzPointF offset)
 		{
-			OxyzPointF mp = new OxyzPointF(scrnPoint._X - offset._X, scrnPoint._Y - offset._Y);
-			//计算平移(偏移)
-			//scrnPoint.X -= offset.X;
-			//scrnPoint.Y -= offset.Y;
-			return mp;//这个是个结构参数复制，然后返回新的结果
-			
+			return Coordinates.Offset(scrnPoint.ToOxyzPointF(),offset);
 		}
 		
+		/// <summary>
+		/// to enlarge a point for drawing.use screen coordinates
+		/// </summary>
+		/// <param name="mp"></param>
+		/// <param name="iWidth"></param>
+		/// <returns>new points</returns>
+		public static OxyzPointF Offset(OxyzPointF mOld, int iWidth)
+		{
+			double dWidth = -1*iWidth;
+			mOld._X += dWidth;
+			mOld._Y += dWidth;
+			mOld._Z += dWidth;
+			
+			return  mOld;
+		}
+		
+		
+			/// <summary>
+		/// to enlarge a point for drawing.use screen coordinates
+		/// </summary>
+		/// <param name="mp"></param>
+		/// <param name="iWidth"></param>
+		/// <returns>new points</returns>
+		public static OxyzPointF Offset(OxyzPointF mOld, int iWidth,OxyzPointF vector)
+		{
+			double dWidth = iWidth;
+			mOld._X += dWidth*vector._X;
+			mOld._Y += dWidth*vector._Y;
+			mOld._Z += dWidth*vector._Z;
+			
+			return  mOld;
+		}
 		
 
 		/// <summary>

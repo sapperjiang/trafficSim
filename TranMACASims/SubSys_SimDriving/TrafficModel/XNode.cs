@@ -281,9 +281,9 @@ namespace SubSys_SimDriving.TrafficModel
 			this._entityID = ++iRoadNodeID;
 			Random rd = new Random();
 
-			this.GISPosition = new OxyzPointF(rd.Next(65535), rd.Next(65535));
+			this.GISGrid = new OxyzPointF(rd.Next(65535), rd.Next(65535));
 			// 直接使用上下文的数据结构,bug不应当使用上下文结构
-			if (this.GISPosition._X == 0.0f && this.GISPosition._Y == 0.0f)
+			if (this.GISGrid._X == 0.0f && this.GISGrid._Y == 0.0f)
 			{
 				ThrowHelper.ThrowArgumentNullException("RoadNode产生了零坐标！");
 			}
@@ -293,12 +293,12 @@ namespace SubSys_SimDriving.TrafficModel
 			this._entityID = ++iRoadNodeID;
 			Random rd = new Random();
 			this.Grid = rltPostion;
-			this.GISPosition = new OxyzPointF(rd.Next(65535), rd.Next(65535));
+			this.GISGrid = new OxyzPointF(rd.Next(65535), rd.Next(65535));
 		}
 		
 		public override int GetHashCode()
 		{
-			int iHash = this.GISPosition.GetHashCode() +this.ID.GetHashCode();
+			int iHash = this.GISGrid.GetHashCode() +this.ID.GetHashCode();
 			return iHash.GetHashCode();
 		}
 		/// <summary>
@@ -321,8 +321,7 @@ namespace SubSys_SimDriving.TrafficModel
 				mobile.Run(this as StaticEntity);
 				mobileNode = mobileNode.Next;
 			}
-			
-			
+			this.ServeMobiles();
 			base.UpdateStatus();//基类调用了OnStatusChanged 进行绘图服务
 		}
 
@@ -330,7 +329,7 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			//call its base's method to run services registered on this entity
 			
-			this.ServeMobiles();
+			//this.ServeMobiles();
 			
 			this.InvokeServices(this);
 		}

@@ -17,6 +17,7 @@ namespace SubSys_MathUtility
 
     /// <summary>
     /// 计算向量和向量夹角，以及计算向量位置关系的静态数据类,可能需要重载以支持重构
+    /// this tools use cartesian coordinates .so .used with cooridnates needs to convert.
     /// </summary>
     public static class VectorTools
     {
@@ -53,7 +54,7 @@ namespace SubSys_MathUtility
         }
 
         /// <summary>
-        /// 这个是笛卡尔坐标系下的结果
+        /// 这个是Cartesian笛卡尔坐标系下的结果
         ///利用两点式，建立基础方程，并且利用这个方程计算输入点与基方程的联系,调用三参数的重载，第一个参数默认为零,返回-1表示位于基向量下方或者是右方，返回1表示位于基向量上方或者是左方
         /// </summary>
         /// <param name="vBase">基向量的终点坐标，起点坐标为0</param>
@@ -175,6 +176,8 @@ namespace SubSys_MathUtility
             return new OxyzPointF(p2._X,-p2._Y);
         }
         
+        
+      
         public static OxyzPointF GetMultiNormal(OxyzPointF uniVector,int iMuti)
         {
 			return  new OxyzPointF(uniVector._X * iMuti, uniVector._Y * iMuti,uniVector._Z*iMuti);

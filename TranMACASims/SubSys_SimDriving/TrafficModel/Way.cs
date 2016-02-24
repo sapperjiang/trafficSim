@@ -336,6 +336,7 @@ namespace SubSys_SimDriving.TrafficModel
 					int iOffset = SimSettings.iMaxLanes;
 					eShape.Add((new OxyzPointF(this.XNodeFrom.Grid.X + iOffset * xSplit, this.XNodeFrom.Grid.Y + iOffset * ySplit)).ToOxyzPoint());
 					//º∆À„÷’µ„
+				//	eShape.Add((new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit)).ToOxyzPoint());
 					eShape.Add((new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit)).ToOxyzPoint());
 				}
 				return eShape;

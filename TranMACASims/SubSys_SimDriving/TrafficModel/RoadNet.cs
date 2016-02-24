@@ -173,7 +173,7 @@ namespace SubSys_SimDriving.TrafficModel
 
 
 		private int _iCurrTimeStep;
-		public int iCurrTimeStep
+		public int iTimePulse
 		{
 			get
 			{

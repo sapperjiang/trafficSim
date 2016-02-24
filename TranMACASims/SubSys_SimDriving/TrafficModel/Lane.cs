@@ -193,6 +193,10 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 
+		/// <summary>
+		/// math coordinates
+		/// </summary>
+		/// <returns></returns>
 		public override OxyzPointF ToVector()
 		{
 			OxyzPoint pA = this.Shape.Start;

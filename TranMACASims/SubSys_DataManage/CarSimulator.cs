@@ -12,8 +12,6 @@ namespace SubSys_SimDriving.TrafficModel
 	public class MobileSimulator
 	{
 
-		//   static ISimContext isc = SimContext.GetInstance();
-
 		internal static Color GetRandomColor()
 		{
 			Random RandomNum_First = new Random((int)DateTime.Now.Ticks);
@@ -28,19 +26,12 @@ namespace SubSys_SimDriving.TrafficModel
 			return Color.FromArgb(int_Red, int_Green, int_Blue);
 		}
 
-
-//		public static Cell MakeCell(EdgeRoute er)
-//		{
-//			return null;// new Cell(new SmallCar(MobileSimulator.MakeMobile(er,null)));
-//		//	return new Cell(MobileSimulator.Make(er));
-//		}
-//		
 		//--------------------------20160131--------------------------------------	
 		public static MobileEntity MakeMobile(EdgeRoute route,StaticEntity container)
 		{
 			SmallCar mobile = new SmallCar(container);
-			//mobile.Color = MobileSimulator.GetRandomColor();
-			mobile.Color = Color.Red;
+			mobile.Color = MobileSimulator.GetRandomColor();
+			//mobile.Color = Color.Red;
 			
 			mobile.Route = route;
 						

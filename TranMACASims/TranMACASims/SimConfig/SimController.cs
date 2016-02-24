@@ -22,7 +22,7 @@ namespace SubSys_SimDriving
 		internal static event EventHandler OnSimulateStoped ;
 		
 		internal static ISimContext ISimCtx = SimContext.GetInstance();
-		internal static  IService isEntityPainter;
+		//internal static  IService isEntityPainter;
 		
 		internal static Form Canvas;
 		
@@ -39,7 +39,7 @@ namespace SubSys_SimDriving
 		internal static int iSimInterval = 100;
 		internal static int iSimTimeSteps = 4200;
 		internal static bool bIsPause = false;
-		internal static int iMobileCount = 2;
+		internal static int iMobileCount =2;
 		
 		//添加路由表内容-fis
 		internal static Way ReA1;
@@ -178,7 +178,7 @@ namespace SubSys_SimDriving
 			
 			while (true) {
 				//t退出命令或者仿真到了设定的仿真时长
-				if (bIsExit == true||ISimCtx.iCurrTimeStep>= iSimTimeSteps)
+				if (bIsExit == true||ISimCtx.iTimePulse>= iSimTimeSteps)
 				{
 					if (OnSimulateStoped!=null) {
 						OnSimulateStoped(null,null);
@@ -190,14 +190,12 @@ namespace SubSys_SimDriving
 				Thread.Sleep(SimController.iSimInterval);
 				//处理应用程序界面事件。如点击鼠标、点击菜单等
 				Application.DoEvents();
-				
-				
-				
+
 				
 				if (bIsPause==false) {//如果没有暂停
-					while (ISimCtx.iCurrTimeStep++ <= iSimTimeSteps)
+					while (ISimCtx.iTimePulse++ <= iSimTimeSteps)
 					{
-						strSimMsg = ISimCtx.iCurrTimeStep.ToString();
+						strSimMsg = ISimCtx.iTimePulse.ToString();
 						
 						if (bIsExit==true||bIsPause  == true)//退出或者暂停都停止循环
 						{
@@ -230,7 +228,7 @@ namespace SubSys_SimDriving
 							item.UpdateStatus();
 						}
 						//路网仿真时间计数器更新
-						network.iCurrTimeStep = ISimCtx.iCurrTimeStep;
+						network.iTimePulse = ISimCtx.iTimePulse;
 					}
 				}
 				

@@ -62,6 +62,19 @@ namespace SubSys_SimDriving
 		protected int _entityID;
 		private int _iWidth;
 		private int _iLength;
+		private Color _color;
+		
+		
+		public Color Color
+		{
+			get{
+				return this._color;
+			}
+			set{
+				this._color = value;
+			}
+		}
+		
 		
 		//元胞坐标系
 		private Point _pntGrid;
@@ -71,6 +84,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 元胞坐标系,过时，建议使用spaceGrid
 		/// </summary>
+		[System.Obsolete("outdated use spacilgrid ")]
 		public virtual Point Grid
 		{
 			get { return _pntGrid; }
@@ -128,7 +142,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 未来兼容GIS系统预留的GIS坐标系
 		/// </summary>
-		public OxyzPointF GISPosition
+		public OxyzPointF GISGrid
 		{
 			get
 			{
@@ -282,14 +296,7 @@ namespace SubSys_SimDriving
 			get { return this._oxyzGrid; }
 			set { _oxyzGrid = value; }
 		}
-		
-		/// <summary>
-		/// 用来替代updatestatus
-		/// </summary>
-		public virtual void Update()
-		{
-			ThrowHelper.ThrowArgumentException("需要手动实现该函数");
-		}
+
 	}
 }
 

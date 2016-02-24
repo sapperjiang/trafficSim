@@ -25,115 +25,9 @@ namespace SubSys_Graphics
 			this.Canvas = canvas;
 			this._graphic = canvas.CreateGraphics();
 			this.IsRunning = true;
-			//this.CellSpaces = new Dictionary<int, Rectangle>();
 		}
 		#region
 		
-		//如果是斜线可能就不行了，要用fillPolygon
-//		private void PaintCar(Lane Lane)
-//		{
-//			if (Lane.CellCount==0)
-//			{
-//				return;
-//			}
-//			if (Lane.PrevCarPos[0] != -1)
-//			{
-//				int i=0;
-//				while (Lane.PrevCarPos[i] != -1)
-//				{
-//					//                    OxyzPointF p = Lane.Shape[Lane.PrevCarPos[i] + 1];
-//					OxyzPointF p = Lane.Shape[Lane.PrevCarPos[i]].ToOxyzPointF();
-//					//OxyzPointF p = Lane.Shape[Lane.PrevCarPos[i] + 1].ToOxyzPointF();
-//
-//
-//					//
-//					PaintCar(GraphicsConfiger.roadColor, p);
-//					//把有车的地方用道路颜色覆盖
-//					i++;
-//				}
-//			}
-//
-//			int j = 0;
-//			foreach (var cell in Lane)
-//			{
-//				//画上车辆的新位置
-//				int iY = cell.Grid.Y;
-//				int iPos = iY>1?iY-1:0;
-//				OxyzPointF p = Lane.Shape[iPos].ToOxyzPointF();
-//				PaintCar(cell.Car.Color, p);
-//				//保存车辆的位置便于下次使用
-//				Lane.PrevCarPos[j++] = iPos;
-//			}
-//			Lane.PrevCarPos[j] = -1;
-//		}
-
-//		private void PaintCar(Color cell, OxyzPointF p)
-//		{
-//
-//			int iWidth = GraphicsConfiger.iCellPixels;
-//			Point pDraw = Coordinates.Project(p, iWidth);
-//
-//			graphic.FillEllipse(new SolidBrush(cell), pDraw.X - iWidth / 2, pDraw.Y - iWidth / 2, iWidth, iWidth);
-//		}
-		#endregion
-		/// <summary>
-		/// 画一个车道
-		/// </summary>
-		/// <param name="tVar"></param>
-//		protected override void SubPerform(ITrafficEntity tVar)
-//		{
-//			Graphics g = this.Canvas.CreateGraphics();
-//			Lane lane = tVar as Lane;
-//			if (lane == null)
-//			{
-//				throw new Exception(string.Format("TrafficEntity类型为{0},使用了错误的绘图服务",tVar.GetType().ToString()));
-//			}
-//
-//			OxyzPointF spStart = lane.Container.Shape.Start.ToOxyzPointF();
-//			OxyzPointF spEnd = lane.Container.Shape.End.ToOxyzPointF();
-//
-//			//获取单位平移向量(法向量)
-//			OxyzPointF mp1 = VectorTools.GetNormal((lane.Container as Way).ToVector());
-//			//获取平移向量
-//			OxyzPointF mpOffset = new OxyzPointF(mp1._X, mp1._Y);
-//			OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (lane.Rank - 1), mpOffset._Y * (lane.Rank - 1));
-//			spStart = Coordinates.Offset(spStart, mpMulti);
-//			spEnd = Coordinates.Offset(spEnd, mpMulti);
-//
-//			//平移点
-//			OxyzPointF pOffsetFirst = Coordinates.Offset(spStart, mpOffset);
-//			OxyzPointF pOffsetEnd = Coordinates.Offset(spEnd, mpOffset);
-//
-//			Point pA = Coordinates.Project(spStart, GraphicsConfiger.iCellPixels);
-//			Point pB = Coordinates.Project(spEnd, GraphicsConfiger.iCellPixels);
-//			Point pC = Coordinates.Project(pOffsetFirst, GraphicsConfiger.iCellPixels);
-//			Point pD = Coordinates.Project(pOffsetEnd, GraphicsConfiger.iCellPixels);
-//
-//
-//			Point[] pits = { pA, pB, pD, pC };
-//			g.FillPolygon(new SolidBrush(GraphicsConfiger.roadColor), pits);
-//
-//			//画车道线
-//			Pen p = new Pen(new SolidBrush(Color.White), 1);
-//			p.DashStyle = DashStyle.Solid;//选用虚线画车道前半段
-//			//Point pMid = Point.Round(new PointF((pA.X + pB.X) * 0.5f, (pA.Y + pB.Y) * 0.5f));
-//			//Point pMidTwo = Point.Round(new PointF((pC.X + pC.X) * 0.5f, (pD.Y + pD.Y) * 0.5f));
-//
-//			g.DrawLine(p, pA, pB);
-//			g.DrawLine(p, pC, pD);
-//			//g.DrawLine(p, pA, pMid);
-//			//g.DrawLine(p, pC, pMidTwo);
-//
-//			//p.DashStyle = DashStyle.Solid;//使用实现画车道的后半段
-//			//g.DrawLine(p, pMid, pB);
-//			//g.DrawLine(p, pMidTwo, pD);
-//
-//			//}
-//
-//			PaintMobile(lane);//画车
-//
-//			g.Dispose();
-//		}
 		
 		protected override void SubPerform(ITrafficEntity tVar)
 		{
@@ -148,107 +42,94 @@ namespace SubSys_Graphics
 			OxyzPointF spEnd = lane.Shape.End.ToOxyzPointF();
 
 			//获取单位平移向量(法向量)
-			var vtUnitOffset = VectorTools.GetNormal(lane.ToVector());
+			var vtUnit = VectorTools.GetNormal(lane.ToVector());
 			//获取平移向量
 			
-			var vtMulti =VectorTools.GetMultiNormal(vtUnitOffset,lane.Rank-1);
+			var vtMulti =VectorTools.GetMultiNormal(vtUnit,lane.Rank-1);
 			
 			var liUpper = new List<PointF>(lane.Shape.Count*2);
 			var stDown = new Stack<PointF>(lane.Shape.Count);
-			foreach (var element in lane.Shape) {
-				
-				var pUpper = Coordinates.Offset(element.ToOxyzPointF(),vtMulti);
-				//move down for one unit
-				var pDown = Coordinates.Offset(pUpper,vtUnitOffset);
-				
-				var spUpper = Coordinates.Project(pUpper, GraphicsCfger.iPixels);
-				
-				var spDown = Coordinates.Project(pDown, GraphicsCfger.iPixels);
-				liUpper.Add(spUpper);
-				
-				stDown.Push(spDown);
-			}
-
 			
+			int iWidth = GraphicsCfger.iPixels;
+			var UpRightVector = new OxyzPointF(1f,-1f,0f);//offset
+			foreach (var pShape in lane.Shape) {
+				
+				var pUpper = Coordinates.Offset(pShape.ToOxyzPointF(),vtMulti);
+				//move down for one unit
+				var pDown = Coordinates.Offset(pUpper,vtUnit);
+				
+				var spUpper = Coordinates.Project(pUpper, iWidth);
+				spUpper =Coordinates.Offset(spUpper,iWidth/2,UpRightVector);
+				
+				var spDown = Coordinates.Project(pDown, iWidth);
+				spDown =Coordinates.Offset(spDown,iWidth/2,UpRightVector);
+				
+				liUpper.Add(spUpper.ToPointF());
+				stDown.Push(spDown.ToPointF());
+			}
 			while (stDown.Count>0) {
 				liUpper.Add(stDown.Pop());
 			}
 
-			//g.FillClosedCurve(roadBrush, liUpper.ToArray());
-
-				PaintMobile(lane);//画车
+			PointF[]  p= liUpper.ToArray();
+			g.FillClosedCurve(roadBrush, p);
+			
+			MobilePainter.Paint(lane.Mobiles,_graphic);//画车
 			
 			g.Dispose();
 		}
 
 
-		//------------------------20160201---------------------------------
-		private void PaintMobile(Lane lane)
-		{
-			if (lane.Mobiles.Count==0)
-			{
-				return;
-			}
 
-
-			//search each mobile
-			foreach (var mobile in lane.Mobiles) {
-				//draw mobile
-				for (int i = 0; i < mobile.Shape.Count; i++) {
-					
-					var mobilePrev = mobile.PrevShape[i];
-					
-					var mobileShape = mobile.Shape[i];
-
-					int iWidth =GraphicsCfger.iPixels;
-					PointF pMobile = Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
-					
-					PointF pMobilePrev = Coordinates.Project(mobilePrev.ToOxyzPointF(), iWidth);
-
-					//获取单位平移向量(法向量)
-					OxyzPointF mpOffset = VectorTools.GetNormal((lane.Container as Way).ToVector());
-					//	OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (rl.Rank - 1), mpOffset._Y * (rl.Rank - 1));
-					//get offset vector
-					OxyzPointF mpMulti = new OxyzPointF(mpOffset._X * (lane.Rank - 1), mpOffset._Y * (lane.Rank - 1));
-					
-					pMobile = Coordinates.Offset(pMobile, mpMulti.ToPoint());
-					
-					pMobilePrev= Coordinates.Offset(pMobilePrev, mpMulti.ToPoint());
-					
-					//cover old track
-					_graphic.FillEllipse(new SolidBrush(GraphicsCfger.roadColor), pMobilePrev.X, pMobilePrev.Y ,iWidth, iWidth);
-					
-//					graphic.FillEllipse(new SolidBrush(Color.Red), pDraw.X -iWidth / 2, pDraw.Y - iWidth / 2,iWidth, iWidth);
-					//	_graphic.FillEllipse(new SolidBrush(mobile.Color), pMobile.X, pMobile.Y ,iWidth, iWidth);
-					_graphic.FillEllipse(new SolidBrush(Color.Red), pMobile.X, pMobile.Y ,iWidth, iWidth);
-
-					//debug
-					
-					string strMsg = mobile.ID.ToString();//.Shape.Start.ToString()+mobile.Shape.End.ToString();
-					
-					PointF pF=  Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
-					_graphic.DrawString(strMsg,new Font("Arial", 8),new SolidBrush(Color.Red),pMobile.X,pMobile.Y-20f);
-//					_graphic.DrawString(strMsg,new Font("Arial", 8),new SolidBrush(Color.Red),pDraw.X,pDraw.Y-20f);
-					
-					
-					PointF pLane=  Coordinates.Project(lane.Shape.Start.ToPoint(), iWidth);
-//
-					strMsg = "Lane:"+lane.Shape.End.ToString();
-					_graphic.DrawString(strMsg,new Font("Arial", 12),new SolidBrush(Color.Red),pLane.X,pLane.Y+40);
-					
-				}
-			}
-			
-		}
-
-
-		
 		
 		protected override void SubRevoke(ITrafficEntity tVar)
 		{
 			throw new NotImplementedException();
 		}
 	}
+	
+	public class MobilePainter
+	{
+		
+		internal static void Paint(LinkedList<MobileEntity> mobiles,Graphics _graphic)
+		{
+			int iWidth = GraphicsCfger.iPixels;
+			
+			foreach (var mobile in mobiles)
+			{
+				
+				for (int i = 0; i < mobile.Shape.Count; i++) {
 
+					var mobilePrev = mobile.PrevShape[i];
+					var mobileShape = mobile.Shape[i];
 
+					
+					OxyzPointF opCurr = Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
+					OxyzPointF opPrev = Coordinates.Project(mobilePrev.ToOxyzPointF(), iWidth);
+					
+					
+					//up left offset under screen coordinates
+					PointF pfPrev =Coordinates.Offset(opPrev,iWidth/2).ToPointF();//move upleft for a step.
+					PointF pfCurr =Coordinates.Offset(opCurr,iWidth/2).ToPointF();//move upleft for a step.
+					
+					
+					if (!mobilePrev.Equals(mobileShape)) {//cover old track
+						_graphic.FillEllipse(new SolidBrush(GraphicsCfger.roadColor), pfPrev.X, pfPrev.Y ,iWidth, iWidth);
+						
+					}
+					
+					_graphic.FillEllipse(new SolidBrush(mobile.Color), pfCurr.X, pfCurr.Y ,iWidth, iWidth);
+					//for debug
+//					string strMsg="CurrX:"+opCurr._X.ToString()+":PrevX"+opPrev._X.ToString();
+//					strMsg+="Mxy:"+mobile.Track.Current._X.ToString()+mobile.Track.Current._Y.ToString();
+//					//	strMsg+="CtnerX:"+mobile.Container.Shape.Start._X.ToString();
+//					PointF pF=  Coordinates.Project(mobileShape, iWidth);
+//					_graphic.DrawString(strMsg,new Font("Arial",6),new SolidBrush(Color.Red),pfCurr.X+30f,pfCurr.Y);
+				}
+			}
+		}
+		
+	}
+
+	#endregion
 }

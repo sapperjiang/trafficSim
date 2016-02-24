@@ -35,10 +35,10 @@ namespace SubSys_Graphics
             }
             
            //画一个双黄线
-            Point pa = Coordinates.Project(way.Shape.Start, GraphicsCfger.iPixels);            
-            Point pB = Coordinates.Project(way.Shape.End, GraphicsCfger.iPixels);
-            
-            _graphic.DrawLine(new Pen(new SolidBrush(Color.Yellow),2), pa, pB);
+//           var pa = Coordinates.Project(way.Shape.Start, GraphicsCfger.iPixels);
+//            var pB = Coordinates.Project(way.Shape.End, GraphicsCfger.iPixels);
+//            
+//            _graphic.DrawLine(new Pen(new SolidBrush(Color.Yellow),2), pa, pB);
 
         }
 

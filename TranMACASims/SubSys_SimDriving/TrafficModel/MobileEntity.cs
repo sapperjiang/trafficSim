@@ -1,4 +1,4 @@
-using SubSys_SimDriving;
+
 using System.Drawing;
 using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
@@ -7,7 +7,7 @@ using SubSys_MathUtility;
 using System;
 using System.Collections.Generic;
 
-namespace SubSys_SimDriving
+namespace SubSys_SimDriving.TrafficModel
 {
 	public abstract partial class MobileEntity : TrafficEntity
 	{
@@ -26,8 +26,7 @@ namespace SubSys_SimDriving
 	{
 		private static int MobileID = 0;
 		private bool IsCopyed = false;
-		
-		//	public DriveStrategy Strategy;
+
 		
 		/// <summary>
 		/// 对象拷贝和值拷贝
@@ -41,7 +40,7 @@ namespace SubSys_SimDriving
 			return cm;
 		}
 		
-		public Color Color;
+		//public Color _Color;
 		
 		public EdgeRoute Route;//=new EdgeRoute();
 		//public NodeRoute _nodeRoute;//=new NodeRoute();
@@ -83,17 +82,14 @@ namespace SubSys_SimDriving
 		
 		#endregion
 
-		public MobileEntity(StaticEntity bornContainer)
+		protected MobileEntity(StaticEntity bornContainer)
 		{
 			this._entityID = ++TrafficEntity.EntityCounter;
-			
-			//this.EntityType = EntityType.SmallCar;
-//			this.Color = Color.Green;
-//			this.iSpeed = 0;
+
 			base.Register();
 			
 			this.Route = new EdgeRoute();
-			// this._nodeRoute = new NodeRoute();
+
 			
 			this._container = bornContainer;
 			
@@ -127,7 +123,7 @@ namespace SubSys_SimDriving
 
 		
 		internal void Run(StaticEntity DriveEnvirnment)
-		{	
+		{
 			this.Driver.DriveMobile(DriveEnvirnment,this);
 		}
 		
@@ -140,7 +136,7 @@ namespace SubSys_SimDriving
 			ci.iCarHashCode = this.GetHashCode();
 			ci.iCarNum = this.ID;
 			
-			ci.iTimeStep = ISimCtx.iCurrTimeStep;
+			ci.iTimeStep = ISimCtx.iTimePulse;
 			
 //
 //			if (this.Container.EntityType == EntityType.Lane) {
@@ -177,7 +173,7 @@ namespace SubSys_SimDriving
 //
 //			while ((bOccupied=node.IsOccupied(p)) == false) {
 //				if (p._X == 0 && p._Y == 0) {
-////					bReachEnd = true;
+		////					bReachEnd = true;
 //					break;
 //				}
 //				p = Track.NextPoint(p);
@@ -232,24 +228,24 @@ namespace SubSys_SimDriving
 //		internal DriveCtx Observe()
 //		{
 //			DriveCtx dctx = new DriveCtx(this.Container as StaticEntity);
-//			
+//
 //			dctx.iAcceleration = this.iAcceleration;
 //			dctx.iSpeed = this.iSpeed;
-//			
+//
 //			switch (this.Container.EntityType) {
-//					
+//
 //					// calculate headway on the left/right/current lane of current mobile
 //				case EntityType.Lane:
-//					
+//
 //					var currLane = this.Container as Lane;
-//					
+//
 //					var currWay = currLane.Container as Way;
 //					//current mobile
 //					int iCurrStart = currLane.Shape.GetIndex(this.Shape.Start);
 //					//current mobile
 //					int iCurrEnd	  = currLane.Shape.GetIndex(this.Shape.End);
-////					int iLaneGap =  currLane.iLength-iCurrentStart;
-//					
+		////					int iLaneGap =  currLane.iLength-iCurrentStart;
+//
 //					if (this.Front!=null){
 //					//behiand 14 .front 15. iLaneGap need to reduce 1
 //						dctx.iLaneGap = currLane.Shape.GetIndex(this.Front.Shape.End)-iCurrStart-1;
@@ -260,9 +256,9 @@ namespace SubSys_SimDriving
 //					//front mobile is null, current mobile is the first one on this lane
 //					//the first mobile needs to deal with a traffic light or/and a crossing(XNode)
 //					else {//this.FrontMobile==null)
-//						
+//
 //						//front mobile,there's a signal light playing on the lane
-//						
+//
 //						//deal with that signal light
 //						if (currLane.IsBlocked==true) {
 //							dctx.iFrontHeadWay=currLane.Length-iCurrStart;
@@ -275,17 +271,17 @@ namespace SubSys_SimDriving
 //							if (iLaneGap<=3*this.iSpeed)//space si more than triple car speed.
 //							{
 //								this.Track.Update();
-//								
+//
 //								if (this.Track.ToLane!=null) {
-//									
+//
 //									//class acts as parameters will pass its address to functions,so clone is used here
 //									var temp  = currLane.Shape.End;
-////									if (this.ID == 2) {
-////										;
-////									}
+		////									if (this.ID == 2) {
+		////										;
+		////									}
 //									//再计算剩余轨迹
 //									GetXNodeGap(currWay.XNodeTo, temp, out iXNodeGap);
-//								}else//toLane == null. reach destination 
+//								}else//toLane == null. reach destination
 //								{
 //									dctx.IsReachEnd =true;
 //									iXNodeGap = 10;//to let the first car go away
@@ -299,41 +295,41 @@ namespace SubSys_SimDriving
 //							dctx.iFrontSpeed = -1;
 //						}
 //					}
-//					
+//
 //					//rear mobile
 //					dctx.iRearHeadWay = iCurrStart;
 //					if (this.Rear!=null) {
 //						dctx.iRearHeadWay = iCurrEnd-currLane.Shape.GetIndex(this.Rear.Shape.Start);
 //						dctx.iRearSpeed = this.Rear.iSpeed;
-//						
+//
 //					}else{//rear mobile is empty
 //						dctx.iRearHeadWay = iCurrStart;//rear mobiel
 //						dctx.iRightRearSpeed = -1;
 //					}
-//					
+//
 //					//get dirving context on the left lane
 //					this.GetSidesContext(currLane.Left,LaneType.Left,iCurrStart,iCurrEnd,ref dctx);
 //					//get dirving context on the right lane
 //					this.GetSidesContext(currLane.Right,LaneType.Right,iCurrStart,iCurrEnd,ref dctx);
-//					
+//
 //					break;
-//					
+//
 //				case EntityType.XNode:
-//					
+//
 //					var xnode = this.Container as XNode;
-//					
+//
 //					int iLaneEnGap = 0;
 //					int iXNodeEnGap = 0;
 //					//计算剩余轨迹数量//如果pcurrPos没到头，iXnodeGap等于零
-//					
+//
 //					//when a mobile is on a xnode .its headway is xnodeGap for a secend mobile
 //					//the frist mobile bIsBlocked is never true;while its following may be true
 //					var bIsBlocked =this.GetXNodeGap(xnode, this.Track.Current, out iXNodeEnGap);
-//					
-////					if (this.ID == 2) {//for debug
-////						;
-////					}
-////
+//
+		////					if (this.ID == 2) {//for debug
+		////						;
+		////					}
+		////
 //					if (bIsBlocked == false) {//the first mobile
 //						var toLane = this.Track.ToLane;
 //						//计算车道上的长度
@@ -355,25 +351,25 @@ namespace SubSys_SimDriving
 //						iLaneEnGap = 0;
 //					}
 //
-//					
+//
 //					dctx.iLaneGap=iLaneEnGap;
 //					dctx.iXNodeGap = iXNodeEnGap;
-//					
+//
 //					dctx.iFrontHeadWay = iXNodeEnGap+iLaneEnGap;
-//					
-//					
+//
+//
 //					break;
-//					
+//
 //				case EntityType.Way:
 //					throw new NotImplementedException("不应该传入这个参数，应在在车道上，或者是交叉口上");
 //					break;
-//					
+//
 //					default:break;
-//					
+//
 //			}
-//			
+//
 //			return dctx;
-//			
+//
 //		}
 
 
@@ -389,22 +385,22 @@ namespace SubSys_SimDriving
 //		{
 //			//to make sure current lane got a lefe lane
 //			if (lane==null)return ;
-//			
+//
 //			//headway on the lane
 //			int iFrontHeadWay	=-1;
 //			int iRearHeadWay	=-1;
 //			int iFrontSpeed =-1;
 //			int iRearSpeed	=-1;
-//			
+//
 //			//there's no mobile on lane
 //			if (lane.Mobiles.Count>0)
 //			{
-//				
+//
 //				//there's mobiles on lane
 //				int iLeastGap = lane.Length;
 //				int iTempGap = iLeastGap;
 //				MobileEntity mobile=null;
-//				
+//
 //				//loop to find two adjacent mobiles on the lane.one rear,one ahead of the current mobile
 //				foreach (var element in lane.Mobiles) {
 //					iTempGap = lane.Shape.GetIndex(element.Shape.End)-iCurrentStart;
@@ -414,24 +410,24 @@ namespace SubSys_SimDriving
 //						mobile=element;
 //					}
 //				}
-//				
+//
 //				//nearest mobile on the left is at the front
 //				if (iLeastGap>=0) {
 //					iFrontHeadWay=iLeastGap;
 //					iFrontSpeed = mobile.iSpeed;
-//					
+//
 //					var rearMobile = mobile.Rear;
 //					if (rearMobile!=null) {
 //						iRearHeadWay =iCurrentEnd - lane.Shape.GetIndex(rearMobile.Shape.Start);
 //						iRearSpeed = rearMobile.iSpeed;
-//						
+//
 //					}
 //				}//nearest mobile on the left is at the behind
 //				else{
 //					//make it postive
 //					iRearHeadWay = Math.Abs(iLeastGap);
 //					iRearSpeed=mobile.iSpeed;
-//					
+//
 //					var frontMobile = mobile.Front;
 //					if (frontMobile!=null) {
 //						iFrontHeadWay =lane.Shape.GetIndex(frontMobile.Shape.End)-iCurrentStart;
@@ -592,27 +588,7 @@ namespace SubSys_SimDriving
 		public override int GetHashCode()
 		{
 			return this.ID.GetHashCode();
-		}
-
-//
-//		public override EntityShape Shape
-//		{
-//			get
-//			{
-//				//var way = this;
-//
-//				EntityShape eShape = base.Shape;
-//
-//				if (eShape.Count>0) {
-//					if (eShape.Start._X == 28&&eShape.Start._Y==20) {
-//						;
-//					}
-//				}
-//				return eShape	;
-//			}
-//		}
-		
-		
+		}	
 	}
 	
 	/// <summary>
@@ -681,6 +657,7 @@ namespace SubSys_SimDriving
 		public Lane ToLane
 		{
 			get{
+				//the follwing if should be removed in 1.0 version
 				if (this.fromLane == this.toLane) {
 					ThrowHelper.ThrowArgumentException("前车道和要去的车道是同一条车道");
 				}
