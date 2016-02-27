@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using SubSys_DataVisualization;
-using SubSys_Graphics;
-using SubSys_MathUtility;
+
 
 using SubSys_SimDriving;
 using SubSys_SimDriving.TrafficModel;
 using GISTranSim.Data;
-
+using SubSys_MathUtility;
+using SubSys_DataVisualization;
+using SubSys_Graphics;
 
 
 namespace GISTranSim
@@ -44,7 +44,7 @@ namespace GISTranSim
 			//开启鼠标滚轮放大缩小屏幕
 			this.MouseWheel += new MouseEventHandler(SimCartoon_MouseWheel);
 			this.MouseWheel +=new MouseEventHandler(SimController.RepaintNetWork);
-		
+			
 			//开启路网平移
 			this.MouseDown+=PanScreen_MouseDown;
 			this.MouseUp +=PanScreen_MouseUp;
@@ -129,7 +129,7 @@ namespace GISTranSim
 		/// <param name="e"></param>
 		void MenuBar_File_ConfigEnvr_Click(object sender, System.EventArgs e)
 		{
-	//		SimController.iCarCount =2;
+			//		SimController.iCarCount =2;
 			SimController.iRoadWidth = 100;
 			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
@@ -137,7 +137,7 @@ namespace GISTranSim
 //			SimController.ConfigSimEnvironment(this);
 			
 			this.LoadRoadNetwork();
-		//	SimController.InitializePainters(this);
+			//	SimController.InitializePainters(this);
 			
 			//打开仿真运行的按钮
 			this.menuBarSimulateSustained.Enabled = true;
@@ -271,21 +271,22 @@ namespace GISTranSim
 		#region 路网加载函数
 		private  RoadNet LoadRoadNetwork()
 		{
-//			this.autosiz
+			//this.autosiz
+			IFactory IFacotry = new StaticFactory();
 			
-			IFactory iabstractFacotry = new StaticFactory();
-			
-			int iRoadWidth = SimController.iRoadWidth;
+			int iRoadWidth = 50;//SimController.iRoadWidth;
 			int iBase = 2;
-			XNode rnA= iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase,20)),EntityType.XNode) as XNode;
-			XNode rnB = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 20)), EntityType.XNode) as XNode;
-			XNode rnC = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth,iBase + 2 * iRoadWidth)), EntityType.XNode) as XNode;
-//			XNode rnD = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 70)), EntityType.XNode) as XNode;
-//			XNode rnE = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 70)), EntityType.XNode) as XNode;
-//			XNode rnF = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 70)), EntityType.XNode) as XNode;
-//			XNode rnG = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 120)), EntityType.XNode) as XNode;
-//			XNode rnH = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + iRoadWidth, 120)), EntityType.XNode) as XNode;
-//			XNode rnI = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 120)), EntityType.XNode) as XNode;
+			
+			XNode rnA= IFacotry.Build(new XNodeBuildCmd(new Point(52,40)),EntityType.XNode) as XNode;
+			XNode rnB = IFacotry.Build(new XNodeBuildCmd(new Point(72,50)), EntityType.XNode) as XNode;
+			XNode rnC = IFacotry.Build(new XNodeBuildCmd(new Point(72,20)), EntityType.XNode) as XNode;
+
+			//XNode rnD = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 70)), EntityType.XNode) as XNode;
+			//XNode rnE = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase + iRoadWidth, 70)), EntityType.XNode) as XNode;
+			//XNode rnF = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 70)), EntityType.XNode) as XNode;
+			//XNode rnG = iabstractFacotry.Build(new XNodeBuildCmd(new Point(iBase, 120)), EntityType.XNode) as XNode;
+			//XNode rnH = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + iRoadWidth, 120)), EntityType.XNode) as XNode;
+			//XNode rnI = iabstractFacotry.Build(new  XNodeBuildCmd(new Point(iBase + 2 * iRoadWidth, 120)), EntityType.XNode) as XNode;
 
 			
 			RoadNet roadNetwork = SimController.ISimCtx.RoadNet;
@@ -293,15 +294,17 @@ namespace GISTranSim
 			roadNetwork.AddXNode(rnA);
 			roadNetwork.AddXNode(rnB);
 			roadNetwork.AddXNode(rnC);
-//			roadNetwork.AddXNode(rnD);
-//			roadNetwork.AddXNode(rnE);
-//			roadNetwork.AddXNode(rnF);
-//			roadNetwork.AddXNode(rnG);
-//			roadNetwork.AddXNode(rnH);
-//			roadNetwork.AddXNode(rnI);
+			
+			
+			//roadNetwork.AddXNode(rnD);
+			//roadNetwork.AddXNode(rnE);
+			//roadNetwork.AddXNode(rnF);
+			//roadNetwork.AddXNode(rnG);
+			//roadNetwork.AddXNode(rnH);
+			//roadNetwork.AddXNode(rnI);
 
 			//SimController.ReA= roadNetwork.AddWay(rnA,rnB);
-			//	SimController.ReB=roadNetwork.AddWay(rnB,rnC);
+			//SimController.ReB=roadNetwork.AddWay(rnB,rnC);
 			
 			
 			//创建路由ReA是路由参数

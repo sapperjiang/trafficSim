@@ -786,8 +786,8 @@ namespace SubSys_SimDriving.TrafficModel
 					break;
 					
 				case -1://turn left
-					int iIndex = new Random(1).Next(nextWay.Lanes.Count) - 1;
-					this.ToLane = nextWay.Lanes[iIndex];
+				//	int iIndex = new Random(1).Next(nextWay.Lanes.Count) - 1;
+					this.ToLane = nextWay.Lanes[0];
 					break;
 					
 				case 2://turn back

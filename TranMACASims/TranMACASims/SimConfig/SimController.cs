@@ -22,14 +22,10 @@ namespace SubSys_SimDriving
 		internal static event EventHandler OnSimulateStoped ;
 		
 		internal static ISimContext ISimCtx = SimContext.GetInstance();
-		//internal static  IService isEntityPainter;
-		
+
 		internal static Form Canvas;
 		
-//		internal static IService WayPainter; //= PaintServiceMgr.GetService(PaintServiceType.RoadEdge, frMain);
-//		internal static IService XNodePainter; //= PaintServiceMgr.GetService(PaintServiceType.RoadEdge, frMain);
-		
-		internal static IRoadNet iroadNet;//= simContext.NetWork;
+		internal static IRoadNet iroadNet;
 
 		internal static bool bIsExit = false;
 		internal static int iRoadWidth = 50;//1000m

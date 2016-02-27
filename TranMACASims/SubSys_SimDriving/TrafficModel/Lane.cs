@@ -47,36 +47,26 @@ namespace SubSys_SimDriving.TrafficModel
 
 				if (eShape.Count == 0)//shape 没有初始化
 				{
-					CreateShape(ref eShape);		
+					CreateShape(ref eShape);
 				}
-
-//				if (eShape.End._X == 28&&eShape.End._Y==20&&eShape[0]._X==8) {
-//					;
-//				}
 				return eShape;
 			}
 		}
 
-		int iTest = 0;
-		
 		/// <summary>
 		/// 用图形界面坐标系，转化为元胞坐标系,create a shape of a lane
 		/// </summary>
 		/// <param name="eShape"></param>
-		//[System.Obsolete("replace with new item,this is for use for old cellsimulation model ")]
 		private  void CreateShape(ref EntityShape eShape)
 		{
 			EntityShape esContainer = this.Container.Shape;
 
 			var pNorm = VectorTools.GetNormal(this.Container.ToVector());
-			var mpOffset = new OxyzPointF(pNorm._X*(this.Rank - 0.5f),pNorm._Y * (this.Rank - 0.5f));
-			//the first point //平移坐标
-			var pFirst = Coordinates.Offset(esContainer.Start, mpOffset);
-			//the end point //计算终点
-			var pFEnd = Coordinates.Offset(esContainer.End, mpOffset);
-			
-			//for each point its x and y is int,not float or double
-			OxyzPointF mp = new OxyzPointF(pFEnd._X-pFirst._X,pFEnd._Y-pFirst._Y);
+
+			//the first point
+			var pFirst =esContainer.Start.ToOxyzPointF();
+			//the end point
+			var pFEnd = esContainer.End.ToOxyzPointF();
 			
 			double dDistance = Coordinates.Distance(pFirst,pFEnd) ;
 			//int loopCount = Convert.ToInt32( dDistance);//距离为100，划分为100等分
@@ -84,36 +74,37 @@ namespace SubSys_SimDriving.TrafficModel
 			//each split  x is 1 int; each split y is 1 int
 			int iLoopCount =Convert.ToInt32(dDistance);
 			
-			double xSplit = mp._X / dDistance;//自身有正负号
-			double ySplit = mp._Y / dDistance;//自身有正负号
+			double xSplit =(pFEnd._X-pFirst._X) / dDistance;//自身有正负号
+			double ySplit = (pFEnd._Y-pFirst._Y) / dDistance;//自身有正负号
 			
 			eShape.Add(pFirst.ToOxyzPoint());
-			OxyzPoint opf=new OxyzPoint(0,0);
 			
-			int iBase=0;
+			
+			
+			var opCurr=new OxyzPoint(0,0,0);		
+			var opPrev = new OxyzPoint(0,0,0);
+			
 			for (int i = 1; i < iLoopCount; i++)//x行
 			{
-				double dX = xSplit*(i-iBase);
-				double dY = ySplit*(i-iBase);
+				double dX = xSplit*i;
+				double dY = ySplit*i;
 				//四舍五入
-				int iX = Convert.ToInt32( Math.Round((decimal)dX,0,MidpointRounding.AwayFromZero));
+				int iX = Convert.ToInt32(Math.Round((decimal)dX,0,MidpointRounding.AwayFromZero));
 				int iY = Convert.ToInt32(Math.Round((decimal)dY,0,MidpointRounding.AwayFromZero));
+				//to make sure x is int
 				
-				if ( iX==1||iY==1) {
-					opf =new OxyzPoint(pFirst._X + i*iX, pFirst._Y+i*iY);
-					eShape.Add(opf);
-					iBase = i;
+				opCurr =new OxyzPoint(pFirst._X + iX, pFirst._Y+iY);
+			
+				if (!opCurr.Equals(opPrev)) {//如果上一个点和新的点是一个点。那就不增加该点
+						eShape.Add(opCurr);
 				}
+				
+				opPrev = opCurr;//保存上一个值
 			}
 
 			eShape.Add(pFEnd.ToOxyzPoint());
-			if (pFEnd._X-opf._X!=1) {
-				;
-			}
-			//System.Diagnostics.Debug.Assert(pFEnd._X-opf._X==1);
-			
 		}
-		//	private bool bDebug=true;
+
 		
 		
 		
@@ -260,14 +251,14 @@ namespace SubSys_SimDriving.TrafficModel
 //		}
 		internal LaneType laneType;
 		
-	//	[System.Obsolete("过时的，这个变量不在需要")]
-	//	private CellQueue _cells = new CellQueue();
+		//	[System.Obsolete("过时的，这个变量不在需要")]
+		//	private CellQueue _cells = new CellQueue();
 
 		#region 进入车道的情况，进一步将由cellspace替代
 		/// <summary>
 		/// 等待进入该车道的等待队列，过时，用mobileInn代替
 		/// </summary>
-	//	private Queue<Cell> _waitedQueue = new Queue<Cell>();
+		//	private Queue<Cell> _waitedQueue = new Queue<Cell>();
 
 		/// <summary>
 		///过时，
@@ -279,7 +270,7 @@ namespace SubSys_SimDriving.TrafficModel
 //			//给容器赋值；
 //			ce.Container = this;
 //			this._waitedQueue.Enqueue(ce);
-//			
+//
 //		}
 		
 		/// <summary>
@@ -493,7 +484,7 @@ namespace SubSys_SimDriving.TrafficModel
 //	public class MobilesShelter
 //	{
 //		internal StaticEntity _Container;
-//		
+//
 //		internal MobilesShelter(StaticEntity container)
 //		{
 //			this._Container = container;
@@ -504,10 +495,10 @@ namespace SubSys_SimDriving.TrafficModel
 //		private MobilesShelter()
 //		{
 //		}
-//		
-//		
+//
+//
 //		private LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
-//		
+//
 //		/// <summary>
 //		/// 第一辆的索引是第一个
 //		/// </summary>
@@ -515,9 +506,9 @@ namespace SubSys_SimDriving.TrafficModel
 //		{
 //			get{return this._mobiles;}
 //		}
-//		
-////		protected void Enter(MobileEntity me)
-////		{
+//
+	////		protected void Enter(MobileEntity me)
+	////		{
 //		////			int iShapeCount =this._mobiles.Count;
 //		////
 //		////
@@ -535,39 +526,39 @@ namespace SubSys_SimDriving.TrafficModel
 //		////					//修改元胞空间的坐标
 //		////					this._cellSpace.Add(cg);
 //		////				}
-////		//	}
-////
-////			//把车辆加入
-////		//	this._mobiles.AddLast(me);
-////
-////		}
-////		/// <summary>
-////		/// 车辆退出车道。换车道这种东西，需要插入和更新。
-////		/// </summary>
-////		/// <param name="me"></param>
-////		protected void Exit(MobileEntity me)
-////		{
-////			this._mobiles.RemoveFirst();
-////
-////			for (int i = 0; i < me.Shape.Count; i++)
-////			{
-////				//this._cellSpace.Remove(me.Shape[i].GetHashCode());
-////			}
-////		}
-//		
+	////		//	}
+	////
+	////			//把车辆加入
+	////		//	this._mobiles.AddLast(me);
+	////
+	////		}
+	////		/// <summary>
+	////		/// 车辆退出车道。换车道这种东西，需要插入和更新。
+	////		/// </summary>
+	////		/// <param name="me"></param>
+	////		protected void Exit(MobileEntity me)
+	////		{
+	////			this._mobiles.RemoveFirst();
+	////
+	////			for (int i = 0; i < me.Shape.Count; i++)
+	////			{
+	////				//this._cellSpace.Remove(me.Shape[i].GetHashCode());
+	////			}
+	////		}
+//
 //		protected bool Move(int iStepForward)
 //		{
 //			return false;
 //		}
-//		
+//
 //		protected bool IsEmpty()
 //		{
 //			return false;
 //		}
-//		
-//		
-//		
-//		
+//
+//
+//
+//
 //
 //	}
 }

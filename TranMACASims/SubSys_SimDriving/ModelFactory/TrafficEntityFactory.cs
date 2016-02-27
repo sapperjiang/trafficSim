@@ -70,7 +70,6 @@ namespace SubSys_SimDriving
  /// <returns></returns>
         public static Way BuildOneWay(Point start,Point end,int iLeftCount, int iStraightCount, int iRightCount)
         {
-
         	Way  re=new Way(start,end);// eModelFactory.b
 
             for (int i = 0; i < iLeftCount; i++)//左。
@@ -86,7 +85,6 @@ namespace SubSys_SimDriving
                 re.AddLane(LaneType.Right);
             }
             return re;
-
         }
         
 //         public static Way BuildOneWay(int iLeftCount, int iStraightCount, int iRightCount)
