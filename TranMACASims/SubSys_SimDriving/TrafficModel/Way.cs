@@ -35,38 +35,37 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 			this.XNodeFrom =from;
 			this.XNodeTo = to;
-			this._lanes = new LaneChain();
+			this._lanes = new Lanes();
 
 			this._entityID = ++Way.iRoadCount;
 
 		}
-		/// <summary>
-		/// 构造一条从from点到to点的道路
-		/// </summary>
-		/// <param name="from"></param>
-		/// <param name="to"></param>
-		internal Way(Point from, Point to)
-		{
-			this.XNodeFrom =new XNode(from);;
-			this.XNodeTo =  new XNode(to);
-			this._lanes = new LaneChain();
-
-			this._entityID = ++Way.iRoadCount;
-
-		}
+//		/// <summary>
+//		/// 构造一条从from点到to点的道路
+//		/// </summary>
+//		/// <param name="from"></param>
+//		/// <param name="to"></param>
+//		internal Way(Point from, Point to)
+//		{
+//			this.XNodeFrom =new XNode(from);;
+//			this.XNodeTo =  new XNode(to);
+//			this._lanes = new LaneChain();
+//
+//			this._entityID = ++Way.iRoadCount;
+//
+//		}
 		
 		internal Way(XNode from, XNode to,TripCostAnalyzer tripCost):this(from,to)
 		{
 			this._tripCostAnalyzer = tripCost;
 		}
+
 		#endregion
 
 		public override int Length
 		{
 			get {
-				int preNodeDistance = Coordinates.Distance(this.XNodeFrom.Grid, this.XNodeTo.Grid);
-
-				int iRealLength = preNodeDistance- 2* SimSettings.iMaxLanes;
+				int iRealLength = (int)Coordinates.Distance(this.Shape.Start, this.Shape.End)- 2* SimSettings.iMaxLanes;
 				if (iRealLength<SimSettings.iMaxLanes)
 				{
 					ThrowHelper.ThrowArgumentException("两个节点之间距离太短");
@@ -98,7 +97,8 @@ namespace SubSys_SimDriving.TrafficModel
 				}
 				rl.Container = this;//两行代码一定不要高反了
 
-				rl.Register();// //同步仿真上下文的数据记录
+				RoadNet.GetInstance()._Lanes.Add(rl.GetHashCode(),rl);
+			//	rl.Register();// //同步仿真上下文的数据记录
 
 				
 				//按照laneRanking 和laneType排序，插入到合适的位置并且给予恰当的
@@ -182,7 +182,8 @@ namespace SubSys_SimDriving.TrafficModel
 				}
 				this._lanes.Remove(rl);//第rank个车道是第rank-1个类型
 				//同步仿真上下文的数据记录
-				rl.UnRegiser();//进行反注册
+				RoadNet.GetInstance()._Lanes.Remove(rl.GetHashCode());//进行反注册
+				
 			}else
 			{
 				throw new ArgumentNullException();
@@ -193,11 +194,11 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 存储边内部的车道roadlane，这个与simContext 不同
 		/// </summary>
 		
-		private LaneChain _lanes;
+		private Lanes _lanes;
 		/// <summary>
 		/// 道路（单向）所有车道的集合
 		/// </summary>
-		public LaneChain Lanes
+		public Lanes Lanes
 		{
 			get
 			{
@@ -283,7 +284,6 @@ namespace SubSys_SimDriving.TrafficModel
 					mobile.Run(lane);
 					mobileNode = mobileNode.Next;
 				}
-
 				lane.UpdateStatus();//调用注册在车道上的服务。
 			}
 			base.UpdateStatus();//调用注册在路段上的服务，如RoadEdgePaintService
@@ -303,44 +303,12 @@ namespace SubSys_SimDriving.TrafficModel
 		[System.Obsolete("随机数发生器有可能产生两个完全一样的路段端点坐标，该函数的试图解决这一问题，正式程序不应当使用")]
 		public override OxyzPointF ToVector()
 		{
-			OxyzPointF p = new OxyzPointF(XNodeTo.Grid.X - XNodeFrom.Grid.X, XNodeTo.Grid.Y - XNodeFrom.Grid.Y);
+			var p = this.Shape.End-this.Shape.Start;
 			if (p._X == 0.0f && p._Y == 0.0f)
 			{
-				p._X = 12;
-				p._Y = 12;
-				//throw new Exception("RoadEdge产生了零向量！");
+				throw new Exception("产生了零向量！");
 			}
 			return p;
-		}
-
-		/// <summary>
-		/// 过时的，需要重写
-		/// </summary>
-		public override EntityShape Shape
-		{
-			get
-			{
-				//var way = this;
-				
-				EntityShape eShape = base.Shape;
-
-				if (eShape.Count == 0)//shape 没有初始化
-				{
-					int pX =this.XNodeTo.Grid.X - this.XNodeFrom.Grid.X;
-					int pY =  this.XNodeTo.Grid.Y - this.XNodeFrom.Grid.Y;
-					//向量等分
-					float dLq = this.Length + 2 * SimSettings.iMaxLanes;//分母
-					float xSplit = pX / dLq;//自身有正负号
-					float ySplit = pY / dLq;//自身有正负号
-					//计算起点
-					int iOffset = SimSettings.iMaxLanes;
-					eShape.Add((new OxyzPointF(this.XNodeFrom.Grid.X + iOffset * xSplit, this.XNodeFrom.Grid.Y + iOffset * ySplit)).ToOxyzPoint());
-					//计算终点
-				//	eShape.Add((new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit)).ToOxyzPoint());
-					eShape.Add((new OxyzPointF(this.XNodeTo.Grid.X - iOffset * xSplit, this.XNodeTo.Grid.Y - iOffset * ySplit)).ToOxyzPoint());
-				}
-				return eShape;
-			}
 		}
 
 		/// <summary>
@@ -381,11 +349,14 @@ namespace SubSys_SimDriving.TrafficModel
 	public partial class Way : StaticEntity
 	{
 		
-		public Way(OxyzPoint opFrom,OxyzPoint opTo)
+		public Way(OxyzPointF opStart,OxyzPointF opEnd)
 		{
-			this.XNodeFrom =new XNode(opFrom);;
-			this.XNodeTo =  new XNode(opTo);
-			this._lanes = new LaneChain();
+//			this.XNodeFrom =new XNode(opFrom);;
+//			this.XNodeTo =  new XNode(opTo);
+			
+			this.Shape.Add(opStart);
+			this.Shape.Add(opEnd);
+			this._lanes = new Lanes();
 
 			this._entityID = ++Way.iRoadCount;
 			

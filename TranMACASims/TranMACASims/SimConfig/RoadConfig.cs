@@ -47,7 +47,7 @@ namespace GISTranSim
 				this.iStraghtCount = Convert.ToInt32(this.TB_StraightLaneCount.Text);
 				this.iRightCount = Convert.ToInt32(this.TB_RightLaneCount.Text);
 				
-				Way  roadEdge = WayFactory.BuildOneWay(new Point(),new Point(),this.iLeftCount,this.iStraghtCount,this.iRightCount);//);
+			//	Way  roadEdge = WayFactory.BuildOneWay(new Point(),new Point(),this.iLeftCount,this.iStraghtCount,this.iRightCount);//);
 				
 				roadEdge .Name  =this.TB_RoadName.Text;
 				

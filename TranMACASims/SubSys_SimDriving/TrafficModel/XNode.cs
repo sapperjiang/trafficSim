@@ -48,17 +48,7 @@ namespace SubSys_SimDriving.TrafficModel
 //			return _mobiles.IsBlocked(iRealXY.X, iRealXY.Y);
 //		}
 //
-		//20160215
-		/// <summary>
-		/// if a oxyzpoint within a xnode is occupied by a traffic light return true ,else false;
-		/// </summary>
-		/// <param name="pPoint"></param>
-		/// <returns></returns>
-		internal bool IsBlocked(OxyzPoint pPoint)
-		{
-			throw new Exception();//
-			//	return this.Mobiles.IsOccupied(pPoint);
-		}
+
 		/// <summary>
 		/// 将车道堵塞
 		/// </summary>
@@ -288,14 +278,14 @@ namespace SubSys_SimDriving.TrafficModel
 				ThrowHelper.ThrowArgumentNullException("RoadNode产生了零坐标！");
 			}
 		}
-		internal XNode(Point rltPostion)
-		{
-			this._entityID = ++iRoadNodeID;
-			Random rd = new Random();
-			this.Grid = rltPostion;
-			this.GISGrid = new OxyzPointF(rd.Next(65535), rd.Next(65535));
-		}
-		
+//		internal XNode(Point rltPostion)
+//		{
+//			this._entityID = ++iRoadNodeID;
+//			Random rd = new Random();
+//		//	this.Grid = rltPostion;
+//			this.GISGrid = new OxyzPointF(rd.Next(65535), rd.Next(65535));
+//		}
+//		
 		public override int GetHashCode()
 		{
 			int iHash = this.GISGrid.GetHashCode() +this.ID.GetHashCode();
@@ -355,14 +345,14 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// 判断指定车道前部第Ahead个位置处是否有元胞占据
 		/// </summary>
-		public bool IsOccupied(OxyzPoint opPoint)
+		public bool IsOccupied(OxyzPointF opPoint)
 		{
 			//if this point is not added to dictionary ,add it then
 			//return this._occupiedPoints.;
 			return this.Mobiles.IsOccupied(opPoint);
 		}
 
-		internal XNode(OxyzPoint pointCenter)
+		internal XNode(OxyzPointF pointCenter)
 		{
 			this._entityID = ++iRoadNodeID;
 			//Random rd = new Random();

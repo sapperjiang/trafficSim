@@ -46,12 +46,12 @@ namespace SubSys_SimDriving
 		/// </summary>
 		internal SignalLight()
 		{
-			base.Register();
+			//base.Register();
 		}
 
 		~SignalLight()
 		{
-			base.UnRegiser();
+	//		base.UnRegiser();
 			//this.Register();
 		}
 		///// <summary>

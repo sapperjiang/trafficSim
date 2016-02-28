@@ -64,7 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactory\TrafficEntityFactory.cs" />
+    <Compile Include="ModelFactory\CarSimulator.cs" />
+    <Compile Include="ModelFactory\StaticFactory.cs" />
+    <Compile Include="ModelFactory\MobileFactory.cs" />
+    <Compile Include="ModelFactory\NetWorkCreatCmd.cs" />
     <Compile Include="MyUnitTest.cs" />
     <Compile Include="RoutePlan\ODProcesser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,36 +99,35 @@
     <Compile Include="RoutePlan\ShortestPathRoutePlanner.cs" />
     <Compile Include="RoutePlan\TripCostAnalyzer.cs" />
     <Compile Include="RoutePlan\ChoiceMaker.cs" />
-    <Compile Include="SysSimContext\Service\RegisterService.cs" />
-    <Compile Include="SysSimContext\Service\DataRecordService.cs" />
-    <Compile Include="SysSimContext\Service\EventAttachService.cs" />
-    <Compile Include="SysSimContext\Service\IService.cs" />
-    <Compile Include="SysSimContext\Service\ServiceMgr.cs" />
-    <Compile Include="SysSimContext\MyHashTable.cs" />
-    <Compile Include="SysSimContext\RoadEdgeHTable.cs" />
-    <Compile Include="SysSimContext\RoadLaneHTable.cs" />
-    <Compile Include="SysSimContext\RoadNodeHTable.cs" />
-    <Compile Include="SysSimContext\SignalLightHTable.cs" />
-    <Compile Include="SysSimContext\SimContext.cs" />
-    <Compile Include="SysSimContext\SpeedLimitHTable.cs" />
-    <Compile Include="SysSimContext\StaticSysTable.cs" />
-    <Compile Include="SysSimContext\AgentHTable.cs" />
-    <Compile Include="SysSimContext\VMSHTable.cs" />
-    <Compile Include="SysSimContext\IDataRecorder.cs" />
+    <Compile Include="Service\IDataRecorder.cs" />
+    <Compile Include="dataStructure\AgentHTable.cs" />
+    <Compile Include="dataStructure\EdgeHTable.cs" />
+    <Compile Include="dataStructure\LaneHTable.cs" />
+    <Compile Include="dataStructure\MyHashTable.cs" />
+    <Compile Include="dataStructure\SignalLightHTable.cs" />
+    <Compile Include="dataStructure\SpeedLimitHTable.cs" />
+    <Compile Include="dataStructure\StaticSysTable.cs" />
+    <Compile Include="dataStructure\VMSHTable.cs" />
+    <Compile Include="dataStructure\XNodeHTable.cs" />
+    <Compile Include="SimContext.cs" />
+    <Compile Include="trashed\trashed.cs" />
+    <Compile Include="trashed\Trashed10.cs" />
+    <Compile Include="trashed\trashed2.cs" />
+    <Compile Include="trashed\Trashed3.cs" />
+    <Compile Include="trashed\trashed4.cs" />
+    <Compile Include="trashed\trashed6.cs" />
+    <Compile Include="Service\DataRecordService.cs" />
+    <Compile Include="Service\EventAttachService.cs" />
+    <Compile Include="Service\IService.cs" />
+    <Compile Include="Service\ServiceMgr.cs" />
     <Compile Include="SimSettings.cs" />
     <Compile Include="TrafficModel\CarModel.cs" />
-    <Compile Include="TrafficModel\MobileFactory.cs" />
     <Compile Include="TrafficModel\CarStatus.cs" />
-    <Compile Include="TrafficModel\dataStructure\AbstractChain.cs" />
-    <Compile Include="TrafficModel\dataStructure\AdjacencyTable.cs" />
-    <Compile Include="TrafficModel\dataStructure\CarInfoQueue.cs" />
-    <Compile Include="TrafficModel\dataStructure\HashMatrix.cs" />
-    <Compile Include="TrafficModel\dataStructure\LaneChain.cs" />
-    <Compile Include="TrafficModel\dataStructure\WaitQueue.cs" />
-    <Compile Include="TrafficModel\EntityIDManager.cs" />
-    <Compile Include="TrafficModel\EntityStatus.cs" />
+    <Compile Include="dataStructure\AdjacencyTable.cs" />
+    <Compile Include="dataStructure\CarInfoQueue.cs" />
+    <Compile Include="dataStructure\HashMatrix.cs" />
+    <Compile Include="dataStructure\LaneChain.cs" />
     <Compile Include="TrafficModel\EntityType.cs" />
-    <Compile Include="TrafficModel\IntIDManager.cs" />
     <Compile Include="TrafficModel\IRoadNet.cs" />
     <Compile Include="TrafficModel\ITrafficEntity.cs" />
     <Compile Include="TrafficModel\LaneType.cs" />
@@ -138,9 +140,7 @@
     <Compile Include="TrafficModel\XNode.cs" />
     <Compile Include="TrafficModel\SignalLight.cs" />
     <Compile Include="TrafficModel\SpeedLevel.cs" />
-    <Compile Include="TrafficModel\SpeedLimit.cs" />
     <Compile Include="TrafficModel\TrafficEntity.cs" />
-    <Compile Include="TrafficModel\TrafficLightStatus.cs" />
     <Compile Include="TrafficModel\VMSEntity.cs" />
     <Compile Include="TrafficModel\VMSStatus.cs" />
     <Compile Include="TrafficModel\CarInfo.cs" />
@@ -148,6 +148,8 @@
     <Compile Include="ThrowHelper.cs" />
     <Compile Include="TrafficModel\DriveContext.cs" />
     <Compile Include="ModelSetting.cs" />
+    <Compile Include="trashed\trashed7.cs" />
+    <Compile Include="trashed\Trashed8.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MathTools\SubSys_MathUtility.csproj">
@@ -159,7 +161,7 @@
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TrafficModel\dataStructure" />
+    <Folder Include="dataStructure" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

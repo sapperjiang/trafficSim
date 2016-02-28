@@ -49,13 +49,6 @@
             由于规则不是很多。不使用哈希表，这些
             规则如交通灯规则，加减速规则等
         </member>
-        <member name="T:SubSys_SimDriving.AbstractChain`1">
-            <summary>
-            所有非哈希表的基类型，如果使用该类内部的list保存数据，应当由调用类进行
-            仿真上下文同步
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
         <member name="T:SubSys_SimDriving.Agents.AsynchronicAgents">
             <summary>
             异步更新规则一个时间步长只更新一个的规则,不应当使用无参数的构造函数创建该类
@@ -95,7 +88,7 @@
             <param name="iCurrentEnd">rear of current mobile index</param>
             <param name="dc">out parameters</param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.GetXNodeGap(SubSys_SimDriving.TrafficModel.XNode,SubSys_MathUtility.OxyzPoint,System.Int32@,SubSys_SimDriving.TrafficModel.MobileEntity)">
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.GetXNodeGap(SubSys_SimDriving.TrafficModel.XNode,SubSys_MathUtility.OxyzPointF,System.Int32@,SubSys_SimDriving.TrafficModel.MobileEntity)">
             <summary>
             计算mobile在交叉口内部可以走多少步
             </summary>
@@ -570,7 +563,7 @@
             to get if a point within a xnode is occupied by a mobile's shape point
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.IsOccupied(SubSys_MathUtility.OxyzPoint)">
+        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.IsOccupied(SubSys_MathUtility.OxyzPointF)">
             <summary>
             判断元胞是否被占用了
             </summary>
@@ -706,6 +699,13 @@
             </summary>
             <param name="from"></param>
             <param name="to"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.#ctor(SubSys_MathUtility.OxyzPointF,SubSys_MathUtility.OxyzPointF)">
+            <summary>
+            a new constructor
+            </summary>
+            <param name="opStart"></param>
+            <param name="opEnd"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.AddLane(SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
@@ -934,13 +934,6 @@
             表示道路交叉口的类
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsBlocked(SubSys_MathUtility.OxyzPoint)">
-            <summary>
-            if a oxyzpoint within a xnode is occupied by a traffic light return true ,else false;
-            </summary>
-            <param name="pPoint"></param>
-            <returns></returns>
-        </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.BlockLane(SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
             将车道堵塞
@@ -1005,7 +998,7 @@
             see driverstratigy for details
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsOccupied(SubSys_MathUtility.OxyzPoint)">
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsOccupied(SubSys_MathUtility.OxyzPointF)">
             <summary>
             判断指定车道前部第Ahead个位置处是否有元胞占据
             </summary>
@@ -1066,18 +1059,20 @@
             <summary>
             一个用来描述实体形状的一系列点坐标.是个List类,可以用坐标遍历,GIS坐标系的形状
             </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.EntityShape._dicGrids">
              <summary>
             points added early have smaller index
              </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.GetIndex(SubSys_MathUtility.OxyzPoint)">
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.GetIndex(SubSys_MathUtility.OxyzPointF)">
             <summary>
             利用点坐标，获取该点在实体点集合中的，例如，如果某点在集合中
             </summary>
             <param name="op">一个点的点坐标</param>
             <returns>返回值为-1，说明该点不在集合中</returns>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.Add(SubSys_MathUtility.OxyzPoint)">
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.Add(SubSys_MathUtility.OxyzPointF)">
             <summary>
             重载一个浮点型的Add方法
             </summary>

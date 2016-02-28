@@ -38,8 +38,8 @@ namespace SubSys_Graphics
 				throw new Exception(string.Format("TrafficEntity类型为{0},使用了错误的绘图服务",tVar.GetType().ToString()));
 			}
 
-			OxyzPointF spStart = lane.Shape.Start.ToOxyzPointF();
-			OxyzPointF spEnd = lane.Shape.End.ToOxyzPointF();
+			OxyzPointF spStart = lane.Shape.Start;
+			OxyzPointF spEnd = lane.Shape.End;
 
 			//获取单位平移向量(法向量)
 			var vtUnit = VectorTools.GetNormal(lane.ToVector());
@@ -54,12 +54,12 @@ namespace SubSys_Graphics
 			var UpRightVector = new OxyzPointF(1f,-1f,0f);//offset
 			foreach (var pShape in lane.Shape) {
 				
-				var pUpper = Coordinates.Offset(pShape.ToOxyzPointF(),vtMulti);
+				var pUpper = Coordinates.Offset(pShape,vtMulti);
 				//move down for one unit
 				var pDown = Coordinates.Offset(pUpper,vtUnit);
 				
 				var spUpper = Coordinates.Project(pUpper, iWidth);
-				spUpper =Coordinates.Offset(spUpper,iWidth/2,UpRightVector);
+				spUpper =Coordinates.Offset(spUpper,iWidth/2,UpRightVector);//cell offset
 				
 				var spDown = Coordinates.Project(pDown, iWidth);
 				spDown =Coordinates.Offset(spDown,iWidth/2,UpRightVector);
@@ -104,8 +104,8 @@ namespace SubSys_Graphics
 					var mobileShape = mobile.Shape[i];
 
 					
-					OxyzPointF opCurr = Coordinates.Project(mobileShape.ToOxyzPointF(), iWidth);
-					OxyzPointF opPrev = Coordinates.Project(mobilePrev.ToOxyzPointF(), iWidth);
+					OxyzPointF opCurr = Coordinates.Project(mobileShape, iWidth);
+					OxyzPointF opPrev = Coordinates.Project(mobilePrev, iWidth);
 					
 					
 					//up left offset under screen coordinates

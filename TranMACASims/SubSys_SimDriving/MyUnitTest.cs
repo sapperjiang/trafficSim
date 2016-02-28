@@ -49,7 +49,7 @@ namespace SubSys_SimDriving
 			
 			int iRoadWidth = 6;
 			int iBase = 2;
-			var rnA= iabstractFacotry.Build(new XNodeBuildCmd(new Point(8,20)),EntityType.XNode) as XNode;
+			var rnA= iabstractFacotry.Build(new OxyzPoint(8,20,0),OxyzPoint.de,EntityType.XNode) as XNode;
 			var rnB = iabstractFacotry.Build(new XNodeBuildCmd(new Point(28, 20)), EntityType.XNode) as XNode;
 			
 			var  way =  new Way(rnA,rnB);/// Way();//new Lane(;

@@ -12,24 +12,14 @@ namespace SubSys_SimDriving
 	/// </summary>
 	public abstract partial class StaticEntity:TrafficEntity
 	{
-		/// <summary>
-		/// 该对象子类的更新时刻
-		/// </summary>
-		internal int iCurrTimeStep;
-
-	}
 	
 	//_______________2015年1月新增的内容，原有的成员和方法将被部分废弃________________
 	/// <summary>
 	/// _2015年1月新增的内容，原有的成员和方法将被部分废弃
 	/// </summary>
-	public abstract partial class StaticEntity:TrafficEntity
-	{
-	
-		
+
+
 		#region 处理等待的mobileentity的数据结构和函数
-		
-		
 		private Queue<MobileEntity> _mobilesInn = new Queue<MobileEntity>();
 
 		/// <summary>
@@ -54,9 +44,9 @@ namespace SubSys_SimDriving
 		}
 		
 		/// <summary>
-		/// 抽象方法、需要lane和xnode实现，将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
+		/// 抽象方法、需要lane和xnode实现，将等待队列中的mobile添加到update mobile
 		/// </summary>
-		internal abstract void ServeMobiles();
+		internal virtual void ServeMobiles(){}
 		
 		#endregion
 

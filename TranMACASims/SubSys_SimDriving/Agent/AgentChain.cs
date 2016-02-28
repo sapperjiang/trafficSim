@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SubSys_SimDriving.TrafficModel;
 
 namespace SubSys_SimDriving.Agents
@@ -8,7 +9,7 @@ namespace SubSys_SimDriving.Agents
 	 * 由于规则不是很多。不使用哈希表，这些
 	 * 规则如交通灯规则，加减速规则等
 	 */
-	internal abstract class UpdateAgentChain:AbstractChain<AbstractAgent>
+	internal abstract class UpdateAgentChain:List<AbstractAgent>
 	{
         internal virtual void AddUpdateAgent(AbstractAgent ur)
         {

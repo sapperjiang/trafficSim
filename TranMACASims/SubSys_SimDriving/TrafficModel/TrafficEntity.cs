@@ -17,7 +17,7 @@ namespace SubSys_SimDriving
 		
 		public int TypeID = 0;
 		
-		IService _IregService = new RegisterService();
+		//IService _IregService = new RegisterService();
 		//服务管理器
 		ServiceMgr _serviceMgr = new ServiceMgr();
 
@@ -46,16 +46,17 @@ namespace SubSys_SimDriving
 			this._serviceMgr.Remove(ils);
 		}
 		/// <summary>
-		/// 向simContext 报道类的创建行为
+		/// 向simContext 报道类的创建行为,注册不应当声明为服务，服务每个循环周期都调用
+		/// 注册这类应当在工厂方法里面删除。
 		/// </summary>
-		internal virtual void Register()
-		{
-			_IregService.Perform(this);
-		}
-		internal virtual void UnRegiser()
-		{
-			_IregService.Revoke(this);
-		}
+//		internal virtual void Register()
+//		{
+//			_IregService.Perform(this);
+//		}
+//		internal virtual void UnRegiser()
+//		{
+//			_IregService.Revoke(this);
+//		}
 
 		#region ITrafficEntity 成员
 
@@ -81,16 +82,16 @@ namespace SubSys_SimDriving
 		
 		private EntityType _entityType;
 
-		/// <summary>
-		/// 元胞坐标系,过时，建议使用spaceGrid
-		/// </summary>
-		[System.Obsolete("outdated use spacilgrid ")]
-		public virtual Point Grid
-		{
-			get { return _pntGrid; }
-			set { _pntGrid = value; }
-		}
-		
+//		/// <summary>
+//		/// 元胞坐标系,过时，建议使用spaceGrid
+//		/// </summary>
+//		[System.Obsolete("outdated use spacilgrid ")]
+//		public virtual Point Grid
+//		{
+//			get { return _pntGrid; }
+//			set { _pntGrid = value; }
+//		}
+//		
 		
 		/// <summary>
 		/// 用元胞个数计算的实体的宽度，实际宽度等于iWidth*元胞代表的距离
@@ -287,11 +288,11 @@ namespace SubSys_SimDriving
 	public abstract partial class TrafficEntity:ITrafficEntity
 	{
 		//3d元胞空间
-		private OxyzPoint _oxyzGrid;
+		private OxyzPointF _oxyzGrid;
 		/// <summary>
 		/// 3d元胞空间，为了扩展GIS做准备
 		/// </summary>
-		public virtual  OxyzPoint SpatialGrid
+		public virtual  OxyzPointF SpatialGrid
 		{
 			get { return this._oxyzGrid; }
 			set { _oxyzGrid = value; }

@@ -63,7 +63,7 @@ namespace SubSys_SimDriving.TrafficModel
 		~MobileEntity()
 		{
 			if (this.IsCopyed != true) {
-				base.UnRegiser();
+			//	base.UnRegiser();
 			}
 		}
 		//internal SpeedLevel CurrSpeed;
@@ -86,7 +86,7 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			this._entityID = ++TrafficEntity.EntityCounter;
 
-			base.Register();
+		//	base.Register();
 			
 			this.Route = new EdgeRoute();
 
@@ -515,7 +515,7 @@ namespace SubSys_SimDriving.TrafficModel
 					
 					var  temp = this.Track.Current;
 					
-					var stack = new Stack<OxyzPoint>(iStep);
+					var stack = new Stack<OxyzPointF>(iStep);
 					//stack dump as the following
 					//a  	mobile start
 					//b      mobile mid
@@ -597,24 +597,10 @@ namespace SubSys_SimDriving.TrafficModel
 	public  partial class Track
 	{
 		
-		//----------------------------------20160131
-		//public OxyzPoint opCurrPos;
-		//public OxyzPoint opNextPos;
-		
-		
-//		private OxyzPoint opTempPos;//=new OxyzPoint();
-//		public OxyzPoint Temp
-//		{
-//			get{if (this.opTempPos ==null) {
-//					this.opTempPos = new OxyzPoint(0,0,0);
-//				}
-//				return this.opTempPos;
-//			}
-//		}
 
-		private OxyzPoint opFrom;
+		private OxyzPointF opFrom;
 		
-		public OxyzPoint From
+		public OxyzPointF From
 		{
 			get{
 //				if (this.opTo ==null) {
@@ -624,9 +610,9 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 			
 		}
-		private OxyzPoint opTo;
+		private OxyzPointF opTo;
 		
-		public OxyzPoint To
+		public OxyzPointF To
 		{
 			get{
 				return this.opTo;
@@ -677,7 +663,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// return a copy of mobile shape start
 		/// </summary>
-		public OxyzPoint Current
+		public OxyzPointF Current
 		{
 			get{
 				return this.mobile.Shape.Start.Clone();
@@ -686,7 +672,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// return a copyfo mobile's next track point
 		/// </summary>
-		public OxyzPoint Next
+		public OxyzPointF Next
 		{
 			get {
 				return this.NextPoint(this.Current);
@@ -705,13 +691,13 @@ namespace SubSys_SimDriving.TrafficModel
 		public Track(){}
 		//private Track(){}
 		
-		public OxyzPoint NextPoint(OxyzPoint iCurrPoint)
+		public OxyzPointF NextPoint(OxyzPointF iCurrPoint)
 		{
 
-			OxyzPoint iNew = iCurrPoint;
+			OxyzPointF iNew = iCurrPoint;
 			//算法保证每一个时间步长内都向目标终点接近，就是为了让其到终点的距离变小
-			int iX = iCurrPoint._X - this.To._X;//当前位置减去目的位置
-			int iY = iCurrPoint._Y - this.To._Y;
+			int iX =(int) (iCurrPoint._X - this.To._X);//当前位置减去目的位置
+			int iY =(int) (iCurrPoint._Y - this.To._Y);
 			///////////////////////////////
 //			int iX = iCurrPoint._X - op._X;//当前位置减去目的位置
 //			int iY = iCurrPoint._Y - op._Y;
@@ -725,7 +711,7 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 			if (iX==0&&iY==0)///已经到达了目标地点，两个点的坐标差值为0
 			{
-				iNew = new OxyzPoint(0, 0);
+				iNew = new OxyzPointF(0, 0);
 			}
 			return iNew;
 		}
@@ -757,7 +743,8 @@ namespace SubSys_SimDriving.TrafficModel
 			
 			if (nextWay == null) {//a moblie is reaching its destination
 				this.ToLane = null;
-				this.opTo = OxyzPoint.Default;
+			//	this.opTo = OxyzPointF.Default;
+				this.opTo =currLane.Shape.End;
 				return;
 			}
 			

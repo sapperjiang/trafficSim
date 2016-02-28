@@ -10,7 +10,7 @@ namespace SubSys_SimDriving.TrafficModel
 	/// 一个用来描述实体形状的一系列点坐标.是个List类,可以用坐标遍历,GIS坐标系的形状
 	/// </summary>
 	
-	public partial class EntityShape:List<OxyzPoint>
+	public partial class EntityShape:List<OxyzPointF>
 	{
 		/// <summary>
 		/// 交通元素如交叉口\路段\车道的外形,用于画图.这些元素的该属性,为画图提供素材
@@ -25,7 +25,7 @@ namespace SubSys_SimDriving.TrafficModel
 		///  For a road with direction like this “----->”  ,start means a point at the end of the narrow .
 		/// and end means a point at the narrow
 		/// </summary>
-		public OxyzPoint Start
+		public OxyzPointF Start
 		{
 			get
 			{
@@ -42,7 +42,7 @@ namespace SubSys_SimDriving.TrafficModel
 		///  a road with direction like this “----->”  .Start means a point at the end of that narrow .
 		/// and End means a point on that narrow
 		/// </summary>
-		public OxyzPoint End
+		public OxyzPointF End
 		{
 			get
 			{
@@ -53,13 +53,11 @@ namespace SubSys_SimDriving.TrafficModel
 				throw new Exception("mobile is not shaped before called");
 			}
 		}
-	}
 	
 	/// <summary>
 	///points added early have smaller index
 	/// </summary>
-	public partial class EntityShape:List<OxyzPoint>
-	{
+	
 		private Dictionary<int, int> _dicGrids = new  Dictionary<int, int>();
 		
 		/// <summary>
@@ -67,7 +65,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		/// <param name="op">一个点的点坐标</param>
 		/// <returns>返回值为-1，说明该点不在集合中</returns>
-		public int GetIndex(OxyzPoint op)
+		public int GetIndex(OxyzPointF op)
 		{
 			int iIndex = -1;
 //			this.FindIndex(op);
@@ -93,9 +91,10 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 重载一个浮点型的Add方法
 		/// </summary>
 		/// <param name="op"></param>
-		public  void Add(OxyzPoint op)
+		public  void Add(OxyzPointF op)
 		{
-			this._dicGrids.Add(op.GetHashCode(),this.Count+1);
+			int iHashCode= op.GetHashCode();
+			this._dicGrids.Add(iHashCode,this.Count+1);
 			base.Add(op);
 //			System.Diagnostics.Debug.Assert((this.Count-1)==base.FindLastIndex(op));
 			

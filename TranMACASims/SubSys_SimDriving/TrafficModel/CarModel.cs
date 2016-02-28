@@ -36,9 +36,6 @@ namespace SubSys_SimDriving.TrafficModel
 			this.iAcceleration = 1;
 			//base.Register();
 			this.Route = new EdgeRoute();
-			//this._nodeRoute = new NodeRoute();
-			// this._container = bornContainer;
-			// this.Shape.Add(this.Container.Shape.Start);
 		}
 		
 		
@@ -46,8 +43,7 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			if (this.IsCopyed != true)
 			{
-				base.UnRegiser();
-
+			//	base.UnRegiser(); 
 			}
 		}
 		//internal SpeedLevel CurrSpeed;

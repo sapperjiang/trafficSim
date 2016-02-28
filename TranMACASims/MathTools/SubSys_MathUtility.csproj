@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Coordinates.cs" />
+    <Compile Include="OxyzPoint.cs" />
     <Compile Include="VectorTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,8 +21,8 @@ namespace SubSys_SimDriving.TrafficModel
 		private RoadNet()
 		{
 			iRoadNetCount += 1;
-			///邻接矩阵使用的节点使用外部RoadNodeList作为存储介质
-			_atRoadNet = new AdjacencyTable<int>(this.htXNodes);
+			///邻接矩阵使用的节点使用外部XNodeList作为存储介质
+			_atRoadNet = new AdjacencyTable<int>(this._XNodes);
 		}
 		/// <summary>
 		/// 静态引用私有引用，只能通过getInstance创建类的实例
@@ -45,14 +45,17 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// 边字典使用仿真上下文
 		/// </summary>
-		internal WayHTable htWays = new WayHTable();
+		internal WayHTable _Ways = new WayHTable();
 
-		internal RoadNodeHTable htXNodes = new RoadNodeHTable();
+		internal XNodeHTable _XNodes = new XNodeHTable();
+		
+		internal RoadHTable _Roads = new RoadHTable();
+		
 
 		/// <summary>
 		/// 获取所有的车道是否有必要，因为该部分已经存在了RoadEdge中了
 		/// </summary>
-		internal LaneHTable htLanes = new LaneHTable();
+		internal LaneHTable _Lanes = new LaneHTable();
 
 
 		/// <summary>
@@ -60,23 +63,19 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		private AdjacencyTable<int> _atRoadNet;
 		
-		//EntityIDManager<int> _roadIDManager = new IntIDManager();
-
-		//  private MyPoint _netWorkPos;
-
 		private EntityType _entityType;
 		
 		#region INetWork 成员
 		public ICollection<Way> Ways
 		{
 			get {
-				return this.htWays.Values;
+				return this._Ways.Values;
 			}
 		}
 		public ICollection<XNode> XNodes
 		{
 			get{
-				return this.htXNodes.Values;
+				return this._XNodes.Values;
 			}
 		}
 		
@@ -85,8 +84,6 @@ namespace SubSys_SimDriving.TrafficModel
 			if (value!=null)
 			{			
 				_atRoadNet.AddRoadNode(value.GetHashCode(), value);
-				//注册到路网中其他构造函数
-				value.Register();
 			}
 		}
 		public void RemoveXNode(XNode value)
@@ -94,7 +91,6 @@ namespace SubSys_SimDriving.TrafficModel
 			if (value != null)
 			{
 				_atRoadNet.RemoveRoadNode(value.GetHashCode());//已经删除了节点
-				value.UnRegiser();//重复删除
 			}
 			else
 			{
@@ -123,7 +119,6 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			if (this.FindXNode(re.XNodeFrom) != null && this.FindXNode(re.XNodeFrom) != null)
 			{
-				re.Register();//将道路边注册
 				//将边添加到添加邻接矩阵网络中
 				_atRoadNet.AddDirectedEdge(re.XNodeFrom.GetHashCode(), re);
 			}
@@ -146,7 +141,7 @@ namespace SubSys_SimDriving.TrafficModel
 				Way re = this.FindWay(from,to);
 				//邻接矩阵中删除边
 				_atRoadNet.RemoveDirectedEdge(from.GetHashCode(), re);
-				re.UnRegiser();//解除注册
+		//		re.UnRegiser();//解除注册
 			}
 		}
 		
@@ -219,14 +214,14 @@ namespace SubSys_SimDriving.TrafficModel
 
 		ICollection<Lane> IRoadNet.Lanes
 		{
-			get { return this.htLanes.Values; }
+			get { return this._Lanes.Values; }
 		}
 
 
 		public Way FindWay(int reKey)
 		{
 			Way re ;
-			this.htWays.TryGetValue(reKey, out re);
+			this._Ways.TryGetValue(reKey, out re);
 			return re;
 		}
 	}

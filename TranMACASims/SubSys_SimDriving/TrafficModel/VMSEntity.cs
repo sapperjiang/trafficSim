@@ -17,7 +17,7 @@ namespace SubSys_SimDriving
 
         internal VMSEntity()
         {
-            this.Register();
+    //        this.Register();
         }
         ///// <summary>
         ///// 构造函数调用

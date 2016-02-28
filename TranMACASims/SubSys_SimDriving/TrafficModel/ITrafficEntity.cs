@@ -57,14 +57,6 @@ namespace SubSys_SimDriving
 			get;
 			set;
 		}
-		/// <summary>
-		/// 交通实体的元胞坐标系，相对于容器实体或者其他
-		/// </summary>
-		Point Grid
-		{
-			get;
-			set;
-		}
 
 		/// <summary>
 		/// 相对于GIS的绝对坐标
@@ -87,7 +79,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// for 3D drawing method
 		/// </summary>
-		OxyzPoint SpatialGrid
+		OxyzPointF SpatialGrid
 		{
 			get;
 			set;

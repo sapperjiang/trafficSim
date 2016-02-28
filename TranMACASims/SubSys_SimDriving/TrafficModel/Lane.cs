@@ -64,45 +64,35 @@ namespace SubSys_SimDriving.TrafficModel
 			var pNorm = VectorTools.GetNormal(this.Container.ToVector());
 
 			//the first point
-			var pFirst =esContainer.Start.ToOxyzPointF();
+			var pFirst =esContainer.Start;
 			//the end point
-			var pFEnd = esContainer.End.ToOxyzPointF();
+			var pFEnd = esContainer.End;
 			
 			double dDistance = Coordinates.Distance(pFirst,pFEnd) ;
 			//int loopCount = Convert.ToInt32( dDistance);//距离为100，划分为100等分
 
 			//each split  x is 1 int; each split y is 1 int
-			int iLoopCount =Convert.ToInt32(dDistance);
+			int iLoop =Convert.ToInt32(dDistance);
 			
 			double xSplit =(pFEnd._X-pFirst._X) / dDistance;//自身有正负号
 			double ySplit = (pFEnd._Y-pFirst._Y) / dDistance;//自身有正负号
 			
-			eShape.Add(pFirst.ToOxyzPoint());
+			eShape.Add(pFirst);
 			
+			var opCurr=new OxyzPointF(0,0,0);
+		//	var opPrev = new OxyzPointF(0,0,0);
 			
-			
-			var opCurr=new OxyzPoint(0,0,0);		
-			var opPrev = new OxyzPoint(0,0,0);
-			
-			for (int i = 1; i < iLoopCount; i++)//x行
+			for (int i = 1; i < iLoop; i++)//x行 iLoop to make sure each simulate step move equal distance
 			{
 				double dX = xSplit*i;
 				double dY = ySplit*i;
-				//四舍五入
-				int iX = Convert.ToInt32(Math.Round((decimal)dX,0,MidpointRounding.AwayFromZero));
-				int iY = Convert.ToInt32(Math.Round((decimal)dY,0,MidpointRounding.AwayFromZero));
-				//to make sure x is int
-				
-				opCurr =new OxyzPoint(pFirst._X + iX, pFirst._Y+iY);
-			
-				if (!opCurr.Equals(opPrev)) {//如果上一个点和新的点是一个点。那就不增加该点
-						eShape.Add(opCurr);
-				}
-				
-				opPrev = opCurr;//保存上一个值
+				//四舍五入 would miss accuracy
+//				int iX = Convert.ToInt32(Math.Round((decimal)dX,0,MidpointRounding.AwayFromZero));
+//				int iY = Convert.ToInt32(Math.Round((decimal)dY,0,MidpointRounding.AwayFromZero));
+				opCurr =new OxyzPointF(pFirst._X + dX, pFirst._Y+dY);
 			}
 
-			eShape.Add(pFEnd.ToOxyzPoint());
+			eShape.Add(pFEnd);
 		}
 
 		
@@ -190,9 +180,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <returns></returns>
 		public override OxyzPointF ToVector()
 		{
-			OxyzPoint pA = this.Shape.Start;
-			OxyzPoint pB = this.Shape.End;
-			return new OxyzPointF(pB._X-pA._X,pB._Y-pA._Y,pB._Z-pA._Z);
+			return this.Shape.End-this.Shape.Start;
 		}
 		
 		#region 构造函数
