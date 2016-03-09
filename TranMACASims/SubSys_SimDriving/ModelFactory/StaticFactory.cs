@@ -8,7 +8,7 @@ using SubSys_MathUtility;
 
 namespace SubSys_SimDriving
 {
-	public partial class StaticFactory:IFactory
+	public partial class StaticFactory:IStaticFactory
 	{
 		/// <summary>
 		/// create xnode way road and lane.
@@ -19,7 +19,7 @@ namespace SubSys_SimDriving
 		/// <returns></returns>
 		public StaticEntity Build(OxyzPointF start,OxyzPointF end, EntityType et)
 		{
-				var net  =  RoadNet.GetInstance();
+			var net  =  RoadNet.GetInstance();
 			switch (et)
 			{
 
@@ -27,13 +27,17 @@ namespace SubSys_SimDriving
 					var road =  new Road(start,end);
 
 					road.Way=this.Build(start,end,EntityType.Way) as Way;
-					road.CtrWay=this.Build(end,start,EntityType.Way) as Way;					
+					road.CtrWay=this.Build(end,start,EntityType.Way) as Way;
 					road.Container= net;
+					
+					road.XNode = this.Build(start,OxyzPointF.Default,EntityType.XNode) as XNode;
+					road.CtrXNode = this.Build(end,OxyzPointF.Default,EntityType.XNode) as XNode;
+					
 					net._Roads.Add(road.GetHashCode(),road);//register
-			
+					
 					return road;
 					
-				///avoid to create a xnode 	
+					///avoid to create a xnode
 				case EntityType.XNode:
 					var node = new XNode(start);
 
@@ -44,6 +48,7 @@ namespace SubSys_SimDriving
 
 				case EntityType.Way:
 					var way =  new Way(start,end);
+					way.AddLane(LaneType.Straight);
 					
 					way.Container = net;
 					
@@ -55,16 +60,6 @@ namespace SubSys_SimDriving
 					throw new Exception("lane should be builded by way");
 					break;
 
-//				case EntityType.RoadNet:
-//					return net;
-
-//				case EntityType.SignalLight:
-//					var silight =  new SignalLight();
-//					net.s
-//					//break;
-//				case EntityType.VMSEntity:
-//					return new VMSEntity();
-					//break;
 				default:
 					break;
 			}
@@ -72,119 +67,6 @@ namespace SubSys_SimDriving
 		}
 	}
 
-	public partial class MobileFactory//:IFactory
-	{
-		public AbstractAgent Build(BuildCommand bc, AgentType et)
-		{
-			throw new NotImplementedException();
-		}
-
-//		[System.Obsolete("注意修改函数")]
-//		public MobileEntity Build(BuildCommand bc, EntityType et)
-//		{
-//			switch (et)
-//			{
-//				case EntityType.RoadNet:
-//					return RoadNet.GetInstance();
-//					//break;
-//				case EntityType.SignalLight:
-//					return new SignalLight();
-//					//break;
-//				case EntityType.VMSEntity:
-//					return new VMSEntity();
-//					//break;
-//				case EntityType.Road:
-//					return new Road();
-//					
-//				case EntityType.XNode:
-//					///  XNodeBuildCmd rn = bc as XNodeBuildCmd;
-//					return null;//new XNode(rn.rltPos);
-//
-//				case EntityType.Way:
-//					//return new RoadEdge();
-//					throw new NotImplementedException("无法创建参数指定的构造型");
-//
-//				case EntityType.Lane:
-//					LaneBuildCmd rlbc= bc as LaneBuildCmd;
-//					if (rlbc == null)
-//					{
-//						return new Lane(LaneType.StraightRight);
-//					}
-//					else
-//					{
-//						return new Lane(rlbc.laneType);
-//					}
-//				default:
-//					break;
-//			}
-//			throw new  ArgumentException("无法创建参数指定的构造型");
-//		}
-	}
-//
-//	public class WayFactory//: AbstractModelFactory
-//	{
-//
-//		/// <summary>
-//		/// 创建单方向道路
-//		/// </summary>
-//		/// <param name="roadNodeFrom"></param>
-//		/// <param name="roadNodeTo"></param>
-//		/// <param name="iLeftCount">左转车道数目</param>
-//		/// <param name="iStraightCount">直行车道数</param>
-//		/// <param name="iRightCount">右转车道数</param>
-//		/// <returns></returns>
-//		public static Way BuildOneWay(OxyzPointF start,OxyzPointF end,int iLeftCount, int iStraightCount, int iRightCount)
-//		{
-//			Way  re=new Way(start,end);// eModelFactory.b
-//
-//			for (int i = 0; i < iLeftCount; i++)//左。
-//			{
-//				re.AddLane(LaneType.Left);
-//			}
-//			for (int i = 0; i < iStraightCount; i++)//直行
-//			{
-//				re.AddLane(LaneType.Straight);
-//			}
-//			for (int i = 0; i < iRightCount; i++)//右转
-//			{
-//				re.AddLane(LaneType.Right);
-//			}
-//			return re;
-//		}
-//
-//
-//		/// <summary>
-//		/// 创建对称的两个RoadEdge，里面的车道数量由参数指定
-//		/// </summary>
-//		/// <param name="iLeftCount"></param>
-//		/// <param name="iStraightCount"></param>
-//		/// <param name="iRightCount"></param>
-//		/// <returns></returns>
-//		public static void BuildTwoWay(Way re,int iLeftCount,int iStraightCount,int iRightCount)
-//		{
-//			if(iLeftCount+iStraightCount+iRightCount >=SimSettings.iMaxLanes)
-//			{
-//				throw new ArgumentOutOfRangeException("无法创建超过"+SimSettings.iMaxLanes.ToString()+"个车道！");
-//			}
-//
-//			for (int i = 0; i < iLeftCount; i++)//左。
-//			{
-//				re.AddLane(LaneType.Left);
-//				//re.GetReverse().AddLane(LaneType.Left);
-//			}
-//			for (int i = 0; i < iStraightCount; i++)//直行
-//			{
-//				re.AddLane(LaneType.Straight);
-//				//re.GetReverse().AddLane(LaneType.Straight);
-//			}
-//			for (int i = 0; i < iRightCount; i++)//右转
-//			{
-//				re.AddLane(LaneType.Right);
-//				//re.GetReverse().AddLane(LaneType.Right);
-//			}
-//
-//		}
-//	}
 
 	public class AgentFactory //: IFactory
 	{
@@ -219,43 +101,6 @@ namespace SubSys_SimDriving
 		}
 	}
 	
-
-//		public static new bool IsServiceUp = true;//服务运行的开关变量,系统关键服务不应当停止
-//		
-//				SignalLight sg = tVar as SignalLight;
-//				if (sg != null)
-//				{
-//					sg.EntityType = EntityType.SignalLight;
-//					//sg.Grid = new Point(0, 0);
-//					ISimCtx.SignalLights.Add(sg.GetHashCode(), sg);
-//					return;
-//				}
-//				VMSEntity ve = tVar as VMSEntity;
-//				if (ve != null)
-//				{
-//					ve.EntityType = EntityType.VMSEntity;
-//					//	ve.Grid = new Point(0, 0);
-//					ISimCtx.VMSEntities.Add(sg.GetHashCode(), ve);
-//					return;
-//				}
-//
-//				
-//				SmallCar cm = tVar as SmallCar;
-//				if (cm != null)
-//				{
-//					cm.EntityType = EntityType.SmallCar;
-//					//	cm.Grid = new Point(0,0);
-//
-//					ISimCtx.CarModels.Add(cm.GetHashCode(), cm);
-//					return;
-//				}
-//
-//				ThrowHelper.ThrowArgumentException("无法识别的类型，没有注册");
-//
-//				#endregion
-//			}
-//			
-//		}
 //
 //		protected override void SubRevoke(ITrafficEntity tVar)
 //		{
@@ -286,7 +131,7 @@ namespace SubSys_SimDriving
 //				{
 //					isc.RoadNet.XNodes.Remove(rn.GetHashCode()); return;
 //				}
-//				
+//
 //				Lane rl = tVar as Lane;
 //				if (rl != null)
 //				{

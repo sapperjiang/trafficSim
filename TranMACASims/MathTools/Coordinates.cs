@@ -22,18 +22,12 @@ namespace SubSys_MathUtility
 		///// <summary>
 		///// convert cartesian coordinates to screen coordinates and enlarge it 转换为屏幕坐标系;
 		///// </summary>
-		///// <param name="rltPos"></param>
 		///// <param name="iScaleFactor"></param>
-		public static PointF Project(PointF p, int iScaleFactor)
-		{
-			return Coordinates.Project(new OxyzPointF(p.X, p.Y), iScaleFactor).ToPointF();
-		}
-		
-		public static PointF Project(OxyzPoint p, int iScaleFactor)
-		{
-			return Coordinates.Project(p.ToOxyzPointF(), iScaleFactor).ToPointF();
-		}
-//
+//		public static PointF Project(OxyzPointF p, int iScaleFactor)
+//		{
+//			return Coordinates.Project(p, iScaleFactor).ToPointF();
+//		}
+
 		/// <summary>
 		/// screen coordinates scalaor
 		/// </summary>
@@ -45,7 +39,7 @@ namespace SubSys_MathUtility
 			OxyzPointF scrnPoint = new OxyzPointF();
 			scrnPoint._X = (float)Math.Round(iScaleFactor * mp._X);
 			scrnPoint._Y = (float)Math.Round(iScaleFactor * mp._Y);
-//
+
 //			//计算平移(偏移)
 //			scrnPoint.X -= Coordinates.GraphicsOffset.X;
 //			scrnPoint.Y -= Coordinates.GraphicsOffset.Y;

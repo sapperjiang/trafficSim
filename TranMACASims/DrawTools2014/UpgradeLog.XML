@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="DrawTools2005">
+</Property><Property Name="Solution File" Value="C:\TEMP\SampleImageBrowser\DrawTools2005\DrawTools2005.sln">
+</Property><Property Name="Date" Value="samedi 11 janvier 2014">
+</Property><Property Name="Time" Value="15:55">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="DrawTools2005.sln" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools2005.sln">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\DocToolkit.csproj" Description="Project file successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DocToolkit\DocToolkit.csproj">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\DocManager.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DocToolkit\DocManager.cs">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\DragDropManager.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DocToolkit\DragDropManager.cs">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\MruManager.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DocToolkit\MruManager.cs">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\PersistWindowState.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DocToolkit\PersistWindowState.cs">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DocToolkit\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\DocToolkit.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DocToolkit" Source="DocToolkit\DocToolkit.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawTools.csproj" Description="Project file successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawTools.csproj">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\CommandDelete.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\CommandDelete.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\CommandDeleteAll.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\CommandDeleteAll.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Command.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Command.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\CommandAdd.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\CommandAdd.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\CommandChangeState.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\CommandChangeState.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawArea.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawArea.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawArea.Designer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawArea.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawEllipse.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawEllipse.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawLine.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawLine.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawObject.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawObject.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawPolygon.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawPolygon.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawRectangle.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawRectangle.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\FrmAbout.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\FrmAbout.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\FrmAbout.Designer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\FrmAbout.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\MainForm.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\MainForm.Designer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\MainForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\GraphicsList.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\GraphicsList.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\GraphicsProperties.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\GraphicsProperties.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Program.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Program.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\PropertiesDialog.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\PropertiesDialog.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\PropertiesDialog.Designer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\PropertiesDialog.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Tool.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Tool.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\ToolEllipse.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\ToolEllipse.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\ToolLine.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\ToolLine.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\ToolObject.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\ToolObject.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\ToolPointer.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\ToolPointer.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\ToolPolygon.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\ToolPolygon.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\ToolRectangle.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\ToolRectangle.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\UndoManager.cs" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\UndoManager.cs">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Properties\Settings.settings" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawArea.resx" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\DrawArea.resx">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\FrmAbout.resx" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\FrmAbout.resx">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\MainForm.resx" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\MainForm.resx">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\PropertiesDialog.resx" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\PropertiesDialog.resx">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Properties\Resources.resx" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Rectangle.cur" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Rectangle.cur">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Ellipse.cur" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Ellipse.cur">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Line.cur" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Line.cur">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\Pencil.cur" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\Pencil.cur">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\PolyHandle.cur" Description="File successfully backed up as C:\TEMP\SampleImageBrowser\DrawTools2005\Backup\DrawTools\PolyHandle.cur">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawTools.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DrawTools" Source="DrawTools\DrawTools.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="DrawTools2005.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="DrawTools2005.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DocToolkit" Source="DocToolkit\DocToolkit.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DrawTools" Source="DrawTools\DrawTools.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

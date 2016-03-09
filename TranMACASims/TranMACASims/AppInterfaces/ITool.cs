@@ -76,7 +76,7 @@ namespace GISTranSim
         }
 
         /// <summary>
-        /// tool激活状鼠标状态态的
+        /// tool激活状鼠标状态的
         /// </summary>
         int Cursor
         {

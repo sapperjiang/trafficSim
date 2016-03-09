@@ -105,6 +105,12 @@
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -119,12 +125,19 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInterfaces\TranSimGISPlugin.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="AppInterfaces\IApplication.cs" />
     <Compile Include="AppInterfaces\ICommand.cs" />
@@ -139,34 +152,40 @@
     <Compile Include="AppInterfaces\PluginContainer.cs" />
     <Compile Include="AppInterfaces\PluginContainerEnumerator.cs" />
     <Compile Include="AppInterfaces\PluginHandler.cs" />
-    <Compile Include="DataOutput\AbstractCharter.cs">
+    <Compile Include="SimConfig\WinDrivingStratigySetUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataOutput\AbstractCharter.Designer.cs">
+    <Compile Include="SimConfig\WinDrivingStratigySetUp.Designer.cs">
+      <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\AbstractCharter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\AbstractCharter.Designer.cs">
       <DependentUpon>AbstractCharter.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataOutput\TimeSpaceCharter.cs">
+    <Compile Include="UIData\ODInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataOutput\TimeSpaceCharter.Designer.cs">
-      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataInput\ODInput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataInput\ODInput.Designer.cs">
+    <Compile Include="UIData\ODInput.Designer.cs">
       <DependentUpon>ODInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataOutput\DataOutPut.cs">
+    <Compile Include="UIData\TimeSpaceCharter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataOutput\DataOutPut.Designer.cs">
+    <Compile Include="UIData\TimeSpaceCharter.Designer.cs">
+      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\DataOutPut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\DataOutPut.Designer.cs">
       <DependentUpon>DataOutPut.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataOutput\MeanSpeedCharter.cs">
+    <Compile Include="UIData\MeanSpeedCharter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataOutput\MeanSpeedCharter.Designer.cs">
+    <Compile Include="UIData\MeanSpeedCharter.Designer.cs">
       <DependentUpon>MeanSpeedCharter.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -191,17 +210,12 @@
     <Compile Include="SimMain.designer.cs">
       <DependentUpon>SimMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="TranSimGISPlugin.cs" />
-    <Compile Include="WinDrivingStratigySetUp.cs">
+    <Compile Include="UIHelp\UIHelpAbout.cs" />
+    <Compile Include="UIHelp\UIHelpAbout.Designer.cs" />
+    <Compile Include="UIData\SpeedTimeCharter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinDrivingStratigySetUp.Designer.cs">
-      <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataOutput\SpeedTimeCharter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataOutput\SpeedTimeCharter.Designer.cs">
+    <Compile Include="UIData\SpeedTimeCharter.Designer.cs">
       <DependentUpon>SpeedTimeCharter.cs</DependentUpon>
     </Compile>
     <None Include="app.config" />
@@ -249,6 +263,10 @@
       <Project>{D9A39CA7-1C9B-4A9F-9C22-C73E32977D9B}</Project>
       <Name>SubSys_Graphics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SubSys_NetworkBuilder\SubSys_NetworkBuilder.csproj">
+      <Project>{1BB32B80-00C3-4C1C-9EF8-E98B5D61D691}</Project>
+      <Name>SubSys_NetworkBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SubSys_SimDriving\SubSys_SimDriving.csproj">
       <Project>{DAE0A318-3A89-450C-9095-83DC71E286C6}</Project>
       <Name>SubSys_SimDriving</Name>
@@ -264,16 +282,19 @@
     <None Include="Resources\Pan.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataOutput\TimeSpaceCharter.resx">
-      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    <EmbeddedResource Include="SimConfig\WinDrivingStratigySetUp.resx">
+      <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataInput\ODInput.resx">
+    <EmbeddedResource Include="UIData\ODInput.resx">
       <DependentUpon>ODInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataOutput\DataOutPut.resx">
+    <EmbeddedResource Include="UIData\TimeSpaceCharter.resx">
+      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIData\DataOutPut.resx">
       <DependentUpon>DataOutPut.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataOutput\MeanSpeedCharter.resx">
+    <EmbeddedResource Include="UIData\MeanSpeedCharter.resx">
       <DependentUpon>MeanSpeedCharter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -290,10 +311,10 @@
     <EmbeddedResource Include="SimMain.resx">
       <DependentUpon>SimMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinDrivingStratigySetUp.resx">
-      <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
+    <EmbeddedResource Include="UIHelp\UIHelpAbout.resx">
+      <DependentUpon>UIHelpAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataOutput\SpeedTimeCharter.resx">
+    <EmbeddedResource Include="UIData\SpeedTimeCharter.resx">
       <DependentUpon>SpeedTimeCharter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -307,6 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SimConfig" />
+    <Folder Include="UIHelp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

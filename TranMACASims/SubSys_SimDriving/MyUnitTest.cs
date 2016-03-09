@@ -10,7 +10,7 @@ using System;
 using System.Drawing;
 using NUnit.Framework;
 using SubSys_SimDriving.TrafficModel;
-
+using SubSys_MathUtility;
 
 
 
@@ -43,15 +43,14 @@ namespace SubSys_SimDriving
 //			Assert.AreEqual(2, es.GetIndex(last),"RIGHT");
 
 
-			IFactory iabstractFacotry=new StaticFactory();
+			IStaticFactory iabstractFacotry=new StaticFactory();
 			
 			
 			
 			int iRoadWidth = 6;
 			int iBase = 2;
-			var rnA= iabstractFacotry.Build(new OxyzPoint(8,20,0),OxyzPoint.de,EntityType.XNode) as XNode;
-			var rnB = iabstractFacotry.Build(new XNodeBuildCmd(new Point(28, 20)), EntityType.XNode) as XNode;
-			
+			var rnA= iabstractFacotry.Build(new OxyzPointF(8,20,0),OxyzPointF.Default,EntityType.XNode) as XNode;
+			var rnB = iabstractFacotry.Build(new OxyzPointF(28, 20,0),OxyzPointF.Default,EntityType.XNode) as XNode;
 			var  way =  new Way(rnA,rnB);/// Way();//new Lane(;
 			RoadNet   roadNetwork = RoadNet.GetInstance();// SubSys_SimDriving.SimContext.GetInstance().;//.sim;SimController.ISimCtx.RoadNet;
 			

@@ -17,8 +17,6 @@ namespace SubSys_MathUtility
 			return new OxyzPoint(this);
 		}
 
-		
-		
 		public PointF ToPointF()
 		{
 			return new PointF((float)this._X,(float) this._Y);
@@ -63,7 +61,7 @@ namespace SubSys_MathUtility
 		
 		public OxyzPointF(OxyzPointF p):this(p._X,p._Y,0F){}
 		
-		public OxyzPointF Default
+		public static OxyzPointF Default
 		{	
 			get{return new OxyzPointF(0f,0f,0f);}
 		}

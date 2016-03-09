@@ -1,43 +1,41 @@
 ﻿using System;
 using System.Linq;
 using System.Drawing;
-using SubSys_SimDriving;
-using SubSys_SimDriving.TrafficModel;
-using SubSys_SimDriving.Agents;
 
-namespace SubSys_DataManage
+using SubSys_SimDriving.TrafficModel;
+using SubSys_MathUtility;
+
+namespace SubSys_SimDriving
 {
+	
 	/// <summary>
 	/// 汽车工厂
 	/// </summary>
-	public class MobileFactory//:IFactory
+	public class MobileFactory:IMobileFactory
 	{
-		public AbstractAgent Build(BuildCommand bc, AgentType et)
-		{
-			throw new NotImplementedException();
-		}
 
-
-		public MobileEntity Build(BuildCommand bc, EntityType etype)
+		public MobileEntity Build(EntityType etype)
 		{
 			switch (etype)
 			{
 				case EntityType.SmallCar:
 					
-					//浅表复制一个
-					SmallCar  newCar =this.sCar.Clone() as SmallCar;
-					newCar.Color = MobileFactory.GetRandomColor();
+					SmallCar  newCar = new SmallCar();
+					newCar.Color = MobileFactory.RandomColor();
+					
+					newCar.SpatialGrid =OxyzPointF.Default;
+					
+				
 					return newCar;
 					
 //				case EntityType.Bus:
 //					Bus  newBus = this.bus.Clone() as Bus;
 //					newBus.Color = MobileFactory.GetRandomColor();
 //					return newBus;
-//					
+//
 //				case EntityType.Pedastrain:
-////					Pedastrain  newBus = this.p.Clone() as Pedastrain;
-////					
-////					newBus.Color = MobileFactory.GetRandomColor();
+					///Pedastrain  newBus = this.p.Clone() as Pedastrain;
+					////newBus.Color = MobileFactory.GetRandomColor();
 //					return new Pedastrain();
 //				case EntityType.LargeTruck:
 //					return new LargeTruck();
@@ -48,22 +46,14 @@ namespace SubSys_DataManage
 			throw new  ArgumentException("无法创建参数指定的构造型");
 		}
 		
-		
-		SmallCar sCar ;//= new SmallCar()
-//		Bus bus ;
-//		LargeTruck largeTruck ;
-		
-		MobileFactory()
+		public MobileFactory()
 		{
 			//sCar= new SmallCar();
-		//	bus = new Bus();
-	//		largeTruck = new LargeTruck();
+			//	bus = new Bus();
+			//		largeTruck = new LargeTruck();
 		}
-		
-		
-		static ISimContext isc = SimContext.GetInstance();
 
-		private static Color GetRandomColor()
+		private static Color RandomColor()
 		{
 			Random RandomNum_First = new Random((int)DateTime.Now.Ticks);
 			//  对于C#的随机数，没什么好说的

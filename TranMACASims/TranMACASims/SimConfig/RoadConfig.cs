@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 
-using SubSys_DataManage;
-using SubSys_Graphics;
-using SubSys_SimDriving;
-using SubSys_SimDriving.Agents;
-using SubSys_SimDriving.RoutePlan;
-using SubSys_SimDriving;
-using SubSys_SimDriving.Service;
-using SubSys_SimDriving.TrafficModel;
+using System.Linq;
+
+using System.Windows.Forms;
 
 
 namespace GISTranSim
@@ -49,7 +37,7 @@ namespace GISTranSim
 				
 			//	Way  roadEdge = WayFactory.BuildOneWay(new Point(),new Point(),this.iLeftCount,this.iStraghtCount,this.iRightCount);//);
 				
-				roadEdge .Name  =this.TB_RoadName.Text;
+//				roadEdg.Name  =this.TB_RoadName.Text;
 				
 				this.DialogResult = DialogResult.OK;
 				

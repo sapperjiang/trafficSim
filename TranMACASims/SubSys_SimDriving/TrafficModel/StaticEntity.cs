@@ -12,11 +12,11 @@ namespace SubSys_SimDriving
 	/// </summary>
 	public abstract partial class StaticEntity:TrafficEntity
 	{
-	
-	//_______________2015年1月新增的内容，原有的成员和方法将被部分废弃________________
-	/// <summary>
-	/// _2015年1月新增的内容，原有的成员和方法将被部分废弃
-	/// </summary>
+		
+		//_______________2015年1月新增的内容，原有的成员和方法将被部分废弃________________
+		/// <summary>
+		/// _2015年1月新增的内容，原有的成员和方法将被部分废弃
+		/// </summary>
 
 
 		#region 处理等待的mobileentity的数据结构和函数
@@ -38,8 +38,10 @@ namespace SubSys_SimDriving
 		/// <param name="me"></param>
 		public virtual void EnterInn(MobileEntity me)
 		{
-			//给容器赋值；
-//			me.Container = this._Container;
+			//给mobile容器赋值；
+			me.Container = this;		
+			me.Shape.Add(this.Shape.Start);
+			
 			this._mobilesInn.Enqueue(me);
 		}
 		

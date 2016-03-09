@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{1BB32B80-00C3-4C1C-9EF8-E98B5D61D691}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SubSys_NetworkBuilder</RootNamespace>
+    <AssemblyName>SubSys_NetworkBuilder</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="docTools\DocManager.cs" />
+    <Compile Include="docTools\DragDropManager.cs" />
+    <Compile Include="docTools\MruManager.cs" />
+    <Compile Include="docTools\PersistWindowState.cs" />
+    <Compile Include="NetWorker\Command.cs" />
+    <Compile Include="NetWorker\CommandAdd.cs" />
+    <Compile Include="NetWorker\CommandChangeState.cs" />
+    <Compile Include="NetWorker\CommandDelete.cs" />
+    <Compile Include="NetWorker\CommandDeleteAll.cs" />
+    <Compile Include="NetWorker\DrawArea.cs" />
+    <Compile Include="NetWorker\DrawArea.Designer.cs" />
+    <Compile Include="NetWorker\DrawEllipse.cs" />
+    <Compile Include="NetWorker\DrawLine.cs" />
+    <Compile Include="NetWorker\DrawObject.cs" />
+    <Compile Include="NetWorker\DrawPolygon.cs" />
+    <Compile Include="NetWorker\DrawRectangle.cs" />
+    <Compile Include="NetWorker\FrmAbout.cs" />
+    <Compile Include="NetWorker\FrmAbout.Designer.cs" />
+    <Compile Include="NetWorker\GraphicsList.cs" />
+    <Compile Include="NetWorker\GraphicsProperties.cs" />
+    <Compile Include="NetWorker\MainForm.cs" />
+    <Compile Include="NetWorker\MainForm.Designer.cs" />
+    <Compile Include="NetWorker\Program.cs" />
+    <Compile Include="NetWorker\PropertiesDialog.cs" />
+    <Compile Include="NetWorker\PropertiesDialog.Designer.cs" />
+    <Compile Include="NetWorker\Tool.cs" />
+    <Compile Include="NetWorker\ToolEllipse.cs" />
+    <Compile Include="NetWorker\ToolLine.cs" />
+    <Compile Include="NetWorker\ToolObject.cs" />
+    <Compile Include="NetWorker\ToolPointer.cs" />
+    <Compile Include="NetWorker\ToolPolygon.cs" />
+    <Compile Include="NetWorker\ToolRectangle.cs" />
+    <Compile Include="NetWorker\UndoManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="NetWorker\Ellipse.cur" />
+    <None Include="NetWorker\Line.cur" />
+    <None Include="NetWorker\Pencil.cur" />
+    <None Include="NetWorker\PolyHandle.cur" />
+    <None Include="NetWorker\Rectangle.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="docTools" />
+    <Folder Include="NetWorker" />
+    <Folder Include="NetWorker\images" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NetWorker\DrawArea.resx">
+      <DependentUpon>DrawArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NetWorker\FrmAbout.resx">
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NetWorker\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NetWorker\PropertiesDialog.resx">
+      <DependentUpon>PropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -15,6 +15,9 @@ namespace SubSys_SimDriving
 	{
 		public static int EntityCounter = 0;
 		
+		/// <summary>
+		/// oused to count subEntity numbers
+		/// </summary>
 		public int TypeID = 0;
 		
 		//IService _IregService = new RegisterService();

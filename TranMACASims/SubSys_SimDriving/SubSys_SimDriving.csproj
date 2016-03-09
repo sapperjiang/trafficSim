@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelFactory\CarSimulator.cs" />
+    <Compile Include="ModelFactory\CarSimulator_trashed.cs" />
     <Compile Include="ModelFactory\StaticFactory.cs" />
     <Compile Include="ModelFactory\MobileFactory.cs" />
     <Compile Include="ModelFactory\NetWorkCreatCmd.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="Agent\VMSAgent.cs" />
     <Compile Include="DrivingStrategy\AbstractDriver.cs" />
     <Compile Include="DrivingStrategy\BridgedDriver.cs" />
-    <Compile Include="ModelFactory\SimpleFactory.cs" />
+    <Compile Include="ModelFactory\IFactory.cs" />
     <Compile Include="RoutePlan\AntiOneDecisionRoutePlanner.cs" />
     <Compile Include="RoutePlan\AStarShortestPath.cs" />
     <Compile Include="RoutePlan\Dijkstra.cs" />

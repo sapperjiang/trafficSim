@@ -33,34 +33,34 @@ namespace SubSys_Graphics
 			
 			//计算左上角的屏幕坐标
 			int iOffset = rN.Length / 2;
-			PointF pStart = new PointF(rN.Grid.X - iOffset, rN.Grid.Y - iOffset);
+			OxyzPointF pStart = new OxyzPointF(rN.SpatialGrid._X - iOffset, rN.SpatialGrid._Y - iOffset);
 
 			int iHO = iOffset/2;
-			PointF  pA =new PointF(pStart.X+iHO,pStart.Y);
-			PointF  pB =new PointF(pStart.X+iHO*3,pStart.Y);
+			OxyzPointF  pA = new OxyzPointF(pStart._X+iHO,pStart._Y);
+			OxyzPointF  pB = new OxyzPointF(pStart._X+iHO*3,pStart._Y);
 			
-			PointF  pC = new PointF(pStart.X,pStart.Y+iHO);
-			PointF  pD =new PointF(pStart.X,pStart.Y+iHO*3);
+			OxyzPointF  pC = new OxyzPointF(pStart._X,pStart._Y+iHO);
+			OxyzPointF  pD = new OxyzPointF(pStart._X,pStart._Y+iHO*3);
 			
-			PointF  pE = new PointF(pStart.X+iHO,pStart.Y+iHO*4);
-			PointF  pF= new PointF(pStart.X+iHO*3,pStart.Y+iHO*4);
+			OxyzPointF  pE = new OxyzPointF(pStart._X+iHO,pStart._Y+iHO*4);
+			OxyzPointF  pF = new OxyzPointF(pStart._X+iHO*3,pStart._Y+iHO*4);
 			
-			PointF  pG = new PointF(pStart.X+iHO*4,pStart.Y+iHO);
-			PointF  pI = new PointF(pStart.X+iHO*4,pStart.Y+iHO*3);
+			OxyzPointF  pG = new OxyzPointF(pStart._X+iHO*4,pStart._Y+iHO);
+			OxyzPointF  pI = new OxyzPointF(pStart._X+iHO*4,pStart._Y+iHO*3);
 			
-			pA =Coordinates.Project(pA , iPixels);
-			pB = Coordinates.Project(pB, iPixels);
+			var	pA1 =Coordinates.Project(pA , iPixels).ToPointF();
+		var	pB1 = Coordinates.Project(pB, iPixels).ToPointF();
 			
-			pC = Coordinates.Project(pC, iPixels);
-			pD = Coordinates.Project(pD , iPixels);
+		var	pC1 = Coordinates.Project(pC, iPixels).ToPointF();
+		var	pD1 = Coordinates.Project(pD , iPixels).ToPointF();
 			
-			pE = Coordinates.Project(pE, iPixels);
-			pF= Coordinates.Project( pF , iPixels);
+		var	pE1 = Coordinates.Project(pE, iPixels).ToPointF();
+		var	pF1= Coordinates.Project( pF , iPixels).ToPointF();
 			
-			pG = Coordinates.Project(pG , iPixels);
-			pI = Coordinates.Project(pI , iPixels);
+		var	pG1 = Coordinates.Project(pG , iPixels).ToPointF();
+		var	pI1 = Coordinates.Project(pI , iPixels).ToPointF();
 
-			PointF[] pits = { pD, pC, pA, pB,pG,pI,pF,pE };
+			PointF[] pits = { pD1, pC1, pA1, pB1,pG1,pI1,pF1,pE1 };
 			_graphic.FillPolygon(new SolidBrush(GraphicsCfger.roadColor), pits);
 			
 		}

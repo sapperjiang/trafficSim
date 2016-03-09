@@ -3,16 +3,12 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using SubSys_DataManage;
 using SubSys_Graphics;
-using SubSys_SimDriving.Agents;
 
 using SubSys_SimDriving.RoutePlan;
 using SubSys_SimDriving;
 using SubSys_SimDriving.Service;
 using SubSys_SimDriving.TrafficModel;
-
-//using GISTranSim.DataOutput;
 
 
 namespace SubSys_SimDriving
@@ -45,26 +41,26 @@ namespace SubSys_SimDriving
 		internal static Way ReB1;
 		internal static Way ReB2;
 		
-		
-		private static IFactory AddSignalGroup(IFactory ifactory, XNode xNode)
-		{
-			ifactory = (new AgentFactory()) as IFactory;
-			//添加信号灯规则
-			xNode.AcceptAsynAgent(ifactory.Build(null, AgentType.SignalLightAgent));
-
-			//信号灯赋值
-			ifactory = new StaticFactory();
-			SignalLight sl = ifactory.Build(null, EntityType.SignalLight) as SignalLight;
-
-			foreach (XNode item in iroadNet.XNodes)
-			{
-				foreach (Way roadEdge in item.Ways)
-				{
-					roadEdge.GetReverse().ModifySignalGroup(sl, LaneType.Straight);
-				}
-			}
-			return ifactory;
-		}
+//		
+//		private static IFactory AddSignalGroup(IFactory ifactory, XNode xNode)
+//		{
+//			ifactory = (new AgentFactory()) as IFactory;
+//			//添加信号灯规则
+//			xNode.AcceptAsynAgent(ifactory.Build(null, AgentType.SignalLightAgent));
+//
+//			//信号灯赋值
+//			ifactory = new StaticFactory();
+//			SignalLight sl = ifactory.Build(null, EntityType.SignalLight) as SignalLight;
+//
+//			foreach (XNode item in iroadNet.XNodes)
+//			{
+//				foreach (Way roadEdge in item.Ways)
+//				{
+//					roadEdge.GetReverse().ModifySignalGroup(sl, LaneType.Straight);
+//				}
+//			}
+//			return ifactory;
+//		}
 
 		/// <summary>
 		/// 仿真的每个时间步骤，重新绘制道路网。
@@ -150,8 +146,12 @@ namespace SubSys_SimDriving
 //							erA.Add(SimController.ReA4);
 				//设置每段路走哪条路
 				Lane startLane = SimController.ReA1.Lanes[iLane];
+				MobileFactory mf = new MobileFactory();
 				
-				startLane.EnterInn(MobileSimulator.MakeMobile(route,startLane));
+				var car = mf.Build(EntityType.SmallCar) as SmallCar;
+				car.Route = route;
+				
+				startLane.EnterInn(car);
 				
 				//Lane r2 = SimController.ReB.Lanes[iLane];
 				//为每个原包选择出行路由

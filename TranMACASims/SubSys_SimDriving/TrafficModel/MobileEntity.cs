@@ -63,7 +63,7 @@ namespace SubSys_SimDriving.TrafficModel
 		~MobileEntity()
 		{
 			if (this.IsCopyed != true) {
-			//	base.UnRegiser();
+				//	base.UnRegiser();
 			}
 		}
 		//internal SpeedLevel CurrSpeed;
@@ -85,18 +85,18 @@ namespace SubSys_SimDriving.TrafficModel
 		protected MobileEntity(StaticEntity bornContainer)
 		{
 			this._entityID = ++TrafficEntity.EntityCounter;
-
-		//	base.Register();
-			
 			this.Route = new EdgeRoute();
-
-			
 			this._container = bornContainer;
-			
-			this.Shape.Add(this.Container.Shape.Start);
-
 		}
 		
+		protected MobileEntity()
+		{
+			this._entityID = ++TrafficEntity.EntityCounter;
+			this.Route = new EdgeRoute();
+			this.iSpeed = 0;
+			this.iAcceleration = 1;
+			
+		}
 		/// <summary>
 		/// 用作记录态哈希表记录车辆的时间信息，以及用来确定什么时候进入路段
 		/// </summary>
@@ -588,7 +588,7 @@ namespace SubSys_SimDriving.TrafficModel
 		public override int GetHashCode()
 		{
 			return this.ID.GetHashCode();
-		}	
+		}
 	}
 	
 	/// <summary>
@@ -743,7 +743,7 @@ namespace SubSys_SimDriving.TrafficModel
 			
 			if (nextWay == null) {//a moblie is reaching its destination
 				this.ToLane = null;
-			//	this.opTo = OxyzPointF.Default;
+				//	this.opTo = OxyzPointF.Default;
 				this.opTo =currLane.Shape.End;
 				return;
 			}
@@ -773,7 +773,7 @@ namespace SubSys_SimDriving.TrafficModel
 					break;
 					
 				case -1://turn left
-				//	int iIndex = new Random(1).Next(nextWay.Lanes.Count) - 1;
+					//	int iIndex = new Random(1).Next(nextWay.Lanes.Count) - 1;
 					this.ToLane = nextWay.Lanes[0];
 					break;
 					

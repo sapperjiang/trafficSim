@@ -4,25 +4,19 @@
         <name>SubSys_SimDriving</name>
     </assembly>
     <members>
-        <member name="M:SubSys_SimDriving.WayFactory.BuildOneWay(System.Drawing.Point,System.Drawing.Point,System.Int32,System.Int32,System.Int32)">
+        <member name="M:SubSys_SimDriving.StaticFactory.Build(SubSys_MathUtility.OxyzPointF,SubSys_MathUtility.OxyzPointF,SubSys_SimDriving.TrafficModel.EntityType)">
             <summary>
-            创建单方向道路
+            create xnode way road and lane.
             </summary>
-            <param name="roadNodeFrom"></param>
-            <param name="roadNodeTo"></param>
-            <param name="iLeftCount">左转车道数目</param>
-            <param name="iStraightCount">直行车道数</param>
-            <param name="iRightCount">右转车道数</param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="et"></param>
             <returns></returns>
         </member>
-        <member name="M:SubSys_SimDriving.WayFactory.BuildTwoWay(SubSys_SimDriving.TrafficModel.Way,System.Int32,System.Int32,System.Int32)">
+        <member name="T:SubSys_SimDriving.MobileFactory">
             <summary>
-            创建对称的两个RoadEdge，里面的车道数量由参数指定
+            汽车工厂
             </summary>
-            <param name="iLeftCount"></param>
-            <param name="iStraightCount"></param>
-            <param name="iRightCount"></param>
-            <returns></returns>
         </member>
         <member name="T:SubSys_SimDriving.BuildCommand">
             <summary>
@@ -200,24 +194,20 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:SubSys_SimDriving.Service.IService">
+        <member name="T:SubSys_SimDriving.DataRecorder`2">
             <summary>
-            观察者接口
+            抽象类
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.Service.Service.IsServiceUp">
+        <member name="T:SubSys_SimDriving.CarInfoDic">
             <summary>
-            服务运行的开关变量
+            最内层哈希表，保存车辆的信息。利用车辆哈希进行索引
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.Service.Service.IsRunning">
+        <member name="T:SubSys_SimDriving.EntityDic">
             <summary>
-            如果全局开关关闭则一定返回false
-            </summary>
-        </member>
-        <member name="T:SubSys_SimDriving.Service.EventAttachService">
-            <summary>
-            也不是所有的实体都有EventAttacherLogger。需要注册并且实现
+            哈表索引树，次内层，保存一个路段上的车辆信息，利用路段哈希进行索引
+            针对换道问题。可以增加车辆在哪个车道的记录
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.StaticSysTable`2">
@@ -227,7 +217,7 @@
             <typeparam name="TKey"></typeparam>
             <typeparam name="TValue"></typeparam>
         </member>
-        <member name="T:SubSys_SimDriving.RoadNodeHTable">
+        <member name="T:SubSys_SimDriving.XNodeHTable">
             <summary>
             不继承自staticSystable
             </summary>
@@ -270,20 +260,30 @@
             表示运行时建立的路网的结构，里面包含了对RoadNodeList和RoadEdgeList的引用
             </summary>
         </member>
-        <member name="T:SubSys_SimDriving.DataRecorder`2">
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityIDManager`1.GetUniqueRoadNodeID">
             <summary>
-            抽象类
+            利用泛型之后ID 可以为string类型,由子类进行实现
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.Service.IService">
+            <summary>
+            观察者接口
             </summary>
         </member>
-        <member name="T:SubSys_SimDriving.CarInfoDic">
+        <member name="F:SubSys_SimDriving.Service.Service.IsServiceUp">
             <summary>
-            最内层哈希表，保存车辆的信息。利用车辆哈希进行索引
+            服务运行的开关变量
             </summary>
         </member>
-        <member name="T:SubSys_SimDriving.EntityDic">
+        <member name="P:SubSys_SimDriving.Service.Service.IsRunning">
             <summary>
-            哈表索引树，次内层，保存一个路段上的车辆信息，利用路段哈希进行索引
-            针对换道问题。可以增加车辆在哪个车道的记录
+            如果全局开关关闭则一定返回false
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.Service.EventAttachService">
+            <summary>
+            也不是所有的实体都有EventAttacherLogger。需要注册并且实现
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iMaxLanes">
@@ -349,11 +349,6 @@
             交通实体的类型，VMS，Car，TrafficLight 等
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.ITrafficEntity.Grid">
-            <summary>
-            交通实体的元胞坐标系，相对于容器实体或者其他
-            </summary>
-        </member>
         <member name="P:SubSys_SimDriving.ITrafficEntity.GISGrid">
             <summary>
             相对于GIS的绝对坐标
@@ -370,6 +365,11 @@
             for 3D drawing method
             </summary>
         </member>
+        <member name="F:SubSys_SimDriving.TrafficEntity.TypeID">
+            <summary>
+            oused to count subEntity numbers
+            </summary>
+        </member>
         <member name="M:SubSys_SimDriving.TrafficEntity.InvokeServices(SubSys_SimDriving.ITrafficEntity)">
             <summary>
             调用服务的功能
@@ -382,9 +382,10 @@
             </summary>
             <param name="ils"></param>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficEntity.Register">
+        <member name="F:SubSys_SimDriving.TrafficEntity._entityID">
             <summary>
-            向simContext 报道类的创建行为
+            向simContext 报道类的创建行为,注册不应当声明为服务，服务每个循环周期都调用
+            注册这类应当在工厂方法里面删除。
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficEntity.asynAgents">
@@ -413,11 +414,6 @@
             添加异步更新规则
             </summary>
             <param name="ur"></param>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficEntity.Grid">
-            <summary>
-            元胞坐标系,过时，建议使用spaceGrid
-            </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficEntity.Width">
             <summary>
@@ -517,7 +513,7 @@
             a mobiles'current lane/fromlane/tolane is recalculated each time on it enters a XNode
             </summary>
         </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.SmallCar.#ctor(SubSys_SimDriving.StaticEntity)">
+        <member name="M:SubSys_SimDriving.TrafficModel.SmallCar.#ctor">
             <summary>
             base constructor is called first .base constructor is used to do common things
             while derived class is used to do characterful charactors
@@ -529,9 +525,19 @@
             当前车辆的加速度
             </summary>
         </member>
-        <member name="T:SubSys_DataManage.MobileFactory">
+        <member name="T:SubSys_SimDriving.TrafficModel.Bus">
             <summary>
-            汽车工厂
+            公共汽车，占用4个元胞网格 。12米的，取决于元胞网格的空间大小
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.LargeTruck">
+            <summary>
+            大卡车，占用4个元胞网格
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Pedastrain">
+            <summary>
+            行人，一般占用1个元胞网格
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.AdjacencyTable`1">
@@ -574,12 +580,6 @@
         <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.GetEnumerator">
             <summary>
             提供对存储元素的高效遍历
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.EntityIDManager`1.GetUniqueRoadNodeID">
-            <summary>
-            利用泛型之后ID 可以为string类型,由子类进行实现
             </summary>
             <returns></returns>
         </member>
@@ -635,7 +635,7 @@
             对向道路
             </summary>
         </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.IRoad.CtrRoadNode">
+        <member name="P:SubSys_SimDriving.TrafficModel.IRoad.CtrXNode">
             <summary>
             对向节点
             </summary>
@@ -645,23 +645,15 @@
             包含两个way的道路。如果是单行路，只包含一个way
             </summary>
         </member>
-        <member name="T:SubSys_SimDriving.TrafficModel.Way">
-             <summary>
-            Road的一条有向边，一条道路有两条边 一般来讲Edge的长度与Lane长度一样，但是环形交叉口，以及以后的拓展除外
-             </summary>
-        </member>
         <member name="T:SubSys_SimDriving.StaticEntity">
             <summary>
             表示交叉口XNode，路段way，车道Lane,道路Road的基类型
              智能体的更新使用了访问者模式
             </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.StaticEntity._mobilesInn">
             <summary>
             _2015年1月新增的内容，原有的成员和方法将被部分废弃
-            </summary>
-        </member>
-        <member name="F:SubSys_SimDriving.StaticEntity.iCurrTimeStep">
-            <summary>
-            该对象子类的更新时刻
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.StaticEntity.EnterInn(SubSys_SimDriving.TrafficModel.MobileEntity)">
@@ -672,7 +664,7 @@
         </member>
         <member name="M:SubSys_SimDriving.StaticEntity.ServeMobiles">
             <summary>
-            抽象方法、需要lane和xnode实现，将等待队列中的元胞添加到车道元胞中，新版由cellspace类实现该功能
+            抽象方法、需要lane和xnode实现，将等待队列中的mobile添加到update mobile
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.StaticEntity.MobilesInn">
@@ -680,6 +672,11 @@
             等待进入实体的道的等待mobileEntity，实际上是等待队列，交叉口和车道都有。
             真正存储车辆位置的容器，因为车道与交叉口不同，在各自内部用不用的数据结构实现
             </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Way">
+             <summary>
+            Road的一条有向边，一条道路有两条边 一般来讲Edge的长度与Lane长度一样，但是环形交叉口，以及以后的拓展除外
+             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Way.iTimeStep">
             <summary>
@@ -692,20 +689,6 @@
             </summary>
             <param name="from"></param>
             <param name="to"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Way.#ctor(System.Drawing.Point,System.Drawing.Point)">
-            <summary>
-            构造一条从from点到to点的道路
-            </summary>
-            <param name="from"></param>
-            <param name="to"></param>
-        </member>
-        <member name="M:SubSys_SimDriving.TrafficModel.Way.#ctor(SubSys_MathUtility.OxyzPointF,SubSys_MathUtility.OxyzPointF)">
-            <summary>
-            a new constructor
-            </summary>
-            <param name="opStart"></param>
-            <param name="opEnd"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.AddLane(SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
@@ -782,11 +765,6 @@
         <member name="P:SubSys_SimDriving.TrafficModel.Way.TripCost">
             <summary>
             路段的交通费用/成本
-            </summary>
-        </member>
-        <member name="P:SubSys_SimDriving.TrafficModel.Way.Shape">
-            <summary>
-            过时的，需要重写
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Lane">
@@ -912,12 +890,12 @@
             静态引用私有引用，只能通过getInstance创建类的实例
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.htWays">
+        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet._Ways">
             <summary>
             边字典使用仿真上下文
             </summary>
         </member>
-        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.htLanes">
+        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet._Lanes">
             <summary>
             获取所有的车道是否有必要，因为该部分已经存在了RoadEdge中了
             </summary>

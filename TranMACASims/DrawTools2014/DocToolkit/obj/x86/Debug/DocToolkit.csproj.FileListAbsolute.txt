@@ -1,0 +1,5 @@
+D:\software\TrafficSim\TranMACASims\DrawTools2014\DocToolkit\bin\Debug\DocToolkit.dll
+D:\software\TrafficSim\TranMACASims\DrawTools2014\DocToolkit\bin\Debug\DocToolkit.pdb
+D:\software\TrafficSim\TranMACASims\DrawTools2014\DocToolkit\obj\x86\Debug\DocToolkit.csprojResolveAssemblyReference.cache
+D:\software\TrafficSim\TranMACASims\DrawTools2014\DocToolkit\obj\x86\Debug\DocToolkit.dll
+D:\software\TrafficSim\TranMACASims\DrawTools2014\DocToolkit\obj\x86\Debug\DocToolkit.pdb
