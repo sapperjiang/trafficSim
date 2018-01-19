@@ -1,0 +1,1140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SubSys_SimDriving</name>
+    </assembly>
+    <members>
+        <member name="M:SubSys_SimDriving.StaticFactory.Build(SubSys_MathUtility.OxyzPointF,SubSys_MathUtility.OxyzPointF,SubSys_SimDriving.TrafficModel.EntityType)">
+            <summary>
+            create xnode way road and lane.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="et"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.MobileFactory">
+            <summary>
+            汽车工厂
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.BuildCommand">
+            <summary>
+            ³éÏó´´½¨ÃüÁîµÄÀà
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.Agents.AbstractAgent">
+            <summary>
+            Õâ¸öÊÇ·ÃÎÊÕßÄ£Ê½µÄ³éÏóvisitor£¬¸÷ÖÖ¸÷ÑùµÄvisit£¨update£©
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.Agents.AbstractAgent.simContext">
+            <summary>
+            ±»·ÃÎÊ¶ÔÏó
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.Agents.AbstractAgent.VisitUpdate(SubSys_SimDriving.TrafficModel.Way)">
+            <summary>
+            visitÊµ¼Ê½øÐÐ·ÃÎÊµÄµØ·½
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.Agents.UpdateAgentChain">
+            ÓÐÒ»¸ö´¢´æAgentName»òÕßÊÇAgentIdµÄÁÐ±í£¬
+            ÓÉÓÚ¹æÔò²»ÊÇºÜ¶à¡£²»Ê¹ÓÃ¹þÏ£±í£¬ÕâÐ©
+            ¹æÔòÈç½»Í¨µÆ¹æÔò£¬¼Ó¼õËÙ¹æÔòµÈ
+        </member>
+        <member name="T:SubSys_SimDriving.Agents.AsynchronicAgents">
+            <summary>
+            Òì²½¸üÐÂ¹æÔòÒ»¸öÊ±¼ä²½³¤Ö»¸üÐÂÒ»¸öµÄ¹æÔò,²»Ó¦µ±Ê¹ÓÃÎÞ²ÎÊýµÄ¹¹Ôìº¯Êý´´½¨¸ÃÀà
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.Agents.SignalLightAgent.VisitUpdate(SubSys_SimDriving.TrafficModel.XNode)">
+            <summary>
+            ÐÅºÅµÆ¸üÐÂµÄ·½·¨
+            </summary>
+            <param name="rN"></param>
+        </member>
+        <member name="T:SubSys_SimDriving.Agents.SynchronicAgents">
+            <summary>
+            Í¬²½¸üÐÂ¹æÔò£¬Ò»¸öÊ±¼ä²½³¤ÄÚÈ«²¿¸üÐÂµÄ¹æÔò£¬²»Ó¦µ±Ê¹ÓÃÎÞ²ÎÊýµÄ¹¹Ôìº¯Êý´´½¨¸ÃÀà
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.MobileDriver">
+            <summary>
+            驾驶员的驾驶行为策略，每个mobileebtity驾驶员行为不一样
+            an abstract driver interfaces
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.DriveMobile(SubSys_SimDriving.StaticEntity,SubSys_SimDriving.TrafficModel.MobileEntity)">
+            <summary>
+            template method
+            </summary>
+            <param name="driveContainer"></param>
+            <param name="mobile"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.GetSidesContext(SubSys_SimDriving.TrafficModel.Lane,SubSys_SimDriving.TrafficModel.LaneType,System.Int32,System.Int32,SubSys_SimDriving.TrafficModel.DriveCtx@)">
+            <summary>
+            get left and right driving context
+            </summary>
+            <param name="lane">lane</param>
+            <param name="lanetype">lanetype of current lane</param>
+            <param name="iCurrentStart">headway of current mobile index</param>
+            <param name="iCurrentEnd">rear of current mobile index</param>
+            <param name="dc">out parameters</param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileDriver.GetXNodeGap(SubSys_SimDriving.TrafficModel.XNode,SubSys_MathUtility.OxyzPointF,System.Int32@,SubSys_SimDriving.TrafficModel.MobileEntity)">
+            <summary>
+            计算mobile在交叉口内部可以走多少步
+            </summary>
+            <param name="rN"></param>
+            <param name="pCurrent">current position</param>
+            <param name="Gap">return value</param>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.XNodeDriver">
+            <summary>
+            	//should be abstract
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.XNodeDriver.iDesiredSpeed">
+            <summary>
+            城市路网中，交叉口的期望速度
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNodeDriver.LaneChanging(SubSys_SimDriving.TrafficModel.DriveCtx)">
+            <summary>
+            To make a mobile on a crossing chang its drive track
+            </summary>
+            <param name="dctx"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNodeDriver.NormalRun(SubSys_SimDriving.TrafficModel.DriveCtx)">
+            <summary>
+            Prudent .neither aggressive nor slow
+            </summary>
+            <param name="crc"></param>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.WayDriver">
+            <summary>
+            	//should be abstract
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.WayDriver.iDesiredSpeed">
+            <summary>
+            城市路段的期望速度
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.LaneChanging(SubSys_SimDriving.TrafficModel.DriveCtx)">
+            <summary>
+            换道的几种原因，1.由于路口转向必须换道，
+            2.由于寻求合适的理想行驶状态
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.NormalRun(SubSys_SimDriving.TrafficModel.DriveCtx)">
+            <summary>
+            匀速行驶
+            </summary>
+            <param name="crx"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.Accelerate(SubSys_SimDriving.TrafficModel.DriveCtx)">
+            <summary>
+            加速行驶
+            </summary>
+            <param name="crx"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.WayDriver.Decelerate(SubSys_SimDriving.TrafficModel.DriveCtx)">
+            <summary>
+            减速行驶
+            </summary>
+            <param name="crx"></param>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Edge">
+            <summary>
+            用来表示道路一条边的数据结构
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.GridNode">
+             <summary>
+            节点则抽象成Node类，一个节点上挂着以此节点作为起点的“出边”表。
+             </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.PassedPath">
+            <summary>
+            PassedPath 用于缓存计算过程中的到达某个节点的权值最小的路径
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.PlanCourse">
+            <summary>
+            PlanCourse 缓存从源节点到其它任一节点的最小权值路径＝》路径表
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.RoutePlanner">
+            <summary>
+            RoutePlanner 提供图算法中常用的路径规划功能。
+            2005.09.06
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityIDManager`1.GetUniqueRoadNodeID">
+            <summary>
+            利用泛型之后ID 可以为string类型,由子类进行实现
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.SmallCar">
+            <summary>
+            ¹ýÊ±µÄ£¬ÎªÁË±£³Ö¼æÈÝ£¬½¨ÒéÊ¹ÓÃÐÂµÄÀàÐÍ¡£
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.SmallCar.#ctor">
+            <summary>
+            base constructor is called first .base constructor is used to do common things
+            while derived class is used to do characterful charactors
+            </summary>
+            <param name="bornContainer"></param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.SmallCar.iAcceleration">
+            <summary>
+            µ±Ç°³µÁ¾µÄ¼ÓËÙ¶È
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Bus">
+            <summary>
+            ¹«¹²Æû³µ£¬Õ¼ÓÃ4¸öÔª°ûÍø¸ñ ¡£12Ã×µÄ£¬È¡¾öÓÚÔª°ûÍø¸ñµÄ¿Õ¼ä´óÐ¡
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.LargeTruck">
+            <summary>
+            ´ó¿¨³µ£¬Õ¼ÓÃ4¸öÔª°ûÍø¸ñ
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Pedastrain">
+            <summary>
+            ÐÐÈË£¬Ò»°ãÕ¼ÓÃ1¸öÔª°ûÍø¸ñ
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.AdjacencyList`1">
+            <summary>
+            程序的GUI可能要求使用对象的坐标来查询路段顶点的位置，采用对象的position用作
+            哈希值可以快速检索对象，也比使用list泛型高效,负责保存节点到仿真上下文中，
+            不负责保存边到上下文中，边由network保存
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.AdjacencyList`1.#ctor(System.Collections.Generic.Dictionary{`0,SubSys_SimDriving.TrafficModel.XNode})">
+            <summary>
+            使用SimDrivingContext 仿真上下文初始化保存路段节点的字典
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.AdjacencyList`1.AddDirectedEdge(`0,SubSys_SimDriving.TrafficModel.Way)">
+            <summary>
+            添加有向边
+            </summary>
+            <param name="fromRoadNodeHash">要将将边添加到RoadNode哈希表中的RoadNode</param>
+            <param name="way">要添加的边</param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.HashMatrix.iMaxWidth">
+            <summary>
+            最大六个车道，坐标远点是RoadNode的positon
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.HashMatrix.hashMat">
+            <summary>
+            to get if a point within a xnode is occupied by a mobile's shape point
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.IsOccupied(SubSys_MathUtility.OxyzPointF)">
+            <summary>
+            判断元胞是否被占用了
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.HashMatrix.GetEnumerator">
+            <summary>
+            提供对存储元素的高效遍历
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.EntityType.Mobile">
+            <summary>
+            ËùÓÐÀàÐÍµÄ³µÁ¾¡¢ÐÐÈËµÄ³éÏó±íÊ¾
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.EntityType.SmallTruck">
+            largePassangerCar
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.UpdateHandler">
+            <summary>
+            定义一个无参数的代理，需要的时候可以添加参数
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.LaneType">
+            ³µµÀÀàÐÍÃ¶¾Ù,°´ÕÕÓÒÐÐ¹æÔòÊýÖµÓÉÐ¡µ½´ó£¬ËùÓÐ³µµÀ×î¶àÈýÌõ
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.MobileEntity">
+            <summary>
+            ËùÓÐ»á¶¯µÄ½»Í¨ÊµÌåµÄ»ùÀà
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileEntity.iSpeed">
+            <summary>
+            µ±Ç°³µÁ¾µÄËÙ¶È
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileEntity.Clone">
+            <summary>
+            ¶ÔÏó¿½±´ºÍÖµ¿½±´
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileEntity.iAcceleration">
+            <summary>
+            µ±Ç°³µÁ¾µÄ¼ÓËÙ¶È
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileEntity.iTimeStep">
+            <summary>
+            ÓÃ×÷¼ÇÂ¼Ì¬¹þÏ£±í¼ÇÂ¼³µÁ¾µÄÊ±¼äÐÅÏ¢£¬ÒÔ¼°ÓÃÀ´È·¶¨Ê²Ã´Ê±ºò½øÈëÂ·¶Î
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileEntity._track">
+            <summary>
+            °üÎ§ÔÚ½»²æ¿ÚÄÚ²¿µÄ½Úµã,ÄÚ²¿µãÊ¹ÓÃ¾ø¶Ô×ø±êÏµ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.MobileEntity.Front">
+            <summary>
+            »ñÈ¡³µµÀÉÏÏÈ½øÈëµÄÇ°Ò»Á¾³µ£¬Ç°Ò»Á¾³µ²»´æÔÚ·µnull,
+            the frontmobile is that entered a lane early than the current one
+            if called on a xnode. return null
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.MobileEntity.Rear">
+             <summary>
+            ÔÚ³µµÀÉÏ»ñÈ¡³µÁ¾µÄºóÒ»Á¾³µ
+             </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.MobileEntity.Container">
+            <summary>
+            a mobiles'current lane/fromlane/tolane is recalculated each time on it enters a XNode
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileEntity.Move(System.Int32)">
+            <summary>
+            move a car ahead for isteps
+            </summary>
+            <param name="iStep"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.MobileEntity.GetHashCode">
+            <summary>
+            crossing to judge if a mobile is within crossing
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Track">
+            <summary>
+            ½»²æ¿Ú×ø±êÉý¼¶Îª3Î¬¶È¿Õ¼ä×ø±ê
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Track.Current">
+            <summary>
+            return a copy of mobile shape start
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Track.Next">
+            <summary>
+            return a copyfo mobile's next track point
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Track.#ctor">
+            <summary>
+            should be declared as private,for
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Track.Update">
+            <summary>
+            ÔÚ×ªÍäµÄÊ±ºòµ÷ÓÃ£¬¸ù¾Ý³µÁ¾Â·¾¶£¬Ñ°ÕÒ³µÁ¾Òª½øÈëµÄÏÂÒ»Ìõ³µµÀ£¨×óÓÒ×ª¡¢Ö±ÐÐ£©¡£´ÓÆðÊ¼Î»ÖÃ³ö·¢£¬Ç°½øiAheadSpace¸ö¼ä¾àÊ±¾à
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.IRoad">
+            <summary>
+            路段接口，包括两个或者一个Way。两个RoadNode,
+            他们之间的关系由工厂创建时候负责维护
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.IRoad.CtrWay">
+            <summary>
+            对向道路
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.IRoad.To">
+            <summary>
+            对向节点
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Road">
+            <summary>
+            包含两个way的道路。如果是单行路，只包含一个way
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Way">
+             <summary>
+            RoadµÄÒ»ÌõÓÐÏò±ß£¬Ò»ÌõµÀÂ·ÓÐÁ½Ìõ±ß Ò»°ãÀ´½²EdgeµÄ³¤¶ÈÓëLane³¤¶ÈÒ»Ñù£¬µ«ÊÇ»·ÐÎ½»²æ¿Ú£¬ÒÔ¼°ÒÔºóµÄÍØÕ¹³ýÍâ
+             </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Way.iTimeStep">
+            <summary>
+            µ±Ç°ËùÓÐÂ·¶ÎµÄÍ¬²½Ê±¿Ì
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Way.CtrWay">
+            <summary>
+            Ç¿ÖÆÏÈ¹¹Ôì½Úµã
+            </summary>
+            <param name="from"></param>
+            <param name="to"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.AddLane(SubSys_SimDriving.TrafficModel.Lane)">
+            <summary>
+            ÓÉ¸ºÔðÌí¼ÓµÄÀà½øÐÐ·ÂÕæÉÏÏÂÎÄÍ¬²½,ÄÚ²¿½øÐÐÁËRoadLane×¢²á
+            </summary>
+            <param name="rl"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.RemoveLane(SubSys_SimDriving.TrafficModel.Lane)">
+            <summary>
+            ÓÉ¸ºÔðÉ¾³ýµÄÀà½øÐÐ·ÂÕæÉÏÏÂÎÄÍ¬²½
+            </summary>
+            <param name="rl"></param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Way._lanes">
+            <summary>
+            ´æ´¢±ßÄÚ²¿µÄ³µµÀroadlane£¬Õâ¸öÓësimContext ²»Í¬
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Way.Lanes">
+            <summary>
+            µÀÂ·£¨µ¥Ïò£©ËùÓÐ³µµÀµÄ¼¯ºÏ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Way.TripCost">
+            <summary>
+            Â·¶ÎµÄ½»Í¨·ÑÓÃ/³É±¾
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.UpdateTripCost">
+            <summary>
+            ¸üÐÂÂ·¶ÎµÄ½»Í¨³É±¾
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.GetHashCode">
+            <summary>
+            ¸ù¾ÝÆðÊ¼½ÚµãºÍ½áÊø½Úµã¼ÆËã±ßµÄ¹þÏ£Öµ
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.GetHashCode(SubSys_SimDriving.TrafficModel.XNode,SubSys_SimDriving.TrafficModel.XNode)">
+            <summary>
+            ¾²Ì¬µÄ¹þÏ£º¯Êý£¬ÓÃÀ´¼ÆËãÄ³Ìõ±ßµÄ¹þÏ£Öµ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.UpdateStatus">
+            <summary>
+            ¹ýÊ±µÄ£¬ÀÏ¾ÉµÄº¯Êýµ÷ÓÃvisitor Ä£Ê½ÈçvmsagentµÈ¡£È»ºóÇý¶¯Ôª°ûÄ£ÐÍ£¬È»ºóµ÷ÓÃËùÓÐ·þÎñ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.OnStatusChanged">
+            <summary>
+            Â·¶ÎµÄOnStatusChangedÎ¯ÍÐ¸øRoadLane´¦Àí
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.ToVector">
+            <summary>
+            ÆðµãÏòÁ¿¼õÈ¥ÖÕµãÏòÁ¿
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.FindReverse">
+            <summary>
+            »ñÈ¡ÔÚÒ»¸öRoadÄÚ²¿µÄÓëWayÏà¶ÔÓ¦µÄ·´ÏòÂ·¶Î
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Way.ModifySignalGroup(SubSys_SimDriving.SignalLight,SubSys_SimDriving.TrafficModel.LaneType)">
+            <summary>
+            ÐÞ¸ÄÐÅºÅµÆ×éºÏ
+            </summary>
+            <param name="sl">ÐÂµÄÐÅºÅµÆ</param>
+            <param name="lt">ÒªÐÞ¸ÄµÄ³µµÀÀàÐÍ</param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Way.iSpeedLimit">
+            <summary>
+            Â·¶ÎÏÞËÙ
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.Lane">
+            <summary>
+            ½»Í¨ÊµÌåÀïÃæµÄ³µµÀ,Ô­À´µÄlaneÊý¾Ý½á¹¹
+            </summary>
+            <summary>
+            2015Äê1ÔÂ19ÈÕ£¬¶ÔÔ­À´µÄlane½øÐÐÉý¼¶¡£²¢±£³ÖºÍÔ­ÓÐ²¿·Ö´úÂëµÄ¼æÈÝ
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Lane.iCount">
+            <summary>
+            È«¾ÖµÄ³µµÀ¼ÆÊýÆ÷£¬ÓÃÀ´³õÊ¼»¯³µµÀID
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Shape">
+            <summary>
+            ÓëÓÃ»§½çÃæ»æÍ¼ÓÐ¹ØµÄÒ»ÏµÁÐµã¿Õ¼ä×é³É¡£
+            ³µµÀ¿ªÊ¼µÄµØµã£¬ÊÇ½»²æ¿ÚµÄÇ°·½£¬µÚÒ»¸öµã£¬ÆäË÷Òý×îÐ¡£¬³µµÀ½áÊøµÄµØµã£¬ÊÇ½»²æ¿ÚµÄºó·½£¬Ò»¸ö³µµÀµÄ×îÄ©Ò»¸öµãµÄË÷Òý×î´ó
+            Ë÷ÒýµÄ´óÐ¡Óë³µµÀµÄ·½ÏòÏà·´¡£
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.CreateShape">
+            <summary>
+            ÓÃÍ¼ÐÎ½çÃæ×ø±êÏµ£¬×ª»¯ÎªÔª°û×ø±êÏµ,create a shape of a lane
+            </summary>
+            <param name="eShape"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.IsLaneBlocked(System.Int32)">
+            <summary>
+            Ã»ÓÐµ÷ÓÃ£¬ÔÝÊ±²»ÖØÐ´
+            </summary>
+            <param name="iAheadSpace"></param>
+            <returns></returns>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Lane.Rank">
+             <summary>
+            ³µµÀµÄÅÅÐò£¬´ÓÄÚ²à³µµÀ¿ªÊ¼µÄµÚ¼¸¸ö³µµÀ,ÓÃÀ´¶Ô³µµÀ½øÐÐÅÅÐò£¬µÚÒ»¸ö³µµÀµÄRank ÊÇ1
+             </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Lane.SignalLight">
+            <summary>
+            ·Ö³µµÀµÄÐÅºÅ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.PlaySignal(System.Int32)">
+            <summary>
+            ÐÅºÅµÆÔËÐÐº¯Êý,modified on date 2016/1/27
+            </summary>
+            <param name="iCrtTimeStep">ºìµÆÊ±³¤</param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.ToVector">
+            <summary>
+            math coordinates
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.#ctor(SubSys_SimDriving.TrafficModel.Way,SubSys_SimDriving.TrafficModel.LaneType)">
+            <summary>
+            Ã»ÓÐ½øÐÐÄÚ²¿×¢²á£¬Ó¦µ±ÓÉÆä¹ÜÀíÕßµ÷ÓÃregistere½øÐÐ×¢²á
+            </summary>
+            <param name="re"></param>
+            <param name="lt"></param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.Lane.laneType">
+            <summary>
+            ¹ýÊ±µÄ£¬Õâ¸öº¯ÊýÐèÒªÐÞ¸Ä
+            </summary>
+            <param name="ce"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.UpdateStatus">
+            <summary>
+            Ã»ÓÐµ÷ÓÃvisitorÄ£Ê½£¬µ÷ÓÃËùÓÐ¸½¼ÓµÄ·þÎñ¡¢´¦ÀíµÈ´ý¶ÓÁÐ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.CompareTo(SubSys_SimDriving.TrafficModel.Lane,SubSys_SimDriving.TrafficModel.Lane)">
+            <summary>
+            ¾²Ì¬·½·¨
+            </summary>
+            <param name="from"></param>
+            <param name="to"></param>
+            <returns></returns>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Mobiles">
+            <summary>
+            ÓÃÀ´±£´æ´æ´¢ÔÚ½»²æ¿ÚºÍ³µµÀµÈÄÚ²¿µÄ³µÁ¾¡£
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.Lane.ServeMobiles">
+            <summary>
+            ½«µÈ´ý¶ÓÁÐÖÐµÄÔª°ûÌí¼Óµ½³µµÀÔª°ûÖÐ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.LaneSpace">
+            <summary>
+            ÅÐ¶Ï´ÓµÀÂ·Æðµã´¦µ½ÓÐ³µÕ¼¾ÝµÄµØ·½µÄÔª°ûÍø¸ñ¸öÊý
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Left">
+             <summary>
+            The Left lane of current lane
+             </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.Lane.Right">
+            <summary>
+            the right lane of current lane
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.RoadNet">
+            <summary>
+            Ó¦µ±ÊµÏÖÎªµ¥ÀýÄ£Ê½,RoadNetWork ÊÇsimContextµÄÒ»²¿·Ö
+            RoadNetWork Ó¦µ±³Ð³Ðµ£Â·Íø½Úµã¹¤³§µÄÔðÈÎ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.RoadNet.#ctor">
+             <summary>
+            µ¥ÀýÄ£Ê½ ·ÀÖ¹Ö±½Óµ÷ÓÃ½Ó¿ÚÉú³É¸ÃÀà,Â·ÍøµÄ±ßÊ¹ÓÃÁËsimContext
+            Â·ÍøµÄ½Úµã±íÊ¹ÓÃÁËsimContext
+             </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet._roadNet">
+            <summary>
+            ¾²Ì¬ÒýÓÃË½ÓÐÒýÓÃ£¬Ö»ÄÜÍ¨¹ýgetInstance´´½¨ÀàµÄÊµÀý
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.ways">
+            <summary>
+            ±ß×ÖµäÊ¹ÓÃ·ÂÕæÉÏÏÂÎÄ
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.lanes">
+            <summary>
+            »ñÈ¡ËùÓÐµÄ³µµÀÊÇ·ñÓÐ±ØÒª£¬ÒòÎª¸Ã²¿·ÖÒÑ¾­´æÔÚÁËRoadEdgeÖÐÁË
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.adTab">
+            <summary>
+            ½ö½öÊÇÁÚ½Ó±íÀïÃæµÄ½Úµã×ÖµäÊ¹ÓÃ·ÂÕæÉÏÏÂÎÄ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.RoadNet.BulidRoad(System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            ´´½¨Ò»¸öË«Ïòway µÄRoad£¬
+            </summary>
+            <param name="start">ÕýÏòwayµÄÆðµã£¬·´ÏòµÀÂ·µÄÖÕµã</param>
+            <param name="end">·´ÏòwayµÄÆðµã£¬·´ÏòµÀÂ·µÄÖÕµã</param>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.XNode">
+            <summary>
+            Ê¹ÓÃ¾ØÕóÀàÐÍdata structure
+            ÎåÂ·½»²æ.»·Â·µÄÖ§³ÖÓÐ´ýÌÖÂÛ£¬ÈýÂ·½»²æ,crossings are supported
+            ±íÊ¾µÀÂ·½»²æ¿ÚµÄÀà
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.XNode._mobiles">
+            <summary>
+            ÐÂµÄroadnodeµÄ¹þÏ£É¢ÁÐÖµÓÉÆäÖÐÐÄPositionµÄ¹þÏ£ÖµºÍÆäID¹¹³É
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.XNode._dicEdges">
+            <summary>
+            ´æÖü±¾½ÚµãËùÓÐ³ö±ßµÄ¹þÏ£±í£¬¼üÖµÊÇ´ú±í±ßµÄWay¹þÏ££¬ÖµÊÇ´ú±íWay
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.GetEnumerator">
+            <summary>
+            Ìá¹©¶Ô¹þÏ£¾ØÕóÄÚ²¿ÔªËØµÄ±éÀú
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.AddWay(SubSys_SimDriving.TrafficModel.Way)">
+            <summary>
+            ×¢ÒâÔÚ³ö±ß±íÖÐ£¬±£³ÖWayµÄfrom×Ö¶ÎÊÇthis½Úµã£¬·ñÔòº¯ÊýÅ×³öÒì³£
+            </summary>
+            <param name="Way"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.RemoveWay(SubSys_SimDriving.TrafficModel.Way)">
+            <summary>
+            ÕÒµ½±ß ´Óthisµ½toNode½ÚµãµÄ±ß£¬³ö±ß±í
+            </summary>
+            <param name="fromRN"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.FindWay(SubSys_SimDriving.TrafficModel.XNode)">
+            <summary>
+            ²éÕÒ·½·¨£¬ÐÂµÄ½á¹¹²ÉÓÃ³ö±ß±í
+            </summary>
+            <param name="toRoadNode">³ö½Úµã</param>
+            <returns></returns>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.XNode.iXNodeID">
+            <summary>
+            ¿ØÖÆXNodeIDµÄÊýÁ¿
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.UpdateStatus">
+            <summary>
+            ¸üÐÂagent£¬¸üÐÂÔª°û£¨¼ÝÊ»£©£¬µ÷ÓÃ·þÎñ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.ServeMobiles">
+            <summary>
+            ´¦Àí½»²æ¿ÚµÄµÈ´ý³µÁ¾ÊýÁ¿,a mobile that can enter xnode was added to mobilesInn.
+            see driverstratigy for details
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsOccupied(SubSys_MathUtility.OxyzPointF)">
+            <summary>
+            ÅÐ¶ÏÖ¸¶¨³µµÀÇ°²¿µÚAhead¸öÎ»ÖÃ´¦ÊÇ·ñÓÐÔª°ûÕ¼¾Ý
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.XNode.Length">
+            <summary>
+               /////[System.Obsolete("should be restructed")]
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.SpeedLevel">
+            <summary>
+            ×Ü¹²Ê®¶þ¼¶ËÙ¶È£¬¸ù¾ÝÔª°û¹æÔò£¬×î¶àÒ»´ÎÇ°½ø12¸öÔª°û
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.CarInfo">
+            <summary>
+            程序的GUI可能要求使用对象的坐标来查询路段顶点的位置，采用对象的position用作
+            </summary>
+            <typeparam name="T">int</typeparam>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.CarInfo.iCarHashCode">
+            <summary>
+            车辆的哈希表
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.EntityShape">
+            <summary>
+            一个用来描述实体形状的一系列点坐标.是个List类,可以用坐标遍历,GIS坐标系的形状
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.CreateShape(System.Collections.Generic.List{System.Drawing.Point})">
+            <summary>
+            画图的点集合和模型的点集合的转换，用前者创建后者
+            </summary>
+            <param name="drawShape"></param>
+            <returns></returns>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.EntityShape.Start">
+            <summary>
+             For a road with direction like this “----->”  ,start means a point at the end of the narrow .
+            and end means a point at the narrow
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficModel.EntityShape.End">
+            <summary>
+             a road with direction like this “----->”  .Start means a point at the beginning of that narrow .
+            and End means a point on that narrow
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.EntityShape._dicGrids">
+             <summary>
+            points added early have smaller index
+             </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.GetIndex(SubSys_MathUtility.OxyzPointF)">
+            <summary>
+            利用点坐标，获取该点在实体点集合中的，例如，如果某点在集合中
+            </summary>
+            <param name="op">一个点的点坐标</param>
+            <returns>返回值为-1，说明该点不在集合中</returns>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficModel.EntityShape.Add(SubSys_MathUtility.OxyzPointF)">
+            <summary>
+            重载一个浮点型的Add方法
+            </summary>
+            <param name="op"></param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileParam.iMoveY">
+            <summary>
+            Y,distances to move forword ,Y lane to move to 
+            Y坐标表示前进的距离，x坐标表示前进的车道
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileParam.iMoveX">
+            <summary>
+            index of a destination lane to move on
+            Y,distances to move forword ,Y lane to move to 
+            Y坐标表示前进的距离，x坐标表示前进的车道
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileParam.iSpeed">
+            <summary>
+            mobile's next  speed 
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.MobileParam.iAcceleration">
+            <summary>
+            mobile's next acceleration
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficModel.DriveCtx">
+            <summary>
+            Envirnment of a mobile ,如前后车头时距，左右车头时距，
+            车道编号、左右车道，运行的地点（路段或者交叉口）
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.DriveCtx.Params">
+            <summary>
+            to carry mobile driving behavior message
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.DriveCtx.iSafeHeadWay">
+            <summary>
+            安全车头时距
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficModel.ModelSetting.dRate">
+            <summary>
+            ½»²æ¿ÚµÄ×î´óÔª°ûÊý£¬µÈÓÚRoadedgeÄÚ²¿¿ÉÒÔÈÝÄÉµÄ×î´ó³µµÀÊýÁ¿
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.RoutePlan.EdgeRoute.GetDirection(SubSys_SimDriving.TrafficModel.Way)">
+            <summary>
+            ·µ»ØÏÂÒ»²½ÒªÇ°½øµÄ·½Ïò,-1±íÊ¾×ó×ª 0±íÊ¾Ö±ÐÐ 1±íÊ¾ÓÒ×ª£¬2±íÊ¾µôÍ·
+            </summary>
+            <param name="re">µ±Ç°³µÁ¾ËùÔÚµÄµÀÂ·</param>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.RoutePlan.Route`1.FindNext(`0)">
+            <summary>
+            ÕÒµ½µ±Ç°Ä¿±êµÄÏÂÒ»¸öÄ¿±ê
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SubSys_SimDriving.RoutePlan.RouteChoiceMaker.Select(SubSys_SimDriving.RoutePlan.EdgeRoute,SubSys_SimDriving.RoutePlan.EdgeRoute)">
+            <summary>
+            Ê¹ÓÃÀëÉ¢Ñ¡ÔñÄ£ÐÍÖÐµÄlogitÄ£ÐÍ½øÐÐÂ·¾¶µÄÑ¡Ôñ¡£
+            ·µ»Ø1´ú±íÑ¡ÔñÂ·¾¶A£¬·µ»Ø2´ú±íÑ¡ÔñÂ·¾¶B
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SubSys_SimDriving.DataRecorder`2">
+            <summary>
+            ³éÏóÀà
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.CarInfoDic">
+            <summary>
+            ×îÄÚ²ã¹þÏ£±í£¬±£´æ³µÁ¾µÄÐÅÏ¢¡£ÀûÓÃ³µÁ¾¹þÏ£½øÐÐË÷Òý
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.EntityDic">
+            <summary>
+            ¹þ±íË÷ÒýÊ÷£¬´ÎÄÚ²ã£¬±£´æÒ»¸öÂ·¶ÎÉÏµÄ³µÁ¾ÐÅÏ¢£¬ÀûÓÃÂ·¶Î¹þÏ£½øÐÐË÷Òý
+            Õë¶Ô»»µÀÎÊÌâ¡£¿ÉÒÔÔö¼Ó³µÁ¾ÔÚÄÄ¸ö³µµÀµÄ¼ÇÂ¼
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.StaticSysTable`2">
+            <summary>
+            ¿ÉÒÔ×öÓÃ×÷µÄÒ»Î¬Ë÷Òý¹þÏ£±í£¨TvalueÊÇÀàÐÍ£©£¬Ò²¿ÉÒÔ×ö¶þÎ¬Ë÷Òý¹þÏ£±í£¨TvalueÊÇ¼¯ºÏ£©
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="T:SubSys_SimDriving.XNodeHTable">
+            <summary>
+            ²»¼Ì³Ð×ÔstaticSystable
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ISimContext.DataRecorder">
+            <summary>
+            ¼ÇÂ¼Ì¬¹þÏ£±í
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.SimContext">
+            <summary>
+            µ¥ÀýÄ£Ê½£¬¹ØÓÚ×¢²á£¬ËùÓÐ×¢²áÖ®Ç°Ó¦µ±¼ì²éÊÇ·ñÒÑ¾­×¢²á¹ýÁË
+            Ó¦µ±ÓÉroadnetwork³Ðµ£Ò»²¿·ÖµÄ¹¤³§ÔðÈÎ£¬Íâ½ç²»Ó¦ÏÔÊ½µÄµ÷ÓÃ×¢²á£¬
+            ×¢²á·þÎñ¶ÔÍâ²¿×é¼þÊÇÍ¸Ã÷µÄ£¬×¢²áÊ¹ÓÃÇëÇó/¾Ü¾øÄ£ÐÍ,×¢²áÓ¦µ±Í³Ò»Ê¹ÓÃ·þÎñÊµÏÖ
+            simContextÄÚ²¿ËùÓÐ×¢²áÊý¾ÝÓ¦µ±¶ÔÍâÊÇ¿É¶ÁµÄ£¬²»¿ÉÒÔÐÞ¸ÄµÄ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.SimContext.#ctor">
+             <summary>
+            µ¥ÀýÄ£Ê½ ·ÀÖ¹Ö±½Óµ÷ÓÃ½Ó¿ÚÉú³É¸ÃÀà±ð
+             </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.SimContext.iCurrTimeStep">
+            <summary>
+            ·ÂÕæÔËÐÐµÄÊ±¼ä²½Öè
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SimContext._DataRecorder">
+            <summary>
+            ¼ÇÂ¼Ì¬¹þÏ£±í
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.SimContext.SubSys_SimDriving#ISimContext#iTimePulse">
+            <summary>
+            µ¥ÀýÄ£Ê½
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.SimContext.SubSys_SimDriving#ISimContext#RoadNet">
+            <summary>
+            ±íÊ¾ÔËÐÐÊ±½¨Á¢µÄÂ·ÍøµÄ½á¹¹£¬ÀïÃæ°üº¬ÁË¶ÔRoadNodeListºÍWayListµÄÒýÓÃ
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.Service.EventAttachService">
+            <summary>
+            Ò²²»ÊÇËùÓÐµÄÊµÌå¶¼ÓÐEventAttacherLogger¡£ÐèÒª×¢²á²¢ÇÒÊµÏÖ
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.Service.IService">
+            <summary>
+            ¹Û²ìÕß½Ó¿Ú
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.Service.Service.IsServiceUp">
+            <summary>
+            ·þÎñÔËÐÐµÄ¿ª¹Ø±äÁ¿
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.Service.Service.IsRunning">
+            <summary>
+            Èç¹ûÈ«¾Ö¿ª¹Ø¹Ø±ÕÔòÒ»¶¨·µ»Øfalse
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.Service.Service.Perform(SubSys_SimDriving.ITrafficEntity)">
+            <summary>
+            design to be a switch for a service 
+            </summary>
+            <param name="tVar"></param>
+        </member>
+        <member name="F:SubSys_SimDriving.SimSettings.iMaxLanes">
+            <summary>
+            ½»²æ¿ÚµÄ×î´óÔª°ûÊý£¬µÈÓÚRoadedgeÄÚ²¿¿ÉÒÔÈÝÄÉµÄ×î´ó³µµÀÊýÁ¿
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SimSettings.iCellWidth">
+            <summary>
+            Ôª°û³µÁ¾µÄ¿í¶ÈÊÇ2Ã×Õâ¸öÓëGIS×ø±ê½øÐÐ×ª»¯µÄÊ±ºòÊ¹ÓÃ
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SimSettings.iSafeHeadWay">
+            <summary>
+            °²È«³µÍ·Ê±¾à
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SimSettings.iExtendLength">
+            <summary>
+            Õ¹¿í½¥±ä¶ÎµÄ³¤¶ÈÎª10¸öÔª°û£¬60Ã×
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SimSettings.iCarWidth">
+            <summary>
+            ±íÊ¾±ê×¼Ð¡Æû³µ¿í¶ÈµÄÔª°û¸öÊý
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SimSettings.iCarLength">
+            <summary>
+            ±íÊ¾±ê×¼Ð¡Æû³µ³¤¶ÈµÄÔª°û¸öÊý
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ITrafficEntity.ISimCtx">
+            <summary>
+            ·ÂÕæÔËÐÐµÄ¾²Ì¬Êý¾Ý£¬½»Í¨ÊµÌåÔËÐÐµÄÊý¾Ý»·¾³£¬°üÀ¨¸÷ÖÖ·ÂÕæÏµÍ³ÔËÐÐÐèÒªµÄÊý¾Ý½á¹¹
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ITrafficEntity.Container">
+            <summary>
+            ÈÝÆ÷½»Í¨ÊµÌå£¬ÈçµÀÂ·ÊÇÂ·¶ÎµÄÈÝÆ÷¡£Â·¶ÎÊÇ³µµÀµÄÈÝÆ÷
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ITrafficEntity.EntityType">
+            <summary>
+            ½»Í¨ÊµÌåµÄÀàÐÍ£¬VMS£¬Car£¬TrafficLight µÈ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ITrafficEntity.GISGrid">
+            <summary>
+            Ïà¶ÔÓÚGISµÄ¾ø¶Ô×ø±ê
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ITrafficEntity.Shape">
+            <summary>
+            ½»Í¨ÊµÌåµÄGIS×ø±ê×ª»»ÎªÔª°û×ø±êÖ®ºóµÄÐÎ×´ÇúÏß,¸ÃÊôÐÔÊÇ½«½»Í¨ÊµÌåÓëGIS¼¯³ÉµÄ¹Ø¼ü
+            ½»Í¨ÊµÌåµÄÐÎ×´¿ÉÒÔÊÇÇúÏß£¬ÀûÓÃGDI»­ÇúÏßº¯Êý½øÐÐäÖÈ¾£¬²»ÔÙ¾ÖÏÞÓÚÖ±ÏßÐÎ×´
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.ITrafficEntity.SpatialGrid">
+            <summary>
+            for 3D drawing method
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.StaticEntity">
+            <summary>
+            ±íÊ¾½»²æ¿ÚXNode£¬Â·¶Îway£¬³µµÀLane,µÀÂ·RoadµÄ»ùÀàÐÍ
+             ÖÇÄÜÌåµÄ¸üÐÂÊ¹ÓÃÁË·ÃÎÊÕßÄ£Ê½
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.StaticEntity._mobilesInn">
+            <summary>
+            _2015Äê1ÔÂÐÂÔöµÄÄÚÈÝ£¬Ô­ÓÐµÄ³ÉÔ±ºÍ·½·¨½«±»²¿·Ö·ÏÆú
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.StaticEntity.MobilesInn">
+            <summary>
+            µÈ´ý½øÈëÊµÌåµÄµÀµÄµÈ´ýmobileEntity£¬Êµ¼ÊÉÏÊÇµÈ´ý¶ÓÁÐ£¬½»²æ¿ÚºÍ³µµÀ¶¼ÓÐ¡£
+            ÕæÕý´æ´¢³µÁ¾Î»ÖÃµÄÈÝÆ÷£¬ÒòÎª³µµÀÓë½»²æ¿Ú²»Í¬£¬ÔÚ¸÷×ÔÄÚ²¿ÓÃ²»ÓÃµÄÊý¾Ý½á¹¹ÊµÏÖ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.StaticEntity.EnterInn(SubSys_SimDriving.TrafficModel.MobileEntity)">
+            <summary>
+            ÓÃÓÚ´¦ÀíÔÝÊ±ÎÞ·¨½øÈë³µµÀµÄ³µÁ¾µÄÁÙÊ±¶ÓÁÐ£¬Ã¿¸ö½»²æ¿Ú¸üÐÂÖÜÆÚ£¬Ðë½øÈë³µµÀµÄÔª°ûµÄ»º´æ£¬ÔÚÏÂÒ»¸öµÀÂ·¸üÐÂÖÜÆÚ£¬½«»º´æÄÉÈë³µµÀ¡£»ùÀàµÄ·½·¨£¬Ó¦µ±ÓÉ×ÓÀà¡£laneºÍXnodeÖØÐ´£»
+            </summary>
+            <param name="me"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.StaticEntity.ServeMobiles">
+            <summary>
+            ³éÏó·½·¨¡¢ÐèÒªlaneºÍxnodeÊµÏÖ£¬½«µÈ´ý¶ÓÁÐÖÐµÄmobileÌí¼Óµ½update mobile
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SignalLight.SigCycle">
+            <summary>
+            ÖÜÆÚÊ±³¤
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SignalLight.GreenLength">
+            <summary>
+            ÂÌµÆÊ±¼ä
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SignalLight.RedLength">
+            <summary>
+            ºìµÆÊ±¼ä30
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SignalLight.YellowLength">
+            <summary>
+            »ÆµÆÊ±¼ä£¬ÔÝÊ±²»Ê¹ÓÃ
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.SignalLight.iOffSet">
+            <summary>
+            ÏàÎ»²î£¬´Ó·ÂÕæ»ù×¼Ê±¼ä¿ªÊ¼µÄÊ±¿Ì
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.SignalLight.#ctor">
+            <summary>
+            ÄÚ²¿µ÷ÓÃÐÅºÅµÆ×¢²áÒ»ÏÂ
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.TrafficEntity">
+            <summary>
+            ¹Û²ìÕßÄ£Ê½ÖÐµÄsubject±»¹Û²ìÕß
+            </summary>
+            <summary>
+            2015Äê1ÔÂ19ÈÕ¸üÐÂ£¬ÐÂÔö¼ÓµÄÄÚÈÝ¡£
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficEntity.TypeID">
+            <summary>
+            oused to count subEntity numbers
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficEntity.InvokeServices(SubSys_SimDriving.ITrafficEntity)">
+            <summary>
+            µ÷ÓÃ·þÎñµÄ¹¦ÄÜ
+            </summary>
+            <param name="te"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficEntity.RemoveService(SubSys_SimDriving.Service.IService)">
+            <summary>
+            É¾³ý½»Í¨ÊµÌåÒªÊ¹ÓÃµÄ·þÎñ
+            </summary>
+            <param name="ils"></param>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficEntity._entityID">
+            <summary>
+            ÏòsimContext ±¨µÀÀàµÄ´´½¨ÐÐÎª,×¢²á²»Ó¦µ±ÉùÃ÷Îª·þÎñ£¬·þÎñÃ¿¸öÑ­»·ÖÜÆÚ¶¼µ÷ÓÃ
+            ×¢²áÕâÀàÓ¦µ±ÔÚ¹¤³§·½·¨ÀïÃæÉ¾³ý¡£
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.Width">
+            <summary>
+            ÓÃÔª°û¸öÊý¼ÆËãµÄÊµÌåµÄ¿í¶È£¬Êµ¼Ê¿í¶ÈµÈÓÚiWidth*Ôª°û´ú±íµÄ¾àÀë
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.TrueWidth">
+            <summary>
+            ÓÃÔª°û¸öÊý¼ÆËãµÄÊµÌåµÄ¿í¶È£¬Êµ¼Ê¿í¶ÈµÈÓÚiWidth*Ôª°û´ú±íµÄ¾àÀë
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.TrueLength">
+            <summary>
+            ÓÃÔª°û¸öÊý¼ÆËãµÄÊµÌåµÄ³¤¶È¡£Êµ¼Ê³¤¶ÈµÈÓÚiLength*Ôª°û´ú±íµÄ¾àÀë
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.EntityType">
+            <summary>
+            TrafficEntityËù´ú±íµÄÀàÐÍ,ÊÇ½»Í¨µÆ,³µÁ¾.»¹ÊÇ½¨Öþ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.ISimCtx">
+            <summary>
+            ¶ÔÓÚRoadNode¸Ã×ø±êÎªÒÔÔª°û³¤¶ÈÎªµ¥Î»µÄÏà¶Ô×ø±ê£¬¸Ã×ø±êÎªÆÁÄ»×ø±ê
+            ³ýÒÔÔª°ûµÄGUI³¤¶È
+            ¶ÔÓÚRoadLaneºÍWayÒÔ¼°Cell£¬¸Ã×ø±êXÎªÏà¶ÔÓÚÆðµãRoadNodeµÄÔª°û¸öÊý
+            YÎªÏà¶ÔÓÚÆðµãRoadNodeµÄÆ«ÒÆ£¨¼´µÚ¼¸¸ö³µµÀ£©
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.GISGrid">
+            <summary>
+            Î´À´¼æÈÝGISÏµÍ³Ô¤ÁôµÄGIS×ø±êÏµ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.Shape">
+            <summary>
+            ×ÓÀàÓ¦µ±ÖØÐ´Õâ¸öÊôÐÔ\ÓÃÓÚGUI»­Í¼µÄÊôÐÔ
+            </summary>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.Name">
+            <summary>
+            ½»Í¨ÊµÌåµÄÃû³Æ¡¢µÀÂ·Ãû¡¢½»²æ¿ÚÃûµÈ
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficEntity.asynAgents">
+            <summary>
+            ´æ´¢±ßÉÏ¶¨ÒåµÄÒì²½¸üÐÂµÄ¹æÔò
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.TrafficEntity.synAgents">
+            <summary>
+            ´æ´¢±ßÉÏ¶¨ÒåµÄÍ¬²½¸üÐÂµÄ¹æÔò
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficEntity.UpdateStatus">
+            <summary>
+            ¹ýÊ±µÄ£¬Ô­ÓÐµÄµ÷ÓÃº¯Êý¡¢µ÷ÓÃËùÓÐµÄ·ÃÎÊÕß£¬½øÐÐÄÚ²¿Ôª°ûµÄ¸üÐÂ
+            </summary>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficEntity.AcceptSynAgent(SubSys_SimDriving.Agents.AbstractAgent)">
+             <summary>
+            WayÊÇitem £¬AgentÊÇvisitor Ïàµ±ÓÚitem.accept(visitor)
+             </summary>
+             <param name="ur"></param>
+        </member>
+        <member name="M:SubSys_SimDriving.TrafficEntity.AcceptAsynAgent(SubSys_SimDriving.Agents.AbstractAgent)">
+            <summary>
+            Ìí¼ÓÒì²½¸üÐÂ¹æÔò
+            </summary>
+            <param name="ur"></param>
+        </member>
+        <member name="P:SubSys_SimDriving.TrafficEntity.SpatialGrid">
+            <summary>
+            3dÔª°û¿Õ¼ä£¬ÎªÁËÀ©Õ¹GIS×ö×¼±¸
+            </summary>
+        </member>
+        <member name="T:SubSys_SimDriving.EntityDefalult">
+            <summary>
+            Ä¬ÈÏµÄÈÝÆ÷ÊµÌå
+            </summary>
+        </member>
+        <member name="F:SubSys_SimDriving.VMSEntity.Message">
+            VMSÏÔÊ¾µÄÐÅÏ¢
+        </member>
+        <member name="F:SubSys_SimDriving.VMSEntity.iArm">
+            ÓÃÀ´È·¶¨vms×÷ÓÃµÄ·¶Î§£¨Ôª°ûÍø¸ñµÄ³¤¶È£©
+        </member>
+    </members>
+</doc>
