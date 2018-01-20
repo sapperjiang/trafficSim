@@ -30,47 +30,44 @@ namespace TrafficSim
         /// </summary>
         private void InitializeComponent()
         {
-            this.DataView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.DataView)).BeginInit();
+            this.LB_LaneNuber = new System.Windows.Forms.ListBox();
+            this.LB_LaneShape = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // DebugDataView
+            // LB_LaneNuber
             // 
-            this.DataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataView.Location = new System.Drawing.Point(12, 12);
-            this.DataView.Name = "DebugDataView";
-            this.DataView.RowTemplate.Height = 23;
-            this.DataView.Size = new System.Drawing.Size(450, 422);
-            this.DataView.TabIndex = 0;
+            this.LB_LaneNuber.FormattingEnabled = true;
+            this.LB_LaneNuber.ItemHeight = 12;
+            this.LB_LaneNuber.Location = new System.Drawing.Point(12, 12);
+            this.LB_LaneNuber.Name = "LB_LaneNuber";
+            this.LB_LaneNuber.Size = new System.Drawing.Size(120, 400);
+            this.LB_LaneNuber.TabIndex = 1;
+            // 
+            // LB_LaneShape
+            // 
+            this.LB_LaneShape.FormattingEnabled = true;
+            this.LB_LaneShape.ItemHeight = 12;
+            this.LB_LaneShape.Location = new System.Drawing.Point(177, 12);
+            this.LB_LaneShape.Name = "LB_LaneShape";
+            this.LB_LaneShape.Size = new System.Drawing.Size(245, 400);
+            this.LB_LaneShape.TabIndex = 2;
             // 
             // DebugShower
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 446);
-            this.Controls.Add(this.DataView);
+            this.Controls.Add(this.LB_LaneShape);
+            this.Controls.Add(this.LB_LaneNuber);
             this.Name = "DebugShower";
             this.Text = "DebugShower";
-            ((System.ComponentModel.ISupportInitialize)(this.DataView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+        public ListBox LB_LaneNuber;
+        public ListBox LB_LaneShape;
 
-        private System.Windows.Forms.DataGridView dataView;
-
-        public DataGridView DataView
-        {
-            get
-            {
-                return dataView;
-            }
-
-            set
-            {
-                dataView = value;
-            }
-        }
     }
 }
