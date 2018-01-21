@@ -1,0 +1,13 @@
+/IApplication.cs///1331599351////
+/ICommand.cs///1331599351////
+/IDockableWindowDef.cs///1331599351////
+/IItemdef.cs///1331599351////
+/IMenuDef.cs///1331599351////
+/IPlugin.cs///1331599351////
+/ITool.cs///1331599351////
+/IToolBarDef.cs///1331599351////
+/ItemDef.cs///1331599351////
+/ParsePluginCollection.cs///1331599767////
+/PluginContainer.cs///1331599767////
+/PluginContainerEnumerator.cs///1331599767////
+/PluginHandler.cs///1331599767////

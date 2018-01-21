@@ -1,0 +1,284 @@
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\ResolveAssemblyReference.cache
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\GISTranSim.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\MathTools.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\AxInterop.MapWinGIS.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\Interop.MapWinGIS.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\MapWindow.Interfaces.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\MapWinGeoProc.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\MapWinInterfaces.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\MapWinUtility.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\AxInterop.MapWinGIS.xml
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\Interop.MapWinGIS.xml
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GenerateResource-ResGen.read.1.tlog
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GenerateResource-ResGen.read.6.tlog
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GenerateResource-ResGen.write.1.tlog
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Properties.Resources.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.WinDrivingStratigySetUp.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\System.Windows.Forms.DataVisualization.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.CarSetUp.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimMain.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutput.SpeedTimeCharter.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutput.TimeSpaceCharter.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Input.ODInOutMgr.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Input.DataOutputer.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutput.MeanSpeedCharter.resources
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\GISTranSim.dll.config
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\bin\Debug\GISTranSim.dll
+E:\soft Project\b毕业设计\TranMACASims\TranMACASims\obj\Debug\GISTranSim.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\GISTranSim.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\MathTools.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\MathTools.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutput.TimeSpaceCharter.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Input.ODInOutMgr.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Input.DataOutputer.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutput.MeanSpeedCharter.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Properties.Resources.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimMain.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.WinDrivingStratigySetUp.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutput.SpeedTimeCharter.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.pdb
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe.config
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.exe
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimConfig.resources
+\\vmware-host\Shared Folders\桌面\TranMACASims\TranMACASims\obj\Debug\GISTranSim.RoadConfig.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Properties.Resources.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimConfig.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.RoadConfig.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimMain.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.WinDrivingStratigySetUp.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.exe
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe.config
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\GISTranSim.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\MathTools.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\MathTools.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.pdb
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.TimeSpaceCharter.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.ODInOutMgr.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.DataOutputer.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.MeanSpeedCharter.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.SpeedTimeCharter.resources
+Z:\w我的文档\gitpool\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.xml
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe.config
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\GISTranSim.pdb
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\MathTools.dll
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.dll
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.dll
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\MathTools.pdb
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+E:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.xml
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.TimeSpaceCharter.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.ODInOutMgr.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.DataOutputer.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.MeanSpeedCharter.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Properties.Resources.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimConfig.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.RoadConfig.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimMain.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.WinDrivingStratigySetUp.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Data.SpeedTimeCharter.resources
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.exe
+E:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe.config
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\GISTranSim.exe
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\GISTranSim.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\MathTools.dll
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.dll
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.dll
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\nunit.framework.dll
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\MathTools.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_SimDriving.xml
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.Properties.Resources.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimConfig.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.RoadConfig.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SimMain.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.WinDrivingStratigySetUp.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.exe
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_NetworkBuilder.exe
+D:\software\TrafficSim\TranMACASims\TranMACASims\bin\Debug\SubSys_NetworkBuilder.pdb
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.ODInOutMgr.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.TimeSpaceCharter.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.DataOutputer.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.MeanSpeedCharter.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.UIHelpAbout.resources
+D:\software\TrafficSim\TranMACASims\TranMACASims\obj\Debug\GISTranSim.SpeedTimeCharter.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\GISTranfficSim.exe.config
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\GISTranfficSim.exe
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\GISTranfficSim.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\MathTools.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_DataManage.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_Graphics.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_NetworkBuilder.exe
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\nunit.framework.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\stdole.dll
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\MathTools.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_NetworkBuilder.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+Z:\software\TrafficSim\TrafficSim\TranMACASims\bin\Debug\SubSys_SimDriving.xml
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.WinDrivingStratigySetUp.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.ODInOutMgr.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.TimeSpaceCharter.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.DataOutputer.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.MeanSpeedCharter.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTranfficSim.Properties.Resources.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.SimConfig.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.RoadConfig.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.SimMain.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.UIHelpAbout.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTrafficSim.SpeedTimeCharter.resources
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTranfficSim.exe
+Z:\software\TrafficSim\TrafficSim\TranMACASims\obj\Debug\GISTranfficSim.pdb
+Z:\software\TrafficSim\TranMACASims\bin\Debug\MathTools.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_DataManage.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_Graphics.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\nunit.framework.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\stdole.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\MathTools.pdb
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_SimDriving.xml
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_NetworkBuilder.dll
+Z:\software\TrafficSim\TranMACASims\bin\Debug\SubSys_NetworkBuilder.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\GISTranfficSim.exe.config
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTranfficSim.exe
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTranfficSim.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\GISTranfficSim.exe
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\GISTranfficSim.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\MathTools.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_DataManage.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_DataVisualization.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_Graphics.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_NetworkBuilder.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_SimDriving.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\nunit.framework.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\stdole.dll
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\MathTools.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_DataManage.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_DataVisualization.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_Graphics.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_NetworkBuilder.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_SimDriving.pdb
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\bin\Debug\SubSys_SimDriving.xml
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.WinDrivingStratigySetUp.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.ODInOutMgr.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.TimeSpaceCharter.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.DataOutputer.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.MeanSpeedCharter.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTranfficSim.Properties.Resources.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.SimConfig.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.RoadConfig.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.SimMain.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.UIHelpAbout.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\GISTrafficSim.SpeedTimeCharter.resources
+Z:\software\TrafficSim - 副本 (2)\TranMACASims\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.WinDrivingStratigySetUp.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.ODInOutMgr.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.TimeSpaceCharter.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.DataOutputer.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.MeanSpeedCharter.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.SimConfig.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.RoadConfig.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.SimMain.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.UIHelpAbout.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TrafficSim.SpeedTimeCharter.resources
+Z:\software\TrafficSim\TranMACASims\bin\Debug\TranfficSim.exe.config
+Z:\software\TrafficSim\TranMACASims\bin\Debug\TranfficSim.exe
+Z:\software\TrafficSim\TranMACASims\bin\Debug\TranfficSim.pdb
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TranfficSim.Properties.Resources.resources
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TranfficSim.exe
+Z:\software\TrafficSim\TranMACASims\obj\Debug\TranfficSim.pdb
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.WinDrivingStratigySetUp.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.ODInOutMgr.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.TimeSpaceCharter.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.DataOutputer.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.MeanSpeedCharter.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.Properties.Resources.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.SimConfig.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.RoadConfig.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.SimMain.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.DebugShower.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.UIHelpAbout.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.SpeedTimeCharter.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.csproj.GenerateResource.Cache
+Z:\software\TrafficSim\TrafficSim\bin\Debug\TrafficSim.exe.config
+Z:\software\TrafficSim\TrafficSim\bin\Debug\TrafficSim.exe
+Z:\software\TrafficSim\TrafficSim\bin\Debug\TrafficSim.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\MathTools.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_DataManage.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_DataVisualization.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_Graphics.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_NetworkBuilder.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_SimDriving.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\stdole.dll
+Z:\software\TrafficSim\TrafficSim\bin\Debug\MathTools.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_DataManage.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_DataVisualization.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_Graphics.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_NetworkBuilder.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_SimDriving.pdb
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_SimDriving.xml
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.exe
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.pdb

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" dslVersion="1.0.0.0" Id="35140729-0a27-4b84-8a40-e19bb826437d" name="RoutePlanner_PlanRoute" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="d79a8016-ac58-49c2-86ae-aaf4a8e58f22" name="RoutePlanner_PlanRoute" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification Id="dfb06c27-ac6f-4b21-a99e-01269ead46b0" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="5b13dddf-0716-4158-bd1f-0d31dbba7d79" LastKnownName="this : RoutePlanner" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="4b50c933-da10-48e4-b839-31287382559e" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="eb03615d-addc-4d6b-9553-88326fbc8df1" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="f44665c6-d9e1-42ee-a7c7-0fd829c0ceac" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="eb03615d-addc-4d6b-9553-88326fbc8df1" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="0a4f9bce-e344-4436-a368-173331025541" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="5b13dddf-0716-4158-bd1f-0d31dbba7d79" LastKnownName="this : RoutePlanner" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="f44665c6-d9e1-42ee-a7c7-0fd829c0ceac" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="5b13dddf-0716-4158-bd1f-0d31dbba7d79" LastKnownName="this : RoutePlanner" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <lostFoundTarget Id="54230159-5c55-49c3-b1de-ad6995985c81" name="LostFoundTarget" />
+          <executionOccurrenceSpecification Id="4b50c933-da10-48e4-b839-31287382559e" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="34b79465-d37b-4cdd-8fcc-54f68a37e7fe" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="5b13dddf-0716-4158-bd1f-0d31dbba7d79" LastKnownName="this : RoutePlanner" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="5b13dddf-0716-4158-bd1f-0d31dbba7d79" name="this : RoutePlanner" isActor="false" lifelineDisplayName="this : RoutePlanner" referencedInstance="(Assembly=&quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&quot; Namespace=SubSys_SimDriving.RoutePlan Type=RoutePlanner ObjectInstance=&quot;Object instance 3&quot;)" referencedType="SubSys_SimDriving.RoutePlan.RoutePlanner">
+            <referencesInternal>
+              <reference Id="b7924957-1601-4c2a-bdc7-0294cb0d11cb" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=SubSys_SimDriving.RoutePlan)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&amp;quot; Namespace=SubSys_SimDriving.RoutePlan Type=RoutePlanner)&quot;)" tag="DGQL" />
+              <reference Id="0cf9dc01-8457-42cc-ad47-588fcd148e1e" handle="(Assembly=&quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&quot; Namespace=SubSys_SimDriving.RoutePlan Type=RoutePlanner)" tag="DGML" />
+            </referencesInternal>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="eb03615d-addc-4d6b-9553-88326fbc8df1" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="4b50c933-da10-48e4-b839-31287382559e" LastKnownName="ExecutionOccurrenceSpecification" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message Id="d417f4f1-119e-4aea-8eeb-2ae37ab69223" name="PlanRoute" messageKind="Found" messageSort="AsynchCall" createSelfMessage="false">
+            <referencesInternal>
+              <reference Id="187da6ee-1e5d-4f78-995f-232fd2846d45" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=SubSys_SimDriving.RoutePlan)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&amp;quot; Namespace=SubSys_SimDriving.RoutePlan Type=RoutePlanner)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&amp;quot; Namespace=SubSys_SimDriving.RoutePlan Type=RoutePlanner Member=(Name=PlanRoute OverloadingParameters=[(Assembly=&amp;quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&amp;quot; Namespace=SubSys_SimDriving Type=MyPoint),(Assembly=&amp;quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&amp;quot; Namespace=SubSys_SimDriving Type=MyPoint)]))&quot;)" tag="DGQL" />
+              <reference Id="6f65886f-c787-4910-b2dd-f73a2d030c0b" handle="(Assembly=&quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&quot; Namespace=SubSys_SimDriving.RoutePlan Type=RoutePlanner Member=(Name=PlanRoute OverloadingParameters=[(Assembly=&quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&quot; Namespace=SubSys_SimDriving Type=MyPoint),(Assembly=&quot;$(971bff16-3e0b-4ab5-bfa8-82d84b0fc5ab.OutputPathUri)&quot; Namespace=SubSys_SimDriving Type=MyPoint)]))" tag="DGML" />
+            </referencesInternal>
+            <sendEvent>
+              <lostFoundTargetMoniker Id="54230159-5c55-49c3-b1de-ad6995985c81" LastKnownName="LostFoundTarget" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="f44665c6-d9e1-42ee-a7c7-0fd829c0ceac" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="0a4f9bce-e344-4436-a368-173331025541" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="34b79465-d37b-4cdd-8fcc-54f68a37e7fe" name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+</SequenceDesignerModel>

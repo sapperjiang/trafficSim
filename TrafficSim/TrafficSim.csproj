@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{971BFF16-3E0B-4AB5-BFA8-82D84B0FC5AB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TrafficSim</RootNamespace>
+    <AssemblyName>TrafficSim</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <SignAssembly>False</SignAssembly>
+    <DelaySign>False</DelaySign>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <RunCodeAnalysis>False</RunCodeAnalysis>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\User\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <StartupObject>TrafficSim.Program</StartupObject>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mydebug|AnyCPU'">
+    <OutputPath>bin\Mydebug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Mydebug' ">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\MapWindow\MapWindow.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.MapWinGIS">
+      <HintPath>bin\Debug\AxInterop.MapWinGIS.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MapWinGIS">
+      <HintPath>bin\Debug\Interop.MapWinGIS.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MapWindow.Interfaces">
+      <HintPath>bin\Debug\MapWindow.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="MapWinGeoProc">
+      <HintPath>bin\Debug\MapWinGeoProc.dll</HintPath>
+    </Reference>
+    <Reference Include="MapWinInterfaces">
+      <HintPath>bin\Debug\MapWinInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppInterfaces\TranSimGISPlugin.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="AppInterfaces\IApplication.cs" />
+    <Compile Include="AppInterfaces\ICommand.cs" />
+    <Compile Include="AppInterfaces\IDockableWindowDef.cs" />
+    <Compile Include="AppInterfaces\IItemdef.cs" />
+    <Compile Include="AppInterfaces\IMenuDef.cs" />
+    <Compile Include="AppInterfaces\IPlugin.cs" />
+    <Compile Include="AppInterfaces\ItemDef.cs" />
+    <Compile Include="AppInterfaces\ITool.cs" />
+    <Compile Include="AppInterfaces\IToolBarDef.cs" />
+    <Compile Include="AppInterfaces\ParsePluginCollection.cs" />
+    <Compile Include="AppInterfaces\PluginContainer.cs" />
+    <Compile Include="AppInterfaces\PluginContainerEnumerator.cs" />
+    <Compile Include="AppInterfaces\PluginHandler.cs" />
+    <Compile Include="SimConfig\WinDrivingStratigySetUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimConfig\WinDrivingStratigySetUp.Designer.cs">
+      <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\AbstractCharter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\AbstractCharter.Designer.cs">
+      <DependentUpon>AbstractCharter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\ODInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\ODInput.Designer.cs">
+      <DependentUpon>ODInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\TimeSpaceCharter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\TimeSpaceCharter.Designer.cs">
+      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\DataOutPut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\DataOutPut.Designer.cs">
+      <DependentUpon>DataOutPut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\MeanSpeedCharter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\MeanSpeedCharter.Designer.cs">
+      <DependentUpon>MeanSpeedCharter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SimConfig\SimConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimConfig\SimConfig.Designer.cs">
+      <DependentUpon>SimConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimConfig\RoadConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimConfig\RoadConfig.Designer.cs" />
+    <Compile Include="SimConfig\SimController.cs" />
+    <Compile Include="SimMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimMain.designer.cs">
+      <DependentUpon>SimMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIHelp\DebugShower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIHelp\DebugShower.Designer.cs">
+      <DependentUpon>DebugShower.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIHelp\UIHelpAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIHelp\UIHelpAbout.Designer.cs" />
+    <Compile Include="UIData\SpeedTimeCharter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\SpeedTimeCharter.Designer.cs">
+      <DependentUpon>SpeedTimeCharter.cs</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\suspend.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pan.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SimConfig\WinDrivingStratigySetUp.resx">
+      <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIData\ODInput.resx">
+      <DependentUpon>ODInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIData\TimeSpaceCharter.resx">
+      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIData\DataOutPut.resx">
+      <DependentUpon>DataOutPut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIData\MeanSpeedCharter.resx">
+      <DependentUpon>MeanSpeedCharter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimConfig\SimConfig.resx">
+      <DependentUpon>SimConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimConfig\RoadConfig.resx">
+      <DependentUpon>RoadConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimMain.resx">
+      <DependentUpon>SimMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIHelp\DebugShower.resx">
+      <DependentUpon>DebugShower.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIHelp\UIHelpAbout.resx">
+      <DependentUpon>UIHelpAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIData\SpeedTimeCharter.resx">
+      <DependentUpon>SpeedTimeCharter.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Read Me 1.ico" />
+    <None Include="Resources\chart2.ico" />
+    <None Include="Resources\Chart1.ico" />
+    <None Include="Resources\6.ico" />
+    <Content Include="icon.ico" />
+    <Content Include="Resources\Config.jpg" />
+    <None Include="Resources\Crt1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTools\SubSys_MathUtility.csproj">
+      <Project>{bb9010e8-e811-4c0b-86af-6bfb7b0b0f70}</Project>
+      <Name>SubSys_MathUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_DataManage\SubSys_DataManage.csproj">
+      <Project>{bd28b49f-0ad4-4449-8188-920051c1f3f6}</Project>
+      <Name>SubSys_DataManage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_DataVisualization\SubSys_DataVisualization.csproj">
+      <Project>{9e617654-1493-4645-b079-c0ec3b5dfdf6}</Project>
+      <Name>SubSys_DataVisualization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_Graphics\SubSys_Graphics.csproj">
+      <Project>{d9a39ca7-1c9b-4a9f-9c22-c73e32977d9b}</Project>
+      <Name>SubSys_Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_NetworkBuilder\SubSys_NetworkBuilder.csproj">
+      <Project>{1bb32b80-00c3-4c1c-9ef8-e98b5d61d691}</Project>
+      <Name>SubSys_NetworkBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_SimDriving\SubSys_SimDriving.csproj">
+      <Project>{dae0a318-3a89-450c-9095-83dc71e286c6}</Project>
+      <Name>SubSys_SimDriving</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
