@@ -39,7 +39,7 @@ namespace TrafficSim
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.tsslMsgTip = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_MobileCounter = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel_VehicleCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TSSL_MobileCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.tpMousePositonTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuBar = new System.Windows.Forms.MenuStrip();
             this.menuBarFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,8 +67,8 @@ namespace TrafficSim
             this.menuBarDataSpeedTime = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarDataRoadMeanSpeed = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarDataOutput = new System.Windows.Forms.ToolStripMenuItem();
-            this.图表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.关于ToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,22 +84,32 @@ namespace TrafficSim
             this.toolStripButtonRedo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.TSB_CreateNetWork = new System.Windows.Forms.ToolStripButton();
+            this.toolContainer = new System.Windows.Forms.ToolStripContainer();
+            this.SplitCtnerMain = new System.Windows.Forms.SplitContainer();
             this.drawArea = new SubSys_NetworkBuilder.DrawArea();
             this.statusBar.SuspendLayout();
             this.menuBar.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            this.toolContainer.BottomToolStripPanel.SuspendLayout();
+            this.toolContainer.ContentPanel.SuspendLayout();
+            this.toolContainer.TopToolStripPanel.SuspendLayout();
+            this.toolContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitCtnerMain)).BeginInit();
+            this.SplitCtnerMain.Panel1.SuspendLayout();
+            this.SplitCtnerMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusBar
             // 
+            this.statusBar.Dock = System.Windows.Forms.DockStyle.None;
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.tslSimTime,
             this.toolStripSplitButton1,
             this.tsslMsgTip,
             this.toolStripStatusLabel_MobileCounter,
-            this.toolStripStatusLabel_VehicleCount});
-            this.statusBar.Location = new System.Drawing.Point(0, 513);
+            this.TSSL_MobileCount});
+            this.statusBar.Location = new System.Drawing.Point(0, 0);
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(964, 22);
             this.statusBar.TabIndex = 3;
@@ -137,11 +147,11 @@ namespace TrafficSim
             this.toolStripStatusLabel_MobileCounter.Size = new System.Drawing.Size(61, 17);
             this.toolStripStatusLabel_MobileCounter.Text = "Vehicle：";
             // 
-            // toolStripStatusLabel_VehicleCount
+            // TSSL_MobileCount
             // 
-            this.toolStripStatusLabel_VehicleCount.Name = "toolStripStatusLabel_VehicleCount";
-            this.toolStripStatusLabel_VehicleCount.Size = new System.Drawing.Size(15, 17);
-            this.toolStripStatusLabel_VehicleCount.Text = "0";
+            this.TSSL_MobileCount.Name = "TSSL_MobileCount";
+            this.TSSL_MobileCount.Size = new System.Drawing.Size(15, 17);
+            this.TSSL_MobileCount.Text = "0";
             // 
             // tpMousePositonTip
             // 
@@ -158,8 +168,8 @@ namespace TrafficSim
             this.menuBarConfig,
             this.menuBarSimulate,
             this.menuBarData,
-            this.图表ToolStripMenuItem,
-            this.关于ToolStripMenuItem});
+            this.shapeToolStripMenuItem,
+            this.AboutToolStripMenuItem});
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
             this.menuBar.Size = new System.Drawing.Size(964, 25);
@@ -261,7 +271,6 @@ namespace TrafficSim
             // 
             // MenuBarConfigParameterSet
             // 
-            this.MenuBarConfigParameterSet.Enabled = false;
             this.MenuBarConfigParameterSet.Name = "MenuBarConfigParameterSet";
             this.MenuBarConfigParameterSet.Size = new System.Drawing.Size(124, 22);
             this.MenuBarConfigParameterSet.Text = "参数设置";
@@ -288,7 +297,7 @@ namespace TrafficSim
             // 
             // menuBarSimulateStart
             // 
-            this.menuBarSimulateStart.Name = "menuBarSimulateSustained";
+            this.menuBarSimulateStart.Name = "menuBarSimulateStart";
             this.menuBarSimulateStart.Size = new System.Drawing.Size(124, 22);
             this.menuBarSimulateStart.Text = "启动仿真";
             this.menuBarSimulateStart.Click += new System.EventHandler(this.MenuBar_SimluateSustained_Click);
@@ -360,21 +369,21 @@ namespace TrafficSim
             this.menuBarDataOutput.Text = "仿真数据导出";
             this.menuBarDataOutput.Click += new System.EventHandler(this.MenuBar_Data_DataOutPut_Click);
             // 
-            // 图表ToolStripMenuItem
+            // shapeToolStripMenuItem
             // 
-            this.图表ToolStripMenuItem.Name = "图表ToolStripMenuItem";
-            this.图表ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.图表ToolStripMenuItem.Text = "图表";
+            this.shapeToolStripMenuItem.Name = "shapeToolStripMenuItem";
+            this.shapeToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.shapeToolStripMenuItem.Text = "图表";
             // 
-            // 关于ToolStripMenuItem
+            // AboutToolStripMenuItem
             // 
-            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.关于ToolStripMenuItem2,
             this.关于ToolStripMenuItem3,
             this.关于ToolStripMenuItem4});
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.关于ToolStripMenuItem.Text = "帮助";
+            this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.AboutToolStripMenuItem.Text = "帮助";
             // 
             // 关于ToolStripMenuItem2
             // 
@@ -396,6 +405,7 @@ namespace TrafficSim
             // 
             // toolStrip
             // 
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -410,9 +420,9 @@ namespace TrafficSim
             this.toolStripButtonRedo,
             this.toolStripSeparator3,
             this.TSB_CreateNetWork});
-            this.toolStrip.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip.Location = new System.Drawing.Point(3, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(964, 27);
+            this.toolStrip.Size = new System.Drawing.Size(213, 27);
             this.toolStrip.TabIndex = 14;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -510,21 +520,57 @@ namespace TrafficSim
             this.TSB_CreateNetWork.Text = "创建路网";
             this.TSB_CreateNetWork.Click += new System.EventHandler(this.TSB_CreateNetWork_Click);
             // 
-            // drawArea
+            // toolContainer
+            // 
+            // 
+            // toolContainer.BottomToolStripPanel
+            // 
+            this.toolContainer.BottomToolStripPanel.Controls.Add(this.statusBar);
+            // 
+            // toolContainer.ContentPanel
+            // 
+            this.toolContainer.ContentPanel.Controls.Add(this.SplitCtnerMain);
+            this.toolContainer.ContentPanel.Size = new System.Drawing.Size(964, 461);
+            this.toolContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolContainer.Location = new System.Drawing.Point(0, 25);
+            this.toolContainer.Name = "toolContainer";
+            this.toolContainer.Size = new System.Drawing.Size(964, 510);
+            this.toolContainer.TabIndex = 16;
+            this.toolContainer.Text = "toolStripContainer1";
+            // 
+            // toolContainer.TopToolStripPanel
+            // 
+            this.toolContainer.TopToolStripPanel.Controls.Add(this.toolStrip);
+            // 
+            // SplitCtnerMain
+            // 
+            this.SplitCtnerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SplitCtnerMain.Location = new System.Drawing.Point(0, 0);
+            this.SplitCtnerMain.Name = "SplitCtnerMain";
+            // 
+            // SplitCtnerMain.Panel1
+            // 
+            this.SplitCtnerMain.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.SplitCtnerMain.Panel1.Controls.Add(this.drawArea);
+            this.SplitCtnerMain.Panel2Collapsed = true;
+            this.SplitCtnerMain.Size = new System.Drawing.Size(964, 461);
+            this.SplitCtnerMain.SplitterDistance = 671;
+            this.SplitCtnerMain.TabIndex = 16;
+            // 
+            // drawArea1
             // 
             this.drawArea.ActiveTool = SubSys_NetworkBuilder.DrawArea.DrawToolType.Pointer;
             this.drawArea.AutoScroll = true;
             this.drawArea.AutoSize = true;
-            this.drawArea.BackColor = System.Drawing.Color.Gainsboro;
+            this.drawArea.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.drawArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawArea.DocManager = null;
             this.drawArea.Graphics = null;
-            this.drawArea.Location = new System.Drawing.Point(0, 52);
-            this.drawArea.Name = "drawArea";
+            this.drawArea.Location = new System.Drawing.Point(0, 0);
+            this.drawArea.Name = "drawArea1";
             this.drawArea.Owner = null;
             this.drawArea.Size = new System.Drawing.Size(964, 461);
-            this.drawArea.TabIndex = 15;
-            this.drawArea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.drawArea_KeyDown);
+            this.drawArea.TabIndex = 0;
             // 
             // SimMain
             // 
@@ -532,9 +578,7 @@ namespace TrafficSim
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(964, 535);
-            this.Controls.Add(this.drawArea);
-            this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.statusBar);
+            this.Controls.Add(this.toolContainer);
             this.Controls.Add(this.menuBar);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -549,6 +593,17 @@ namespace TrafficSim
             this.menuBar.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.toolContainer.BottomToolStripPanel.ResumeLayout(false);
+            this.toolContainer.BottomToolStripPanel.PerformLayout();
+            this.toolContainer.ContentPanel.ResumeLayout(false);
+            this.toolContainer.TopToolStripPanel.ResumeLayout(false);
+            this.toolContainer.TopToolStripPanel.PerformLayout();
+            this.toolContainer.ResumeLayout(false);
+            this.toolContainer.PerformLayout();
+            this.SplitCtnerMain.Panel1.ResumeLayout(false);
+            this.SplitCtnerMain.Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitCtnerMain)).EndInit();
+            this.SplitCtnerMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -580,11 +635,10 @@ namespace TrafficSim
 		
 		
 		private ToolStripMenuItem menuBarData;
-		private ToolStripMenuItem 图表ToolStripMenuItem;
+		private ToolStripMenuItem shapeToolStripMenuItem;
 
 		#endregion
 
-		//private Button button2;
 		private StatusStrip statusBar;
 		private ToolStripStatusLabel toolStripStatusLabel1;
 		private ToolStripStatusLabel tslSimTime;
@@ -602,8 +656,8 @@ namespace TrafficSim
 		private ToolStripButton toolStripButtonUndo;
 		private ToolStripSeparator toolStripSeparator3;
 		private ToolStripButton toolStripButtonRedo;
-		private DrawArea drawArea;
-		private ToolStripMenuItem 关于ToolStripMenuItem;
+		//private DrawArea drawArea;
+		private ToolStripMenuItem AboutToolStripMenuItem;
 		private ToolStripMenuItem 关于ToolStripMenuItem2;
 		private ToolStripSeparator 关于ToolStripMenuItem3;
 		private ToolStripMenuItem 关于ToolStripMenuItem4;
@@ -611,8 +665,11 @@ namespace TrafficSim
 		private System.Windows.Forms.ToolStripMenuItem MenuBar_Undo;
 		private System.Windows.Forms.ToolStripMenuItem MenuBar_Redo;
         private ToolStripStatusLabel toolStripStatusLabel_MobileCounter;
-        private ToolStripStatusLabel toolStripStatusLabel_VehicleCount;
+        private ToolStripStatusLabel TSSL_MobileCount;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripButton TSB_CreateNetWork;
+        private ToolStripContainer toolContainer;
+        private SplitContainer SplitCtnerMain;
+        private DrawArea drawArea;
     }
 }

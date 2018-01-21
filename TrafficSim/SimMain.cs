@@ -27,31 +27,25 @@ namespace TrafficSim
 			InitializeComponent();
 			
 			//this.l
-			
 			this.WindowState = FormWindowState.Maximized;
 			var color = System.Drawing.Color.LightBlue;
 			this.BackColor = color;
 			this.menuBar.BackColor = color;
 			this.statusBar.BackColor =color;
-			
-			//SimController.InitializePainters(this);
-//
-//			if (iroadNet ==null) {
-//				iroadNet = SimController.ISimCtx.RoadNet;
-//			}
-			///	SimController.ISimCtx.RoadNet.Updated +=SimController.RepaintNetWork;
-			
-			SimController.Canvas = this;
 
-            SimController.iSimInterval =10;
-			//开启鼠标滚轮放大缩小屏幕
-			this.MouseWheel += new MouseEventHandler(SimCartoon_MouseWheel);
-			this.MouseWheel +=new MouseEventHandler(SimController.RepaintNetWork);
+			////开启鼠标滚轮放大缩小屏幕
+			//this.MouseWheel += new MouseEventHandler(SimCartoon_MouseWheel);
+			//this.MouseWheel +=new MouseEventHandler(SimController.RepaintNetWork);
 			
-			//开启路网平移
-			this.MouseDown+=PanScreen_MouseDown;
-			this.MouseUp +=PanScreen_MouseUp;
-			
+			////开启路网平移
+			//this.MouseDown+=PanScreen_MouseDown;
+			//this.MouseUp +=PanScreen_MouseUp;
+
+            Canvas simCanvas = new Canvas();
+            SplitCtnerMain.Panel1.Controls.Add(simCanvas);
+            simCanvas.Visible = false;
+            SimController.Canvas = simCanvas;
+
 			//注册每个仿真结束时候发生的事件
 			SimController.OnSimulateStoped +=SimulateStopMessage;
 			//注册每个仿真时刻变更发生的事件
@@ -83,8 +77,6 @@ namespace TrafficSim
 				GraphicsSetter.ScaleByPixels(-2);
 			}
 		}
-		
-		
 		protected override void OnClosing(CancelEventArgs e)
 		{
 			SimController.bIsExit = true;
@@ -138,23 +130,12 @@ namespace TrafficSim
 			SimController.iRoadWidth = 100;
 			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
-			
-//			SimController.ConfigSimEnvironment(this);
-			//thisMethod has been replaced by netbuilder
-			//this.LoadRoadNetwork();
-			//	SimController.InitializePainters(this);
-			
+
 			//打开仿真运行的按钮
 			this.menuBarSimulateStart.Enabled = true;
 //
 		}
-//
-//		protected override void OnPaint(PaintEventArgs e)
-//		{
-//			base.OnPaint(e);
-//
-//				SimController.RepaintNetWork();
-//		}
+
 
 		void MenuBar_Config_FormBackColor_Click(object sender, System.EventArgs e)
 		{
@@ -180,42 +161,36 @@ namespace TrafficSim
 		/// <param name="e"></param>
 		void MenuBar_SimluateSustained_Click(object sender, System.EventArgs e)
 		{
+            //关闭路网编辑器，显示仿真窗口
+            drawArea.Visible = false;
+            SimController.Canvas.Visible = true;
+            SplitCtnerMain.Panel2Collapsed = false;
+
+
             //----------------------------------------------------
-            //SimController.iCarCount =2;
-			SimController.iRoadWidth = 20;
+            SimController.iRoadWidth = 20;
 			SimController.iSimInterval = 100;
 			ModelSetting.dRate = 0.85;
-			
-			//this.LoadRoadNetwork();
-			
-			//when pause repaint network
-			//frMain.MouseWheel+=RepaintNetWork;
-			
-			//打开仿真运行的按钮
-			this.menuBarSimulateStart.Enabled = true;
+
+            
+            SimController.iSimInterval = 10;
+
+            //打开仿真运行的按钮
+            this.menuBarSimulateStart.Enabled = true;
 			//-------------------------------------------------
 			SimController.bIsExit = false;
 			menuBarConfigSimEnvr.Enabled =false;
-            //SimController.Run();
-
-         //   var Cvs = new Form1();
-          //  SimController.Canvas = Cvs;
-
-          //  Cvs.Show();
-
-
             SimController.StartSimulate();
 			
 			menuBarSimulateStart.Enabled =false;
-		}
-		
+        }
 
-		#endregion
-		
-		
-		#region 数据画图区域
+        #endregion
 
-		void MenuBar_Data_DataOutPut_Click(object sender, System.EventArgs e)
+
+        #region 数据画图区域
+
+        void MenuBar_Data_DataOutPut_Click(object sender, System.EventArgs e)
 		{
 			DataOutputer dop = new DataOutputer();
 			dop.Show();
@@ -260,8 +235,9 @@ namespace TrafficSim
 		void Menubar_Simlate_Stop_Click(object sender, System.EventArgs e)
 		{
 			SimController.bIsExit = true;
-			//throw new NotImplementedException();
-//			SimController.sto
+            drawArea.Visible = true;
+            SimController.Canvas.Visible = false;
+            SplitCtnerMain.Panel2Collapsed = true;
 		}
 		void MenuBar_Config_Parameter_Click(object sender, System.EventArgs e)
 		{
@@ -273,8 +249,6 @@ namespace TrafficSim
 				ModelSetting.dRate = cs.dRatio;
 				
 			}cs.Dispose();
-			
-			//throw new NotImplementedException();
 		}
 		#endregion
 		#region 路网加载函数
@@ -628,7 +602,7 @@ namespace TrafficSim
 			// DocManager asks to load document from supplied stream
 			try
 			{
-				drawArea.Graphics = (Mementos)e.Formatter.Deserialize(e.SerializationStream);
+				drawArea.Graphics = (DrawMementos)e.Formatter.Deserialize(e.SerializationStream);
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -1237,6 +1211,7 @@ namespace TrafficSim
 
         void SimMainLoad(object sender, EventArgs e)
 		{
+            
 			InitializeHelperObjects();
 
 			drawArea.Initialize(this, docManager);
@@ -1276,7 +1251,10 @@ namespace TrafficSim
 
         private void TSB_CreateNetWork_Click(object sender, EventArgs e)
         {
-            NetworkBuilder.BulidNetWork(drawArea.Graphics);
+
+            //NetworkBuilder.BulidNetWork(drawArea.Graphics);
+            //drawArea.Graphics.Dirty = true;
+
             DebugShower ds = new DebugShower();
             IRoadNet inet = RoadNet.GetInstance();
 
@@ -1295,8 +1273,10 @@ namespace TrafficSim
             }
 
             ds.LB_LaneShape.DataSource = listLane;//.lane.Lanes;// as Dictionary<int, lane>;
+            SplitCtnerMain.Panel2.Controls.Add(ds);
             ds.Show();
-            drawArea.Visible = false;
+
+            MenuBar_SimluateSustained_Click(null, null);
 
         }
 
