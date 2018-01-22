@@ -244,7 +244,8 @@ namespace TrafficSim
 			TrafficSim.SimConfig cs = new TrafficSim.SimConfig();
 			if (cs.ShowDialog() == DialogResult.OK)
 			{
-				SimController.iRoadWidth = cs.iRoadLength;
+                SimSettings.iCellWidth = cs.iCellWidth;
+				SimController.iMobileCount = cs.iCarCount;
 				SimController.iSimInterval = cs.iSimSpeed;
 				ModelSetting.dRate = cs.dRatio;
 				

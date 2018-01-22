@@ -20,7 +20,7 @@ namespace TrafficSim
 		}
 
 		internal int iCarCount = 0;
-		internal int iRoadLength = 0;
+		internal int iCellWidth = 0;
 		internal int iSimSpeed = 0;
 		internal double dRatio=0.85;
 
@@ -29,7 +29,7 @@ namespace TrafficSim
 			try {
 				
 				this.iCarCount = Convert.ToInt32(this.TB_CarCount.Text);
-				this.iRoadLength = Convert.ToInt32(this.TB_RoadLength.Text);
+				this.iCellWidth = Convert.ToInt32(this.TB_CellWidth.Text);
 				this.iSimSpeed = Convert.ToInt32(this.TB_SimInterval.Text);
 				this.dRatio = Convert.ToDouble(this.TB_Ratio.Text);
 				this.DialogResult = DialogResult.OK;

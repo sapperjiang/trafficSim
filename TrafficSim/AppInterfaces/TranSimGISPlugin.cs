@@ -269,10 +269,12 @@ namespace PluginTest
                 TrafficSim.SimConfig cs = new TrafficSim.SimConfig();
                 if (cs.ShowDialog() == DialogResult.OK)
                 {
-                    SimController.iMobileCount = cs.iCarCount;
-                    SimController.iRoadWidth = cs.iRoadLength;
-                    SimController.iSimInterval = cs.iSimSpeed;
-                    ModelSetting.dRate = cs.dRatio;
+//                    SimController.iMobileCount = cs.iCarCount;
+
+//                    SimController.iSimInterval = cs.iSimSpeed;
+//                    ModelSetting.dRate = cs.dRatio;
+//                    ModelSetting. = cs.dRatio;
+//.i = cs.iCellWidth;
 
                 } cs.Dispose();
 

@@ -1,5 +1,0 @@
-E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Debug\ResolveAssemblyReference.cache
-E:\soft Project\b毕业设计\TranMACASims\MathTools\bin\Debug\MathTools.dll
-E:\soft Project\b毕业设计\TranMACASims\MathTools\bin\Debug\MathTools.pdb
-E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Debug\MathTools.dll
-E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Debug\MathTools.pdb

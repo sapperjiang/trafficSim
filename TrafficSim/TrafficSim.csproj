@@ -160,6 +160,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="canvas.designer.cs" />
+    <Compile Include="canvas1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>canvas.resx</DependentUpon>
+    </Compile>
     <Compile Include="SimConfig\WinDrivingStratigySetUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -274,7 +279,10 @@
     <None Include="Resources\Pan.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="canvas.resx" />
+    <EmbeddedResource Include="canvas.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>canvas1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="SimConfig\WinDrivingStratigySetUp.resx">
       <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
     </EmbeddedResource>

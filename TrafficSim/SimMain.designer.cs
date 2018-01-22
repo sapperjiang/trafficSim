@@ -47,7 +47,6 @@ namespace TrafficSim
             this.menuBarFileSaveNetWork = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarPrgExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuBar_Undo = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuBar_Redo = new System.Windows.Forms.ToolStripMenuItem();
             this.UndoToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
@@ -189,7 +188,7 @@ namespace TrafficSim
             // menuBarFileCreateNetwork
             // 
             this.menuBarFileCreateNetwork.Name = "menuBarFileCreateNetwork";
-            this.menuBarFileCreateNetwork.Size = new System.Drawing.Size(124, 22);
+            this.menuBarFileCreateNetwork.Size = new System.Drawing.Size(152, 22);
             this.menuBarFileCreateNetwork.Text = "新建路网";
             this.menuBarFileCreateNetwork.Click += new System.EventHandler(this.MemuBar_File_CreateNetWork_Click);
             // 
@@ -197,20 +196,19 @@ namespace TrafficSim
             // 
             this.menuBarFileSaveNetWork.Enabled = false;
             this.menuBarFileSaveNetWork.Name = "menuBarFileSaveNetWork";
-            this.menuBarFileSaveNetWork.Size = new System.Drawing.Size(124, 22);
+            this.menuBarFileSaveNetWork.Size = new System.Drawing.Size(152, 22);
             this.menuBarFileSaveNetWork.Text = "保存路网";
             this.menuBarFileSaveNetWork.Click += new System.EventHandler(this.menuBarFileSaveNetWork_Click);
             // 
             // menuBarPrgExit
             // 
             this.menuBarPrgExit.Name = "menuBarPrgExit";
-            this.menuBarPrgExit.Size = new System.Drawing.Size(124, 22);
+            this.menuBarPrgExit.Size = new System.Drawing.Size(152, 22);
             this.menuBarPrgExit.Text = "退出";
             // 
             // menuBarEdit
             // 
             this.menuBarEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
             this.MenuBar_Undo,
             this.MenuBar_Redo,
             this.UndoToolStripMenuItem,
@@ -219,35 +217,29 @@ namespace TrafficSim
             this.menuBarEdit.Size = new System.Drawing.Size(44, 21);
             this.menuBarEdit.Text = "编辑";
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
-            // 
             // MenuBar_Undo
             // 
             this.MenuBar_Undo.Name = "MenuBar_Undo";
-            this.MenuBar_Undo.Size = new System.Drawing.Size(192, 22);
+            this.MenuBar_Undo.Size = new System.Drawing.Size(152, 22);
             this.MenuBar_Undo.Text = "撤销（U）";
             this.MenuBar_Undo.Click += new System.EventHandler(this.MenuBar_MenuItem_Undo_Click);
             // 
             // MenuBar_Redo
             // 
             this.MenuBar_Redo.Name = "MenuBar_Redo";
-            this.MenuBar_Redo.Size = new System.Drawing.Size(192, 22);
+            this.MenuBar_Redo.Size = new System.Drawing.Size(152, 22);
             this.MenuBar_Redo.Text = "重做（R)";
             // 
             // UndoToolStripMenuItem
             // 
             this.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem";
-            this.UndoToolStripMenuItem.Size = new System.Drawing.Size(189, 6);
+            this.UndoToolStripMenuItem.Size = new System.Drawing.Size(149, 6);
             // 
             // menuBarEditRoadNetwork
             // 
             this.menuBarEditRoadNetwork.Enabled = false;
             this.menuBarEditRoadNetwork.Name = "menuBarEditRoadNetwork";
-            this.menuBarEditRoadNetwork.Size = new System.Drawing.Size(192, 22);
+            this.menuBarEditRoadNetwork.Size = new System.Drawing.Size(152, 22);
             this.menuBarEditRoadNetwork.Text = "编辑路网";
             this.menuBarEditRoadNetwork.Click += new System.EventHandler(this.MenuBar_Edit_RoadNetwork_Click);
             // 
@@ -265,21 +257,21 @@ namespace TrafficSim
             // 
             this.menuBarConfigSimEnvr.Enabled = false;
             this.menuBarConfigSimEnvr.Name = "menuBarConfigSimEnvr";
-            this.menuBarConfigSimEnvr.Size = new System.Drawing.Size(124, 22);
+            this.menuBarConfigSimEnvr.Size = new System.Drawing.Size(152, 22);
             this.menuBarConfigSimEnvr.Text = "加载路网";
             this.menuBarConfigSimEnvr.Click += new System.EventHandler(this.MenuBar_File_ConfigEnvr_Click);
             // 
             // MenuBarConfigParameterSet
             // 
             this.MenuBarConfigParameterSet.Name = "MenuBarConfigParameterSet";
-            this.MenuBarConfigParameterSet.Size = new System.Drawing.Size(124, 22);
+            this.MenuBarConfigParameterSet.Size = new System.Drawing.Size(152, 22);
             this.MenuBarConfigParameterSet.Text = "参数设置";
             this.MenuBarConfigParameterSet.Click += new System.EventHandler(this.MenuBar_Config_Parameter_Click);
             // 
             // MenuBarConfigFormBackColor
             // 
             this.MenuBarConfigFormBackColor.Name = "MenuBarConfigFormBackColor";
-            this.MenuBarConfigFormBackColor.Size = new System.Drawing.Size(124, 22);
+            this.MenuBarConfigFormBackColor.Size = new System.Drawing.Size(152, 22);
             this.MenuBarConfigFormBackColor.Text = "背景颜色";
             this.MenuBarConfigFormBackColor.Click += new System.EventHandler(this.MenuBar_Config_FormBackColor_Click);
             // 
@@ -298,7 +290,7 @@ namespace TrafficSim
             // menuBarSimulateStart
             // 
             this.menuBarSimulateStart.Name = "menuBarSimulateStart";
-            this.menuBarSimulateStart.Size = new System.Drawing.Size(124, 22);
+            this.menuBarSimulateStart.Size = new System.Drawing.Size(152, 22);
             this.menuBarSimulateStart.Text = "启动仿真";
             this.menuBarSimulateStart.Click += new System.EventHandler(this.MenuBar_SimluateSustained_Click);
             // 
@@ -306,27 +298,27 @@ namespace TrafficSim
             // 
             this.menuBarSimulateRunSingleStep.Enabled = false;
             this.menuBarSimulateRunSingleStep.Name = "menuBarSimulateRunSingleStep";
-            this.menuBarSimulateRunSingleStep.Size = new System.Drawing.Size(124, 22);
+            this.menuBarSimulateRunSingleStep.Size = new System.Drawing.Size(152, 22);
             this.menuBarSimulateRunSingleStep.Text = "单步运行";
             // 
             // menuBarSimulatePause
             // 
             this.menuBarSimulatePause.Name = "menuBarSimulatePause";
-            this.menuBarSimulatePause.Size = new System.Drawing.Size(124, 22);
+            this.menuBarSimulatePause.Size = new System.Drawing.Size(152, 22);
             this.menuBarSimulatePause.Text = "暂停仿真";
             this.menuBarSimulatePause.Click += new System.EventHandler(this.MenuBar_Simulate_Pause_Click);
             // 
             // menuBarSimulateResume
             // 
             this.menuBarSimulateResume.Name = "menuBarSimulateResume";
-            this.menuBarSimulateResume.Size = new System.Drawing.Size(124, 22);
+            this.menuBarSimulateResume.Size = new System.Drawing.Size(152, 22);
             this.menuBarSimulateResume.Text = "恢复仿真";
             this.menuBarSimulateResume.Click += new System.EventHandler(this.MenuBar_Simulate_Resume_Click);
             // 
             // MenubarSimlateStop
             // 
             this.MenubarSimlateStop.Name = "MenubarSimlateStop";
-            this.MenubarSimlateStop.Size = new System.Drawing.Size(124, 22);
+            this.MenubarSimlateStop.Size = new System.Drawing.Size(152, 22);
             this.MenubarSimlateStop.Text = "结束仿真";
             this.MenubarSimlateStop.Click += new System.EventHandler(this.Menubar_Simlate_Stop_Click);
             // 
@@ -344,28 +336,28 @@ namespace TrafficSim
             // menuBarDataTimeSpace
             // 
             this.menuBarDataTimeSpace.Name = "menuBarDataTimeSpace";
-            this.menuBarDataTimeSpace.Size = new System.Drawing.Size(148, 22);
+            this.menuBarDataTimeSpace.Size = new System.Drawing.Size(152, 22);
             this.menuBarDataTimeSpace.Text = "车辆时空图";
             this.menuBarDataTimeSpace.Click += new System.EventHandler(this.MenuBar_Data_TimeSpace_Click);
             // 
             // menuBarDataSpeedTime
             // 
             this.menuBarDataSpeedTime.Name = "menuBarDataSpeedTime";
-            this.menuBarDataSpeedTime.Size = new System.Drawing.Size(148, 22);
+            this.menuBarDataSpeedTime.Size = new System.Drawing.Size(152, 22);
             this.menuBarDataSpeedTime.Text = "速度时间图";
             this.menuBarDataSpeedTime.Click += new System.EventHandler(this.MenuBar_Data_SpeedTime_Click);
             // 
             // menuBarDataRoadMeanSpeed
             // 
             this.menuBarDataRoadMeanSpeed.Name = "menuBarDataRoadMeanSpeed";
-            this.menuBarDataRoadMeanSpeed.Size = new System.Drawing.Size(148, 22);
+            this.menuBarDataRoadMeanSpeed.Size = new System.Drawing.Size(152, 22);
             this.menuBarDataRoadMeanSpeed.Text = "路段平均速度";
             this.menuBarDataRoadMeanSpeed.Click += new System.EventHandler(this.MenuBar_Data_RoadMeanTime_Click);
             // 
             // menuBarDataOutput
             // 
             this.menuBarDataOutput.Name = "menuBarDataOutput";
-            this.menuBarDataOutput.Size = new System.Drawing.Size(148, 22);
+            this.menuBarDataOutput.Size = new System.Drawing.Size(152, 22);
             this.menuBarDataOutput.Text = "仿真数据导出";
             this.menuBarDataOutput.Click += new System.EventHandler(this.MenuBar_Data_DataOutPut_Click);
             // 
@@ -388,18 +380,18 @@ namespace TrafficSim
             // 关于ToolStripMenuItem2
             // 
             this.关于ToolStripMenuItem2.Name = "关于ToolStripMenuItem2";
-            this.关于ToolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
+            this.关于ToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.关于ToolStripMenuItem2.Text = "访问作者";
             // 
             // 关于ToolStripMenuItem3
             // 
             this.关于ToolStripMenuItem3.Name = "关于ToolStripMenuItem3";
-            this.关于ToolStripMenuItem3.Size = new System.Drawing.Size(121, 6);
+            this.关于ToolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
             // 
             // 关于ToolStripMenuItem4
             // 
             this.关于ToolStripMenuItem4.Name = "关于ToolStripMenuItem4";
-            this.关于ToolStripMenuItem4.Size = new System.Drawing.Size(124, 22);
+            this.关于ToolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
             this.关于ToolStripMenuItem4.Text = "关于";
             this.关于ToolStripMenuItem4.Click += new System.EventHandler(this.MenuBar_Help_About_Click);
             // 
@@ -557,7 +549,7 @@ namespace TrafficSim
             this.SplitCtnerMain.SplitterDistance = 671;
             this.SplitCtnerMain.TabIndex = 16;
             // 
-            // drawArea1
+            // drawArea
             // 
             this.drawArea.ActiveTool = SubSys_NetworkBuilder.DrawArea.DrawToolType.Pointer;
             this.drawArea.AutoScroll = true;
@@ -567,7 +559,7 @@ namespace TrafficSim
             this.drawArea.DocManager = null;
             this.drawArea.Graphics = null;
             this.drawArea.Location = new System.Drawing.Point(0, 0);
-            this.drawArea.Name = "drawArea1";
+            this.drawArea.Name = "drawArea";
             this.drawArea.Owner = null;
             this.drawArea.Size = new System.Drawing.Size(964, 461);
             this.drawArea.TabIndex = 0;
@@ -666,7 +658,6 @@ namespace TrafficSim
 		private System.Windows.Forms.ToolStripMenuItem MenuBar_Redo;
         private ToolStripStatusLabel toolStripStatusLabel_MobileCounter;
         private ToolStripStatusLabel TSSL_MobileCount;
-        private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripButton TSB_CreateNetWork;
         private ToolStripContainer toolContainer;
         private SplitContainer SplitCtnerMain;

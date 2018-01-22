@@ -14,6 +14,7 @@ namespace TrafficSim
         public DebugShower()
         {
             InitializeComponent();
+            this.TopLevel = false;
         }
     }
 }
