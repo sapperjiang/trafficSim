@@ -127,7 +127,7 @@ namespace TrafficSim
 		void MenuBar_File_ConfigEnvr_Click(object sender, System.EventArgs e)
 		{
 			//		SimController.iCarCount =2;
-			SimController.iRoadWidth = 100;
+			//SimController.iRoadWidth = 100;
 			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
 
@@ -165,10 +165,8 @@ namespace TrafficSim
             drawArea.Visible = false;
             SimController.Canvas.Visible = true;
             SplitCtnerMain.Panel2Collapsed = false;
-
-
             //----------------------------------------------------
-            SimController.iRoadWidth = 20;
+            //SimController.iRoadWidth = 20;
 			SimController.iSimInterval = 100;
 			ModelSetting.dRate = 0.85;
 
