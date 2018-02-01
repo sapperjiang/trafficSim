@@ -13,8 +13,8 @@ namespace SubSys_NetWorkBuilder
 	/// </summary>
 	class DrawLine : global::SubSys_NetWorkBuilder.DrawObject
 	{
-        private Point startPoint;
-        private Point endPoint;
+        //private Point Start;
+        //private Point End;
 
         private const string entryStart = "Start";
         private const string entryEnd = "End";
@@ -27,16 +27,18 @@ namespace SubSys_NetWorkBuilder
         private Region areaRegion = null;
 
 
-		public DrawLine() : this(0, 0, 1, 0)
+		public DrawLine() //: this(0, 0, 1, 0)
 		{
 		}
 
         public DrawLine(int x1, int y1, int x2, int y2) : base()
         {
-            startPoint.X = x1;
-            startPoint.Y = y1;
-            endPoint.X = x2;
-            endPoint.Y = y2;
+            this.shape.Add(new Point(x1, y1));
+            this.shape.Add(new Point(x2, y2));
+            //Start.X = x1;
+            //Start.Y = y1;
+            //End.X = x2;
+            //End.Y = y2;
 
             Initialize();
         }
@@ -47,8 +49,8 @@ namespace SubSys_NetWorkBuilder
         public override DrawObject Clone()
         {
             DrawLine drawLine = new DrawLine();
-            drawLine.startPoint = this.startPoint;
-            drawLine.endPoint = this.endPoint;
+            drawLine.Start = this.Start;
+            drawLine.End = this.End;
 
             FillDrawObjectFields(drawLine);
             return drawLine;
@@ -61,7 +63,7 @@ namespace SubSys_NetWorkBuilder
 
             Pen pen = new Pen(Color, PenWidth);
 
-            g.DrawLine(pen, startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
+            g.DrawLine(pen, Start.X, Start.Y, End.X, End.Y);
 
             pen.Dispose();
         }
@@ -82,9 +84,9 @@ namespace SubSys_NetWorkBuilder
         public override Point GetHandle(int handleNumber)
         {
             if ( handleNumber == 1 )
-                return startPoint;
+                return Start;
             else
-                return endPoint;
+                return End;
         }
 
         /// <summary>
@@ -141,20 +143,22 @@ namespace SubSys_NetWorkBuilder
         public override void MoveHandleTo(Point point, int handleNumber)
         {
             if ( handleNumber == 1 )
-                startPoint = point;
+                Start = point;
             else
-                endPoint = point;
+                End = point;
 
             Invalidate();
         }
 
         public override void Move(int deltaX, int deltaY)
         {
-            startPoint.X += deltaX;
-            startPoint.Y += deltaY;
+            Point start = this.Start;
+            start.X += deltaX;
+            start.Y += deltaY;
+            Point end = this.End;
 
-            endPoint.X += deltaX;
-            endPoint.Y += deltaY;
+            end.X += deltaX;
+            end.Y += deltaY;
 
             Invalidate();
         }
@@ -165,26 +169,26 @@ namespace SubSys_NetWorkBuilder
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryStart, orderNumber),
-                startPoint);
+                Start);
 
             info.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryEnd, orderNumber),
-                endPoint);
+                End);
 
             base.SaveToStream (info, orderNumber);
         }
 
         public override void LoadFromStream(SerializationInfo info, int orderNumber)
         {
-            startPoint = (Point)info.GetValue(
+            Start = (Point)info.GetValue(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryStart, orderNumber),
                 typeof(Point));
 
-            endPoint = (Point)info.GetValue(
+            End = (Point)info.GetValue(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryEnd, orderNumber),
@@ -232,7 +236,7 @@ namespace SubSys_NetWorkBuilder
             // for easy mouse selection
             AreaPath = new GraphicsPath();
             AreaPen = new Pen(Color.Black, 7);
-            AreaPath.AddLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y);
+            AreaPath.AddLine(Start.X, Start.Y, End.X, End.Y);
             AreaPath.Widen(AreaPen);
 
             // Create region from the path

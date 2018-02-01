@@ -39,6 +39,7 @@ public	abstract  partial class DrawObject
 
         public DrawObject()
         {
+            this.shape = new DrawShape();
             id = this.GetHashCode();
         }
 
@@ -360,10 +361,10 @@ public	abstract  partial class DrawObject
         public Point Start
         {
             get { return this.shape.Start; }
-            //set
-            //{
-            //    this.shape.Start = value;
-            //}
+            set
+            {
+                this.shape[0] = value;
+            }
         }
 
         /// <summary>
@@ -418,8 +419,8 @@ public	abstract  partial class DrawObject
         public DrawObject BuildCtrWay()
         {
             DrawObject ctrWay = this.Clone();
-            //ctrWay.Shape.Reverse();
-            ctrWay.Shape.Offset(1);//右手坐标系，右手坐标系跟驾驶习惯有关系
+            ctrWay.Shape.Reverse();
+            ctrWay.Shape.Offset(1 * this.penWidth);//右手坐标系，右手坐标系跟驾驶习惯有关系
             ctrWay.BulidWay(this.WaySetter);
             Way.WaysBind(this.Way, ctrWay.Way);
             return ctrWay;
@@ -457,6 +458,11 @@ public	abstract  partial class DrawObject
                     return this[0];
                 }
             }
+
+            public int Length
+            {
+                get { return this.Count; }
+            }
             /// <summary>
             /// move shape by  "scaler" steps with its normal vector
             /// </summary>
@@ -474,17 +480,17 @@ public	abstract  partial class DrawObject
                 }
             }
 
-            public void Offset(int iScaler, Point vector)
-            {
-                double dWidth = iScaler;
-                Point temp = new Point();
-                //List<Point> shape = new List<Point>();
-                for (int i = 0; i < this.Count; i++)
-                {
-                    temp = this[i];
-                    Coordinates.Offset(ref temp, vector);
-                }
-            }
+            //public void Offset(int iScaler, Point vector)
+            //{
+            //    double dWidth = iScaler;
+            //    Point temp = new Point();
+            //    //List<Point> shape = new List<Point>();
+            //    for (int i = 0; i < this.Count; i++)
+            //    {
+            //        temp = this[i];
+            //        Coordinates.Offset(ref temp, vector);
+            //    }
+            //}
         }
 
     }

@@ -127,7 +127,7 @@ namespace TrafficSim
 		/// <param name="e"></param>
 		void MenuBar_File_ConfigEnvr_Click(object sender, System.EventArgs e)
 		{
-			//		SimController.iCarCount =2;
+			//SimController.iCarCount =2;
 			//SimController.iRoadWidth = 100;
 			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
@@ -147,7 +147,6 @@ namespace TrafficSim
 			{
 				var color= dialog.Color;
 				this.BackColor = color;
-//				this.menuBar.BackColor =color;
 			}
 		}
 		
@@ -366,10 +365,10 @@ namespace TrafficSim
             //this.CommandSave();
         }
 
-        NetWorkBuilder netbuilder;
+        NetBuilder netbuilder;
         void SimMain_Load(object sender, EventArgs e)
 		{
-            netbuilder = new NetWorkBuilder();
+            netbuilder = new NetBuilder();
             SplitMain.Panel1.Controls.Add(netbuilder);
             //netbuilder.FormBorderStyle = FormBorderStyle.
             netbuilder.Visible = true;
@@ -404,21 +403,15 @@ namespace TrafficSim
             //	}
             //}
         }
-		
 
         void MenuBar_Help_About_Click(object sender, EventArgs e)
 		{
 			var About = new UIHelpAbout();
 			About.ShowDialog();
 		}
-		
 
-        private void TSB_CreateNetWork_Click(object sender, EventArgs e)
+        private void ShowDebugMessage()
         {
-
-            //NetworkBuilder.BulidNetWork(drawArea.Graphics);
-            //drawArea.Graphics.Dirty = true;
-
             DebugShower ds = new DebugShower();
             IRoadNet inet = RoadNet.GetInstance();
 
@@ -439,9 +432,6 @@ namespace TrafficSim
             ds.LB_LaneShape.DataSource = listLane;//.lane.Lanes;// as Dictionary<int, lane>;
             SplitMain.Panel2.Controls.Add(ds);
             ds.Show();
-
-            MenuBar_SimluateSustained_Click(null, null);
-
         }
 
     }

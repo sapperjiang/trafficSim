@@ -41,7 +41,7 @@ namespace SubSys_Graphics
 		/// <summary>
 		/// 提供一个基本的描绘car的函数，画一个圆形代表car然后用car的颜色填充
 		/// </summary>
-		public virtual void PaintCar(Rectangle rec, ITrafficEntity car)
+		public virtual void PaintCar(Rectangle rec, IEntity car)
 		{
 			if (car.EntityType == EntityType.Mobile)
 			{
@@ -50,12 +50,12 @@ namespace SubSys_Graphics
 			}
 		}
 
-		protected override void SubPerform(ITrafficEntity tVar)
+		protected override void SubPerform(IEntity tVar)
 		{
 			throw new NotImplementedException();
 		}
 
-		protected override void SubRevoke(ITrafficEntity tVar)
+		protected override void SubRevoke(IEntity tVar)
 		{
 			throw new NotImplementedException();
 		}

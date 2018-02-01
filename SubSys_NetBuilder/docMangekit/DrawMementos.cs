@@ -26,7 +26,7 @@ namespace SubSys_NetWorkBuilder
     {
         #region Members
 
-        private DrawList graphicsList;
+        private DrawList graphics;
 
         private const string entryCount = "Count";
         private const string entryType = "Type";
@@ -37,7 +37,7 @@ namespace SubSys_NetWorkBuilder
         #region Constructor
         public GraphicsList()
         {
-            graphicsList = new DrawList();
+            graphics = new DrawList();
         }
 
         #endregion
@@ -46,7 +46,7 @@ namespace SubSys_NetWorkBuilder
 
         protected GraphicsList(SerializationInfo info, StreamingContext context)
         {
-            graphicsList = new DrawList();
+            graphics = new DrawList();
 
             int n = info.GetInt32(entryCount);
             string typeName;
@@ -64,7 +64,7 @@ namespace SubSys_NetWorkBuilder
 
                 drawObject.LoadFromStream(info, i);
 
-                graphicsList.Add(drawObject);
+                graphics.Add(drawObject);
             }
 
         }
@@ -77,11 +77,11 @@ namespace SubSys_NetWorkBuilder
         [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(entryCount, graphicsList.Count);
+            info.AddValue(entryCount, graphics.Count);
 
             int i = 0;
 
-            foreach (DrawObject o in graphicsList)
+            foreach (DrawObject o in graphics)
             {
                 info.AddValue(
                     String.Format(CultureInfo.InvariantCulture,
@@ -101,14 +101,14 @@ namespace SubSys_NetWorkBuilder
 
         public void Draw(Graphics g)
         {
-            int n = graphicsList.Count;
+            int n = graphics.Count;
             DrawObject o;
 
             // Enumerate list in reverse order to get first
             // object on the top of Z-order.
             for (int i = n - 1; i >= 0; i--)
             {
-                o = graphicsList[i];
+                o = graphics[i];
 
                 o.Draw(g);
 
@@ -126,7 +126,7 @@ namespace SubSys_NetWorkBuilder
         {
             Trace.WriteLine("");
 
-            foreach ( DrawObject o in graphicsList )
+            foreach ( DrawObject o in graphics )
             {
                 o.Dump();
             }
@@ -140,8 +140,8 @@ namespace SubSys_NetWorkBuilder
         /// </returns>
         public bool Clear()
         {
-            bool result = (graphicsList.Count > 0);
-            graphicsList.Clear();
+            bool result = (graphics.Count > 0);
+            graphics.Clear();
             return result;
         }
 
@@ -153,18 +153,24 @@ namespace SubSys_NetWorkBuilder
         {
             get
             {
-                return graphicsList.Count;
+                return graphics.Count;
             }
         }
+
+        public DrawObject First
+        {
+            get { return this[0]; }
+        }
+
 
         public DrawObject this[int index]
         {
             get
             {
-                if (index < 0 || index >= graphicsList.Count)
+                if (index < 0 || index >= graphics.Count)
                     return null;
 
-                return graphicsList[index];
+                return graphics[index];
             }
         }
 
@@ -204,7 +210,7 @@ namespace SubSys_NetWorkBuilder
         {
             get
             {
-                foreach (DrawObject o in graphicsList)
+                foreach (DrawObject o in graphics)
                 {
                     if (o.Selected)
                     {
@@ -217,18 +223,24 @@ namespace SubSys_NetWorkBuilder
         public void Add(DrawObject obj)
         {
             // insert to the top of z-order
-            graphicsList.Insert(0, obj);
+            graphics.Insert(0, obj);
         }
 
+        public void AddFirst(DrawObject obj)
+        {
+            // insert to the top of z-order
+            graphics.Insert(0, obj);
+            //this.Dirty = true;
+        }
         /// <summary>
         /// Insert object to specified place.
         /// Used for Undo.
         /// </summary>
         public void Insert(int index, DrawObject obj)
         {
-            if ( index >= 0  && index < graphicsList.Count )
+            if ( index >= 0  && index < graphics.Count )
             {
-                graphicsList.Insert(index, obj);
+                graphics.Insert(index, obj);
             }
         }
 
@@ -238,10 +250,10 @@ namespace SubSys_NetWorkBuilder
         /// </summary>
         public void Replace(int index, DrawObject obj)
         {
-            if (index >= 0 && index < graphicsList.Count)
+            if (index >= 0 && index < graphics.Count)
             {
-                graphicsList.RemoveAt(index);
-                graphicsList.Insert(index, obj);
+                graphics.RemoveAt(index);
+                graphics.Insert(index, obj);
             }
         }
 
@@ -251,7 +263,7 @@ namespace SubSys_NetWorkBuilder
         /// </summary>
         public void RemoveAt(int index)
         {
-            graphicsList.RemoveAt(index);
+            graphics.RemoveAt(index);
         }
 
         /// <summary>
@@ -260,9 +272,9 @@ namespace SubSys_NetWorkBuilder
         /// </summary>
         public void DeleteLastAddedObject()
         {
-            if ( graphicsList.Count > 0 )
+            if ( graphics.Count > 0 )
             {
-                graphicsList.RemoveAt(0);
+                graphics.RemoveAt(0);
             }
         }
 
@@ -270,7 +282,7 @@ namespace SubSys_NetWorkBuilder
         {
             UnselectAll();
 
-            foreach (DrawObject o in graphicsList)
+            foreach (DrawObject o in graphics)
             {
                 if (o.IntersectsWith(rectangle))
                     o.Selected = true;
@@ -280,7 +292,7 @@ namespace SubSys_NetWorkBuilder
 
         public void UnselectAll()
         {
-            foreach (DrawObject o in graphicsList)
+            foreach (DrawObject o in graphics)
             {
                 o.Selected = false;
             }
@@ -288,7 +300,7 @@ namespace SubSys_NetWorkBuilder
 
         public void SelectAll()
         {
-            foreach (DrawObject o in graphicsList)
+            foreach (DrawObject o in graphics)
             {
                 o.Selected = true;
             }
@@ -304,13 +316,13 @@ namespace SubSys_NetWorkBuilder
         {
             bool result = false;
 
-            int n = graphicsList.Count;
+            int n = graphics.Count;
 
             for (int i = n - 1; i >= 0; i--)
             {
-                if (((DrawObject)graphicsList[i]).Selected)
+                if (((DrawObject)graphics[i]).Selected)
                 {
-                    graphicsList.RemoveAt(i);
+                    graphics.RemoveAt(i);
                     result = true;
                 }
             }
@@ -332,16 +344,16 @@ namespace SubSys_NetWorkBuilder
             DrawList tempList;
 
             tempList = new DrawList();
-            n = graphicsList.Count;
+            n = graphics.Count;
 
             // Read source list in reverse order, add every selected item
             // to temporary list and remove it from source list
             for (i = n - 1; i >= 0; i--)
             {
-                if ((graphicsList[i]).Selected)
+                if ((graphics[i]).Selected)
                 {
-                    tempList.Add(graphicsList[i]);
-                    graphicsList.RemoveAt(i);
+                    tempList.Add(graphics[i]);
+                    graphics.RemoveAt(i);
                 }
             }
 
@@ -351,7 +363,7 @@ namespace SubSys_NetWorkBuilder
 
             for (i = 0; i < n; i++)
             {
-                graphicsList.Insert(0, tempList[i]);
+                graphics.Insert(0, tempList[i]);
             }
 
             return (n > 0);
@@ -370,16 +382,16 @@ namespace SubSys_NetWorkBuilder
             DrawList tempList;
 
             tempList = new DrawList();
-            n = graphicsList.Count;
+            n = graphics.Count;
 
             // Read source list in reverse order, add every selected item
             // to temporary list and remove it from source list
             for (i = n - 1; i >= 0; i--)
             {
-                if ((graphicsList[i]).Selected)
+                if ((graphics[i]).Selected)
                 {
-                    tempList.Add(graphicsList[i]);
-                    graphicsList.RemoveAt(i);
+                    tempList.Add(graphics[i]);
+                    graphics.RemoveAt(i);
                 }
             }
 
@@ -389,7 +401,7 @@ namespace SubSys_NetWorkBuilder
 
             for (i = n - 1; i >= 0; i--)
             {
-                graphicsList.Add(tempList[i]);
+                graphics.Add(tempList[i]);
             }
 
             return (n > 0);
@@ -451,7 +463,7 @@ namespace SubSys_NetWorkBuilder
         {
             bool changed = false;
 
-            foreach (DrawObject o in graphicsList)
+            foreach (DrawObject o in graphics)
             {
                 if (o.Selected)
                 {
@@ -509,5 +521,6 @@ namespace SubSys_NetWorkBuilder
         }
 
         #endregion
+
     }
 }

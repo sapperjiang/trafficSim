@@ -7,7 +7,7 @@ using SubSys_SimDriving.TrafficModel;
 
 namespace SubSys_SimDriving
 {
-	public interface ITrafficEntity
+	public interface IEntity
 	{
 		/// <summary>
 		/// 仿真运行的静态数据，交通实体运行的数据环境，包括各种仿真系统运行需要的数据结构
@@ -28,7 +28,7 @@ namespace SubSys_SimDriving
 		/// <summary>
 		/// 容器交通实体，如道路是路段的容器。路段是车道的容器
 		/// </summary>
-		ITrafficEntity Container
+		IEntity Container
 		{
 			get;
 			set;

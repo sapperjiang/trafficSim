@@ -23,7 +23,7 @@ namespace SubSys_Graphics
             this.IsRunning = true;
         }
  
-        protected override void SubPerform(ITrafficEntity tVar)
+        protected override void SubPerform(IEntity tVar)
         {
             IService rp = PainterManager.GetService(PaintServiceType.Lane, this.Canvas);
             Way way = tVar as Way;
@@ -42,7 +42,7 @@ namespace SubSys_Graphics
 
         }
 
-        protected override void SubRevoke(ITrafficEntity tVar)
+        protected override void SubRevoke(IEntity tVar)
         {
             this.Canvas.Invalidate();
         }

@@ -24,7 +24,7 @@ namespace SubSys_Graphics
         /// <summary>
         ///画一个矩形表示交叉口
         /// </summary>
-        private void DrawXnode(ITrafficEntity te)
+        private void DrawXnode(IEntity te)
         {
             XNode rN = te as XNode;
 
@@ -66,7 +66,7 @@ namespace SubSys_Graphics
         }
 
 
-        protected override void SubPerform(ITrafficEntity mobilesInn)
+        protected override void SubPerform(IEntity mobilesInn)
         {
 
             this.DrawXnode(mobilesInn);
@@ -77,7 +77,7 @@ namespace SubSys_Graphics
 
         }
 
-        protected override void SubRevoke(ITrafficEntity tVar)
+        protected override void SubRevoke(IEntity tVar)
         {
             this.Canvas.Invalidate();
         }

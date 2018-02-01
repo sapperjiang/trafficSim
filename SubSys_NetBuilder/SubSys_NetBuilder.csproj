@@ -81,10 +81,10 @@
     <Compile Include="docMangekit\DragDropManager.cs" />
     <Compile Include="docMangekit\MruManager.cs" />
     <Compile Include="docMangekit\PersistWindowState.cs" />
-    <Compile Include="DrawArea.cs">
+    <Compile Include="DrawObjects\DrawArea.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DrawArea.Designer.cs">
+    <Compile Include="DrawObjects\DrawArea.Designer.cs">
       <DependentUpon>DrawArea.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawObjects\DrawEllipse.cs" />
@@ -99,11 +99,11 @@
     <Compile Include="FrmAbout.Designer.cs">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="NetWorkBuilder.cs">
+    <Compile Include="NetBuilder.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NetWorkBuilder.Designer.cs">
-      <DependentUpon>NetWorkBuilder.cs</DependentUpon>
+    <Compile Include="NetBuilder.Designer.cs">
+      <DependentUpon>NetBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="docMangekit\DrawMementos.cs" />
     <Compile Include="DrawObjects\GraphicsProperties.cs" />
@@ -131,7 +131,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Cursors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawArea.resx">
+    <EmbeddedResource Include="DrawObjects\DrawArea.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DrawArea.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,9 +139,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NetWorkBuilder.resx">
+    <EmbeddedResource Include="NetBuilder.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>NetWorkBuilder.cs</DependentUpon>
+      <DependentUpon>NetBuilder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawObjects\PropertiesDialog.resx">
       <SubType>Designer</SubType>

@@ -11,8 +11,8 @@ namespace SubSys_SimDriving.Service
              get;
              set;
          }
-        void Perform(ITrafficEntity tVar);
-        void Revoke(ITrafficEntity tVar);
+        void Perform(IEntity tVar);
+        void Revoke(IEntity tVar);
         void Attach();
     }
 
@@ -36,23 +36,23 @@ namespace SubSys_SimDriving.Service
         /// design to be a switch for a service 
         /// </summary>
         /// <param name="tVar"></param>
-        public void Perform(ITrafficEntity tVar)
+        public void Perform(IEntity tVar)
         {
             if (this.IsRunning == true)
             {
                 this.SubPerform(tVar);
             }
         }
-        protected abstract void SubPerform(ITrafficEntity tVar);
+        protected abstract void SubPerform(IEntity tVar);
 
-        public void Revoke(ITrafficEntity tVar)
+        public void Revoke(IEntity tVar)
         {
              if (this.IsRunning == true)
             {
                 this.SubRevoke(tVar);
             }
         }
-        protected abstract void SubRevoke(ITrafficEntity tVar);
+        protected abstract void SubRevoke(IEntity tVar);
 
         public void Attach()
         {

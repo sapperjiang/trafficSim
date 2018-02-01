@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System.Text;
+using SubSys_MathUtility;
 
 namespace SubSys_Graphics
 {
@@ -18,12 +19,13 @@ namespace SubSys_Graphics
 		internal static int iG_BentchHeight = 900;
 		
 		internal static  Color roadColor = Color.DarkGray;
-		
-		//        internal static int iG_BentchHeight = 768;
-		/// <summary>
-		/// 这个代表像素宽度例如，一个元胞对应多少像素
-		/// </summary>
-		public struct Pixels
+        public static OxyzPointF baseOffset = new OxyzPointF(-50f, -50f, 0f);
+
+        //        internal static int iG_BentchHeight = 768;
+        /// <summary>
+        /// 这个代表像素宽度例如，一个元胞对应多少像素
+        /// </summary> 
+        public struct Pixels
 		{
 			//        	   public static int
 			public static int iMin = 8;//4像素

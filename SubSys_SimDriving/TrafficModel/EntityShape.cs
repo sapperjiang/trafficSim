@@ -85,12 +85,22 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 		
-		
-		/// <summary>
-		///  a road with direction like this “----->”  .Start means a point at the beginning of that narrow .
-		/// and End means a point on that narrow
-		/// </summary>
-		public OxyzPointF End
+        public List<Point> ToPointArray()
+        {
+            List<Point> lp = new List<Point>();
+            IEnumerator<OxyzPointF> of = this.GetEnumerator();
+            while (of.MoveNext())
+            {
+                lp.Add(of.Current.ToPoint());
+            }
+            return lp;
+        }
+
+        /// <summary>
+        ///  a road with direction like this “----->”  .Start means a point at the beginning of that narrow .
+        /// and End means a point on that narrow
+        /// </summary>
+        public OxyzPointF End
 		{
 			get
 			{

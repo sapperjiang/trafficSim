@@ -13,7 +13,7 @@ namespace SubSys_SimDriving.Service
     /// </summary>
     public class EventAttachService:Service
     {
-        public delegate void EventAttacher(ITrafficEntity tVar);
+        public delegate void EventAttacher(IEntity tVar);
         private EventAttachService() { }//不允许无参数构造
         private EventAttacher eaAttacher;
 
@@ -21,7 +21,7 @@ namespace SubSys_SimDriving.Service
         {
             this.eaAttacher = ea;
         }
-        protected override void SubPerform(ITrafficEntity tVar)
+        protected override void SubPerform(IEntity tVar)
         {
             if (eaAttacher != null)
             {
@@ -33,7 +33,7 @@ namespace SubSys_SimDriving.Service
             }
         }
 
-        protected override void SubRevoke(ITrafficEntity tVar)
+        protected override void SubRevoke(IEntity tVar)
         {
             this.eaAttacher = null;
         }

@@ -12,7 +12,7 @@ using Microsoft.Win32;
 
 namespace SubSys_NetWorkBuilder
 {
-  public  partial class NetWorkBuilder : UserControl
+  public  partial class NetBuilder : UserControl
     {
         #region Members
 
@@ -62,7 +62,7 @@ namespace SubSys_NetWorkBuilder
 
         #region Constructor
 
-        public NetWorkBuilder()
+        public NetBuilder()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
@@ -164,22 +164,22 @@ namespace SubSys_NetWorkBuilder
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            drawArea.GraphicsList.SelectAll();
+            drawArea.Graphics.SelectAll();
             drawArea.Refresh();
 
         }
 
         private void unselectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            drawArea.GraphicsList.UnselectAll();
+            drawArea.Graphics.UnselectAll();
             drawArea.Refresh();
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CommandDelete command = new CommandDelete(drawArea.GraphicsList);
+            CommandDelete command = new CommandDelete(drawArea.Graphics);
 
-            if (drawArea.GraphicsList.DeleteSelection())
+            if (drawArea.Graphics.DeleteSelection())
             {
                 drawArea.SetDirty();
                 drawArea.Refresh();
@@ -189,9 +189,9 @@ namespace SubSys_NetWorkBuilder
 
         private void deleteAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CommandDeleteAll command = new CommandDeleteAll(drawArea.GraphicsList);
+            CommandDeleteAll command = new CommandDeleteAll(drawArea.Graphics);
 
-            if (drawArea.GraphicsList.Clear())
+            if (drawArea.Graphics.Clear())
             {
                 drawArea.SetDirty();
                 drawArea.Refresh();
@@ -201,7 +201,7 @@ namespace SubSys_NetWorkBuilder
 
         private void moveToFrontToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (drawArea.GraphicsList.MoveSelectionToFront())
+            if (drawArea.Graphics.MoveSelectionToFront())
             {
                 drawArea.SetDirty();
                 drawArea.Refresh();
@@ -211,7 +211,7 @@ namespace SubSys_NetWorkBuilder
 
         private void moveToBackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (drawArea.GraphicsList.MoveSelectionToBack())
+            if (drawArea.Graphics.MoveSelectionToBack())
             {
                 drawArea.SetDirty();
                 drawArea.Refresh();
@@ -220,7 +220,7 @@ namespace SubSys_NetWorkBuilder
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (drawArea.GraphicsList.ShowPropertiesDialog(drawArea))
+            if (drawArea.Graphics.ShowPropertiesDialog(drawArea))
             {
                 drawArea.SetDirty();
                 drawArea.Refresh();
@@ -287,7 +287,7 @@ namespace SubSys_NetWorkBuilder
             // DocManager asks to load document from supplied stream
             try
             {
-                drawArea.GraphicsList = (GraphicsList)e.Formatter.Deserialize(e.SerializationStream);
+                drawArea.Graphics = (GraphicsList)e.Formatter.Deserialize(e.SerializationStream);
             }
             catch (ArgumentNullException ex)
             {
@@ -314,7 +314,7 @@ namespace SubSys_NetWorkBuilder
             // DocManager asks to save document to supplied stream
             try
             {
-                e.Formatter.Serialize(e.SerializationStream, drawArea.GraphicsList);
+                e.Formatter.Serialize(e.SerializationStream, drawArea.Graphics);
             }
             catch (ArgumentNullException ex)
             {
@@ -439,8 +439,8 @@ namespace SubSys_NetWorkBuilder
             //lineToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawArea.DrawToolType.Line);
             //pencilToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawArea.DrawToolType.Polygon);
 
-            bool objects = (drawArea.GraphicsList.Count > 0);
-            bool selectedObjects = (drawArea.GraphicsList.SelectionCount > 0);
+            bool objects = (drawArea.Graphics.Count > 0);
+            bool selectedObjects = (drawArea.Graphics.SelectionCount > 0);
 
             //// File operations
             //saveToolStripMenuItem.Enabled = objects;
@@ -524,9 +524,9 @@ namespace SubSys_NetWorkBuilder
 
             docManager.ClearEvent += delegate(object o, EventArgs e)
             {
-                if (drawArea.GraphicsList != null)
+                if (drawArea.Graphics != null)
                 {
-                    drawArea.GraphicsList.Clear();
+                    drawArea.Graphics.Clear();
                     drawArea.ClearHistory();
                     drawArea.Refresh();
                 }

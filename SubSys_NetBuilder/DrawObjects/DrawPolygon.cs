@@ -19,7 +19,7 @@ namespace SubSys_NetWorkBuilder
     /// </summary>
     class DrawPolygon : global::SubSys_NetWorkBuilder.DrawLine
     {
-        private PointList drawPoints=new PointList();         // list of points
+        //private PointList drawPoints=new PointList();         // list of points
 
         private static Cursor handleCursor = new Cursor("PolyHandle.cur");
 
@@ -27,21 +27,20 @@ namespace SubSys_NetWorkBuilder
         private const string entryPoint = "Point";
 
 
-        public DrawPolygon() : base()
+        public DrawPolygon()// : base()
         {
             //pointArray = new PointList();
-
             Initialize();
         }
 
-        public DrawPolygon(int x1, int y1, int x2, int y2) : base()
-        {
-            //pointArray = new PointList();
-            drawPoints.Add(new Point(x1, y1));
-            drawPoints.Add(new Point(x2, y2));
+        //public DrawPolygon(int x1, int y1, int x2, int y2) : base()
+        //{
+        //    //pointArray = new PointList();
+        //    shape.Add(new Point(x1, y1));
+        //    shape.Add(new Point(x2, y2));
 
-            Initialize();
-        }
+        //    Initialize();
+        //}
 
         /// <summary>
         /// Clone this instance
@@ -50,9 +49,9 @@ namespace SubSys_NetWorkBuilder
         {
             DrawPolygon drawPolygon = new DrawPolygon();
 
-            foreach(Point p in this.drawPoints)
+            foreach(Point p in this.shape)
             {
-                drawPolygon.drawPoints.Add(p);
+                drawPolygon.shape.Add(p);
             }
 
             FillDrawObjectFields(drawPolygon);
@@ -69,7 +68,7 @@ namespace SubSys_NetWorkBuilder
 
             Pen pen = new Pen(Color, PenWidth);
 
-            PointEnumerator enumerator = drawPoints.GetEnumerator();
+            PointEnumerator enumerator = shape.GetEnumerator();
 
             if (enumerator.MoveNext())
             {
@@ -93,14 +92,14 @@ namespace SubSys_NetWorkBuilder
 
         public void AddPoint(Point point)
         {
-            drawPoints.Add(point);
+            shape.Add(point);
         }
 
         public override int HandleCount
         {
             get
             {
-                return drawPoints.Count;
+                return shape.Count;
             }
         }
 
@@ -114,10 +113,10 @@ namespace SubSys_NetWorkBuilder
             if (handleNumber < 1)
                 handleNumber = 1;
 
-            if (handleNumber > drawPoints.Count)
-                handleNumber = drawPoints.Count;
+            if (handleNumber > shape.Count)
+                handleNumber = shape.Count;
 
-            return ((Point)drawPoints[handleNumber - 1]);
+            return ((Point)shape[handleNumber - 1]);
         }
 
         public override Cursor GetHandleCursor(int handleNumber)
@@ -129,25 +128,25 @@ namespace SubSys_NetWorkBuilder
         {
             if (handleNumber < 1)
                 handleNumber = 1;
-
-            if (handleNumber > drawPoints.Count)
-                handleNumber = drawPoints.Count;
-
-            drawPoints[handleNumber - 1] = point;
+            //else { 
+            if (handleNumber > shape.Count)
+                handleNumber = shape.Count;
+        //}
+            shape[handleNumber - 1] = point;
 
             Invalidate();
         }
 
         public override void Move(int deltaX, int deltaY)
         {
-            int n = drawPoints.Count;
+            int n = shape.Count;
             Point point;
 
             for (int i = 0; i < n; i++)
             {
-                point = new Point(((Point)drawPoints[i]).X + deltaX, ((Point)drawPoints[i]).Y + deltaY);
+                point = new Point(((Point)shape[i]).X + deltaX, ((Point)shape[i]).Y + deltaY);
 
-                drawPoints[i] = point;
+                shape[i] = point;
             }
 
             Invalidate();
@@ -159,10 +158,10 @@ namespace SubSys_NetWorkBuilder
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryLength, orderNumber),
-                drawPoints.Count);
+                shape.Count);
 
             int i = 0;
-            foreach (Point p in drawPoints)
+            foreach (Point p in shape)
             {
                 info.AddValue(
                     String.Format(CultureInfo.InvariantCulture,
@@ -191,7 +190,7 @@ namespace SubSys_NetWorkBuilder
                     entryPoint, orderNumber, i),
                     typeof(Point));
 
-                drawPoints.Add(point);
+                shape.Add(point);
             }
 
             base.LoadFromStream(info, orderNumber);
@@ -212,7 +211,7 @@ namespace SubSys_NetWorkBuilder
             int x1 = 0, y1 = 0;     // previous point
             int x2, y2;             // current point
 
-            PointEnumerator enumerator = drawPoints.GetEnumerator();
+            PointEnumerator enumerator = shape.GetEnumerator();
 
             if (enumerator.MoveNext())
             {

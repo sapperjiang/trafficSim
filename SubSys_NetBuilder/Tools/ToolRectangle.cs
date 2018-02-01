@@ -28,7 +28,7 @@ namespace SubSys_NetWorkBuilder
             if ( e.Button == MouseButtons.Left )
             {
                 Point point = new Point(e.X, e.Y);
-                drawArea.GraphicsList[0].MoveHandleTo(point, 5);
+                drawArea.Graphics[0].MoveHandleTo(point, 5);
                 drawArea.Refresh();
             }
         }

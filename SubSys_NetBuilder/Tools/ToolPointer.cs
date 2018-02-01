@@ -49,7 +49,7 @@ namespace SubSys_NetWorkBuilder
             Point point = new Point(e.X, e.Y);
 
             // Test for resizing (only if control is selected, cursor is on the handle)
-            foreach (DrawObject o in drawArea.GraphicsList.Selection)
+            foreach (DrawObject o in drawArea.Graphics.Selection)
             {
                 int handleNumber = o.HitTest(point);
 
@@ -62,10 +62,10 @@ namespace SubSys_NetWorkBuilder
                     resizedObjectHandle = handleNumber;
 
                     // Since we want to resize only one object, unselect all other objects
-                    drawArea.GraphicsList.UnselectAll();
+                    drawArea.Graphics.UnselectAll();
                     o.Selected = true;
 
-                    commandChangeState = new CommandChangeState(drawArea.GraphicsList);
+                    commandChangeState = new CommandChangeState(drawArea.Graphics);
 
                     break;
                 }
@@ -74,14 +74,14 @@ namespace SubSys_NetWorkBuilder
             // Test for move (cursor is on the object)
             if ( selectMode == SelectionMode.None )
             {
-                int n1 = drawArea.GraphicsList.Count;
+                int n1 = drawArea.Graphics.Count;
                 DrawObject o = null;
 
                 for ( int i = 0; i < n1; i++ )
                 {
-                    if ( drawArea.GraphicsList[i].HitTest(point) == 0 )
+                    if ( drawArea.Graphics[i].HitTest(point) == 0 )
                     {
-                        o = drawArea.GraphicsList[i];
+                        o = drawArea.Graphics[i];
                         break;
                     }
                 }
@@ -92,12 +92,12 @@ namespace SubSys_NetWorkBuilder
 
                     // Unselect all if Ctrl is not pressed and clicked object is not selected yet
                     if ( ( Control.ModifierKeys & Keys.Control ) == 0  && !o.Selected )
-                        drawArea.GraphicsList.UnselectAll();
+                        drawArea.Graphics.UnselectAll();
 
                     // Select clicked object
                     o.Selected = true;
 
-                    commandChangeState = new CommandChangeState(drawArea.GraphicsList);
+                    commandChangeState = new CommandChangeState(drawArea.Graphics);
 
                     drawArea.Cursor = Cursors.SizeAll;
                 }
@@ -108,7 +108,7 @@ namespace SubSys_NetWorkBuilder
             {
                 // click on background
                 if ( ( Control.ModifierKeys & Keys.Control ) == 0 )
-                    drawArea.GraphicsList.UnselectAll();
+                    drawArea.Graphics.UnselectAll();
 
                 selectMode = SelectionMode.NetSelection;
 
@@ -152,13 +152,13 @@ namespace SubSys_NetWorkBuilder
             {
                 Cursor cursor = null;
 
-                for (int i = 0; i < drawArea.GraphicsList.Count; i++)
+                for (int i = 0; i < drawArea.Graphics.Count; i++)
                 {
-                    int n = drawArea.GraphicsList[i].HitTest(point);
+                    int n = drawArea.Graphics[i].HitTest(point);
 
                     if (n > 0)
                     {
-                        cursor = drawArea.GraphicsList[i].GetHandleCursor(n);
+                        cursor = drawArea.Graphics[i].GetHandleCursor(n);
                         break;
                     }
                 }
@@ -197,7 +197,7 @@ namespace SubSys_NetWorkBuilder
             // move
             if (selectMode == SelectionMode.Move)
             {
-                foreach (DrawObject o in drawArea.GraphicsList.Selection)
+                foreach (DrawObject o in drawArea.Graphics.Selection)
                 {
                     o.Move(dx, dy);
                 }
@@ -242,7 +242,7 @@ namespace SubSys_NetWorkBuilder
                     FrameStyle.Dashed);
 
                 // Make group selection
-                drawArea.GraphicsList.SelectInRectangle(
+                drawArea.Graphics.SelectInRectangle(
                     DrawRectangle.GetNormalizedRectangle(startPoint, lastPoint));
 
                 selectMode = SelectionMode.None;
@@ -261,7 +261,7 @@ namespace SubSys_NetWorkBuilder
             if ( commandChangeState != null  && wasMove )
             {
                 // Keep state after moving/resizing and add command to history
-                commandChangeState.NewState(drawArea.GraphicsList);
+                commandChangeState.NewState(drawArea.Graphics);
                 drawArea.AddCommandToHistory(commandChangeState);
                 commandChangeState = null;
             }

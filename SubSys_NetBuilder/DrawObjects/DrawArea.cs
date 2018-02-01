@@ -46,7 +46,7 @@ namespace SubSys_NetWorkBuilder
         private Tool[] tools;                 // array of tools
 
         // Information about owner form
-        private NetWorkBuilder owner;
+        private NetBuilder owner;
         private DocManager docManager;
 
         private ContextMenuStrip m_ContextMenu;
@@ -60,7 +60,7 @@ namespace SubSys_NetWorkBuilder
         /// <summary>
         /// Reference to the owner form
         /// </summary>
-        public NetWorkBuilder Owner
+        public NetBuilder Owner
         {
             get
             {
@@ -105,7 +105,7 @@ namespace SubSys_NetWorkBuilder
         /// <summary>
         /// List of graphics objects.
         /// </summary>
-        public GraphicsList GraphicsList
+        public GraphicsList Graphics
         {
             get
             {
@@ -159,7 +159,7 @@ namespace SubSys_NetWorkBuilder
         /// </summary>
         /// <param name="owner"></param>
         /// <param name="docManager"></param>
-        public void Initialize(NetWorkBuilder owner, DocManager docManager)
+        public void Initialize(NetBuilder owner, DocManager docManager)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -240,14 +240,14 @@ namespace SubSys_NetWorkBuilder
 
             Point point = new Point(e.X, e.Y);
 
-            int n = GraphicsList.Count;
+            int n = Graphics.Count;
             DrawObject o = null;
 
             for (int i = 0; i < n; i++)
             {
-                if (GraphicsList[i].HitTest(point) == 0)
+                if (Graphics[i].HitTest(point) == 0)
                 {
-                    o = GraphicsList[i];
+                    o = Graphics[i];
                     break;
                 }
             }
@@ -255,14 +255,14 @@ namespace SubSys_NetWorkBuilder
             if (o != null)
             {
                 if (!o.Selected)
-                    GraphicsList.UnselectAll();
+                    Graphics.UnselectAll();
 
                 // Select clicked object
                 o.Selected = true;
             }
             else
             {
-                GraphicsList.UnselectAll();
+                Graphics.UnselectAll();
             }
 
             Refresh();      // in the case selection was changed

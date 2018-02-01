@@ -1,6 +1,6 @@
 namespace SubSys_NetWorkBuilder
 {
-    partial class NetWorkBuilder
+    partial class NetBuilder
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace SubSys_NetWorkBuilder
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NetWorkBuilder));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NetBuilder));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
@@ -215,7 +215,7 @@ namespace SubSys_NetWorkBuilder
             this.drawArea1.ActiveTool = SubSys_NetWorkBuilder.DrawArea.DrawToolType.Pointer;
             this.drawArea1.BackColor = System.Drawing.Color.White;
             this.drawArea1.DocManager = null;
-            this.drawArea1.GraphicsList = null;
+            this.drawArea1.Graphics = null;
             this.drawArea1.Location = new System.Drawing.Point(3, 30);
             this.drawArea1.Name = "drawArea1";
             this.drawArea1.Owner = null;
