@@ -19,9 +19,9 @@ namespace SubSys_NetWorkBuilder
     /// </summary>
     class DrawPolygon : global::SubSys_NetWorkBuilder.DrawLine
     {
-        private PointList pointArray;         // list of points
+        private PointList drawPoints=new PointList();         // list of points
 
-        private static Cursor handleCursor = new Cursor(typeof(DrawPolygon), "PolyHandle.cur");
+        private static Cursor handleCursor = new Cursor("PolyHandle.cur");
 
         private const string entryLength = "Length";
         private const string entryPoint = "Point";
@@ -29,16 +29,16 @@ namespace SubSys_NetWorkBuilder
 
         public DrawPolygon() : base()
         {
-            pointArray = new PointList();
+            //pointArray = new PointList();
 
             Initialize();
         }
 
         public DrawPolygon(int x1, int y1, int x2, int y2) : base()
         {
-            pointArray = new PointList();
-            pointArray.Add(new Point(x1, y1));
-            pointArray.Add(new Point(x2, y2));
+            //pointArray = new PointList();
+            drawPoints.Add(new Point(x1, y1));
+            drawPoints.Add(new Point(x2, y2));
 
             Initialize();
         }
@@ -50,9 +50,9 @@ namespace SubSys_NetWorkBuilder
         {
             DrawPolygon drawPolygon = new DrawPolygon();
 
-            foreach(Point p in this.pointArray)
+            foreach(Point p in this.drawPoints)
             {
-                drawPolygon.pointArray.Add(p);
+                drawPolygon.drawPoints.Add(p);
             }
 
             FillDrawObjectFields(drawPolygon);
@@ -69,7 +69,7 @@ namespace SubSys_NetWorkBuilder
 
             Pen pen = new Pen(Color, PenWidth);
 
-            PointEnumerator enumerator = pointArray.GetEnumerator();
+            PointEnumerator enumerator = drawPoints.GetEnumerator();
 
             if (enumerator.MoveNext())
             {
@@ -93,14 +93,14 @@ namespace SubSys_NetWorkBuilder
 
         public void AddPoint(Point point)
         {
-            pointArray.Add(point);
+            drawPoints.Add(point);
         }
 
         public override int HandleCount
         {
             get
             {
-                return pointArray.Count;
+                return drawPoints.Count;
             }
         }
 
@@ -114,10 +114,10 @@ namespace SubSys_NetWorkBuilder
             if (handleNumber < 1)
                 handleNumber = 1;
 
-            if (handleNumber > pointArray.Count)
-                handleNumber = pointArray.Count;
+            if (handleNumber > drawPoints.Count)
+                handleNumber = drawPoints.Count;
 
-            return ((Point)pointArray[handleNumber - 1]);
+            return ((Point)drawPoints[handleNumber - 1]);
         }
 
         public override Cursor GetHandleCursor(int handleNumber)
@@ -130,24 +130,24 @@ namespace SubSys_NetWorkBuilder
             if (handleNumber < 1)
                 handleNumber = 1;
 
-            if (handleNumber > pointArray.Count)
-                handleNumber = pointArray.Count;
+            if (handleNumber > drawPoints.Count)
+                handleNumber = drawPoints.Count;
 
-            pointArray[handleNumber - 1] = point;
+            drawPoints[handleNumber - 1] = point;
 
             Invalidate();
         }
 
         public override void Move(int deltaX, int deltaY)
         {
-            int n = pointArray.Count;
+            int n = drawPoints.Count;
             Point point;
 
             for (int i = 0; i < n; i++)
             {
-                point = new Point(((Point)pointArray[i]).X + deltaX, ((Point)pointArray[i]).Y + deltaY);
+                point = new Point(((Point)drawPoints[i]).X + deltaX, ((Point)drawPoints[i]).Y + deltaY);
 
-                pointArray[i] = point;
+                drawPoints[i] = point;
             }
 
             Invalidate();
@@ -159,10 +159,10 @@ namespace SubSys_NetWorkBuilder
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryLength, orderNumber),
-                pointArray.Count);
+                drawPoints.Count);
 
             int i = 0;
-            foreach (Point p in pointArray)
+            foreach (Point p in drawPoints)
             {
                 info.AddValue(
                     String.Format(CultureInfo.InvariantCulture,
@@ -191,7 +191,7 @@ namespace SubSys_NetWorkBuilder
                     entryPoint, orderNumber, i),
                     typeof(Point));
 
-                pointArray.Add(point);
+                drawPoints.Add(point);
             }
 
             base.LoadFromStream(info, orderNumber);
@@ -212,7 +212,7 @@ namespace SubSys_NetWorkBuilder
             int x1 = 0, y1 = 0;     // previous point
             int x2, y2;             // current point
 
-            PointEnumerator enumerator = pointArray.GetEnumerator();
+            PointEnumerator enumerator = drawPoints.GetEnumerator();
 
             if (enumerator.MoveNext())
             {

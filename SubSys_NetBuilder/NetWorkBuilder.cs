@@ -10,9 +10,6 @@ using System.Diagnostics;
 using System.Security;
 using Microsoft.Win32;
 
-
-
-
 namespace SubSys_NetWorkBuilder
 {
   public  partial class NetWorkBuilder : UserControl
@@ -68,6 +65,7 @@ namespace SubSys_NetWorkBuilder
         public NetWorkBuilder()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
             //this.TopLevel = false;
             //persistState = new PersistWindowState(registryPath, this);
         }
@@ -159,10 +157,10 @@ namespace SubSys_NetWorkBuilder
             CommandSaveAs();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        //private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    this.Close();
+        //}
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -339,11 +337,12 @@ namespace SubSys_NetWorkBuilder
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Create draw area
-            drawArea = new DrawArea();
+            //drawArea = new DrawArea();
+            drawArea = drawArea1;
             drawArea.Location = new System.Drawing.Point(0, 0);
-            drawArea.Size = new System.Drawing.Size(10, 10);
+            //drawArea.Size = new System.Drawing.Size(10, 10);
             drawArea.Owner = this;
-            this.Controls.Add(drawArea);
+            //this.Controls.Add(drawArea);
 
             // Helper objects (DocManager and others)
             InitializeHelperObjects();
@@ -377,14 +376,14 @@ namespace SubSys_NetWorkBuilder
         /// <summary>
         /// Resize draw area when form is resized
         /// </summary>
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            if (this.WindowState != FormWindowState.Minimized  &&
-                drawArea != null )
-            {
-                ResizeDrawArea();
-            }
-        }
+        //private void MainForm_Resize(object sender, EventArgs e)
+        //{
+        //    if (this.WindowState != FormWindowState.Minimized  &&
+        //        drawArea != null )
+        //    {
+        //        ResizeDrawArea();
+        //    }
+        //}
 
         /// <summary>
         /// Form is closing
@@ -771,8 +770,15 @@ namespace SubSys_NetWorkBuilder
         private void CommandRedo()
         {
             drawArea.Redo();
+            //this.doc
         }
 
         #endregion
+
+
+        private void NetWorkBuilder_Resize(object sender, EventArgs e)
+        {
+            ResizeDrawArea();
+        }
     }
 }

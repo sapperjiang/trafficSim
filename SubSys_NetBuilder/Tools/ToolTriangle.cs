@@ -10,7 +10,7 @@ namespace SubSys_NetWorkBuilder
     {
         public ToolTriangle()
         {
-            Cursor = new Cursor( "Triangle.cur");
+            Cursor = new Cursor(str+ "Triangle.cur");
         }
 
         public override void OnMouseDown(DrawArea drawArea, MouseEventArgs e)

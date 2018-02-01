@@ -45,6 +45,7 @@ namespace SubSys_NetWorkBuilder
             this.toolStripButtonRedo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
+            this.drawArea1 = new SubSys_NetWorkBuilder.DrawArea();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +71,7 @@ namespace SubSys_NetWorkBuilder
             this.toolStripButtonAbout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(417, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(769, 27);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -209,21 +210,30 @@ namespace SubSys_NetWorkBuilder
             this.toolStripButtonAbout.Text = "About";
             this.toolStripButtonAbout.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
             // 
+            // drawArea1
+            // 
+            this.drawArea1.ActiveTool = SubSys_NetWorkBuilder.DrawArea.DrawToolType.Pointer;
+            this.drawArea1.BackColor = System.Drawing.Color.White;
+            this.drawArea1.DocManager = null;
+            this.drawArea1.GraphicsList = null;
+            this.drawArea1.Location = new System.Drawing.Point(3, 30);
+            this.drawArea1.Name = "drawArea1";
+            this.drawArea1.Owner = null;
+            this.drawArea1.Size = new System.Drawing.Size(297, 168);
+            this.drawArea1.TabIndex = 2;
+            // 
             // NetWorkBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(417, 201);
+            this.Controls.Add(this.drawArea1);
             this.Controls.Add(this.toolStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.DoubleBuffered = true;
             this.Name = "NetWorkBuilder";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Size = new System.Drawing.Size(769, 439);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Resize += new System.EventHandler(this.MainForm_Resize);
+            this.Resize += new System.EventHandler(this.NetWorkBuilder_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -248,6 +258,7 @@ namespace SubSys_NetWorkBuilder
         private System.Windows.Forms.ToolStripButton toolStripButtonRedo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButtonTriangle;
+        private DrawArea drawArea1;
     }
 }
 

@@ -2,21 +2,23 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 
+
 namespace SubSys_NetWorkBuilder
 {
 	/// <summary>
-	/// Line tool
+	/// Rectangle tool
 	/// </summary>
-	class ToolLine : global::SubSys_NetWorkBuilder.ToolObject
+	class ToolRectangle : global::SubSys_NetWorkBuilder.ToolObject
 	{
-        public ToolLine()
-        {
-            Cursor = new Cursor( "Line.cur");
-        }
+
+		public ToolRectangle()
+		{
+            Cursor = new Cursor(str+"Rectangle.cur");
+		}
 
         public override void OnMouseDown(DrawArea drawArea, MouseEventArgs e)
         {
-            AddNewObject(drawArea, new DrawLine(e.X, e.Y, e.X + 1, e.Y + 1));
+            AddNewObject(drawArea, new DrawRectangle(e.X, e.Y, 1, 1));
         }
 
         public override void OnMouseMove(DrawArea drawArea, MouseEventArgs e)
@@ -26,9 +28,9 @@ namespace SubSys_NetWorkBuilder
             if ( e.Button == MouseButtons.Left )
             {
                 Point point = new Point(e.X, e.Y);
-                drawArea.GraphicsList[0].MoveHandleTo(point, 2);
+                drawArea.GraphicsList[0].MoveHandleTo(point, 5);
                 drawArea.Refresh();
             }
         }
-    }
+	}
 }
