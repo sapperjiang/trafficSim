@@ -348,9 +348,9 @@
       <Project>{d9a39ca7-1c9b-4a9f-9c22-c73e32977d9b}</Project>
       <Name>SubSys_Graphics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SubSys_NetworkBuilder\SubSys_NetworkBuilder.csproj">
-      <Project>{1bb32b80-00c3-4c1c-9ef8-e98b5d61d691}</Project>
-      <Name>SubSys_NetworkBuilder</Name>
+    <ProjectReference Include="..\SubSys_NetWorkBulider\SubSys_NetBuilder.csproj">
+      <Project>{56c76b98-1ce1-4156-885e-ec04150747df}</Project>
+      <Name>SubSys_NetBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\SubSys_SimDriving\SubSys_SimDriving.csproj">
       <Project>{dae0a318-3a89-450c-9095-83dc71e286c6}</Project>

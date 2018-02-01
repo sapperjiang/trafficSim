@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{56C76B98-1CE1-4156-885E-EC04150747DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SubSys_NetBuilder</RootNamespace>
+    <AssemblyName>SubSys_NetBuilder</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Cursors\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cursors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cursors.resx</DependentUpon>
+    </Compile>
+    <Compile Include="docMangekit\CommandDelete.cs" />
+    <Compile Include="docMangekit\CommandDeleteAll.cs" />
+    <Compile Include="docMangekit\Command.cs" />
+    <Compile Include="docMangekit\CommandAdd.cs" />
+    <Compile Include="docMangekit\CommandChangeState.cs" />
+    <Compile Include="docMangekit\DocManager.cs" />
+    <Compile Include="docMangekit\DragDropManager.cs" />
+    <Compile Include="docMangekit\MruManager.cs" />
+    <Compile Include="docMangekit\PersistWindowState.cs" />
+    <Compile Include="DrawArea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DrawArea.Designer.cs">
+      <DependentUpon>DrawArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawObjects\DrawEllipse.cs" />
+    <Compile Include="DrawObjects\DrawLine.cs" />
+    <Compile Include="DrawObjects\DrawObject.cs" />
+    <Compile Include="DrawObjects\DrawPolygon.cs" />
+    <Compile Include="DrawObjects\DrawRectangle.cs" />
+    <Compile Include="DrawObjects\DrawTriangle.cs" />
+    <Compile Include="FrmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAbout.Designer.cs">
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NetWorkBuilder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NetWorkBuilder.Designer.cs">
+      <DependentUpon>NetWorkBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="docMangekit\DrawMementos.cs" />
+    <Compile Include="DrawObjects\GraphicsProperties.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="DrawObjects\PropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawObjects\PropertiesDialog.Designer.cs">
+      <DependentUpon>PropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaySetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaySetter.Designer.cs">
+      <DependentUpon>WaySetter.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Cursors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Cursors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawArea.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DrawArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAbout.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NetWorkBuilder.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NetWorkBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawObjects\PropertiesDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaySetter.resx">
+      <DependentUpon>WaySetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Tools\Tool.cs" />
+    <Compile Include="Tools\ToolEllipse.cs" />
+    <Compile Include="Tools\ToolLine.cs" />
+    <Compile Include="Tools\ToolObject.cs" />
+    <Compile Include="Tools\ToolPointer.cs" />
+    <Compile Include="Tools\ToolPolygon.cs" />
+    <Compile Include="Tools\ToolRectangle.cs" />
+    <Compile Include="Tools\ToolTriangle.cs" />
+    <Compile Include="docMangekit\UndoManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cursors\Rectangle.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cursors\Ellipse.cur" />
+    <EmbeddedResource Include="Cursors\Line.cur" />
+    <EmbeddedResource Include="Cursors\Pencil.cur" />
+    <EmbeddedResource Include="Cursors\PolyHandle.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cursors\Triangle.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cursors\icon.ico" />
+    <None Include="Resources\Triangle.cur" />
+    <None Include="Resources\Rectangle.cur" />
+    <None Include="Resources\PolyHandle.cur" />
+    <None Include="Resources\Pencil.cur" />
+    <None Include="Resources\Line.cur" />
+    <None Include="Resources\Ellipse.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathTools\SubSys_MathUtility.csproj">
+      <Project>{bb9010e8-e811-4c0b-86af-6bfb7b0b0f70}</Project>
+      <Name>SubSys_MathUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_SimDriving\SubSys_SimDriving.csproj">
+      <Project>{dae0a318-3a89-450c-9095-83dc71e286c6}</Project>
+      <Name>SubSys_SimDriving</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
