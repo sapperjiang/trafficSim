@@ -203,21 +203,21 @@ namespace TrafficSim
             // 
             // MenuBar_Undo
             // 
-            this.MenuBar_Undo.Name = "MenuBar_Undo";
-            this.MenuBar_Undo.Size = new System.Drawing.Size(133, 22);
-            this.MenuBar_Undo.Text = "撤销（U）";
-            this.MenuBar_Undo.Click += new System.EventHandler(this.MenuBar_MenuItem_Undo_Click);
-            // 
-            // MenuBar_Redo
-            // 
-            this.MenuBar_Redo.Name = "MenuBar_Redo";
-            this.MenuBar_Redo.Size = new System.Drawing.Size(133, 22);
-            this.MenuBar_Redo.Text = "重做（R)";
+            //this.MenuBar_Undo.Name = "MenuBar_Undo";
+            //this.MenuBar_Undo.Size = new System.Drawing.Size(133, 22);
+            //this.MenuBar_Undo.Text = "撤销（U）";
+            //this.MenuBar_Undo.Click += new System.EventHandler(this.MenuBar_MenuItem_Undo_Click);
+            //// 
+            //// MenuBar_Redo
+            //// 
+            //this.MenuBar_Redo.Name = "MenuBar_Redo";
+            //this.MenuBar_Redo.Size = new System.Drawing.Size(133, 22);
+            //this.MenuBar_Redo.Text = "重做（R)";
             // 
             // UndoToolStripMenuItem
             // 
-            this.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem";
-            this.UndoToolStripMenuItem.Size = new System.Drawing.Size(130, 6);
+            //this.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem";
+            //this.UndoToolStripMenuItem.Size = new System.Drawing.Size(130, 6);
             // 
             // menuBarEditRoadNetwork
             // 

@@ -171,11 +171,17 @@
     <Compile Include="SimConfig\WinDrivingStratigySetUp.Designer.cs">
       <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIData\AbstractCharter.cs">
+    <Compile Include="UIData\AbstractCharterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIData\AbstractCharter.Designer.cs">
-      <DependentUpon>AbstractCharter.cs</DependentUpon>
+    <Compile Include="UIData\AbstractCharterForm.Designer.cs">
+      <DependentUpon>AbstractCharterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIData\MultiChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIData\MultiChart.Designer.cs">
+      <DependentUpon>MultiChart.cs</DependentUpon>
     </Compile>
     <Compile Include="UIData\ODInput.cs">
       <SubType>Form</SubType>
@@ -183,11 +189,11 @@
     <Compile Include="UIData\ODInput.Designer.cs">
       <DependentUpon>ODInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIData\TimeSpaceCharter.cs">
+    <Compile Include="UIData\TimeSpace.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIData\TimeSpaceCharter.Designer.cs">
-      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    <Compile Include="UIData\TimeSpace.Designer.cs">
+      <DependentUpon>TimeSpace.cs</DependentUpon>
     </Compile>
     <Compile Include="UIData\DataOutPut.cs">
       <SubType>Form</SubType>
@@ -195,11 +201,11 @@
     <Compile Include="UIData\DataOutPut.Designer.cs">
       <DependentUpon>DataOutPut.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIData\MeanSpeedCharter.cs">
+    <Compile Include="UIData\MeanSpeed.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIData\MeanSpeedCharter.Designer.cs">
-      <DependentUpon>MeanSpeedCharter.cs</DependentUpon>
+    <Compile Include="UIData\MeanSpeed.Designer.cs">
+      <DependentUpon>MeanSpeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,11 +241,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UIHelp\UIHelpAbout.Designer.cs" />
-    <Compile Include="UIData\SpeedTimeCharter.cs">
+    <Compile Include="UIData\SpeedTime.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIData\SpeedTimeCharter.Designer.cs">
-      <DependentUpon>SpeedTimeCharter.cs</DependentUpon>
+    <Compile Include="UIData\SpeedTime.Designer.cs">
+      <DependentUpon>SpeedTime.cs</DependentUpon>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -286,17 +292,20 @@
     <EmbeddedResource Include="SimConfig\WinDrivingStratigySetUp.resx">
       <DependentUpon>WinDrivingStratigySetUp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UIData\MultiChart.resx">
+      <DependentUpon>MultiChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UIData\ODInput.resx">
       <DependentUpon>ODInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIData\TimeSpaceCharter.resx">
-      <DependentUpon>TimeSpaceCharter.cs</DependentUpon>
+    <EmbeddedResource Include="UIData\TimeSpace.resx">
+      <DependentUpon>TimeSpace.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIData\DataOutPut.resx">
       <DependentUpon>DataOutPut.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIData\MeanSpeedCharter.resx">
-      <DependentUpon>MeanSpeedCharter.cs</DependentUpon>
+    <EmbeddedResource Include="UIData\MeanSpeed.resx">
+      <DependentUpon>MeanSpeed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -318,8 +327,8 @@
     <EmbeddedResource Include="UIHelp\UIHelpAbout.resx">
       <DependentUpon>UIHelpAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIData\SpeedTimeCharter.resx">
-      <DependentUpon>SpeedTimeCharter.cs</DependentUpon>
+    <EmbeddedResource Include="UIData\SpeedTime.resx">
+      <DependentUpon>SpeedTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

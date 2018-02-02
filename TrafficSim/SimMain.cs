@@ -163,12 +163,18 @@ namespace TrafficSim
 		{
             //关闭路网编辑器，显示仿真窗口
             netbuilder.Visible = false;
-
+            SplitMain.Panel1.AutoScroll = true;
             SimController.Canvas.Visible = true;
             SplitMain.Panel2Collapsed = false;
+            SplitMain.Panel2.Controls.Add(abc);
+
+            abc.Dock = DockStyle.Fill;
+            abc.FormBorderStyle = FormBorderStyle.None;
+            abc.Visible = true;
+            //this.ShowDebugMessage();
             //----------------------------------------------------
             //SimController.iRoadWidth = 20;
-			SimController.iSimInterval = 100;
+            SimController.iSimInterval = 100;
 			ModelSetting.dRate = 0.85;
 
             
@@ -179,9 +185,27 @@ namespace TrafficSim
 			//-------------------------------------------------
 			SimController.bIsExit = false;
 			menuBarConfigSimEnvr.Enabled =false;
+
+            SimController.OnSimulateImpulse += SimController_OnSimulateImpulse;
+
             SimController.StartSimulate();
 			
 			menuBarSimulateStart.Enabled =false;
+
+        }
+
+        private void SimController_OnSimulateImpulse(object sender, EventArgs e)
+        {
+            abc.DrawMultiChart();
+            //abc.draw
+            //abc = new SpeedTimeCharter();
+            //abc.Visible = true; 
+            //abcd = new MeanSpeed();
+            //abcd.Visible = true;
+
+            //abc.TopLevel = false;
+            //abcd.TopLevel = false;
+            //abcd.Show();  abc.Show();
         }
 
         #endregion
@@ -202,24 +226,19 @@ namespace TrafficSim
 		/// <param name="e"></param>
 		void MenuBar_Data_SpeedTime_Click(object sender, System.EventArgs e)
 		{
-			
-			AbstractCharter abc =new MeanSpeedCharter();
-			SpeedTimeCharter st = new SpeedTimeCharter();
+			AbstractCharterForm st = new SpeedTime();
 			st.Show();
-			//throw new NotImplementedException();
 		}
 		
 		void MenuBar_Data_RoadMeanTime_Click(object sender, System.EventArgs e)
 		{
-			AbstractCharter abc =new MeanSpeedCharter();
+			AbstractCharterForm abc =new MeanSpeed();
 			abc.Show();
-			//throw new NotImplementedException();
 		}
 		void MenuBar_Data_TimeSpace_Click(object sender, System.EventArgs e)
 		{
-			AbstractCharter abc = new TimeSpaceCharter();
+			AbstractCharterForm abc = new TimeSpace();
 			abc.Show();
-			//throw new NotImplementedException();
 		}
 		void MenuBar_Simulate_Pause_Click(object sender, System.EventArgs e)
 		{
@@ -236,7 +255,12 @@ namespace TrafficSim
             netbuilder.Visible = true;
             SimController.Canvas.Visible = false;
             SplitMain.Panel2Collapsed = true;
-		}
+
+        }
+       MultiChart  abc= new MultiChart();
+        //abc.Show();
+
+        //abc.Show();
 		void MenuBar_Config_Parameter_Click(object sender, System.EventArgs e)
 		{
 			TrafficSim.SimConfig cs = new TrafficSim.SimConfig();
@@ -250,62 +274,7 @@ namespace TrafficSim
 			}cs.Dispose();
 		}
 		#endregion
-//		#region 路网加载函数
 
-
-//		private  RoadNet LoadRoadNetwork()
-//		{
-//			//this.autosiz
-//			IStaticFactory IFacotry = new StaticFactory();
-			
-//			var roadA= IFacotry.Build(new OxyzPointF(20,20),new OxyzPointF(50,50), EntityType.Road) as Road;
-//			roadA.Name = "香茗路";
-//			var roadB= IFacotry.Build(new OxyzPointF(55,55),new OxyzPointF(20,100), EntityType.Road) as Road;
-//			roadB.Name = "雅馨路";
-			
-////			var roadC= IFacotry.Build(new OxyzPointF(20,20),new OxyzPointF(50,50), EntityType.Road) as Road;
-////			roadC.Name = "居兰路";
-////
-////			RoadNet roadNetwork = SimController.ISimCtx.RoadNet;
-////
-////			roadNetwork.AddXNode(rnA);
-////			roadNetwork.AddXNode(rnB);
-////			roadNetwork.AddXNode(rnC);
-			
-			
-//			//roadNetwork.AddXNode(rnD);
-//			//roadNetwork.AddXNode(rnE);
-//			//roadNetwork.AddXNode(rnF);
-//			//roadNetwork.AddXNode(rnG);
-//			//roadNetwork.AddXNode(rnH);
-//			//roadNetwork.AddXNode(rnI);
-
-//			//SimController.ReA= roadNetwork.AddWay(rnA,rnB);
-//			//SimController.ReB=roadNetwork.AddWay(rnB,rnC);
-			
-			
-//			//创建路由ReA是路由参数
-//			//SimController.ReA1= roadA.Way;
-			
-//			//SimController.ReA2 = roadB.Way;
-
-//			//            SimController.ReA3 = roadNetwork.AddWay(rnC, rnF);
-//			//            SimController.ReA4 = roadNetwork.AddWay(rnF, rnH);
-//			//SimController.ReB1 = roadNetwork.AddWay(rnB, rnE);
-//			//
-			
-//			//roadNetwork.AddWay(rnB, rnA);
-//			//
-
-////			foreach (var item in roadNetwork.Ways)
-////			{
-////				WayFactory.BuildTwoWay(item, 0, 1, 0);
-////			}
-////			return roadNetwork;
-//			return null;
-			
-//		}
-//		
 		
 		#region 编辑道路节点
 		bool _bIsRoadNetEditing = false;
@@ -348,17 +317,6 @@ namespace TrafficSim
 		}
 
 		#endregion
-
-  //      private void HandleRegistryException(Exception ex)
-		//{
-		//	Trace.WriteLine("Registry operation failed: " + ex.Message);
-		//}
-
-   
-        void MenuBar_MenuItem_Undo_Click(object sender, EventArgs e)
-        {
-            //this.CommandUndo();
-        }
 
         private void menuBarFileSaveNetWork_Click(object sender, EventArgs e)
         {

@@ -1,6 +1,6 @@
 ﻿namespace TrafficSim
 {
-    partial class TimeSpaceCharter
+    partial class TimeSpace
     {
         /// <summary>
         /// Required designer variable.

@@ -306,7 +306,7 @@ namespace PluginTest
             //平均速度
             if (ItemName == this.strBTNMeanSpeed)
             {
-                MeanSpeedCharter msc = new MeanSpeedCharter();
+                MeanSpeed msc = new MeanSpeed();
                 msc.Show();
                 Handled = true;
 
@@ -314,7 +314,7 @@ namespace PluginTest
             //时间空间图
             if (ItemName == this.strBTNSpaceTime)
             {
-                TimeSpaceCharter tsc = new TimeSpaceCharter();
+                TimeSpace tsc = new TimeSpace();
                 tsc.Show();
                 Handled = true;
 
@@ -322,7 +322,7 @@ namespace PluginTest
             //速度时间图
             if (ItemName == this.strBTNSpeedTime)
             {
-                SpeedTimeCharter st = new SpeedTimeCharter();
+                SpeedTime st = new SpeedTime();
                 st.Show();
                 Handled = true;
 

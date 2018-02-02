@@ -1,6 +1,6 @@
 ﻿namespace TrafficSim
 {
-    partial class MeanSpeedCharter
+    partial class MeanSpeed
     {
         /// <summary>
         /// Required designer variable.

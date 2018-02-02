@@ -1,6 +1,6 @@
 ﻿namespace TrafficSim
 {
-    partial class AbstractCharterForm:System.Windows.Forms.Form
+  public  partial class AbstractCharterForm:System.Windows.Forms.Form
     {
         /// <summary>
         /// Required designer variable.

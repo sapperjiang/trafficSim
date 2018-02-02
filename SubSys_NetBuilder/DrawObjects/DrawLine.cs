@@ -49,8 +49,8 @@ namespace SubSys_NetWorkBuilder
         public override DrawObject Clone()
         {
             DrawLine drawLine = new DrawLine();
-            drawLine.Start = this.Start;
-            drawLine.End = this.End;
+            drawLine.shape.Add(this.Start);
+            drawLine.shape.Add( this.End);
 
             FillDrawObjectFields(drawLine);
             return drawLine;

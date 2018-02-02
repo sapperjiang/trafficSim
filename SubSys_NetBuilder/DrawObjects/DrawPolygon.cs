@@ -128,10 +128,8 @@ namespace SubSys_NetWorkBuilder
         {
             if (handleNumber < 1)
                 handleNumber = 1;
-            //else { 
             if (handleNumber > shape.Count)
                 handleNumber = shape.Count;
-        //}
             shape[handleNumber - 1] = point;
 
             Invalidate();

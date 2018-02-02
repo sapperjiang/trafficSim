@@ -21,7 +21,7 @@ public	abstract  partial class DrawObject
         // Object properties
         private bool selected;
         private Color color;
-        private int penWidth;
+        private int penWidth=1;
 
         // Allows to write Undo - Redo functions and don't care about
         // objects order in the list.
@@ -420,8 +420,10 @@ public	abstract  partial class DrawObject
         {
             DrawObject ctrWay = this.Clone();
             ctrWay.Shape.Reverse();
-            ctrWay.Shape.Offset(1 * this.penWidth);//右手坐标系，右手坐标系跟驾驶习惯有关系
+            ctrWay.Shape.Offset(1 );//右手坐标系，右手坐标系跟驾驶习惯有关系
             ctrWay.BulidWay(this.WaySetter);
+            ctrWay.Shape.Offset( penWidth-1);//右手坐标系，右手坐标系跟驾驶习惯有关系
+
             Way.WaysBind(this.Way, ctrWay.Way);
             return ctrWay;
         }

@@ -1,6 +1,6 @@
 ﻿namespace TrafficSim
 {
-    partial class SpeedTimeCharter
+    partial class SpeedTime
     {
         /// <summary>
         /// Required designer variable.
