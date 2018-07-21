@@ -63,21 +63,7 @@ namespace TrafficSim
 			this.tslSimTime.Text = strMsg;
 		}
 
-		/// <summary>
-		/// 鼠标滚轮放大缩小路网
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		void SimCartoon_MouseWheel(object sender, MouseEventArgs e)
-		{
-			this.Invalidate();
-
-			if (e.Delta > 0) {
-				GraphicsSetter.ScaleByPixels(2);
-			} else {
-				GraphicsSetter.ScaleByPixels(-2);
-			}
-		}
+	
 		protected override void OnClosing(CancelEventArgs e)
 		{
 			SimController.bIsExit = true;
@@ -85,38 +71,7 @@ namespace TrafficSim
 			SimController.OnSimulateStoped-=SimulateStopMessage;
 			base.OnClosing(e);
 		}
-		
-		#region 路网平移模式
 
-		Point pStart;
-		private void PanScreen_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (e.Button==MouseButtons.Middle) {
-				this.tsslMsgTip.Text = "路网处于平移模式";
-				this.Cursor = Cursors.Hand;
-				pStart = new Point(e.X, e.Y);
-			}
-		}
-		private void PanScreen_MouseUp(object sender, MouseEventArgs e)
-		{
-			if (e.Button==MouseButtons.Middle) {
-				//界面重绘 要不然，两次绘制的界面叠加到了一起了。
-				this.Invalidate();
-                // 向量的坐标等于终点坐标
-                var offsetVector = new OxyzPointF(e.X - pStart.X,  e.Y-pStart.Y );
-                Coordinates.GraphicsOffset = offsetVector;
-
-				this.tsslMsgTip.Text = string.Empty;// "退出了平移模式";
-				this.Cursor = Cursors.Arrow;
-			}
-		}
-		
-		void MemuBar_File_CreateNetWork_Click(object sender, System.EventArgs e)
-		{
-            //this.CommandNew();
-            MessageBox.Show("尚未实现!");
-        }
-		#endregion
 		
 		#region 仿真环境配置区域
 		
@@ -131,10 +86,8 @@ namespace TrafficSim
 			//SimController.iRoadWidth = 100;
 			SimController.iSimInterval = 1000;
 			ModelSetting.dRate = 0.85;
-
 			//打开仿真运行的按钮
 			this.menuBarSimulateStart.Enabled = true;
-//
 		}
 
 

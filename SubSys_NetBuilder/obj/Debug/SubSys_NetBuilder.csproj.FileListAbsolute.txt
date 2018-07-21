@@ -17,7 +17,6 @@ Z:\software\TrafficSim\SubSys_NetWorkBulider\bin\Debug\SubSys_NetBuilder.dll.con
 Z:\software\TrafficSim\SubSys_NetWorkBulider\bin\Debug\SubSys_NetBuilder.dll
 Z:\software\TrafficSim\SubSys_NetWorkBulider\obj\Debug\SubSys_NetBuilder.dll
 Z:\software\TrafficSim\SubSys_NetWorkBulider\obj\Debug\SubSys_NetBuilder.tste1.resources
-Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetBuilder.csprojResolveAssemblyReference.cache
 Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetBuilder.Cursors.resources
 Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetWorkBuilder.DrawArea.resources
 Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetWorkBuilder.FrmAbout.resources
@@ -36,3 +35,8 @@ Z:\software\TrafficSim\SubSys_NetBuilder\bin\Debug\SubSys_SimDriving.dll
 Z:\software\TrafficSim\SubSys_NetBuilder\bin\Debug\MathTools.pdb
 Z:\software\TrafficSim\SubSys_NetBuilder\bin\Debug\SubSys_SimDriving.pdb
 Z:\software\TrafficSim\SubSys_NetBuilder\bin\Debug\SubSys_SimDriving.xml
+Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetBuilder.csprojAssemblyReference.cache
+Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetBuilder.csproj.CoreCompileInputs.cache
+Z:\software\TrafficSim\SubSys_NetBuilder\bin\Debug\SubSys_Graphics.dll
+Z:\software\TrafficSim\SubSys_NetBuilder\bin\Debug\SubSys_Graphics.pdb
+Z:\software\TrafficSim\SubSys_NetBuilder\obj\Debug\SubSys_NetBuilder.csproj.CopyComplete

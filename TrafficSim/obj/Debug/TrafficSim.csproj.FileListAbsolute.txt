@@ -250,7 +250,6 @@ Z:\software\TrafficSim\TranMACASims\obj\Debug\TranfficSim.Properties.Resources.r
 Z:\software\TrafficSim\TranMACASims\obj\Debug\TranfficSim.exe
 Z:\software\TrafficSim\TranMACASims\obj\Debug\TranfficSim.pdb
 Z:\software\TrafficSim\TrafficSim\bin\Debug\TrafficSim.exe.config
-Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.csprojResolveAssemblyReference.cache
 Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.canvas.resources
 Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.WinDrivingStratigySetUp.resources
 Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.ODInOutMgr.resources
@@ -284,3 +283,7 @@ Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.TimeSpace.resources
 Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.MeanSpeed.resources
 Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.SpeedTime.resources
 Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.MultiChart.resources
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.csprojAssemblyReference.cache
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.csproj.CoreCompileInputs.cache
+Z:\software\TrafficSim\TrafficSim\bin\Debug\SubSys_NetBuilder.dll.config
+Z:\software\TrafficSim\TrafficSim\obj\Debug\TrafficSim.csproj.CopyComplete

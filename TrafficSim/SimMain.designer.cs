@@ -174,7 +174,7 @@ namespace TrafficSim
             this.menuBarFileCreateNetwork.Name = "menuBarFileCreateNetwork";
             this.menuBarFileCreateNetwork.Size = new System.Drawing.Size(124, 22);
             this.menuBarFileCreateNetwork.Text = "新建路网";
-            this.menuBarFileCreateNetwork.Click += new System.EventHandler(this.MemuBar_File_CreateNetWork_Click);
+            //this.menuBarFileCreateNetwork.Click += new System.EventHandler(this.MemuBar_File_CreateNetWork_Click);
             // 
             // menuBarFileSaveNetWork
             // 

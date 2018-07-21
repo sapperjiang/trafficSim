@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using SubSys_NetBuilder;
 using SubSys_MathUtility;
 using SubSys_SimDriving.TrafficModel;
+using SubSys_Graphics;
 
 namespace SubSys_NetWorkBuilder
 {
@@ -21,7 +22,7 @@ public	abstract  partial class DrawObject
         // Object properties
         private bool selected;
         private Color color;
-        private int penWidth=1;
+        private int penWidth = GraphicsSetter.iPixels;
 
         // Allows to write Undo - Redo functions and don't care about
         // objects order in the list.
@@ -29,7 +30,7 @@ public	abstract  partial class DrawObject
 
         // Last used property values (may be kept in the Registry)
         private static Color lastUsedColor = Color.Black;
-        private static int lastUsedPenWidth = 1;
+        private static int lastUsedPenWidth ;
 
         // Entry names for serialization
         private const string entryColor = "Color";
@@ -89,6 +90,18 @@ public	abstract  partial class DrawObject
                 penWidth = value;
             }
         }
+
+        //public int PenWidth
+        //{
+        //    get
+        //    {
+        //        return penWidth;
+        //    }
+        //    set
+        //    {
+        //        penWidth = value;
+        //    }
+        //}
 
         /// <summary>
         /// Number of handles
@@ -231,7 +244,7 @@ public	abstract  partial class DrawObject
         /// <returns></returns>
         public virtual Cursor GetHandleCursor(int handleNumber)
         {
-            return Cursors.Default;
+            return System.Windows.Forms.Cursors.Default;
         }
 
         /// <summary>

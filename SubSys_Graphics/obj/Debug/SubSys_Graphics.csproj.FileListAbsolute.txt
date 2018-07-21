@@ -65,6 +65,8 @@ Z:\software\TrafficSim\SubSys_Graphics\bin\Debug\SubSys_SimDriving.dll
 Z:\software\TrafficSim\SubSys_Graphics\bin\Debug\MathTools.pdb
 Z:\software\TrafficSim\SubSys_Graphics\bin\Debug\SubSys_SimDriving.pdb
 Z:\software\TrafficSim\SubSys_Graphics\bin\Debug\SubSys_SimDriving.xml
-Z:\software\TrafficSim\SubSys_Graphics\obj\Debug\SubSys_Graphics.csprojResolveAssemblyReference.cache
 Z:\software\TrafficSim\SubSys_Graphics\obj\Debug\SubSys_Graphics.dll
 Z:\software\TrafficSim\SubSys_Graphics\obj\Debug\SubSys_Graphics.pdb
+Z:\software\TrafficSim\SubSys_Graphics\obj\Debug\SubSys_Graphics.csprojAssemblyReference.cache
+Z:\software\TrafficSim\SubSys_Graphics\obj\Debug\SubSys_Graphics.csproj.CoreCompileInputs.cache
+Z:\software\TrafficSim\SubSys_Graphics\obj\Debug\SubSys_Graphics.csproj.CopyComplete

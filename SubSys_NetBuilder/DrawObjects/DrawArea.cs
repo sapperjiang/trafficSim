@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using SubSys_Graphics;
 
 //using DocToolkit;
 
@@ -18,6 +19,21 @@ namespace SubSys_NetWorkBuilder
         public DrawArea()
         {
             InitializeComponent();
+            this.MouseWheel += DrawArea_MouseWheel;
+        }
+
+        private void DrawArea_MouseWheel(object sender, MouseEventArgs e)
+        {
+            this.Invalidate();
+
+            if (e.Delta > 0)
+            {
+                GraphicsSetter.ReScalebyPixels(1);
+            }
+            else
+            {
+                GraphicsSetter.ReScalebyPixels(-1);
+            }
         }
 
         #endregion Constructor

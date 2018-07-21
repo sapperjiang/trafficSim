@@ -27,43 +27,43 @@
         </member>
         <member name="T:SubSys_SimDriving.BuildCommand">
             <summary>
-            ³éÏó´´½¨ÃüÁîµÄÀà
+            抽象创建命令的类
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.Agents.AbstractAgent">
             <summary>
-            Õâ¸öÊÇ·ÃÎÊÕßÄ£Ê½µÄ³éÏóvisitor£¬¸÷ÖÖ¸÷ÑùµÄvisit£¨update£©
+            这个是访问者模式的抽象visitor，各种各样的visit（update）
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.Agents.AbstractAgent.simContext">
             <summary>
-            ±»·ÃÎÊ¶ÔÏó
+            被访问对象
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.Agents.AbstractAgent.VisitUpdate(SubSys_SimDriving.TrafficModel.Way)">
             <summary>
-            visitÊµ¼Ê½øÐÐ·ÃÎÊµÄµØ·½
+            visit实际进行访问的地方
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.Agents.UpdateAgentChain">
-            ÓÐÒ»¸ö´¢´æAgentName»òÕßÊÇAgentIdµÄÁÐ±í£¬
-            ÓÉÓÚ¹æÔò²»ÊÇºÜ¶à¡£²»Ê¹ÓÃ¹þÏ£±í£¬ÕâÐ©
-            ¹æÔòÈç½»Í¨µÆ¹æÔò£¬¼Ó¼õËÙ¹æÔòµÈ
+            有一个储存AgentName或者是AgentId的列表，
+            由于规则不是很多。不使用哈希表，这些
+            规则如交通灯规则，加减速规则等
         </member>
         <member name="T:SubSys_SimDriving.Agents.AsynchronicAgents">
             <summary>
-            Òì²½¸üÐÂ¹æÔòÒ»¸öÊ±¼ä²½³¤Ö»¸üÐÂÒ»¸öµÄ¹æÔò,²»Ó¦µ±Ê¹ÓÃÎÞ²ÎÊýµÄ¹¹Ôìº¯Êý´´½¨¸ÃÀà
+            异步更新规则一个时间步长只更新一个的规则,不应当使用无参数的构造函数创建该类
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.Agents.SignalLightAgent.VisitUpdate(SubSys_SimDriving.TrafficModel.XNode)">
             <summary>
-            ÐÅºÅµÆ¸üÐÂµÄ·½·¨
+            信号灯更新的方法
             </summary>
             <param name="rN"></param>
         </member>
         <member name="T:SubSys_SimDriving.Agents.SynchronicAgents">
             <summary>
-            Í¬²½¸üÐÂ¹æÔò£¬Ò»¸öÊ±¼ä²½³¤ÄÚÈ«²¿¸üÐÂµÄ¹æÔò£¬²»Ó¦µ±Ê¹ÓÃÎÞ²ÎÊýµÄ¹¹Ôìº¯Êý´´½¨¸ÃÀà
+            同步更新规则，一个时间步长内全部更新的规则，不应当使用无参数的构造函数创建该类
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.MobileDriver">
@@ -188,7 +188,7 @@
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.SmallCar">
             <summary>
-            ¹ýÊ±µÄ£¬ÎªÁË±£³Ö¼æÈÝ£¬½¨ÒéÊ¹ÓÃÐÂµÄÀàÐÍ¡£
+            过时的，为了保持兼容，建议使用新的类型。
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.SmallCar.#ctor">
@@ -200,22 +200,22 @@
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.SmallCar.iAcceleration">
             <summary>
-            µ±Ç°³µÁ¾µÄ¼ÓËÙ¶È
+            当前车辆的加速度
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Bus">
             <summary>
-            ¹«¹²Æû³µ£¬Õ¼ÓÃ4¸öÔª°ûÍø¸ñ ¡£12Ã×µÄ£¬È¡¾öÓÚÔª°ûÍø¸ñµÄ¿Õ¼ä´óÐ¡
+            公共汽车，占用4个元胞网格 。12米的，取决于元胞网格的空间大小
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.LargeTruck">
             <summary>
-            ´ó¿¨³µ£¬Õ¼ÓÃ4¸öÔª°ûÍø¸ñ
+            大卡车，占用4个元胞网格
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Pedastrain">
             <summary>
-            ÐÐÈË£¬Ò»°ãÕ¼ÓÃ1¸öÔª°ûÍø¸ñ
+            行人，一般占用1个元胞网格
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.AdjacencyList`1">
@@ -263,7 +263,7 @@
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.EntityType.Mobile">
             <summary>
-            ËùÓÐÀàÐÍµÄ³µÁ¾¡¢ÐÐÈËµÄ³éÏó±íÊ¾
+            所有类型的车辆、行人的抽象表示
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.EntityType.SmallTruck">
@@ -275,49 +275,49 @@
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.LaneType">
-            ³µµÀÀàÐÍÃ¶¾Ù,°´ÕÕÓÒÐÐ¹æÔòÊýÖµÓÉÐ¡µ½´ó£¬ËùÓÐ³µµÀ×î¶àÈýÌõ
+            车道类型枚举,按照右行规则数值由小到大，所有车道最多三条
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.MobileOBJ">
             <summary>
-            ËùÓÐ»á¶¯µÄ½»Í¨ÊµÌåµÄ»ùÀà
+            所有会动的交通实体的基类
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.MobileOBJ.iSpeed">
             <summary>
-            µ±Ç°³µÁ¾µÄËÙ¶È
+            当前车辆的速度
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.MobileOBJ.Clone">
             <summary>
-            ¶ÔÏó¿½±´ºÍÖµ¿½±´
+            对象拷贝和值拷贝
             </summary>
             <returns></returns>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.MobileOBJ.iAcceleration">
             <summary>
-            µ±Ç°³µÁ¾µÄ¼ÓËÙ¶È
+            当前车辆的加速度
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.MobileOBJ.iTimeStep">
             <summary>
-            ÓÃ×÷¼ÇÂ¼Ì¬¹þÏ£±í¼ÇÂ¼³µÁ¾µÄÊ±¼äÐÅÏ¢£¬ÒÔ¼°ÓÃÀ´È·¶¨Ê²Ã´Ê±ºò½øÈëÂ·¶Î
+            用作记录态哈希表记录车辆的时间信息，以及用来确定什么时候进入路段
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.MobileOBJ._track">
             <summary>
-            °üÎ§ÔÚ½»²æ¿ÚÄÚ²¿µÄ½Úµã,ÄÚ²¿µãÊ¹ÓÃ¾ø¶Ô×ø±êÏµ
+            包围在交叉口内部的节点,内部点使用绝对坐标系
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.MobileOBJ.Front">
             <summary>
-            »ñÈ¡³µµÀÉÏÏÈ½øÈëµÄÇ°Ò»Á¾³µ£¬Ç°Ò»Á¾³µ²»´æÔÚ·µnull,
+            获取车道上先进入的前一辆车，前一辆车不存在返null,
             the frontmobile is that entered a lane early than the current one
             if called on a xnode. return null
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.MobileOBJ.Rear">
              <summary>
-            ÔÚ³µµÀÉÏ»ñÈ¡³µÁ¾µÄºóÒ»Á¾³µ
+            在车道上获取车辆的后一辆车
              </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.MobileOBJ.Container">
@@ -327,7 +327,7 @@
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.MobileOBJ.iDrivedMileage">
             <summary>
-            Ôª°ûÀï³Ì£¬Òª³ËÒÔÔª°û³¤¶È²ÅÊÇÕæÊµÀï³Ì
+            元胞里程，要乘以元胞长度才是真实里程
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.MobileOBJ.Move(System.Int32)">
@@ -344,7 +344,7 @@
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Track">
             <summary>
-            ½»²æ¿Ú×ø±êÉý¼¶Îª3Î¬¶È¿Õ¼ä×ø±ê
+            交叉口坐标升级为3维度空间坐标
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Track.Current">
@@ -364,7 +364,7 @@
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Track.Update">
             <summary>
-            ÔÚ×ªÍäµÄÊ±ºòµ÷ÓÃ£¬¸ù¾Ý³µÁ¾Â·¾¶£¬Ñ°ÕÒ³µÁ¾Òª½øÈëµÄÏÂÒ»Ìõ³µµÀ£¨×óÓÒ×ª¡¢Ö±ÐÐ£©¡£´ÓÆðÊ¼Î»ÖÃ³ö·¢£¬Ç°½øiAheadSpace¸ö¼ä¾àÊ±¾à
+            在转弯的时候调用，根据车辆路径，寻找车辆要进入的下一条车道（左右转、直行）。从起始位置出发，前进iAheadSpace个间距时距
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.IRoad">
@@ -390,146 +390,146 @@
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Way">
              <summary>
-            RoadµÄÒ»ÌõÓÐÏò±ß£¬Ò»ÌõµÀÂ·ÓÐÁ½Ìõ±ß Ò»°ãÀ´½²EdgeµÄ³¤¶ÈÓëLane³¤¶ÈÒ»Ñù£¬µ«ÊÇ»·ÐÎ½»²æ¿Ú£¬ÒÔ¼°ÒÔºóµÄÍØÕ¹³ýÍâ
+            Road的一条有向边，一条道路有两条边 一般来讲Edge的长度与Lane长度一样，但是环形交叉口，以及以后的拓展除外
              </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Way.iTimeStep">
             <summary>
-            µ±Ç°ËùÓÐÂ·¶ÎµÄÍ¬²½Ê±¿Ì
+            当前所有路段的同步时刻
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.WaysBind(SubSys_SimDriving.TrafficModel.Way,SubSys_SimDriving.TrafficModel.Way)">
             <summary>
-            Ç¿ÖÆÏÈ¹¹Ôì½Úµã
+            强制先构造节点
             </summary>
             <param name="from"></param>
             <param name="to"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.AddLane(SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
-            ÓÉ¸ºÔðÌí¼ÓµÄÀà½øÐÐ·ÂÕæÉÏÏÂÎÄÍ¬²½,ÄÚ²¿½øÐÐÁËRoadLane×¢²á
+            由负责添加的类进行仿真上下文同步,内部进行了RoadLane注册
             </summary>
             <param name="rl"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.RemoveLane(SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
-            ÓÉ¸ºÔðÉ¾³ýµÄÀà½øÐÐ·ÂÕæÉÏÏÂÎÄÍ¬²½
+            由负责删除的类进行仿真上下文同步
             </summary>
             <param name="rl"></param>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Way._lanes">
             <summary>
-            ´æ´¢±ßÄÚ²¿µÄ³µµÀroadlane£¬Õâ¸öÓësimContext ²»Í¬
+            存储边内部的车道roadlane，这个与simContext 不同
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Way.Lanes">
             <summary>
-            µÀÂ·£¨µ¥Ïò£©ËùÓÐ³µµÀµÄ¼¯ºÏ
+            道路（单向）所有车道的集合
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Way.TripCost">
             <summary>
-            Â·¶ÎµÄ½»Í¨·ÑÓÃ/³É±¾
+            路段的交通费用/成本
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.UpdateTripCost">
             <summary>
-            ¸üÐÂÂ·¶ÎµÄ½»Í¨³É±¾
+            更新路段的交通成本
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.GetHashCode">
             <summary>
-            ¸ù¾ÝÆðÊ¼½ÚµãºÍ½áÊø½Úµã¼ÆËã±ßµÄ¹þÏ£Öµ
+            根据起始节点和结束节点计算边的哈希值
             </summary>
             <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.GetHashCode(SubSys_SimDriving.TrafficModel.XNode,SubSys_SimDriving.TrafficModel.XNode)">
             <summary>
-            ¾²Ì¬µÄ¹þÏ£º¯Êý£¬ÓÃÀ´¼ÆËãÄ³Ìõ±ßµÄ¹þÏ£Öµ
+            静态的哈希函数，用来计算某条边的哈希值
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.UpdateStatus">
             <summary>
-            ¹ýÊ±µÄ£¬ÀÏ¾ÉµÄº¯Êýµ÷ÓÃvisitor Ä£Ê½ÈçvmsagentµÈ¡£È»ºóÇý¶¯Ôª°ûÄ£ÐÍ£¬È»ºóµ÷ÓÃËùÓÐ·þÎñ
+            过时的，老旧的函数调用visitor 模式如vmsagent等。然后驱动元胞模型，然后调用所有服务
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.OnStatusChanged">
             <summary>
-            Â·¶ÎµÄOnStatusChangedÎ¯ÍÐ¸øRoadLane´¦Àí
+            路段的OnStatusChanged委托给RoadLane处理
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.ToVector">
             <summary>
-            ÆðµãÏòÁ¿¼õÈ¥ÖÕµãÏòÁ¿
+            起点向量减去终点向量
             </summary>
             <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.FindReverse">
             <summary>
-            »ñÈ¡ÔÚÒ»¸öRoadÄÚ²¿µÄÓëWayÏà¶ÔÓ¦µÄ·´ÏòÂ·¶Î
+            获取在一个Road内部的与Way相对应的反向路段
             </summary>
             <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Way.ModifySignalGroup(SubSys_SimDriving.SignalLight,SubSys_SimDriving.TrafficModel.LaneType)">
             <summary>
-            ÐÞ¸ÄÐÅºÅµÆ×éºÏ
+            修改信号灯组合
             </summary>
-            <param name="sl">ÐÂµÄÐÅºÅµÆ</param>
-            <param name="lt">ÒªÐÞ¸ÄµÄ³µµÀÀàÐÍ</param>
+            <param name="sl">新的信号灯</param>
+            <param name="lt">要修改的车道类型</param>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Way.iSpeedLimit">
             <summary>
-            Â·¶ÎÏÞËÙ
+            路段限速
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.Lane">
             <summary>
-            ½»Í¨ÊµÌåÀïÃæµÄ³µµÀ,Ô­À´µÄlaneÊý¾Ý½á¹¹
+            交通实体里面的车道,原来的lane数据结构
             </summary>
             <summary>
-            2015Äê1ÔÂ19ÈÕ£¬¶ÔÔ­À´µÄlane½øÐÐÉý¼¶¡£²¢±£³ÖºÍÔ­ÓÐ²¿·Ö´úÂëµÄ¼æÈÝ
+            2015年1月19日，对原来的lane进行升级。并保持和原有部分代码的兼容
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Lane.iCount">
             <summary>
-            È«¾ÖµÄ³µµÀ¼ÆÊýÆ÷£¬ÓÃÀ´³õÊ¼»¯³µµÀID
+            全局的车道计数器，用来初始化车道ID
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Lane.Shape">
             <summary>
-            ÓëÓÃ»§½çÃæ»æÍ¼ÓÐ¹ØµÄÒ»ÏµÁÐµã¿Õ¼ä×é³É¡£
-            ³µµÀ¿ªÊ¼µÄµØµã£¬ÊÇ½»²æ¿ÚµÄÇ°·½£¬µÚÒ»¸öµã£¬ÆäË÷Òý×îÐ¡£¬³µµÀ½áÊøµÄµØµã£¬ÊÇ½»²æ¿ÚµÄºó·½£¬Ò»¸ö³µµÀµÄ×îÄ©Ò»¸öµãµÄË÷Òý×î´ó
-            Ë÷ÒýµÄ´óÐ¡Óë³µµÀµÄ·½ÏòÏà·´¡£
+            与用户界面绘图有关的一系列点空间组成。
+            车道开始的地点，是交叉口的前方，第一个点，其索引最小，车道结束的地点，是交叉口的后方，一个车道的最末一个点的索引最大
+            索引的大小与车道的方向相反。
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.CreateShape">
             <summary>
-            ÓÃÍ¼ÐÎ½çÃæ×ø±êÏµ£¬×ª»¯ÎªÔª°û×ø±êÏµ,create a shape of a lane
+            用图形界面坐标系，转化为元胞坐标系,create a shape of a lane
             </summary>
             <param name="eShape"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.IsLaneBlocked(System.Int32)">
             <summary>
-            Ã»ÓÐµ÷ÓÃ£¬ÔÝÊ±²»ÖØÐ´
+            没有调用，暂时不重写
             </summary>
             <param name="iAheadSpace"></param>
             <returns></returns>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Lane.Rank">
              <summary>
-            ³µµÀµÄÅÅÐò£¬´ÓÄÚ²à³µµÀ¿ªÊ¼µÄµÚ¼¸¸ö³µµÀ,ÓÃÀ´¶Ô³µµÀ½øÐÐÅÅÐò£¬µÚÒ»¸ö³µµÀµÄRank ÊÇ1
+            车道的排序，从内侧车道开始的第几个车道,用来对车道进行排序，第一个车道的Rank 是1
              </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Lane.SignalLight">
             <summary>
-            ·Ö³µµÀµÄÐÅºÅ
+            分车道的信号
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.PlaySignal(System.Int32)">
             <summary>
-            ÐÅºÅµÆÔËÐÐº¯Êý,modified on date 2016/1/27
+            信号灯运行函数,modified on date 2016/1/27
             </summary>
-            <param name="iCrtTimeStep">ºìµÆÊ±³¤</param>
+            <param name="iCrtTimeStep">红灯时长</param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.ToVector">
             <summary>
@@ -539,25 +539,25 @@
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.#ctor(SubSys_SimDriving.TrafficModel.Way,SubSys_SimDriving.TrafficModel.LaneType)">
             <summary>
-            Ã»ÓÐ½øÐÐÄÚ²¿×¢²á£¬Ó¦µ±ÓÉÆä¹ÜÀíÕßµ÷ÓÃregistere½øÐÐ×¢²á
+            没有进行内部注册，应当由其管理者调用registere进行注册
             </summary>
             <param name="re"></param>
             <param name="lt"></param>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.Lane.laneType">
             <summary>
-            ¹ýÊ±µÄ£¬Õâ¸öº¯ÊýÐèÒªÐÞ¸Ä
+            过时的，这个函数需要修改
             </summary>
             <param name="ce"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.UpdateStatus">
             <summary>
-            Ã»ÓÐµ÷ÓÃvisitorÄ£Ê½£¬µ÷ÓÃËùÓÐ¸½¼ÓµÄ·þÎñ¡¢´¦ÀíµÈ´ý¶ÓÁÐ
+            没有调用visitor模式，调用所有附加的服务、处理等待队列
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.CompareTo(SubSys_SimDriving.TrafficModel.Lane,SubSys_SimDriving.TrafficModel.Lane)">
             <summary>
-            ¾²Ì¬·½·¨
+            静态方法
             </summary>
             <param name="from"></param>
             <param name="to"></param>
@@ -565,17 +565,17 @@
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Lane.Mobiles">
             <summary>
-            ÓÃÀ´±£´æ´æ´¢ÔÚ½»²æ¿ÚºÍ³µµÀµÈÄÚ²¿µÄ³µÁ¾¡£
+            用来保存存储在交叉口和车道等内部的车辆。
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.Lane.ServeMobiles">
             <summary>
-            ½«µÈ´ý¶ÓÁÐÖÐµÄÔª°ûÌí¼Óµ½³µµÀÔª°ûÖÐ
+            将等待队列中的元胞添加到车道元胞中
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Lane.LaneSpace">
             <summary>
-            ÅÐ¶Ï´ÓµÀÂ·Æðµã´¦µ½ÓÐ³µÕ¼¾ÝµÄµØ·½µÄÔª°ûÍø¸ñ¸öÊý
+            判断从道路起点处到有车占据的地方的元胞网格个数
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.Lane.Left">
@@ -590,106 +590,106 @@
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.RoadNet">
             <summary>
-            Ó¦µ±ÊµÏÖÎªµ¥ÀýÄ£Ê½,RoadNetWork ÊÇsimContextµÄÒ»²¿·Ö
-            RoadNetWork Ó¦µ±³Ð³Ðµ£Â·Íø½Úµã¹¤³§µÄÔðÈÎ
+            应当实现为单例模式,RoadNetWork 是simContext的一部分
+            RoadNetWork 应当承承担路网节点工厂的责任
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.RoadNet.#ctor">
              <summary>
-            µ¥ÀýÄ£Ê½ ·ÀÖ¹Ö±½Óµ÷ÓÃ½Ó¿ÚÉú³É¸ÃÀà,Â·ÍøµÄ±ßÊ¹ÓÃÁËsimContext
-            Â·ÍøµÄ½Úµã±íÊ¹ÓÃÁËsimContext
+            单例模式 防止直接调用接口生成该类,路网的边使用了simContext
+            路网的节点表使用了simContext
              </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.RoadNet._roadNet">
             <summary>
-            ¾²Ì¬ÒýÓÃË½ÓÐÒýÓÃ£¬Ö»ÄÜÍ¨¹ýgetInstance´´½¨ÀàµÄÊµÀý
+            静态引用私有引用，只能通过getInstance创建类的实例
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.ways">
             <summary>
-            ±ß×ÖµäÊ¹ÓÃ·ÂÕæÉÏÏÂÎÄ
+            边字典使用仿真上下文
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.lanes">
             <summary>
-            »ñÈ¡ËùÓÐµÄ³µµÀÊÇ·ñÓÐ±ØÒª£¬ÒòÎª¸Ã²¿·ÖÒÑ¾­´æÔÚÁËRoadEdgeÖÐÁË
+            获取所有的车道是否有必要，因为该部分已经存在了RoadEdge中了
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.RoadNet.adTab">
             <summary>
-            ½ö½öÊÇÁÚ½Ó±íÀïÃæµÄ½Úµã×ÖµäÊ¹ÓÃ·ÂÕæÉÏÏÂÎÄ
+            仅仅是邻接表里面的节点字典使用仿真上下文
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.RoadNet.BulidRoad(System.Drawing.Point,System.Drawing.Point)">
             <summary>
-            ´´½¨Ò»¸öË«Ïòway µÄRoad£¬
+            创建一个双向way 的Road，
             </summary>
-            <param name="start">ÕýÏòwayµÄÆðµã£¬·´ÏòµÀÂ·µÄÖÕµã</param>
-            <param name="end">·´ÏòwayµÄÆðµã£¬·´ÏòµÀÂ·µÄÖÕµã</param>
+            <param name="start">正向way的起点，反向道路的终点</param>
+            <param name="end">反向way的起点，反向道路的终点</param>
             <returns></returns>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.XNode">
             <summary>
-            Ê¹ÓÃ¾ØÕóÀàÐÍdata structure
-            ÎåÂ·½»²æ.»·Â·µÄÖ§³ÖÓÐ´ýÌÖÂÛ£¬ÈýÂ·½»²æ,crossings are supported
-            ±íÊ¾µÀÂ·½»²æ¿ÚµÄÀà
+            使用矩阵类型data structure
+            五路交叉.环路的支持有待讨论，三路交叉,crossings are supported
+            表示道路交叉口的类
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.XNode._mobiles">
             <summary>
-            ÐÂµÄroadnodeµÄ¹þÏ£É¢ÁÐÖµÓÉÆäÖÐÐÄPositionµÄ¹þÏ£ÖµºÍÆäID¹¹³É
+            新的roadnode的哈希散列值由其中心Position的哈希值和其ID构成
             </summary>
             <returns></returns>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.XNode._dicEdges">
             <summary>
-            ´æÖü±¾½ÚµãËùÓÐ³ö±ßµÄ¹þÏ£±í£¬¼üÖµÊÇ´ú±í±ßµÄWay¹þÏ££¬ÖµÊÇ´ú±íWay
+            存贮本节点所有出边的哈希表，键值是代表边的Way哈希，值是代表Way
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.GetEnumerator">
             <summary>
-            Ìá¹©¶Ô¹þÏ£¾ØÕóÄÚ²¿ÔªËØµÄ±éÀú
+            提供对哈希矩阵内部元素的遍历
             </summary>
             <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.AddWay(SubSys_SimDriving.TrafficModel.Way)">
             <summary>
-            ×¢ÒâÔÚ³ö±ß±íÖÐ£¬±£³ÖWayµÄfrom×Ö¶ÎÊÇthis½Úµã£¬·ñÔòº¯ÊýÅ×³öÒì³£
+            注意在出边表中，保持Way的from字段是this节点，否则函数抛出异常
             </summary>
             <param name="Way"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.RemoveWay(SubSys_SimDriving.TrafficModel.Way)">
             <summary>
-            ÕÒµ½±ß ´Óthisµ½toNode½ÚµãµÄ±ß£¬³ö±ß±í
+            找到边 从this到toNode节点的边，出边表
             </summary>
             <param name="fromRN"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.FindWay(SubSys_SimDriving.TrafficModel.XNode)">
             <summary>
-            ²éÕÒ·½·¨£¬ÐÂµÄ½á¹¹²ÉÓÃ³ö±ß±í
+            查找方法，新的结构采用出边表
             </summary>
-            <param name="toRoadNode">³ö½Úµã</param>
+            <param name="toRoadNode">出节点</param>
             <returns></returns>
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.XNode.iXNodeID">
             <summary>
-            ¿ØÖÆXNodeIDµÄÊýÁ¿
+            控制XNodeID的数量
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.UpdateStatus">
             <summary>
-            ¸üÐÂagent£¬¸üÐÂÔª°û£¨¼ÝÊ»£©£¬µ÷ÓÃ·þÎñ
+            更新agent，更新元胞（驾驶），调用服务
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.ServeMobiles">
             <summary>
-            ´¦Àí½»²æ¿ÚµÄµÈ´ý³µÁ¾ÊýÁ¿,a mobile that can enter xnode was added to mobilesInn.
+            处理交叉口的等待车辆数量,a mobile that can enter xnode was added to mobilesInn.
             see driverstratigy for details
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficModel.XNode.IsOccupied(SubSys_MathUtility.OxyzPointF)">
             <summary>
-            ÅÐ¶ÏÖ¸¶¨³µµÀÇ°²¿µÚAhead¸öÎ»ÖÃ´¦ÊÇ·ñÓÐÔª°ûÕ¼¾Ý
+            判断指定车道前部第Ahead个位置处是否有元胞占据
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficModel.XNode.Length">
@@ -699,7 +699,7 @@
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.SpeedLevel">
             <summary>
-            ×Ü¹²Ê®¶þ¼¶ËÙ¶È£¬¸ù¾ÝÔª°û¹æÔò£¬×î¶àÒ»´ÎÇ°½ø12¸öÔª°û
+            总共十二级速度，根据元胞规则，最多一次前进12个元胞
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficModel.CarInfo">
@@ -796,114 +796,114 @@
         </member>
         <member name="F:SubSys_SimDriving.TrafficModel.ModelSetting.dRate">
             <summary>
-            ½»²æ¿ÚµÄ×î´óÔª°ûÊý£¬µÈÓÚRoadedgeÄÚ²¿¿ÉÒÔÈÝÄÉµÄ×î´ó³µµÀÊýÁ¿
+            交叉口的最大元胞数，等于Roadedge内部可以容纳的最大车道数量
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.RoutePlan.EdgeRoute.GetDirection(SubSys_SimDriving.TrafficModel.Way)">
             <summary>
-            ·µ»ØÏÂÒ»²½ÒªÇ°½øµÄ·½Ïò,-1±íÊ¾×ó×ª 0±íÊ¾Ö±ÐÐ 1±íÊ¾ÓÒ×ª£¬2±íÊ¾µôÍ·
+            返回下一步要前进的方向,-1表示左转 0表示直行 1表示右转，2表示掉头
             </summary>
-            <param name="re">µ±Ç°³µÁ¾ËùÔÚµÄµÀÂ·</param>
+            <param name="re">当前车辆所在的道路</param>
             <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.RoutePlan.Route`1.FindNext(`0)">
             <summary>
-            ÕÒµ½µ±Ç°Ä¿±êµÄÏÂÒ»¸öÄ¿±ê
+            找到当前目标的下一个目标
             </summary>
             <param name="t"></param>
             <returns></returns>
         </member>
         <member name="M:SubSys_SimDriving.RoutePlan.RouteChoiceMaker.Select(SubSys_SimDriving.RoutePlan.EdgeRoute,SubSys_SimDriving.RoutePlan.EdgeRoute)">
             <summary>
-            Ê¹ÓÃÀëÉ¢Ñ¡ÔñÄ£ÐÍÖÐµÄlogitÄ£ÐÍ½øÐÐÂ·¾¶µÄÑ¡Ôñ¡£
-            ·µ»Ø1´ú±íÑ¡ÔñÂ·¾¶A£¬·µ»Ø2´ú±íÑ¡ÔñÂ·¾¶B
+            使用离散选择模型中的logit模型进行路径的选择。
+            返回1代表选择路径A，返回2代表选择路径B
             </summary>
             <returns></returns>
         </member>
         <member name="T:SubSys_SimDriving.DataRecorder`2">
             <summary>
-            ³éÏóÀà
+            抽象类
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.CarInfoDic">
             <summary>
-            ËùÓÐ³µÁ¾µÄÔË¶¯¹ì¼£¼ÇÂ¼¹þÏ£±í£¬ÀûÓÃ³µÁ¾¹þÏ£Öµ²éÕÒ³µÁ¾
+            所有车辆的运动轨迹记录哈希表，利用车辆哈希值查找车辆
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.EntityDics">
             <summary>
-            ¹þ±íË÷ÒýÊ÷£¬´ÎÄÚ²ã£¬±£´æÒ»¸öÂ·¶ÎÉÏµÄ³µÁ¾ÐÅÏ¢£¬ÀûÓÃÂ·¶Î¹þÏ£½øÐÐË÷Òý
-            Õë¶Ô»»µÀÎÊÌâ¡£¿ÉÒÔÔö¼Ó³µÁ¾ÔÚÄÄ¸ö³µµÀµÄ¼ÇÂ¼
+            哈表索引树，次内层，保存一个路段上的车辆信息，利用路段哈希进行索引
+            针对换道问题。可以增加车辆在哪个车道的记录
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.StaticDics`2">
             <summary>
-            ¿ÉÒÔ×öÓÃ×÷µÄÒ»Î¬Ë÷Òý¹þÏ£±í£¨TvalueÊÇÀàÐÍ£©£¬Ò²¿ÉÒÔ×ö¶þÎ¬Ë÷Òý¹þÏ£±í£¨TvalueÊÇ¼¯ºÏ£©
+            可以做用作的一维索引哈希表（Tvalue是类型），也可以做二维索引哈希表（Tvalue是集合）
             </summary>
             <typeparam name="TKey"></typeparam>
             <typeparam name="TValue"></typeparam>
         </member>
         <member name="T:SubSys_SimDriving.XNodeDics">
             <summary>
-            ²»¼Ì³Ð×ÔstaticSystable
+            不继承自staticSystable
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.ISimContext.DataRecorder">
             <summary>
-            ¼ÇÂ¼Ì¬¹þÏ£±í
+            记录态哈希表
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.SimContext">
             <summary>
-            µ¥ÀýÄ£Ê½£¬¹ØÓÚ×¢²á£¬ËùÓÐ×¢²áÖ®Ç°Ó¦µ±¼ì²éÊÇ·ñÒÑ¾­×¢²á¹ýÁË
-            Ó¦µ±ÓÉroadnetwork³Ðµ£Ò»²¿·ÖµÄ¹¤³§ÔðÈÎ£¬Íâ½ç²»Ó¦ÏÔÊ½µÄµ÷ÓÃ×¢²á£¬
-            ×¢²á·þÎñ¶ÔÍâ²¿×é¼þÊÇÍ¸Ã÷µÄ£¬×¢²áÊ¹ÓÃÇëÇó/¾Ü¾øÄ£ÐÍ,×¢²áÓ¦µ±Í³Ò»Ê¹ÓÃ·þÎñÊµÏÖ
-            simContextÄÚ²¿ËùÓÐ×¢²áÊý¾ÝÓ¦µ±¶ÔÍâÊÇ¿É¶ÁµÄ£¬²»¿ÉÒÔÐÞ¸ÄµÄ
+            单例模式，关于注册，所有注册之前应当检查是否已经注册过了
+            应当由roadnetwork承担一部分的工厂责任，外界不应显式的调用注册，
+            注册服务对外部组件是透明的，注册使用请求/拒绝模型,注册应当统一使用服务实现
+            simContext内部所有注册数据应当对外是可读的，不可以修改的
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.SimContext.#ctor">
              <summary>
-            µ¥ÀýÄ£Ê½ ·ÀÖ¹Ö±½Óµ÷ÓÃ½Ó¿ÚÉú³É¸ÃÀà±ð
+            单例模式 防止直接调用接口生成该类别
              </summary>
         </member>
         <member name="P:SubSys_SimDriving.SimContext.iCurrTimeStep">
             <summary>
-            ·ÂÕæÔËÐÐµÄÊ±¼ä²½Öè
+            仿真运行的时间步骤
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimContext._DataRecorder">
             <summary>
-            ¼ÇÂ¼Ì¬¹þÏ£±í
+            记录态哈希表
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.SimContext.SubSys_SimDriving#ISimContext#iTimePulse">
             <summary>
-            µ¥ÀýÄ£Ê½
+            单例模式
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.SimContext.SubSys_SimDriving#ISimContext#RoadNet">
             <summary>
-            ±íÊ¾ÔËÐÐÊ±½¨Á¢µÄÂ·ÍøµÄ½á¹¹£¬ÀïÃæ°üº¬ÁË¶ÔRoadNodeListºÍWayListµÄÒýÓÃ
+            表示运行时建立的路网的结构，里面包含了对RoadNodeList和WayList的引用
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.Service.EventAttachService">
             <summary>
-            Ò²²»ÊÇËùÓÐµÄÊµÌå¶¼ÓÐEventAttacherLogger¡£ÐèÒª×¢²á²¢ÇÒÊµÏÖ
+            也不是所有的实体都有EventAttacherLogger。需要注册并且实现
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.Service.IService">
             <summary>
-            ¹Û²ìÕß½Ó¿Ú
+            观察者接口
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.Service.Service.IsServiceUp">
             <summary>
-            ·þÎñÔËÐÐµÄ¿ª¹Ø±äÁ¿
+            服务运行的开关变量
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.Service.Service.IsRunning">
             <summary>
-            Èç¹ûÈ«¾Ö¿ª¹Ø¹Ø±ÕÔòÒ»¶¨·µ»Øfalse
+            如果全局开关关闭则一定返回false
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.Service.Service.Perform(SubSys_SimDriving.IEntity)">
@@ -914,58 +914,58 @@
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iMaxLanes">
             <summary>
-            ½»²æ¿ÚµÄ×î´óÔª°ûÊý£¬µÈÓÚRoadedgeÄÚ²¿¿ÉÒÔÈÝÄÉµÄ×î´ó³µµÀÊýÁ¿
+            交叉口的最大元胞数，等于Roadedge内部可以容纳的最大车道数量
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iCellWidth">
             <summary>
-            Ôª°û³µÁ¾µÄ¿í¶ÈÊÇ2Ã×Õâ¸öÓëGIS×ø±ê½øÐÐ×ª»¯µÄÊ±ºòÊ¹ÓÃ
+            元胞车辆的宽度是2米这个与GIS坐标进行转化的时候使用
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iSafeHeadWay">
             <summary>
-            °²È«³µÍ·Ê±¾à
+            安全车头时距
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iExtendLength">
             <summary>
-            Õ¹¿í½¥±ä¶ÎµÄ³¤¶ÈÎª10¸öÔª°û£¬60Ã×
+            展宽渐变段的长度为10个元胞，60米
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iCarWidth">
             <summary>
-            ±íÊ¾±ê×¼Ð¡Æû³µ¿í¶ÈµÄÔª°û¸öÊý
+            表示标准小汽车宽度的元胞个数
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SimSettings.iCarLength">
             <summary>
-            ±íÊ¾±ê×¼Ð¡Æû³µ³¤¶ÈµÄÔª°û¸öÊý
+            表示标准小汽车长度的元胞个数
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.IEntity.ISimCtx">
             <summary>
-            ·ÂÕæÔËÐÐµÄ¾²Ì¬Êý¾Ý£¬½»Í¨ÊµÌåÔËÐÐµÄÊý¾Ý»·¾³£¬°üÀ¨¸÷ÖÖ·ÂÕæÏµÍ³ÔËÐÐÐèÒªµÄÊý¾Ý½á¹¹
+            仿真运行的静态数据，交通实体运行的数据环境，包括各种仿真系统运行需要的数据结构
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.IEntity.Container">
             <summary>
-            ÈÝÆ÷½»Í¨ÊµÌå£¬ÈçµÀÂ·ÊÇÂ·¶ÎµÄÈÝÆ÷¡£Â·¶ÎÊÇ³µµÀµÄÈÝÆ÷
+            容器交通实体，如道路是路段的容器。路段是车道的容器
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.IEntity.EntityType">
             <summary>
-            ½»Í¨ÊµÌåµÄÀàÐÍ£¬VMS£¬Car£¬TrafficLight µÈ
+            交通实体的类型，VMS，Car，TrafficLight 等
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.IEntity.GISGrid">
             <summary>
-            Ïà¶ÔÓÚGISµÄ¾ø¶Ô×ø±ê
+            相对于GIS的绝对坐标
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.IEntity.Shape">
             <summary>
-            ½»Í¨ÊµÌåµÄGIS×ø±ê×ª»»ÎªÔª°û×ø±êÖ®ºóµÄÐÎ×´ÇúÏß,¸ÃÊôÐÔÊÇ½«½»Í¨ÊµÌåÓëGIS¼¯³ÉµÄ¹Ø¼ü
-            ½»Í¨ÊµÌåµÄÐÎ×´¿ÉÒÔÊÇÇúÏß£¬ÀûÓÃGDI»­ÇúÏßº¯Êý½øÐÐäÖÈ¾£¬²»ÔÙ¾ÖÏÞÓÚÖ±ÏßÐÎ×´
+            交通实体的GIS坐标转换为元胞坐标之后的形状曲线,该属性是将交通实体与GIS集成的关键
+            交通实体的形状可以是曲线，利用GDI画曲线函数进行渲染，不再局限于直线形状
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.IEntity.SpatialGrid">
@@ -975,68 +975,68 @@
         </member>
         <member name="T:SubSys_SimDriving.StaticOBJ">
             <summary>
-            ±íÊ¾½»²æ¿ÚXNode£¬Â·¶Îway£¬³µµÀLane,µÀÂ·RoadµÄ»ùÀàÐÍ
-             ÖÇÄÜÌåµÄ¸üÐÂÊ¹ÓÃÁË·ÃÎÊÕßÄ£Ê½
+            表示交叉口XNode，路段way，车道Lane,道路Road的基类型
+             智能体的更新使用了访问者模式
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.StaticOBJ._mobilesInn">
             <summary>
-            _2015Äê1ÔÂÐÂÔöµÄÄÚÈÝ£¬Ô­ÓÐµÄ³ÉÔ±ºÍ·½·¨½«±»²¿·Ö·ÏÆú
+            _2015年1月新增的内容，原有的成员和方法将被部分废弃
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.StaticOBJ.MobilesInn">
             <summary>
-            µÈ´ý½øÈëÊµÌåµÄµÀµÄµÈ´ýmobileEntity£¬Êµ¼ÊÉÏÊÇµÈ´ý¶ÓÁÐ£¬½»²æ¿ÚºÍ³µµÀ¶¼ÓÐ¡£
-            ÕæÕý´æ´¢³µÁ¾Î»ÖÃµÄÈÝÆ÷£¬ÒòÎª³µµÀÓë½»²æ¿Ú²»Í¬£¬ÔÚ¸÷×ÔÄÚ²¿ÓÃ²»ÓÃµÄÊý¾Ý½á¹¹ÊµÏÖ
+            等待进入实体的道的等待mobileEntity，实际上是等待队列，交叉口和车道都有。
+            真正存储车辆位置的容器，因为车道与交叉口不同，在各自内部用不用的数据结构实现
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.StaticOBJ.EnterInn(SubSys_SimDriving.TrafficModel.MobileOBJ)">
             <summary>
-            ÓÃÓÚ´¦ÀíÔÝÊ±ÎÞ·¨½øÈë³µµÀµÄ³µÁ¾µÄÁÙÊ±¶ÓÁÐ£¬Ã¿¸ö½»²æ¿Ú¸üÐÂÖÜÆÚ£¬Ðë½øÈë³µµÀµÄÔª°ûµÄ»º´æ£¬ÔÚÏÂÒ»¸öµÀÂ·¸üÐÂÖÜÆÚ£¬½«»º´æÄÉÈë³µµÀ¡£»ùÀàµÄ·½·¨£¬Ó¦µ±ÓÉ×ÓÀà¡£laneºÍXnodeÖØÐ´£»
+            用于处理暂时无法进入车道的车辆的临时队列，每个交叉口更新周期，须进入车道的元胞的缓存，在下一个道路更新周期，将缓存纳入车道。基类的方法，应当由子类。lane和Xnode重写；
             </summary>
             <param name="me"></param>
         </member>
         <member name="M:SubSys_SimDriving.StaticOBJ.ServeMobiles">
             <summary>
-            ³éÏó·½·¨¡¢ÐèÒªlaneºÍxnodeÊµÏÖ£¬½«µÈ´ý¶ÓÁÐÖÐµÄmobileÌí¼Óµ½update mobile
+            抽象方法、需要lane和xnode实现，将等待队列中的mobile添加到update mobile
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SignalLight.SigCycle">
             <summary>
-            ÖÜÆÚÊ±³¤
+            周期时长
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SignalLight.GreenLength">
             <summary>
-            ÂÌµÆÊ±¼ä
+            绿灯时间
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SignalLight.RedLength">
             <summary>
-            ºìµÆÊ±¼ä30
+            红灯时间30
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SignalLight.YellowLength">
             <summary>
-            »ÆµÆÊ±¼ä£¬ÔÝÊ±²»Ê¹ÓÃ
+            黄灯时间，暂时不使用
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.SignalLight.iOffSet">
             <summary>
-            ÏàÎ»²î£¬´Ó·ÂÕæ»ù×¼Ê±¼ä¿ªÊ¼µÄÊ±¿Ì
+            相位差，从仿真基准时间开始的时刻
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.SignalLight.#ctor">
             <summary>
-            ÄÚ²¿µ÷ÓÃÐÅºÅµÆ×¢²áÒ»ÏÂ
+            内部调用信号灯注册一下
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.TrafficOBJ">
             <summary>
-            ¹Û²ìÕßÄ£Ê½ÖÐµÄsubject±»¹Û²ìÕß
+            观察者模式中的subject被观察者
             </summary>
             <summary>
-            2015Äê1ÔÂ19ÈÕ¸üÐÂ£¬ÐÂÔö¼ÓµÄÄÚÈÝ¡£
+            2015年1月19日更新，新增加的内容。
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficOBJ.TypeID">
@@ -1046,107 +1046,107 @@
         </member>
         <member name="M:SubSys_SimDriving.TrafficOBJ.InvokeServices(SubSys_SimDriving.IEntity)">
             <summary>
-            µ÷ÓÃ·þÎñµÄ¹¦ÄÜ
+            调用服务的功能
             </summary>
             <param name="te"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficOBJ.RemoveService(SubSys_SimDriving.Service.IService)">
             <summary>
-            É¾³ý½»Í¨ÊµÌåÒªÊ¹ÓÃµÄ·þÎñ
+            删除交通实体要使用的服务
             </summary>
             <param name="ils"></param>
         </member>
         <member name="F:SubSys_SimDriving.TrafficOBJ._entityID">
             <summary>
-            ÏòsimContext ±¨µÀÀàµÄ´´½¨ÐÐÎª,×¢²á²»Ó¦µ±ÉùÃ÷Îª·þÎñ£¬·þÎñÃ¿¸öÑ­»·ÖÜÆÚ¶¼µ÷ÓÃ
-            ×¢²áÕâÀàÓ¦µ±ÔÚ¹¤³§·½·¨ÀïÃæÉ¾³ý¡£
+            向simContext 报道类的创建行为,注册不应当声明为服务，服务每个循环周期都调用
+            注册这类应当在工厂方法里面删除。
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.Width">
             <summary>
-            ÓÃÔª°û¸öÊý¼ÆËãµÄÊµÌåµÄ¿í¶È£¬Êµ¼Ê¿í¶ÈµÈÓÚiWidth*Ôª°û´ú±íµÄ¾àÀë
+            用元胞个数计算的实体的宽度，实际宽度等于iWidth*元胞代表的距离
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.TrueWidth">
             <summary>
-            ÓÃÔª°û¸öÊý¼ÆËãµÄÊµÌåµÄ¿í¶È£¬Êµ¼Ê¿í¶ÈµÈÓÚiWidth*Ôª°û´ú±íµÄ¾àÀë
+            用元胞个数计算的实体的宽度，实际宽度等于iWidth*元胞代表的距离
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.TrueLength">
             <summary>
-            ÓÃÔª°û¸öÊý¼ÆËãµÄÊµÌåµÄ³¤¶È¡£Êµ¼Ê³¤¶ÈµÈÓÚiLength*Ôª°û´ú±íµÄ¾àÀë
+            用元胞个数计算的实体的长度。实际长度等于iLength*元胞代表的距离
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.EntityType">
             <summary>
-            TrafficEntityËù´ú±íµÄÀàÐÍ,ÊÇ½»Í¨µÆ,³µÁ¾.»¹ÊÇ½¨Öþ
+            TrafficEntity所代表的类型,是交通灯,车辆.还是建筑
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.ISimCtx">
             <summary>
-            ¶ÔÓÚRoadNode¸Ã×ø±êÎªÒÔÔª°û³¤¶ÈÎªµ¥Î»µÄÏà¶Ô×ø±ê£¬¸Ã×ø±êÎªÆÁÄ»×ø±ê
-            ³ýÒÔÔª°ûµÄGUI³¤¶È
-            ¶ÔÓÚRoadLaneºÍWayÒÔ¼°Cell£¬¸Ã×ø±êXÎªÏà¶ÔÓÚÆðµãRoadNodeµÄÔª°û¸öÊý
-            YÎªÏà¶ÔÓÚÆðµãRoadNodeµÄÆ«ÒÆ£¨¼´µÚ¼¸¸ö³µµÀ£©
+            对于RoadNode该坐标为以元胞长度为单位的相对坐标，该坐标为屏幕坐标
+            除以元胞的GUI长度
+            对于RoadLane和Way以及Cell，该坐标X为相对于起点RoadNode的元胞个数
+            Y为相对于起点RoadNode的偏移（即第几个车道）
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.GISGrid">
             <summary>
-            Î´À´¼æÈÝGISÏµÍ³Ô¤ÁôµÄGIS×ø±êÏµ
+            未来兼容GIS系统预留的GIS坐标系
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.Shape">
             <summary>
-            ×ÓÀàÓ¦µ±ÖØÐ´Õâ¸öÊôÐÔ\ÓÃÓÚGUI»­Í¼µÄÊôÐÔ
+            子类应当重写这个属性\用于GUI画图的属性
             </summary>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.Name">
             <summary>
-            ½»Í¨ÊµÌåµÄÃû³Æ¡¢µÀÂ·Ãû¡¢½»²æ¿ÚÃûµÈ
+            交通实体的名称、道路名、交叉口名等
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficOBJ.asynAgents">
             <summary>
-            ´æ´¢±ßÉÏ¶¨ÒåµÄÒì²½¸üÐÂµÄ¹æÔò
+            存储边上定义的异步更新的规则
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.TrafficOBJ.synAgents">
             <summary>
-            ´æ´¢±ßÉÏ¶¨ÒåµÄÍ¬²½¸üÐÂµÄ¹æÔò
+            存储边上定义的同步更新的规则
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficOBJ.UpdateStatus">
             <summary>
-            ¹ýÊ±µÄ£¬Ô­ÓÐµÄµ÷ÓÃº¯Êý¡¢µ÷ÓÃËùÓÐµÄ·ÃÎÊÕß£¬½øÐÐÄÚ²¿Ôª°ûµÄ¸üÐÂ
+            过时的，原有的调用函数、调用所有的访问者，进行内部元胞的更新
             </summary>
         </member>
         <member name="M:SubSys_SimDriving.TrafficOBJ.AcceptSynAgent(SubSys_SimDriving.Agents.AbstractAgent)">
              <summary>
-            WayÊÇitem £¬AgentÊÇvisitor Ïàµ±ÓÚitem.accept(visitor)
+            Way是item ，Agent是visitor 相当于item.accept(visitor)
              </summary>
              <param name="ur"></param>
         </member>
         <member name="M:SubSys_SimDriving.TrafficOBJ.AcceptAsynAgent(SubSys_SimDriving.Agents.AbstractAgent)">
             <summary>
-            Ìí¼ÓÒì²½¸üÐÂ¹æÔò
+            添加异步更新规则
             </summary>
             <param name="ur"></param>
         </member>
         <member name="P:SubSys_SimDriving.TrafficOBJ.SpatialGrid">
             <summary>
-            3dÔª°û¿Õ¼ä£¬ÎªÁËÀ©Õ¹GIS×ö×¼±¸
+            3d元胞空间，为了扩展GIS做准备
             </summary>
         </member>
         <member name="T:SubSys_SimDriving.EntityDefalult">
             <summary>
-            Ä¬ÈÏµÄÈÝÆ÷ÊµÌå
+            默认的容器实体
             </summary>
         </member>
         <member name="F:SubSys_SimDriving.VMSEntity.Message">
-            VMSÏÔÊ¾µÄÐÅÏ¢
+            VMS显示的信息
         </member>
         <member name="F:SubSys_SimDriving.VMSEntity.iArm">
-            ÓÃÀ´È·¶¨vms×÷ÓÃµÄ·¶Î§£¨Ôª°ûÍø¸ñµÄ³¤¶È£©
+            用来确定vms作用的范围（元胞网格的长度）
         </member>
     </members>
 </doc>

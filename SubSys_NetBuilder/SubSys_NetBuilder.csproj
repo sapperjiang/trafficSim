@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SubSys_NetBuilder</RootNamespace>
     <AssemblyName>SubSys_NetBuilder</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -205,6 +205,10 @@
     <ProjectReference Include="..\MathTools\SubSys_MathUtility.csproj">
       <Project>{bb9010e8-e811-4c0b-86af-6bfb7b0b0f70}</Project>
       <Name>SubSys_MathUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubSys_Graphics\SubSys_Graphics.csproj">
+      <Project>{d9a39ca7-1c9b-4a9f-9c22-c73e32977d9b}</Project>
+      <Name>SubSys_Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\SubSys_SimDriving\SubSys_SimDriving.csproj">
       <Project>{dae0a318-3a89-450c-9095-83dc71e286c6}</Project>
