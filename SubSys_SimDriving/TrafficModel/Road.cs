@@ -43,16 +43,23 @@ namespace SubSys_SimDriving.TrafficModel
 	/// <summary>
 	/// 包含两个way的道路。如果是单行路，只包含一个way
 	/// </summary>
-	public class Road:StaticEntity,IRoad
+	public class Road:StaticOBJ,IRoad
 	{
 		private Way way;
 		private Way ctrWay;
-
+        [System.Obsolete("过时")]
 		internal Road()
 		{
 			this.EntityType = EntityType.Road;
 		}
-		public Way Way
+
+        internal Road(Way way,Way ctrWay)
+        {
+            this.Way = way;
+            this.CtrWay = ctrWay;
+            this.EntityType = EntityType.Road;
+        }
+        public Way Way
 		{
 			get
 			{

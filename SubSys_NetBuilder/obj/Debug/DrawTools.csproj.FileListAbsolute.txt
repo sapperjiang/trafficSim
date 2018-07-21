@@ -1,0 +1,11 @@
+Z:\software\DrawTools\DrawTools\bin\Debug\DrawTools.exe
+Z:\software\DrawTools\DrawTools\bin\Debug\DrawTools.pdb
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.csprojResolveAssemblyReference.cache
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.DrawArea.resources
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.FrmAbout.resources
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.PropertiesDialog.resources
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.Properties.Resources.resources
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.csproj.GenerateResource.Cache
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.exe
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.pdb
+Z:\software\DrawTools\DrawTools\obj\Debug\DrawTools.NetWorkBuilder.resources

@@ -39,7 +39,7 @@ namespace SubSys_SimDriving.TrafficModel
 	internal partial class DriveCtx
 	{
 		//运行的交通实体
-		TrafficEntity Container;
+		TrafficOBJ Container;
 
 		//空间参数
 		public int iFrontHeadWay;
@@ -110,7 +110,7 @@ namespace SubSys_SimDriving.TrafficModel
 	{
 		public bool IsReachEnd =false;
 		
-		public DriveCtx(StaticEntity te)
+		public DriveCtx(StaticOBJ te)
 		{
 			Params = new MobileParam();
 			this.Container = te;

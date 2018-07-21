@@ -12,7 +12,7 @@ namespace SubSys_SimDriving.TrafficModel
 	/// <summary>
 	///Road的一条有向边，一条道路有两条边 一般来讲Edge的长度与Lane长度一样，但是环形交叉口，以及以后的拓展除外
 	/// </summary>
-	public partial class Way : StaticEntity
+	public partial class Way : StaticOBJ
 	{
         public override EntityShape Shape
         {
@@ -36,60 +36,95 @@ namespace SubSys_SimDriving.TrafficModel
         internal static int iTimeStep;
 
 		internal static int iCount = 0;
-		#region 构造函数 部分成员的初始化由RegiserService进行
-		//public Way():this(new RoadNode(),new RoadNode()){}
-		/// <summary>
-		/// 强制先构造节点
-		/// </summary>
-		/// <param name="from"></param>
-		/// <param name="to"></param>
-  //      [System.Obsolete("outdated")]
-		//public Way(XNode from, XNode to)
-		//{
-		//	if (from ==null && to == null)
-		//	{
-		//		throw new ArgumentNullException("无法使用空的节点构造边");
-		//	}
-		//	this.From =from;
-		//	this.To = to;
+        #region 构造函数 部分成员的初始化由RegiserService进行
+        //public Way():this(new RoadNode(),new RoadNode()){}
+        /// <summary>
+        /// 强制先构造节点
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        //      [System.Obsolete("outdated")]
+        //public Way(XNode from, XNode to)
+        //{
+        //	if (from ==null && to == null)
+        //	{
+        //		throw new ArgumentNullException("无法使用空的节点构造边");
+        //	}
+        //	this.From =from;
+        //	this.To = to;
 
-  //          this._lanes = new Lanes();
+        //          this._lanes = new Lanes();
 
-  //          this.EntityType = EntityType.Way;
-		//	this._entityID = ++Way.iCount;
+        //          this.EntityType = EntityType.Way;
+        //	this._entityID = ++Way.iCount;
 
-		//}
-
-        public Way CtrWay
+        //}
+        public static void WaysBind(Way a, Way b)
+        {
+            a.ctrWay = b;
+            b.ctrWay = a;
+        }
+        private Way ctrWay;
+        internal Way CtrWay
         {
             get
             {
-                return this.Container == null ? null : (this.Container as Road).CtrWay;
+                return ctrWay;
+            }
+
+            set
+            {
+                ctrWay = value;
             }
         }
-//		/// <summary>
-//		/// 构造一条从from点到to点的道路
-//		/// </summary>
-//		/// <param name="from"></param>
-//		/// <param name="to"></param>
-//		internal Way(Point from, Point to)
-//		{
-//			this.XNodeFrom =new XNode(from);;
-//			this.XNodeTo =  new XNode(to);
-//			this._lanes = new LaneChain();
-//
-//			this._entityID = ++Way.iRoadCount;
-//
-//		}
-		
-		//internal Way(XNode from, XNode to,TripCostAnalyzer tripCost):this(from,to)
-		//{
-		//	this._tripCostAnalyzer = tripCost;
-		//}
+        //public Way CtrWay
+        //{
+        //    get
+        //    {
+        //        return this.Container == null ? null : (this.Container as Road).CtrWay;
+        //    }
+        //    set
+        //    {
+        //        if (this.Container == null)
+        //        {
+        //            if (value.Container != null)
+        //            {
+        //                (value.Container as Road).CtrWay = this;
+        //                this.CtrWay = value;
+        //            }
+        //            else { 
+        //            new Road(this,value);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            (this.Container as Road).CtrWay = value;
+        //        }
+        //    }
+        //}
+        //		/// <summary>
+        //		/// 构造一条从from点到to点的道路
+        //		/// </summary>
+        //		/// <param name="from"></param>
+        //		/// <param name="to"></param>
+        //		internal Way(Point from, Point to)
+        //		{
+        //			this.XNodeFrom =new XNode(from);;
+        //			this.XNodeTo =  new XNode(to);
+        //			this._lanes = new LaneChain();
+        //
+        //			this._entityID = ++Way.iRoadCount;
+        //
+        //		}
 
-		#endregion
-      //      [System.Obsolete("this fun needs to be restruct!")]
-		public override int Length
+        //internal Way(XNode from, XNode to,TripCostAnalyzer tripCost):this(from,to)
+        //{
+        //	this._tripCostAnalyzer = tripCost;
+        //}
+
+        #endregion
+        //      [System.Obsolete("this fun needs to be restruct!")]
+        public override int Length
 		{
 			get {
                 //int iRealLength = (int)Coordinates.Distance(this.Shape.Start, this.Shape.End)- 2* SimSettings.iMaxLanes;
@@ -247,10 +282,11 @@ namespace SubSys_SimDriving.TrafficModel
 			get { return _tripCost; }
 		}
 
-		/// <summary>
-		/// 更新路段的交通成本
-		/// </summary>
-		[System.Obsolete("不建议使用更新成功")]
+
+        /// <summary>
+        /// 更新路段的交通成本
+        /// </summary>
+        [System.Obsolete("不建议使用更新成功")]
 		internal void UpdateTripCost()
 		{
 			if (this._tripCostAnalyzer != null)
@@ -375,7 +411,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		internal SpeedLevel iSpeedLimit;
 	}
-	public partial class Way : StaticEntity
+	public partial class Way : StaticOBJ
 	{
 		public Way(OxyzPointF opStart,OxyzPointF opEnd)
 		{

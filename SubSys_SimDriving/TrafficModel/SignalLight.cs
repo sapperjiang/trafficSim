@@ -2,7 +2,7 @@ using SubSys_SimDriving;
 
 namespace SubSys_SimDriving
 {
-	public class SignalLight : TrafficEntity
+	public class SignalLight : TrafficOBJ
 	{
 		/// <summary>
 		/// 周期时长

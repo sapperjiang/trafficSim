@@ -11,7 +11,7 @@ namespace SubSys_SimDriving
 	/// <summary>
 	/// 观察者模式中的subject被观察者
 	/// </summary>
-	public abstract partial class TrafficEntity : ITrafficEntity
+	public abstract partial class TrafficOBJ : IEntity
 	{
 		public static int EntityCounter = 0;
 		
@@ -32,7 +32,7 @@ namespace SubSys_SimDriving
 		/// 调用服务的功能
 		/// </summary>
 		/// <param name="te"></param>
-		public virtual void InvokeServices(ITrafficEntity entity)
+		public virtual void InvokeServices(IEntity entity)
 		{
 			foreach (IService service in this._serviceMgr)
 			{
@@ -180,7 +180,7 @@ namespace SubSys_SimDriving
 		
 		private EntityShape _entityShape;// = new EntityShape();
 
-        protected ITrafficEntity _container;//= new EntityDefalult();
+        protected IEntity _container;//= new EntityDefalult();
 
 		/// <summary>
 		/// 子类应当重写这个属性\用于GUI画图的属性
@@ -202,7 +202,7 @@ namespace SubSys_SimDriving
             }
         }
 		
-		public virtual ITrafficEntity Container
+		public virtual IEntity Container
 		{
 			get
 			{
@@ -311,7 +311,7 @@ namespace SubSys_SimDriving
 	/// <summary>
 	/// 2015年1月19日更新，新增加的内容。
 	/// </summary>
-	public abstract partial class TrafficEntity:ITrafficEntity
+	public abstract partial class TrafficOBJ:IEntity
 	{
 		//3d元胞空间
 		private OxyzPointF _oxyzGrid;
@@ -328,7 +328,7 @@ namespace SubSys_SimDriving
     /// <summary>
     /// 默认的容器实体
     /// </summary>
-    public class EntityDefalult : TrafficEntity
+    public class EntityDefalult : TrafficOBJ
     {
         public EntityDefalult()
         { this.EntityType = EntityType.DefaultType; }

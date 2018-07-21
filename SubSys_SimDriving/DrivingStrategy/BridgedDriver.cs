@@ -14,7 +14,7 @@ namespace SubSys_SimDriving.TrafficModel
 	/// </summary>
 	public abstract class XNodeDriver
 	{
-		internal virtual void DriveMobile(MobileEntity mobile,DriveCtx dctx)
+		internal virtual void DriveMobile(MobileOBJ mobile,DriveCtx dctx)
 		{
 
 			var currNode = mobile.Container as XNode;
@@ -122,7 +122,7 @@ namespace SubSys_SimDriving.TrafficModel
 	public abstract class WayDriver
 	{
 		
-		internal virtual void DriveMobile(MobileEntity mobile,DriveCtx dctx)
+		internal virtual void DriveMobile(MobileOBJ mobile,DriveCtx dctx)
 		{
 	
 			var currLane = mobile.Container as Lane;

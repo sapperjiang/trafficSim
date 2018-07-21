@@ -43,7 +43,7 @@ namespace TrafficSim
                
                 foreach (KeyValuePair<int, CarInfoDic> itemEntity in ISC.DataRecorder)
                 {
-                    foreach (KeyValuePair<int, CarInfoQueue> item in itemEntity.Value)//carinfo Queue
+                    foreach (KeyValuePair<int, CarTrack> item in itemEntity.Value)//carinfo Queue
                     {
                         //同一辆车在不同的位置
                         foreach (var itemCarInfo in item.Value)//车辆信息
@@ -52,7 +52,7 @@ namespace TrafficSim
                             dr["EntityID"] = itemEntity.Key;
                             dr["iCarNum"] = itemCarInfo.iCarNum;
                             dr["iTimeStep"] = itemCarInfo.iTimeStep;
-                            dr["iPos"] = itemCarInfo.iPos * iMeters;
+                            dr["iPos"] = itemCarInfo.iDrivedMileage * iMeters;
                             dr["iSpeed"] = itemCarInfo.iSpeed * iMeters;
                             dt.Rows.Add(dr);
                         }

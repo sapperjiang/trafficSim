@@ -1,0 +1,5 @@
+E:\soft Project\b毕业设计\TranMACASims\MathTools\bin\Release\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\MathTools\bin\Release\MathTools.pdb
+E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Release\ResolveAssemblyReference.cache
+E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Release\MathTools.dll
+E:\soft Project\b毕业设计\TranMACASims\MathTools\obj\Release\MathTools.pdb

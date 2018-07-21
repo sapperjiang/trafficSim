@@ -25,19 +25,19 @@ namespace SubSys_SimDriving
     }
 
     /// <summary>
-    /// 最内层哈希表，保存车辆的信息。利用车辆哈希进行索引
+    /// 所有车辆的运动轨迹记录哈希表，利用车辆哈希值查找车辆
     /// </summary>
-    public class CarInfoDic : DataRecorder<int, CarInfoQueue>
+    public class CarInfoDic : DataRecorder<int, CarTrack>
     {
-        public override void Record(int tk, CarInfo ciItem)
+        public override void Record(int hashCode, CarInfo carInfo)
         {
-            CarInfoQueue cid = this.GetElement(tk);//依据车辆的哈希获取到车辆的形式信息队列
+            CarTrack cid = this.GetElement(hashCode);//依据车辆的哈希获取到车辆的行驶时空信息（车辆的随时间变化的空间路径）
             if (cid == null)//没有该车则创建
             {
-                cid = new CarInfoQueue();
-                base.Add(tk, cid);
+                cid = new CarTrack();
+                base.Add(hashCode, cid);
             }
-            cid.Enqueue(ciItem);
+            cid.Enqueue(carInfo);
         }
     }
     /// <summary>

@@ -11,7 +11,7 @@ namespace SubSys_SimDriving.TrafficModel
 	/// <summary>
 	/// 交通实体里面的车道,原来的lane数据结构
 	/// </summary>
-	public partial class Lane : StaticEntity, IComparable<Lane>, IComparer<Lane>
+	public partial class Lane : StaticOBJ, IComparable<Lane>, IComparer<Lane>
 	{
 		/// <summary>
 		/// 全局的车道计数器，用来初始化车道ID
@@ -373,16 +373,14 @@ namespace SubSys_SimDriving.TrafficModel
 //		/// </summary>
 //		private CellSpace _Grids;
 
-		//LinkedList<MobileEntity> _mobiles = new LinkedList<MobileEntity>();
-		private LinkedList<MobileEntity> _mobiles ;//= new LinkedList<MobileEntity>();
-		//public MobilesShelter MobilesShelter;
+		private LinkedList<MobileOBJ> _mobiles ;
 		/// <summary>
 		/// 用来保存存储在交叉口和车道等内部的车辆。
 		/// </summary>
-		public LinkedList<MobileEntity> Mobiles {
+		public LinkedList<MobileOBJ> Mobiles {
 			get {
 				if (this._mobiles==null) {
-					this._mobiles = new LinkedList<MobileEntity>();
+					this._mobiles = new LinkedList<MobileOBJ>();
 				}
 				return this._mobiles;
 			}
@@ -418,7 +416,7 @@ namespace SubSys_SimDriving.TrafficModel
 					return this.Length;//Shape.Count;
 				}
 				//实体形状的最后一个点,考虑实体有长度
-				MobileEntity me = this.Mobiles.Last.Value;
+				MobileOBJ me = this.Mobiles.Last.Value;
 				//实体形状的最后一个点,考虑实体有
 				return this.Shape.GetIndex(me.Shape.End);
 			}

@@ -44,7 +44,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// </summary>
 		/// <param name="driveContainer"></param>
 		/// <param name="mobile"></param>
-		internal virtual void DriveMobile(StaticEntity driveCtx,MobileEntity mobile)
+		internal virtual void DriveMobile(StaticOBJ driveCtx,MobileOBJ mobile)
 		{
 
 			var dctx=this.Observe(driveCtx,mobile);
@@ -75,7 +75,7 @@ namespace SubSys_SimDriving.TrafficModel
 		
 		
 		///////////////////////////////////////////////////
-		internal DriveCtx Observe(StaticEntity driveEn,MobileEntity mobile)
+		internal DriveCtx Observe(StaticOBJ driveEn,MobileOBJ mobile)
 		{
 			DriveCtx dctx = new DriveCtx(driveEn);
 				
@@ -246,7 +246,7 @@ namespace SubSys_SimDriving.TrafficModel
 				//there's mobiles on lane
 				int iLeastGap = lane.Length;
 				int iTempGap = iLeastGap;
-				MobileEntity mobile=null;
+				MobileOBJ mobile=null;
 				
 				//loop to find two adjacent mobiles on the lane.one rear,one ahead of the current mobile
 				foreach (var element in lane.Mobiles) {
@@ -314,7 +314,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <param name="pCurrent">current position</param>
 		/// <param name="Gap">return value</param>
 		/// <returns></returns>
-		private bool GetXNodeGap(XNode node, OxyzPointF opCurr, out int iGap,MobileEntity mobile)
+		private bool GetXNodeGap(XNode node, OxyzPointF opCurr, out int iGap,MobileOBJ mobile)
 		{
 			//indicator to tell whether or not  a mobile is blocked
 			//bool bReachEnd = false;

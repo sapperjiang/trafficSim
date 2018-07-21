@@ -7,7 +7,7 @@ namespace SubSys_SimDriving
     public class SignalLightHTable : StaticDics<int, SignalLight>
 	{
 	}
-	   public class CarModelHTable : StaticDics<int, MobileEntity>
+	   public class CarModelHTable : StaticDics<int, MobileOBJ>
 	{
 	}
 	 

@@ -9,21 +9,16 @@ using System.Collections.Generic;
 
 namespace SubSys_SimDriving.TrafficModel
 {
-	public abstract partial class MobileEntity : TrafficEntity
+    /// <summary>
+    /// 所有会动的交通实体的基类
+    /// </summary>
+    public abstract partial class MobileOBJ : TrafficOBJ
 	{
 		/// <summary>
 		/// 当前车辆的速度
 		/// </summary>
 		internal int iSpeed;
-		
-	}
-	
-	//--------------------2015年1月11日重新增加的内容-------------------
-	/// <summary>
-	/// 所有会动的交通实体的基类
-	/// </summary>
-	public abstract partial class MobileEntity : TrafficEntity
-	{
+
 		private static int MobileID = 0;
 		private bool IsCopyed = false;
 
@@ -32,9 +27,9 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 对象拷贝和值拷贝
 		/// </summary>
 		/// <returns></returns>
-		public virtual MobileEntity Clone()
+		public virtual MobileOBJ Clone()
 		{
-			MobileEntity cm = this.MemberwiseClone() as MobileEntity;
+			MobileOBJ cm = this.MemberwiseClone() as MobileOBJ;
 			cm.IsCopyed = true;
 			//this.EntityType = EntityType.Mobile;
 			return cm;
@@ -60,7 +55,7 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 
-		~MobileEntity()
+		~MobileOBJ()
 		{
 			if (this.IsCopyed != true) {
 				//	base.UnRegiser();
@@ -82,16 +77,16 @@ namespace SubSys_SimDriving.TrafficModel
 		
 		#endregion
 
-		protected MobileEntity(StaticEntity bornContainer)
+		protected MobileOBJ(StaticOBJ bornContainer)
 		{
-			this._entityID = ++TrafficEntity.EntityCounter;
+			this._entityID = ++TrafficOBJ.EntityCounter;
 			this.Route = new EdgeRoute();
 			this._container = bornContainer;
 		}
 		
-		protected MobileEntity()
+		protected MobileOBJ()
 		{
-			this._entityID = ++TrafficEntity.EntityCounter;
+			this._entityID = ++TrafficOBJ.EntityCounter;
 			this.Route = new EdgeRoute();
 			this.iSpeed = 0;
 			this.iAcceleration = 1;
@@ -118,72 +113,32 @@ namespace SubSys_SimDriving.TrafficModel
 				
 				return this._track;
 			}
-			
 		}
 
-		
-		internal void Run(StaticEntity DriveEnvirnment)
+        internal void Run(StaticOBJ DriveEnvirnment)
 		{
 			this.Driver.DriveMobile(DriveEnvirnment,this);
 		}
-		
-		[System.Obsolete("坐标系统的问题，postion不赋值 roadhash不复制,iTimeStep有问题")]
-		internal CarInfo GetCarInfo()
-		{
-			CarInfo ci = new CarInfo();//结构，值类型
-			ci.iSpeed = this.iSpeed;
-			ci.iAcc = this.iAcceleration;
-			ci.iCarHashCode = this.GetHashCode();
-			ci.iCarNum = this.ID;
-			
-			ci.iTimeStep = ISimCtx.iTimePulse;
-			
-//
-//			if (this.Container.EntityType == EntityType.Lane) {
-//				ci.iPos = this.Grid.Y + (int)this.Container.Shape[0]._X;
-//			} else if (this.Container.EntityType == EntityType.XNode) {
-//				ci.iPos = this.Container.Grid.X + this.Grid.X - 1;
-//			}
-			return ci;
-		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="rN">即将进入的交叉口或者，当前交叉口，或即将离开的交叉口</param>
-		/// <param name="ct"></param>
-		/// <returns>weher or not reaching its destination </returns>
-		/// 
-		
-//		/// <summary>
-//		/// 计算mobile在交叉口内部可以走多少步
-//		/// </summary>
-//		/// <param name="rN"></param>
-//		/// <param name="pCurrent">current position</param>
-//		/// <param name="Gap">return value</param>
-//		/// <returns></returns>
-//		private bool GetXNodeGap(XNode node, OxyzPoint opCurr, out int iGap)
-//		{
-//			//indicator to tell whether or not  a mobile is blocked
-//			//bool bReachEnd = false;
-//			bool bOccupied = false;
-//			int iCount = 0;
-//
-//			OxyzPoint p = Track.NextPoint(opCurr);
-//
-//			while ((bOccupied=node.IsOccupied(p)) == false) {
-//				if (p._X == 0 && p._Y == 0) {
-		////					bReachEnd = true;
-//					break;
-//				}
-//				p = Track.NextPoint(p);
-//
-//				iCount++;
-//			}
-//			iGap = iCount;
-//			//return bReachEnd
-//			return bOccupied;
-//		}
+        [System.Obsolete("如果要知道车辆当前所在车道，则需要重新换到")]
+        internal CarInfo CurrState
+		{
+            get
+            {
+                CarInfo ci = new CarInfo();//结构，值类型
+                ci.iSpeed = this.iSpeed;
+                ci.iAcc = this.iAcceleration;
+                ci.iCarHashCode = this.GetHashCode();
+                ci.iCarNum = this.ID;
+                ci.iContainerHash = this.Container.GetHashCode();
+                ci.iContainerHash = this.Container.GetHashCode();
+                ci.currPos = this.Head;
+                ci.iTimeStep = ISimCtx.iTimePulse;
+                ci.iDrivedMileage = this.DrivedMileage;
+
+                return ci;
+            }
+        }
 		
 		//------------------------------20160115------------------------------
 		/// <summary>
@@ -191,7 +146,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// the frontmobile is that entered a lane early than the current one
 		/// if called on a xnode. return null
 		/// </summary>
-		public MobileEntity Front {
+		public MobileOBJ Front {
 			get {
 				if (this.Container.EntityType == EntityType.XNode) {
 					return null;
@@ -208,7 +163,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		///在车道上获取车辆的后一辆车
 		/// </summary>
-		public MobileEntity Rear {
+		public MobileOBJ Rear {
 			get {
 				Lane ln = this.Container as Lane;
 				var lme = ln.Mobiles.Find(this).Next;
@@ -464,7 +419,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// a mobiles'current lane/fromlane/tolane is recalculated each time on it enters a XNode
 		/// </summary>
-		public override ITrafficEntity Container {
+		public override IEntity Container {
 			get {
 				return base.Container;
 			}
@@ -473,25 +428,61 @@ namespace SubSys_SimDriving.TrafficModel
                 if (base.Container!=null)
                 {
                     //each time container is modified , fromlane/Tolane is recalculated
-				    if (base.Container.EntityType==EntityType.Lane&&
+                    if (base.Container.EntityType==EntityType.Lane&&
 				        value.EntityType== EntityType.XNode){
 					    this.Track.Update();
 				    }
+                    if (base.Container.EntityType != value.EntityType)
+                    {
+                        this.iDrivedMileage += this.CurrMileage;
+                    }
                 }
 
 				base.Container = value;
 			}
 		}
 
-		//internal bool IsMoved =false;
-		
-		/// <summary>
-		/// move a car ahead for isteps
-		/// </summary>
-		/// <param name="iStep"></param>
-		internal void Move(int iStep)
+        //private int iCurrMileage=0;k
+        private int CurrMileage
+        {
+            get {
+                switch (this.Container.EntityType)
+                {
+                    case EntityType.Lane:
+                        var currLane = this.Container as Lane;
+                        int iCurrIndex = currLane.Shape.GetIndex(this.Head);
+                        return iCurrIndex;
+                        break;
+
+                    case EntityType.XNode:
+                       return (int)Coordinates.Distance(this.Head, this.Track.From);//.
+                        break;
+
+                    default:
+                        ThrowHelper.ThrowArgumentException("小汽车所在的道路不是车道也不是交叉口无法获取当前里程");
+                        break;
+                }
+                return 0;
+            }
+        }
+        /// <summary>
+        /// 元胞里程，要乘以元胞长度才是真实里程
+        /// </summary>
+        private int iDrivedMileage = 0;
+        public int DrivedMileage
+        {
+            get
+            {
+                return iDrivedMileage+CurrMileage;
+            }
+        }
+
+        /// <summary>
+        /// move a car ahead for isteps
+        /// </summary>
+        /// <param name="iStep"></param>
+        internal void Move(int iStep)
 		{
-			
 			switch (this.Container.EntityType) {
 				case EntityType.Lane:
 					var currLane = this.Container as Lane;
@@ -554,8 +545,6 @@ namespace SubSys_SimDriving.TrafficModel
 			//this.IsMoved = true;
 		}
 		
-		
-		
 		private EntityShape _prevShape;
 		public EntityShape PrevShape
 		{
@@ -577,14 +566,6 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 
 
-
-//		public override	int GetMatrixHashCode()
-//		{
-//			return this.Shape.Start.GetHashCode();
-//
-//			//return this.ID.GetHashCode();
-//		}
-		
 		/// <summary>
 		/// crossing to judge if a mobile is within crossing
 		/// </summary>
@@ -593,7 +574,16 @@ namespace SubSys_SimDriving.TrafficModel
 		{
 			return this.ID.GetHashCode();
 		}
-	}
+
+
+        public OxyzPointF Head
+        {
+            get {
+                return this.Shape.Start;
+            }
+        }
+
+    }
 	
 	/// <summary>
 	/// 交叉口坐标升级为3维度空间坐标
@@ -660,16 +650,13 @@ namespace SubSys_SimDriving.TrafficModel
 				}
 			}
 		}
-		
-		//internal OxyzPoint opCurrent;
-		
 		/// <summary>
 		/// return a copy of mobile shape start
 		/// </summary>
 		public OxyzPointF Current
 		{
 			get{
-				return this.mobile.Shape.Start.Clone();
+				return this.mobile.Head;
 			}
 		}
 		/// <summary>
@@ -682,8 +669,8 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 		
-		private MobileEntity mobile;
-		internal Track(MobileEntity me)
+		private MobileOBJ mobile;
+		internal Track(MobileOBJ me)
 		{
 			//this.opCurrPos = me.Shape.Start.Clone();
 			this.mobile = me;

@@ -2,7 +2,7 @@ using SubSys_SimDriving;
 
 namespace SubSys_SimDriving
 {
-	public class VMSEntity : TrafficEntity
+	public class VMSEntity : TrafficOBJ
 	{
 		/**
 		 * VMS显示的信息

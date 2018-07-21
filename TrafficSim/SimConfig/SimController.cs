@@ -16,32 +16,26 @@ namespace SubSys_SimDriving
 	internal static class SimController
 	{
 		internal static event EventHandler OnSimulateStoped ;
-		
-		internal static ISimContext ISimCtx = SimContext.GetInstance();
+
+		internal static event EventHandler OnSimulateImpulse;
+
+        internal static ISimContext ISimCtx = SimContext.GetInstance();
 
 		internal static Control Canvas;
 		
 		internal static IRoadNet iroadNet;
 
 		internal static bool bIsExit = false;
-		internal static int iRoadWidth = 50;//1000m
+		//internal static int iRoadWidth = 50;//1000m
 
 		internal static string strSimMsg = null;
 
 		internal static int iSimInterval = 100;
 		internal static int iSimTimeSteps = 4200;
 		internal static bool bIsPause = false;
-		internal static int iMobileCount =2;
+		internal static int iMobileCount =4;
 		
-		////添加路由表内容-fis
-		//internal static Way ReA1;
-		//internal static Way ReA2;
-		//internal static Way ReA3;
-		//internal static Way ReA4;
-		//internal static Way ReB1;
-		//internal static Way ReB2;
-		
-//		
+	
 //		private static IFactory AddSignalGroup(IFactory ifactory, XNode xNode)
 //		{
 //			ifactory = (new AgentFactory()) as IFactory;
@@ -95,15 +89,15 @@ namespace SubSys_SimDriving
 		/// </summary>
 		/// <param name="frMain"></param>
 		/// <param name="irn"></param>
-		private static void RegisterService()
+		private static void RegisterServices()
 		{
 			ISimContext isc = SimContext.GetInstance();
 
 			IService isDataRecorder = new DataRecordService(isc);
 			isDataRecorder.IsRunning = true;
 			
-			IService isPainter = PainterManager.GetService(PaintServiceType.Way, SimController.Canvas);
-			isPainter.IsRunning = true;
+			IService IPainter = PainterManager.GetService(PaintServiceType.Way, SimController.Canvas);
+			IPainter.IsRunning = true;
 			foreach (var way in SimController.ISimCtx.RoadNet.Ways)
 			{
 				foreach (var lane in way.Lanes)
@@ -111,44 +105,37 @@ namespace SubSys_SimDriving
 					lane.AddService(isDataRecorder);
 				}
 				
-				way.AddService(isPainter);
+				way.AddService(IPainter);
 				
 			}
 			
-			isPainter = PainterManager.GetService(PaintServiceType.XNode, SimController.Canvas);
-			isPainter.IsRunning = true;
-			
-			
+			IPainter = PainterManager.GetService(PaintServiceType.XNode, SimController.Canvas);
+			IPainter.IsRunning = true;
 			foreach (var xnode in SimController.ISimCtx.RoadNet.XNodes)
 			{
 				xnode.AddService(isDataRecorder);
 				
-				xnode.AddService(isPainter);
+				xnode.AddService(IPainter);
 			}
 			
 		}
 		
 		private static void LoadMobiles()
 		{
-
-			if (SimController.iMobileCount-- > 0)
+            IRoadNet inet = RoadNet.GetInstance();
+            Way way = null;//= new Way(;
+            foreach (var item in inet.Ways)
+            {
+                way = item;
+            }
+            Lane startLane = way.Lanes[0];
+            int i = SimController.iMobileCount;
+            while (i-- > 0)
 			{
-                IRoadNet inet = RoadNet.GetInstance();
-                Way way=null;//= new Way(;
-                foreach (var item in inet.Ways)
-                {
-                    way = item;
-                }
-                //= ..elem.ele[0];//.GetEnumerator().Current;
-
                 //新建一条路由
                 EdgeRoute route = new EdgeRoute();
-                //route.Add(SimController.ReA1);
                 //设置每段路走哪条路
                 route.Add(way);
-                //route.Add(way.To);
-                Lane startLane = way.Lanes[0];
-
                 var car = MobileFactory.BuildSmallCar();
 				car.Route = route;
 				startLane.EnterInn(car);
@@ -162,9 +149,12 @@ namespace SubSys_SimDriving
 		public static void StartSimulate()
 		{
 			//数据记录服务
-			RegisterService();
-			
-			var network =SimController.ISimCtx.RoadNet;
+			RegisterServices();
+
+            //add mobile one by one
+            SimController.LoadMobiles();
+
+            var network =SimController.ISimCtx.RoadNet;
 			while (true) {
 				//t退出命令或者仿真到了设定的仿真时长
 				if (bIsExit == true||ISimCtx.iTimePulse>= iSimTimeSteps)
@@ -175,8 +165,11 @@ namespace SubSys_SimDriving
 					break;
 				}
 
-				//线程休眠减少资源消耗
-				Thread.Sleep(SimController.iSimInterval);
+
+                
+
+                //线程休眠减少资源消耗
+                Thread.Sleep(SimController.iSimInterval);
 				//处理应用程序界面事件。如点击鼠标、点击菜单等
 				Application.DoEvents();
 
@@ -190,13 +183,17 @@ namespace SubSys_SimDriving
 						{
 							break;
 						}
+                        if (OnSimulateImpulse != null)
+                        {
+                            OnSimulateImpulse(null, null);
+                        }
 
-						SimController.iSimInterval =500;
+
+                        SimController.iSimInterval =500;
 						Thread.Sleep(SimController.iSimInterval);
 						Application.DoEvents();
 						
-                        //add mobile one by one
-						SimController.LoadMobiles();
+                    
 
 						//更新RoadNodes
 						foreach (XNode item in network.XNodes)

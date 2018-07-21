@@ -134,7 +134,7 @@
     <Compile Include="TrafficModel\CarModel.cs" />
     <Compile Include="TrafficModel\CarStatus.cs" />
     <Compile Include="dataStructure\AdjacencyTable.cs" />
-    <Compile Include="dataStructure\CarInfoQueue.cs" />
+    <Compile Include="dataStructure\CarTrack.cs" />
     <Compile Include="dataStructure\HashMatrix.cs" />
     <Compile Include="dataStructure\LaneCollection.cs" />
     <Compile Include="TrafficModel\EntityType.cs" />

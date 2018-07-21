@@ -17,7 +17,7 @@ namespace SubSys_SimDriving
 		/// <param name="end"></param>
 		/// <param name="et"></param>
 		/// <returns></returns>
-		public StaticEntity Build(OxyzPointF start,OxyzPointF end, EntityType et)
+		public StaticOBJ Build(OxyzPointF start,OxyzPointF end, EntityType et)
 		{
 			var net  =  RoadNet.GetInstance();
 			switch (et)
@@ -32,24 +32,19 @@ namespace SubSys_SimDriving
 
 					//register
 					net.roads.Add(road.GetHashCode(),road);//register
-					
 					return road;
-					
 					///avoid to create a xnode
 				case EntityType.XNode:
 					var node = new XNode(start);
 
 					node.Container = net;
 					net.xnodes.Add(node.GetHashCode(),node);//register
-
                     return node;
-					//break;
 
 				case EntityType.Way:
 					var way =  new Way(start,end);
-					way.AddLane(LaneType.Straight);
+					//way.AddLane(LaneType.Straight);
 					//way.Container = net;
-					
 					net.ways.Add(way.GetHashCode(),way);//register
 
                     return way;
@@ -94,7 +89,7 @@ namespace SubSys_SimDriving
 			}
 		}
 		
-		public TrafficEntity Build(BuildCommand bc, EntityType et)
+		public TrafficOBJ Build(BuildCommand bc, EntityType et)
 		{
 			throw new NotImplementedException();
 		}

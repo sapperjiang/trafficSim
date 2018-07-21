@@ -17,14 +17,14 @@ namespace SubSys_SimDriving.TrafficModel
 	/// 五路交叉.环路的支持有待讨论，三路交叉,crossings are supported
 	/// 表示道路交叉口的类
 	/// </summary>
-	public class XNode : StaticEntity
+	public class XNode : StaticOBJ
 	{
         
 		/// <summary>
 		/// 新的roadnode的哈希散列值由其中心Position的哈希值和其ID构成
 		/// </summary>
 		/// <returns></returns>
-		private HashMatrix _mobiles; //= new HashMatrix<MobileEntity>();
+		private HashMatrix _mobiles; 
 		public HashMatrix Mobiles
 		{
 			get
@@ -47,7 +47,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 提供对哈希矩阵内部元素的遍历
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerator<MobileEntity> GetEnumerator()
+		public IEnumerator<MobileOBJ> GetEnumerator()
 		{
            return this._mobiles.GetEnumerator();
 		}
@@ -163,7 +163,7 @@ namespace SubSys_SimDriving.TrafficModel
 			while(mobileNode!=null) {
 				var mobile = mobileNode.Value;
 				//mobile is possibaly be deleted
-				mobile.Run(this as StaticEntity);
+				mobile.Run(this as StaticOBJ);
 				mobileNode = mobileNode.Next;
 			}
 			this.ServeMobiles();

@@ -20,7 +20,7 @@ namespace SubSys_SimDriving.TrafficModel
 		}
 	}
 	
-	public class HashMatrix:LinkedList<MobileEntity>
+	public class HashMatrix:LinkedList<MobileOBJ>
 	{
 		/// <summary>
 		/// 最大六个车道，坐标远点是RoadNode的positon
@@ -30,7 +30,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// <summary>
 		/// to get if a point within a xnode is occupied by a mobile's shape point
 		/// </summary>
-		private Dictionary<int, MobileEntity> hashMat = new Dictionary<int, MobileEntity>();
+		private Dictionary<int, MobileOBJ> hashMat = new Dictionary<int, MobileOBJ>();
 		
 		//private Dictionary<int, MobileEntity> hashMat = new Dictionary<int, MobileEntity>();
 		/// <summary>
@@ -78,7 +78,7 @@ namespace SubSys_SimDriving.TrafficModel
 			//update mobile on a lane one by one
 				while(mobileNode!=null) {
 				var mobile = mobileNode.Value;
-				//	mobile is possibaly be deleted
+				//	mobile is possibaly deleted
 				foreach (var Shap in mobile.Shape) {
 					if (Shap.Equals(opP)) {
 						return true;
@@ -91,7 +91,7 @@ namespace SubSys_SimDriving.TrafficModel
 			//-----------------------------------------------------------
 		}
 		
-		internal void Add(MobileEntity mobile)
+		internal void Add(MobileOBJ mobile)
 		{
 			base.AddFirst(mobile);
 			
@@ -106,7 +106,7 @@ namespace SubSys_SimDriving.TrafficModel
 //			}
 		}
 
-		internal bool Remove(MobileEntity mobile)
+		internal bool Remove(MobileOBJ mobile)
 		{
 			bool b= base.Remove(mobile);
 			
@@ -130,7 +130,7 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 
-		internal Dictionary<int, MobileEntity>.ValueCollection Values
+		internal Dictionary<int, MobileOBJ>.ValueCollection Values
 		{
 			get { return hashMat.Values; }
 		}
@@ -139,7 +139,7 @@ namespace SubSys_SimDriving.TrafficModel
 		/// 提供对存储元素的高效遍历
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerator<MobileEntity> GetEnumerator()
+		public IEnumerator<MobileOBJ> GetEnumerator()
 		{
 			return base.GetEnumerator();
 		}

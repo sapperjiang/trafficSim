@@ -18,7 +18,7 @@ namespace SubSys_SimDriving
         /// </summary>
         /// <param name="etype"></param>
         /// <returns></returns>
-		public MobileEntity Build(EntityType etype)
+		public MobileOBJ Build(EntityType etype)
         {
             switch (etype)
             {

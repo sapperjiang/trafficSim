@@ -14,7 +14,7 @@ namespace SubSys_SimDriving
     {
        // AbstractAgent Build(BuildCommand bc, AgentType et);
        
-        StaticEntity Build(OxyzPointF start,OxyzPointF end, EntityType et);
+        StaticOBJ Build(OxyzPointF start,OxyzPointF end, EntityType et);
         	
     }
     
@@ -22,7 +22,7 @@ namespace SubSys_SimDriving
     {
        // AbstractAgent Build(BuildCommand bc, AgentType et);
        
-        MobileEntity Build( EntityType et);
+        MobileOBJ Build( EntityType et);
         	
     }
 

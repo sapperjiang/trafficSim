@@ -45,11 +45,11 @@ namespace SubSys_SimDriving.TrafficModel
 
         Way BulidWay(OxyzPointF start, OxyzPointF end);
 
-        Way BulidWay(Point start, Point end);
+        Way BuildWay(Point start, Point end);
 
         Road BulidRoad(Point start, Point end);
      
-        StaticEntity BulidEntity(OxyzPointF start, OxyzPointF end, EntityType et);
+        StaticOBJ BulidEntity(OxyzPointF start, OxyzPointF end, EntityType et);
 
         void AddWay(Way re);
        

@@ -2,7 +2,6 @@ using System;
 using SubSys_SimDriving;
 using SubSys_SimDriving;
 using System.Collections.Generic;
-using SubSys_SimDriving.TrafficModel;
 using SubSys_MathUtility;
 using System.Drawing;
 
@@ -12,7 +11,7 @@ namespace SubSys_SimDriving.TrafficModel
 	/// 应当实现为单例模式,RoadNetWork 是simContext的一部分
 	/// RoadNetWork 应当承承担路网节点工厂的责任
 	/// </summary>
-	public class RoadNet:TrafficEntity,IRoadNet
+	public class RoadNet:TrafficOBJ,IRoadNet
 	{
 		public static int iRoadNetCount = 0;
 		/// <summary>
@@ -74,13 +73,6 @@ namespace SubSys_SimDriving.TrafficModel
 			}
 		}
 
-        //public IList<Way> WayList
-        //{
-        //    get
-        //    {
-        //        return this.ways.Values;
-        //    }
-        //}
         public ICollection<XNode> XNodes
 		{
 			get{
@@ -240,9 +232,9 @@ namespace SubSys_SimDriving.TrafficModel
         }
 
 
-        public Way BulidWay(Point start, Point end)
+        public Way BuildWay(Point start, Point end)
         {
-            return RoadNet.GetInstance().BulidWay(new OxyzPointF(start), new OxyzPointF(end));
+            return this.BulidWay(new OxyzPointF(start), new OxyzPointF(end));
         }
 
         /// <summary>
@@ -253,10 +245,10 @@ namespace SubSys_SimDriving.TrafficModel
         /// <returns></returns>
         public Road BulidRoad(Point start, Point end)
         {
-            return RoadNet.GetInstance().BulidEntity(new OxyzPointF(start), new OxyzPointF(end),EntityType.Road) as Road;
+            return this.BulidEntity(new OxyzPointF(start), new OxyzPointF(end),EntityType.Road) as Road;
         }
 
-        public StaticEntity BulidEntity(OxyzPointF start, OxyzPointF end, EntityType et)
+        public StaticOBJ BulidEntity(OxyzPointF start, OxyzPointF end, EntityType et)
         {
             IStaticFactory IFacotry = new StaticFactory();
             return IFacotry.Build(start, end, et);
